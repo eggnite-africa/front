@@ -1,9 +1,9 @@
 <template>
   <v-menu offset-y bottom>
     <template #activator="{ on }">
-      <v-avatar v-on="on" color="primary" size="36">
-        <v-icon>mdi-account</v-icon>
-      </v-avatar>
+      <v-btn icon>
+        <v-avatar v-on="on" color="primary" size="36"></v-avatar>
+      </v-btn>
     </template>
     <v-list flat>
       <v-list-item>
