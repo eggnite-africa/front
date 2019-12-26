@@ -17,7 +17,7 @@
       <v-btn color="error" outlined class="mr-1">signup</v-btn>
       <v-dialog v-model="dialog" persistent max-width="300">
         <template #activator="{ on }">
-          <v-btn v-on="on" color="primary">login</v-btn>
+          <v-btn v-on="on" color="primary" depressed>login</v-btn>
         </template>
         <login @close-dialog="dialog = false"></login>
       </v-dialog>
