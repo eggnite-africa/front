@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-if="true">
+    <template v-if="this.$auth.loggedIn">
       <v-btn
         to="/post"
         nuxt
@@ -15,7 +15,12 @@
     </template>
     <template v-else>
       <v-btn color="error" outlined class="mr-1">signup</v-btn>
-      <v-btn color="primary">login</v-btn>
+      <v-dialog v-model="dialog" persistent max-width="300">
+        <template #activator="{ on }">
+          <v-btn v-on="on" color="primary">login</v-btn>
+        </template>
+        <login @close-dialog="dialog = false"></login>
+      </v-dialog>
     </template>
   </div>
 </template>
@@ -23,11 +28,18 @@
 <script>
 import MenuNotifications from '@/components/MenuNotifications.vue'
 import MenuAccount from '@/components/MenuAccount.vue'
+import Login from '@/components/Login.vue'
 export default {
   name: 'Menu',
   components: {
     MenuNotifications,
-    MenuAccount
+    MenuAccount,
+    Login
+  },
+  data() {
+    return {
+      dialog: false
+    }
   }
 }
 </script>

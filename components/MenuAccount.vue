@@ -50,7 +50,7 @@
 
       <v-divider></v-divider>
       <v-list-item class="mt-1">
-        <v-btn block outlined color="orange">logout</v-btn>
+        <v-btn @click="logout()" block outlined color="orange">logout</v-btn>
       </v-list-item>
     </v-list>
   </v-menu>
@@ -58,6 +58,11 @@
 
 <script>
 export default {
-  name: 'MenuAccount'
+  name: 'MenuAccount',
+  methods: {
+    async logout() {
+      await this.$auth.logout('local')
+    }
+  }
 }
 </script>

@@ -48,13 +48,16 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/auth'
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'http://localhost:4000/'
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -84,5 +87,22 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/auth/login',
+            method: 'post',
+            propertyName: false
+          },
+          logout: { url: '/auth/logout', method: 'delete' },
+          user: { url: '/auth/me', method: 'get', propertyName: false }
+        }
+        // tokenRequired: true,
+        // tokenType: 'bearer'
+      }
+    }
   }
 }
