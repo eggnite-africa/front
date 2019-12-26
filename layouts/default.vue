@@ -1,7 +1,9 @@
 <template>
   <v-app dark>
     <v-app-bar app>
-      <v-toolbar-title v-text="title" />
+      <nuxt-link to="/">
+        <v-toolbar-title v-text="title" />
+      </nuxt-link>
       <v-spacer />
       <Menu />
     </v-app-bar>
