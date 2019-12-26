@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <v-app-bar app>
-      <nuxt-link to="/">
+      <nuxt-link to="/" class="homepage-link">
         <v-toolbar-title v-text="title" />
       </nuxt-link>
       <v-spacer />
@@ -47,3 +47,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.homepage-link {
+  text-decoration: none;
+  color: unset;
+}
+</style>
