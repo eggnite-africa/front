@@ -1,7 +1,13 @@
 <template>
   <div>
     <template v-if="true">
-      <v-btn class="mr-1 hidden-xs-only" nuxt color="yellow" outlined>
+      <v-btn
+        to="/post"
+        nuxt
+        class="mr-1 hidden-xs-only"
+        color="yellow"
+        outlined
+      >
         <v-icon class="mr-1">mdi-plus</v-icon>post a product
       </v-btn>
       <menu-notifications></menu-notifications>
