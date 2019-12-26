@@ -1,7 +1,6 @@
 <template>
   <section>
     <add-comment></add-comment>
-    <v-divider></v-divider>
     <v-row dense>
       <v-col cols="12">
         <single-comment></single-comment>
@@ -22,3 +21,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.v-divider {
+  &:last-child {
+    display: none;
+  }
+}
+</style>
