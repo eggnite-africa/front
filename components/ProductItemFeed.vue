@@ -1,5 +1,5 @@
 <template>
-  <v-card :to="productLink" nuxt>
+  <v-card :to="`/p/${productLink}`" nuxt>
     <v-container>
       <v-row dense align="baseline">
         <v-col cols="3" sm="1">
