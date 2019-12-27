@@ -6,7 +6,7 @@
       </v-btn>
     </template>
     <v-list flat>
-      <v-list-item>
+      <v-list-item :to="'/u/' + username" nuxt>
         <v-list-item-avatar>
           <v-icon>mdi-account-details</v-icon>
         </v-list-item-avatar>
@@ -59,6 +59,11 @@
 <script>
 export default {
   name: 'MenuAccount',
+  computed: {
+    username() {
+      return this.$auth.user.username
+    }
+  },
   methods: {
     async logout() {
       await this.$auth.logout('local')
