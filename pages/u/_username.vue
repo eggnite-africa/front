@@ -2,10 +2,10 @@
   <v-card>
     <v-container>
       <v-row>
-        <v-col cols="3" sm="2">
+        <v-col cols="3" sm="2" class="mr-md-n10">
           <v-avatar color="blue" size="96"></v-avatar>
         </v-col>
-        <v-col cols="9" sm="10" class="ml-md-n12 mt-n4">
+        <v-col cols="9" sm="10" class="ml-sm-n6 ml-md-n10 mt-n4">
           <v-card-text class="mt-n2">
             <v-row class="mb-n5" justify="start">
               <v-col cols="9">
@@ -145,7 +145,30 @@
 
           <v-tab-item value="comments">
             <v-container>
-              <p>Comments</p>
+              <v-card
+                v-for="i in 4"
+                :key="i"
+                nuxt
+                to="/"
+                flat
+                elevation="3"
+                class="my-products"
+              >
+                <v-card-text>
+                  <blockquote class="blockquote">
+                    <div>
+                      <p class="font-italic">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing
+                        elit. Reiciendis nobis adipisci ad veritatis eum placeat
+                        cumque ipsam voluptate reprehenderit illum eaque
+                        officia, consequatur delectus aspernatur quaerat vel
+                        sapiente sed excepturi?
+                      </p>
+                      <footer>Product Name</footer>
+                    </div>
+                  </blockquote>
+                </v-card-text>
+              </v-card>
             </v-container>
           </v-tab-item>
         </v-tabs>
@@ -181,6 +204,13 @@ export default {
 
   &:last-child {
     margin-bottom: 0;
+  }
+}
+
+blockquote {
+  div {
+    border-left: solid;
+    padding-left: 0.5em;
   }
 }
 </style>
