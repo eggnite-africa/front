@@ -24,9 +24,7 @@
               <v-col cols="12" md="8">
                 <v-row dense>
                   <v-col>
-                    <span class="subtitle-1 font-weight-light"
-                      >Description</span
-                    >
+                    <header>Description</header>
                     <p class="text-justify body-1">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Debitis expedita reiciendis possimus sed, dicta ipsum
@@ -47,7 +45,7 @@
 
                 <v-row dense>
                   <v-col cols="12">
-                    <span class="subtitle-1 font-weight-light">Makers</span>
+                    <header>Makers</header>
                   </v-col>
                   <v-row>
                     <v-col v-for="i in 6" :key="i" cols="6" sm="4">
