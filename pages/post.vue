@@ -22,7 +22,7 @@
               <v-textarea label="Description" outlined auto-grow></v-textarea>
             </v-col>
             <v-col cols="12">
-              <h4>Media</h4>
+              <header>Media</header>
               <v-file-input
                 label="Logo"
                 chips
@@ -36,7 +36,7 @@
               ></v-file-input>
             </v-col>
             <v-col cols="12">
-              <h4>Links</h4>
+              <header>Links</header>
               <v-text-field
                 label="Website"
                 prepend-icon="mdi-web"
@@ -72,7 +72,7 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="primary">Post</v-btn>
+        <v-btn color="primary" depressed>Post</v-btn>
       </v-card-actions>
     </v-container>
   </v-card>
