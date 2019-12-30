@@ -1,11 +1,11 @@
 <template>
   <v-card>
     <v-container>
-      <v-row>
+      <v-row justify="center">
         <v-col cols="3" sm="2" class="mr-md-n10">
           <v-avatar color="blue" size="96"></v-avatar>
         </v-col>
-        <v-col cols="9" sm="10" class="ml-sm-n6 ml-md-n10 mt-n4">
+        <v-col cols="9" sm="10" class="ml-sm-n6 ml-md-n5 mt-n4">
           <v-card-text class="mt-n2">
             <v-row class="mb-n5" justify="start">
               <v-col cols="9">
@@ -14,7 +14,9 @@
               </v-col>
               <v-col v-if="isOwner()" cols="3">
                 <div style="float: right">
-                  <v-btn>Edit</v-btn>
+                  <v-btn depressed nuxt to="edit" append color="indigo"
+                    >Edit</v-btn
+                  >
                 </div>
               </v-col>
             </v-row>
