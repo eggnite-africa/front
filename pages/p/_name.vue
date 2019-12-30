@@ -8,7 +8,7 @@
               <v-col cols="3" sm="2" md="1">
                 <v-avatar color="primary" size="72"></v-avatar>
               </v-col>
-              <v-col>
+              <v-col class="ml-md-n2 ml-sm-n10">
                 <v-card-title>Product Name</v-card-title>
                 <v-card-subtitle>Product tagline</v-card-subtitle>
               </v-col>

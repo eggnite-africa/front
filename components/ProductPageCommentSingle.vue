@@ -1,7 +1,7 @@
 <template>
   <v-card elevation="0">
     <v-row dense align="baseline" class="mb-n5">
-      <v-col cols="2" sm="1" class="mr-md-n5">
+      <v-col cols="2" sm="1" class="mr-md-n6">
         <v-avatar left color="blue" size="56" class="mt-4"></v-avatar>
       </v-col>
       <v-col>
