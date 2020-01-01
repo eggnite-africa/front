@@ -32,8 +32,20 @@ export default {
   name: 'BirthdateField',
   data() {
     return {
-      modal: false,
-      birthdate: null
+      modal: false
+    }
+  },
+  computed: {
+    birthdate: {
+      get() {
+        return this.$store.state.user.birthdate
+      },
+      set(value) {
+        this.$store.commit('user/updateField', {
+          field: 'birthdate',
+          value
+        })
+      }
     }
   }
 }

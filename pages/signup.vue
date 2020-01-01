@@ -20,9 +20,17 @@
         <v-stepper-content step="1">
           <v-card-text>
             <form>
-              <v-text-field label="Email" type="email"></v-text-field>
-              <v-text-field label="Username"></v-text-field>
-              <v-text-field label="Password" type="password"></v-text-field>
+              <v-text-field
+                v-model="email"
+                label="Email"
+                type="email"
+              ></v-text-field>
+              <v-text-field v-model="username" label="Username"></v-text-field>
+              <v-text-field
+                v-model="password"
+                label="Password"
+                type="password"
+              ></v-text-field>
               <v-text-field
                 label="Confirm password"
                 type="password"
@@ -55,7 +63,13 @@
         color="blue"
         >Continue</v-btn
       >
-      <v-btn v-show="currentStep === 3" depressed color="green">Sign up</v-btn>
+      <v-btn
+        @click="addSocial()"
+        v-show="currentStep === 3"
+        depressed
+        color="green"
+        >Sign up</v-btn
+      >
     </v-card-actions>
   </v-card>
 </template>
@@ -68,6 +82,41 @@ export default {
   data() {
     return {
       currentStep: 1
+    }
+  },
+  computed: {
+    email: {
+      get() {
+        return this.$store.state.user.email
+      },
+      set(value) {
+        this.$store.commit('user/updateField', {
+          field: 'email',
+          value
+        })
+      }
+    },
+    username: {
+      get() {
+        return this.$store.state.user.username
+      },
+      set(value) {
+        this.$store.commit('user/updateField', {
+          field: 'username',
+          value
+        })
+      }
+    },
+    password: {
+      get() {
+        return this.$store.state.user.password
+      },
+      set(value) {
+        this.$store.commit('user/updateField', {
+          field: 'password',
+          value
+        })
+      }
     }
   },
   methods: {

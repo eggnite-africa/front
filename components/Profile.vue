@@ -90,12 +90,54 @@ export default {
   },
   data() {
     return {
-      firstName: null,
-      lastName: null,
-      sex: null,
-      bio: null,
       showUploadIcon: false,
       socialMediaLinks: [SocialMediaLink]
+    }
+  },
+  computed: {
+    firstName: {
+      get() {
+        return this.$store.state.user.firstName
+      },
+      set(value) {
+        this.$store.commit('user/updateField', {
+          field: 'firstName',
+          value
+        })
+      }
+    },
+    lastName: {
+      get() {
+        return this.$store.state.user.lastName
+      },
+      set(value) {
+        this.$store.commit('user/updateField', {
+          field: 'lastName',
+          value
+        })
+      }
+    },
+    sex: {
+      get() {
+        return this.$store.state.user.sex
+      },
+      set(value) {
+        this.$store.commit('user/updateField', {
+          field: 'sex',
+          value
+        })
+      }
+    },
+    bio: {
+      get() {
+        return this.$store.state.user.bio
+      },
+      set(value) {
+        this.$store.commit('user/updateField', {
+          field: 'bio',
+          value
+        })
+      }
     }
   },
   methods: {

@@ -36,11 +36,39 @@
 <script>
 export default {
   name: 'OccupationField',
-  data() {
-    return {
-      occupation: null,
-      university: null,
-      city: null
+  computed: {
+    occupation: {
+      get() {
+        return this.$store.state.user.occupation
+      },
+      set(value) {
+        this.$store.commit('user/updateField', {
+          field: 'occupation',
+          value
+        })
+      }
+    },
+    university: {
+      get() {
+        return this.$store.state.user.university
+      },
+      set(value) {
+        this.$store.commit('user/updateField', {
+          field: 'university',
+          value
+        })
+      }
+    },
+    city: {
+      get() {
+        return this.$store.state.user.city
+      },
+      set(value) {
+        this.$store.commit('user/updateField', {
+          field: 'city',
+          value
+        })
+      }
     }
   }
 }

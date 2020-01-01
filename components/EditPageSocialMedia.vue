@@ -2,11 +2,11 @@
   <v-row dense>
     <v-col>
       <v-select
-        v-model="smLink"
+        v-model="link.media"
         :items="socialMedia"
         :prepend-icon="
-          smLink !== null
-            ? `mdi-${socialMedia.find((sml) => sml.value === smLink).icon}`
+          link.media !== null
+            ? `mdi-${socialMedia.find((sml) => sml.value === link.media).icon}`
             : ''
         "
         item-text="value"
@@ -21,7 +21,8 @@
     </v-col>
     <v-col>
       <v-text-field
-        :label="smLink !== 'Website' ? 'Username' : 'Link'"
+        :label="link.media !== 'Website' ? 'Username' : 'Link'"
+        v-model="link.url"
       ></v-text-field>
     </v-col>
     <v-col cols="12" sm="2" align-self="center">
@@ -43,7 +44,10 @@ export default {
         { value: 'YouTube', icon: 'youtube' },
         { value: 'Website', icon: 'web' }
       ],
-      smLink: null
+      link: {
+        media: null,
+        url: null
+      }
     }
   }
 }
