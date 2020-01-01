@@ -14,7 +14,7 @@
       <menu-account></menu-account>
     </template>
     <template v-else>
-      <v-btn color="error" outlined class="mr-1">signup</v-btn>
+      <v-btn color="red" outlined class="mr-1" nuxt to="/signup">signup</v-btn>
       <v-dialog v-model="dialog" persistent max-width="300">
         <template #activator="{ on }">
           <v-btn v-on="on" color="primary" depressed>login</v-btn>
