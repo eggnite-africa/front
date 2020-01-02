@@ -63,13 +63,7 @@
         color="blue"
         >Continue</v-btn
       >
-      <v-btn
-        @click="addSocial()"
-        v-show="currentStep === 3"
-        depressed
-        color="green"
-        >Sign up</v-btn
-      >
+      <v-btn v-show="currentStep === 3" depressed color="green">Sign up</v-btn>
     </v-card-actions>
   </v-card>
 </template>

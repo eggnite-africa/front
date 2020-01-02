@@ -22,7 +22,8 @@
     <v-col>
       <v-text-field
         :label="link.media !== 'Website' ? 'Username' : 'Link'"
-        v-model="link.url"
+        v-model="link.contact"
+        @change="sumbitSocialMediaLink()"
       ></v-text-field>
     </v-col>
     <v-col cols="12" sm="2" align-self="center">
@@ -46,8 +47,14 @@ export default {
       ],
       link: {
         media: null,
-        url: null
+        contact: null
       }
+    }
+  },
+  methods: {
+    sumbitSocialMediaLink() {
+      const link = this.link
+      this.$store.commit('user/submitSocialMediaLink', { ...link })
     }
   }
 }

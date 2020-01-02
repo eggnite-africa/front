@@ -19,7 +19,15 @@ export const mutations = {
   updateField(state, { field, value }) {
     state[field] = value
   },
-  addSocialMediaLink(state, { link }) {
-    state.socialMediaLinks.push(link)
+  submitSocialMediaLink(state, link) {
+    const links = [...state.socialMediaLinks]
+    const linkIndex = links.findIndex(({ media }) => media === link.media)
+
+    if (linkIndex === -1) {
+      links.push(link)
+    } else {
+      links[linkIndex] = link
+    }
+    state.socialMediaLinks = [...links]
   }
 }
