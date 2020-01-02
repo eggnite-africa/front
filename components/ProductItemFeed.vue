@@ -22,7 +22,14 @@
           <v-card-actions>
             <v-row dense>
               <v-col cols="12">
-                <v-btn @click.prevent color="orange" outlined block height="50">
+                <v-btn
+                  :disabled="!this.$auth.loggedIn"
+                  @click.prevent
+                  color="orange"
+                  outlined
+                  block
+                  height="50"
+                >
                   <div class="flex-md-column">
                     <v-icon>mdi-arrow-up-thick</v-icon>
                     <div v-text="productVotesCount"></div>

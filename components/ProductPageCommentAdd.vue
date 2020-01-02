@@ -2,6 +2,7 @@
   <v-row dense>
     <v-col cols="12" md="10">
       <v-textarea
+        :disabled="!this.$auth.loggedIn"
         :placeholder="placeholder"
         dense
         outlined
@@ -10,7 +11,13 @@
       ></v-textarea>
     </v-col>
     <v-col>
-      <v-btn block color="orange" large class="mt-n5 mt-md-0">
+      <v-btn
+        :disabled="!this.$auth.loggedIn"
+        block
+        color="orange"
+        large
+        class="mt-n5 mt-md-0"
+      >
         comment
       </v-btn>
     </v-col>
@@ -23,7 +30,7 @@ export default {
   computed: {
     placeholder() {
       const isLoggedIn = this.$auth.loggedIn
-      if (isLoggedIn) return ''
+      if (!isLoggedIn) return ''
       else return 'Please login or signup to add a comment'
     }
   }

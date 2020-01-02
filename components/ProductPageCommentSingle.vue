@@ -23,7 +23,7 @@
       similique omnis ipsa accusantium fugiat repellendus deleniti aperiam
       impedit!</v-card-text
     >
-    <v-card-actions class="mt-n5">
+    <v-card-actions v-show="this.$auth.loggedIn" class="mt-n5">
       <v-btn text>reply</v-btn>
       <v-btn text>delete</v-btn>
     </v-card-actions>
