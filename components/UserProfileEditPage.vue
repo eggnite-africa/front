@@ -1,21 +1,7 @@
 <template>
   <form>
     <v-row dense justify="center">
-      <v-badge bottom overlap>
-        <template #badge v-if="showUploadIcon">
-          <v-icon x-small>mdi-camera</v-icon>
-        </template>
-        <v-avatar
-          @mouseover="showUploadIcon = true"
-          @mouseout="showUploadIcon = false"
-          color="primary"
-          size="128"
-        >
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/forest-art.jpg"
-          ></v-img>
-        </v-avatar>
-      </v-badge>
+      <user-avatar :files="files" :imageType="'your picture'"></user-avatar>
     </v-row>
     <v-row dense>
       <v-col>
@@ -78,20 +64,27 @@
 </template>
 
 <script>
-import SocialMediaLink from '@/components/EditPageSocialMedia.vue'
+import UserAvatar from '@/components/shared/SingleImageUpload.vue'
+import SocialMediaLink from '@/components/UserProfileEditPageSocialMedia.vue'
 import OccupationField from '@/components/shared/OccupationField.vue'
 import BirthdateField from '@/components/shared/BirthdateField.vue'
 export default {
-  name: 'UserProfile',
+  name: 'UserProfileEditPage',
   components: {
+    UserAvatar,
     SocialMediaLink,
     OccupationField,
     BirthdateField
   },
   data() {
     return {
-      showUploadIcon: false,
-      socialMediaLinks: [SocialMediaLink]
+      socialMediaLinks: [SocialMediaLink],
+      files: [
+        {
+          source:
+            'https://images.unsplash.com/photo-1578031018078-6794111d3628?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
+        }
+      ]
     }
   },
   computed: {

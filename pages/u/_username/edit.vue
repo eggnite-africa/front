@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>Edit Profile</v-card-title>
     <v-card-text>
-      <user-profile></user-profile>
+      <user-profile-edit></user-profile-edit>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import UserProfile from '@/components/Profile.vue'
+import UserProfileEdit from '@/components/UserProfileEditPage.vue'
 export default {
   components: {
-    UserProfile
+    UserProfileEdit
   },
   methods: {
     onSubmit() {

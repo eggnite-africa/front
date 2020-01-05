@@ -180,7 +180,7 @@
 </template>
 
 <script>
-import ProductCard from '@/components/ProductItemFeed.vue'
+import ProductCard from '@/components/ProductItem.vue'
 
 export default {
   components: {

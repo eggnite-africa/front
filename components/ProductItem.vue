@@ -10,10 +10,10 @@
           <v-card-subtitle v-text="productTagline"></v-card-subtitle>
           <v-card-text class="ml-n1">
             <span v-for="i in 4" :key="i">
-              <product-makers-avatars
+              <product-maker-avatar
                 :makerName="'maker name'"
                 :makerProfileLink="`maker-link-${i}`"
-              ></product-makers-avatars>
+              ></product-maker-avatar>
             </span>
           </v-card-text>
         </v-col>
@@ -51,11 +51,11 @@
 </template>
 
 <script>
-import ProductMakersAvatars from '@/components/ProductItemMakersAvatars.vue'
+import ProductMakerAvatar from '@/components/ProductItemMakerAvatar.vue'
 export default {
   name: 'ProductItem',
   components: {
-    ProductMakersAvatars
+    ProductMakerAvatar
   },
   props: {
     productLink: {

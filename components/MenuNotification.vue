@@ -44,6 +44,6 @@
 
 <script>
 export default {
-  name: 'MenuNotifications'
+  name: 'MenuNotification'
 }
 </script>

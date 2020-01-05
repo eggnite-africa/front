@@ -41,7 +41,7 @@
 
         <v-stepper-content step="2">
           <v-card-text>
-            <user-profile></user-profile>
+            <user-profile-edit></user-profile-edit>
           </v-card-text>
         </v-stepper-content>
 
@@ -69,10 +69,10 @@
 </template>
 
 <script>
-import UserProfile from '@/components/Profile.vue'
+import UserProfileEdit from '@/components/UserProfileEditPage.vue'
 export default {
   name: 'SignUpPage',
-  components: { UserProfile },
+  components: { UserProfileEdit },
   data() {
     return {
       currentStep: 1

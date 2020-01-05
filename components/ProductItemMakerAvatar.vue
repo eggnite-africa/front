@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'ProductMakersAvatars',
+  name: 'ProductMakerAvatar',
   props: {
     makerProfileLink: {
       type: String,

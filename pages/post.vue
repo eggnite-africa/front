@@ -10,6 +10,8 @@
             <v-col cols="12">
               <v-text-field label="Name" outlined></v-text-field>
             </v-col>
+          </v-row>
+          <v-row>
             <v-col cols="12">
               <v-textarea
                 label="Tagline"
@@ -18,42 +20,52 @@
                 counter="80"
               ></v-textarea>
             </v-col>
+          </v-row>
+          <v-row>
             <v-col cols="12">
               <v-textarea label="Description" outlined auto-grow></v-textarea>
             </v-col>
-            <v-col cols="12">
-              <header>Media</header>
-              <v-file-input
-                label="Logo"
-                chips
-                prepend-icon="mdi-image"
-              ></v-file-input>
-              <v-file-input
-                label="Images"
-                multiple
-                chips
-                prepend-icon="mdi-image-multiple"
-              ></v-file-input>
+          </v-row>
+          <header>Media</header>
+          <v-row justify="center" align="center">
+            <v-col cols="12" sm="3">
+              <logo-uploader
+                :imageType="'product logo'"
+                class="mx-auto"
+              ></logo-uploader>
             </v-col>
+            <v-col cols="12" sm="9">
+              <images-uploader></images-uploader>
+            </v-col>
+          </v-row>
+          <header>Links</header>
+          <v-row>
             <v-col cols="12">
-              <header>Links</header>
               <v-text-field
                 label="Website"
                 prepend-icon="mdi-web"
               ></v-text-field>
+            </v-col>
+            <v-col cols="12">
               <v-text-field
                 label="Github"
                 prepend-icon="mdi-github-circle"
               ></v-text-field>
+            </v-col>
+            <v-col cols="12">
               <v-text-field
                 label="App Store"
                 prepend-icon="mdi-apple"
               ></v-text-field>
+            </v-col>
+            <v-col cols="12">
               <v-text-field
                 label="Google Play"
                 prepend-icon="mdi-google-play"
               ></v-text-field>
             </v-col>
+          </v-row>
+          <v-row>
             <v-col cols="12">
               <v-autocomplete
                 label="Makers"
@@ -67,17 +79,24 @@
               ></v-autocomplete>
             </v-col>
           </v-row>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn type="submit" color="primary" depressed>Post</v-btn>
+          </v-card-actions>
         </form>
       </v-card-text>
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="primary" depressed>Post</v-btn>
-      </v-card-actions>
     </v-container>
   </v-card>
 </template>
 
 <script>
-export default {}
+import ImagesUploader from '@/components/ProductPostPageImagesUpload.vue'
+import LogoUploader from '@/components/shared/SingleImageUpload.vue'
+export default {
+  components: {
+    ImagesUploader,
+    LogoUploader
+  }
+}
 </script>

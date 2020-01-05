@@ -10,7 +10,7 @@
       >
         <v-icon class="mr-1">mdi-plus</v-icon>post a product
       </v-btn>
-      <menu-notifications></menu-notifications>
+      <menu-notification></menu-notification>
       <menu-account></menu-account>
     </template>
     <template v-else>
@@ -26,14 +26,14 @@
 </template>
 
 <script>
-import MenuNotifications from '@/components/MenuNotifications.vue'
+import MenuNotification from '@/components/MenuNotification.vue'
 import MenuAccount from '@/components/MenuAccount.vue'
 import Login from '@/components/Login.vue'
 export default {
   name: 'Menu',
   components: {
-    MenuNotifications,
     MenuAccount,
+    MenuNotification,
     Login
   },
   data() {
