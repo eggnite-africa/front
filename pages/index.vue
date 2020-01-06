@@ -8,7 +8,6 @@
     >
       <v-col>
         <product-item
-          :productLink="product.link"
           :product-name="product.name"
           :product-tagline="product.tagline"
           :productVotesCount="product.votesCount"
@@ -30,21 +29,18 @@ export default {
     return {
       products: [
         {
-          link: 'test',
           name: 'test',
           tagline: 'this is the tagline',
           votesCount: 42,
           commentsCount: 10
         },
         {
-          link: 'test',
           name: 'test 2',
           tagline: 'this is the tagline',
           votesCount: 42,
           commentsCount: 10
         },
         {
-          link: 'test',
           name: 'test 3',
           tagline: 'this is the tagline',
           votesCount: 42,

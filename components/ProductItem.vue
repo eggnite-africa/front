@@ -37,7 +37,7 @@
                 </v-btn>
               </v-col>
               <v-col cols="12">
-                <v-btn :to="`/p/${productLink}#comments`" nuxt outlined block>
+                <v-btn :to="`/p/${productPage}#comments`" nuxt outlined block>
                   <v-icon left>mdi-comment</v-icon>
                   <span v-text="productCommentsCount"></span>
                 </v-btn>
@@ -58,10 +58,6 @@ export default {
     ProductMakerAvatar
   },
   props: {
-    productLink: {
-      type: String,
-      required: true
-    },
     productName: {
       type: String,
       required: true
@@ -79,10 +75,14 @@ export default {
       required: true
     }
   },
+  computed: {
+    productPage() {
+      return this.productName.toLowerCase().replace(' ', '-')
+    }
+  },
   methods: {
     navigateToProductPage() {
-      const productUrl = this.productLink
-      this.$router.push({ path: `/p/${productUrl}` })
+      this.$router.push({ path: `/p/${this.productPage}` })
     }
   }
 }
