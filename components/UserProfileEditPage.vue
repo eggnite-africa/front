@@ -1,10 +1,7 @@
 <template>
   <form>
     <v-row dense justify="center">
-      <user-avatar
-        :image-label="'your picture'"
-        init-image="https://screenrant.com/wp-content/uploads/2017/07/Rick-and-Morty.jpg"
-      ></user-avatar>
+      <user-avatar :image-label="'your picture'"></user-avatar>
     </v-row>
     <v-row dense>
       <v-col>
