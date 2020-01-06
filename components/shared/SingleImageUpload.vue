@@ -1,11 +1,12 @@
 <template>
   <file-pond
-    :server="server"
-    :files="files"
+    ref="singleImageUploader"
     :class="{ 'uploaded-file': addedFile }"
     :label-idle="label"
+    :server="server"
     @addfile="addedFile = true"
     @removefile="addedFile = false"
+    @init="handleInit()"
     style-panel-layout="compact circle"
     image-crop-aspect-ratio="1:1"
     image-preview-height="170"
@@ -44,14 +45,18 @@ export default {
   },
   props: {
     // eslint-disable-next-line vue/require-default-prop
-    files: null,
+    initImage: {
+      // Either the profile picture or the product logo
+      type: String,
+      default: null
+    },
     // eslint-disable-next-line vue/require-default-prop
-    imageType: null
+    imageLabel: null
   },
   data() {
     return {
       addedFile: false,
-      label: `Drag & Drop ${this.imageType} here or <span class="filepond--label-action"> Browse </span>`,
+      label: `Drag & Drop ${this.imageLabel} here or <span class="filepond--label-action"> Browse </span>`,
       server: {
         process: (fieldName, file, metadata, load, error, progress, abort) => {
           // Upload image to aws s3
@@ -59,6 +64,13 @@ export default {
           /* eslint-disable no-console */
           console.log('file: ', file)
         }
+      }
+    }
+  },
+  methods: {
+    handleInit() {
+      if (this.initImage !== null) {
+        this.$refs.singleImageUploader.addFile(this.initImage)
       }
     }
   }
