@@ -1,7 +1,10 @@
 <template>
   <form>
     <v-row dense justify="center">
-      <user-avatar :files="files" :imageType="'your picture'"></user-avatar>
+      <user-avatar
+        :image-label="'your picture'"
+        init-image="https://screenrant.com/wp-content/uploads/2017/07/Rick-and-Morty.jpg"
+      ></user-avatar>
     </v-row>
     <v-row dense>
       <v-col>
@@ -113,13 +116,7 @@ export default {
   },
   data() {
     return {
-      socialMediaLinks: [SocialMediaLink],
-      files: [
-        {
-          source:
-            'https://images.unsplash.com/photo-1578031018078-6794111d3628?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80'
-        }
-      ]
+      socialMediaLinks: [SocialMediaLink]
     }
   },
   computed: {
