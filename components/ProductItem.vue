@@ -1,5 +1,5 @@
 <template>
-  <v-card :to="`/p/${productLink}`" nuxt>
+  <v-card @click="navigateToProductPage()" nuxt>
     <v-container>
       <v-row dense align="center">
         <v-col cols="3" sm="1">
@@ -77,6 +77,12 @@ export default {
     productCommentsCount: {
       type: Number,
       required: true
+    }
+  },
+  methods: {
+    navigateToProductPage() {
+      const productUrl = this.productLink
+      this.$router.push({ path: `/p/${productUrl}` })
     }
   }
 }
