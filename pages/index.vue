@@ -26,7 +26,7 @@ export default {
   components: {
     ProductItem
   },
-  data() {
+  asyncData() {
     return {
       products: [
         {
