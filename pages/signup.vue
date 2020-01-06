@@ -1,7 +1,6 @@
 <template>
   <v-card>
     <v-card-title>Sign up</v-card-title>
-    <v-card-subtitle>Already have an account ? Sign in.</v-card-subtitle>
 
     <v-stepper v-model="currentStep">
       <v-stepper-header>
@@ -176,7 +175,6 @@ export default {
   },
   methods: {
     nextStep() {
-      if (this.currentStep === 3) this.currentStep = 0
       this.currentStep++
     },
     previousStep() {
