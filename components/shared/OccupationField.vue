@@ -31,6 +31,7 @@
             :items="['ESPRIT', 'LaSalle']"
             v-model="university"
             :error-messages="errors"
+            @change="$emit('next-step')"
             prepend-icon="mdi-school"
           ></v-select>
         </validation-provider>
@@ -46,6 +47,7 @@
             v-model="city"
             :items="['Tunis', 'Sousse']"
             :error-messages="errors"
+            @change="$emit('next-step')"
             prepend-icon="mdi-map-marker"
           ></v-select>
         </validation-provider>

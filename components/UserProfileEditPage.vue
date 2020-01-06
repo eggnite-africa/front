@@ -51,7 +51,7 @@
         <birthdate-field></birthdate-field>
       </v-col>
     </v-row>
-    <occupation-field></occupation-field>
+    <occupation-field @next-step="$emit('next-step')"></occupation-field>
     <v-row dense>
       <v-col>
         <v-textarea v-model="bio" label="Bio" outlined></v-textarea>

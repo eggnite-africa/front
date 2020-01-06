@@ -18,71 +18,76 @@
       <v-stepper-items>
         <v-stepper-content step="1">
           <v-card-text>
-            <form>
-              <validation-provider
-                #default="{ errors, valid }"
-                name="The email"
-                rules="required|email"
-              >
-                <v-text-field
-                  v-model="email"
-                  :error-messages="errors"
-                  :success="valid"
-                  label="Email"
-                  type="email"
-                ></v-text-field>
-              </validation-provider>
-
-              <validation-provider
-                #default="{ errors, valid }"
-                name="The username"
-                rules="required|alphaNum|min:2"
-              >
-                <v-text-field
-                  v-model="username"
-                  :error-messages="errors"
-                  :success="valid"
-                  label="Username"
-                ></v-text-field>
-              </validation-provider>
-
-              <validation-observer>
+            <validation-observer ref="accountInfo" slim>
+              <form>
                 <validation-provider
                   #default="{ errors, valid }"
-                  name="The password"
-                  rules="required|confirmed:confirmation|min:8"
+                  name="The email"
+                  rules="required|email"
                 >
                   <v-text-field
-                    v-model="password"
+                    v-model="email"
                     :error-messages="errors"
                     :success="valid"
-                    label="Password"
-                    type="password"
-                    hint="Minimum length: 8"
+                    label="Email"
+                    type="email"
                   ></v-text-field>
                 </validation-provider>
+
                 <validation-provider
                   #default="{ errors, valid }"
-                  vid="confirmation"
-                  rules="required"
-                  name="The field"
+                  name="The username"
+                  rules="required|alphaNum|min:2"
                 >
                   <v-text-field
-                    v-model="passwordConfirmation"
+                    v-model="username"
                     :error-messages="errors"
                     :success="valid"
-                    label="Confirm password"
-                    type="password"
+                    label="Username"
                   ></v-text-field>
                 </validation-provider>
-              </validation-observer>
-            </form>
+
+                <validation-observer>
+                  <validation-provider
+                    #default="{ errors, valid }"
+                    name="The password"
+                    rules="required|confirmed:confirmation|min:8"
+                  >
+                    <v-text-field
+                      v-model="password"
+                      :error-messages="errors"
+                      :success="valid"
+                      label="Password"
+                      type="password"
+                      hint="Minimum length: 8"
+                    ></v-text-field>
+                  </validation-provider>
+                  <validation-provider
+                    #default="{ errors, valid }"
+                    vid="confirmation"
+                    rules="required"
+                    name="The field"
+                  >
+                    <v-text-field
+                      v-model="passwordConfirmation"
+                      :error-messages="errors"
+                      :success="valid"
+                      @change="invalid = false"
+                      label="Confirm password"
+                      type="password"
+                    ></v-text-field>
+                  </validation-provider>
+                </validation-observer>
+              </form>
+            </validation-observer>
           </v-card-text>
         </v-stepper-content>
 
         <v-stepper-content step="2">
           <v-card-text>
-            <user-profile-edit></user-profile-edit>
+            <validation-observer ref="userProfile" slim>
+              <user-profile-edit @next-step="nextStep()"></user-profile-edit>
+            </validation-observer>
           </v-card-text>
         </v-stepper-content>
 
@@ -98,8 +103,10 @@
       <v-spacer></v-spacer>
       <v-btn @click="previousStep()" v-show="currentStep > 1" text>back</v-btn>
       <v-btn
+        ref="continueButton"
         @click="nextStep()"
         v-show="currentStep !== 3"
+        :disabled="invalid"
         depressed
         color="blue"
         >Continue</v-btn
@@ -135,7 +142,8 @@ export default {
   data() {
     return {
       currentStep: 1,
-      passwordConfirmation: ''
+      passwordConfirmation: '',
+      invalid: true
     }
   },
   computed: {
@@ -175,7 +183,20 @@ export default {
   },
   methods: {
     nextStep() {
-      this.currentStep++
+      let step
+      if (this.currentStep === 1) {
+        step = this.$refs.accountInfo
+      } else if (this.currentStep === 2) {
+        step = this.$refs.userProfile
+      }
+      step.validate().then((success) => {
+        if (!success) {
+          this.invalid = true
+        } else {
+          this.invalid = false
+          this.currentStep++
+        }
+      })
     },
     previousStep() {
       this.currentStep--
