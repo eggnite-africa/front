@@ -5,19 +5,47 @@
     </v-row>
     <v-row dense>
       <v-col>
-        <v-text-field v-model="firstName" label="First Name"></v-text-field>
+        <validation-provider
+          #default="{ errors, valid }"
+          name="The first name"
+          rules="required|min:3"
+        >
+          <v-text-field
+            v-model="firstName"
+            :error-messages="errors"
+            :success="valid"
+            label="First Name"
+          ></v-text-field>
+        </validation-provider>
       </v-col>
       <v-col>
-        <v-text-field v-model="lastName" label="Last Name"></v-text-field>
+        <validation-provider
+          #default="{ errors, valid }"
+          name="The last name"
+          rules="required|min:3"
+        >
+          <v-text-field
+            v-model="lastName"
+            :error-messages="errors"
+            :success="valid"
+            label="Last Name"
+          ></v-text-field>
+        </validation-provider>
       </v-col>
     </v-row>
     <v-row dense>
       <v-col>
         <header>Sex</header>
-        <v-radio-group v-model="sex" row>
-          <v-radio label="Male" value="MALE" color="white"></v-radio>
-          <v-radio label="Female" value="FEMALE" color="white"></v-radio>
-        </v-radio-group>
+        <validation-provider
+          #default="{ errors }"
+          name="The sex"
+          rules="required"
+        >
+          <v-radio-group v-model="sex" :error-messages="errors" row>
+            <v-radio label="Male" value="MALE" color="white"></v-radio>
+            <v-radio label="Female" value="FEMALE" color="white"></v-radio>
+          </v-radio-group>
+        </validation-provider>
       </v-col>
       <v-col>
         <birthdate-field></birthdate-field>
@@ -64,17 +92,24 @@
 </template>
 
 <script>
+import { ValidationProvider, extend } from 'vee-validate'
+import { required, min } from 'vee-validate/dist/rules'
 import UserAvatar from '@/components/shared/SingleImageUpload.vue'
 import SocialMediaLink from '@/components/UserProfileEditPageSocialMedia.vue'
 import OccupationField from '@/components/shared/OccupationField.vue'
 import BirthdateField from '@/components/shared/BirthdateField.vue'
+
+extend('required', required)
+extend('min', min)
+
 export default {
   name: 'UserProfileEditPage',
   components: {
     UserAvatar,
     SocialMediaLink,
     OccupationField,
-    BirthdateField
+    BirthdateField,
+    ValidationProvider
   },
   data() {
     return {

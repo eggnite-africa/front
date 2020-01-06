@@ -1,16 +1,25 @@
 <template>
-  <v-text-field
-    @change="submitProductLink()"
-    v-model="link"
-    :label="label"
-    :prepend-icon="icon"
-    :color="color"
-  ></v-text-field>
+  <validation-provider :name="label" #default="{ errors }" :rules="rules">
+    <v-text-field
+      @change="submitProductLink()"
+      v-model="link"
+      :label="label"
+      :prepend-icon="icon"
+      :color="color"
+      :error-messages="errors[0]"
+      type="url"
+    ></v-text-field>
+  </validation-provider>
 </template>
 
 <script>
+import { ValidationProvider } from 'vee-validate'
+
 export default {
   name: 'ProductPostPageLink',
+  components: {
+    ValidationProvider
+  },
   props: {
     label: {
       type: String,
@@ -28,6 +37,10 @@ export default {
     color: {
       type: String,
       default: 'primary'
+    },
+    rules: {
+      type: String,
+      default: null
     }
   },
   data() {

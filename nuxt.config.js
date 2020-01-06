@@ -86,6 +86,8 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    // Add exception as it's a ES6 export
+    transpile: ['vee-validate/dist/rules'],
     extend(config, ctx) {}
   },
   auth: {

@@ -6,7 +6,7 @@ export const state = () => ({
   firstName: null,
   lastName: null,
   sex: null,
-  birthdate: null,
+  birthdate: '1999',
   occupation: null,
   university: null,
   city: null,

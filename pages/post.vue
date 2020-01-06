@@ -5,9 +5,7 @@
         Post Product
       </v-card-title>
       <v-card-text>
-        <product-post>
-          <v-btn type="submit" color="primary" depressed>Post</v-btn>
-        </product-post>
+        <product-post :on-submit="onSubmit">Post</product-post>
       </v-card-text>
     </v-container>
   </v-card>
@@ -18,6 +16,9 @@ import ProductPost from '@/components/ProductPostPage.vue'
 export default {
   components: {
     ProductPost
+  },
+  methods: {
+    onSubmit() {}
   }
 }
 </script>

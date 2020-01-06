@@ -20,21 +20,63 @@
         <v-stepper-content step="1">
           <v-card-text>
             <form>
-              <v-text-field
-                v-model="email"
-                label="Email"
-                type="email"
-              ></v-text-field>
-              <v-text-field v-model="username" label="Username"></v-text-field>
-              <v-text-field
-                v-model="password"
-                label="Password"
-                type="password"
-              ></v-text-field>
-              <v-text-field
-                label="Confirm password"
-                type="password"
-              ></v-text-field>
+              <validation-provider
+                #default="{ errors, valid }"
+                name="The email"
+                rules="required|email"
+              >
+                <v-text-field
+                  v-model="email"
+                  :error-messages="errors"
+                  :success="valid"
+                  label="Email"
+                  type="email"
+                ></v-text-field>
+              </validation-provider>
+
+              <validation-provider
+                #default="{ errors, valid }"
+                name="The username"
+                rules="required|alphaNum|min:2"
+              >
+                <v-text-field
+                  v-model="username"
+                  :error-messages="errors"
+                  :success="valid"
+                  label="Username"
+                ></v-text-field>
+              </validation-provider>
+
+              <validation-observer>
+                <validation-provider
+                  #default="{ errors, valid }"
+                  name="The password"
+                  rules="required|confirmed:confirmation|min:8"
+                >
+                  <v-text-field
+                    v-model="password"
+                    :error-messages="errors"
+                    :success="valid"
+                    label="Password"
+                    type="password"
+                    hint="Minimum length: 8"
+                  ></v-text-field>
+                </validation-provider>
+                <validation-provider
+                  #default="{ errors, valid }"
+                  vid="confirmation"
+                  rules="required"
+                  name="The field"
+                >
+                  <v-text-field
+                    v-model="passwordConfirmation"
+                    :error-messages="errors"
+                    :success="valid"
+                    label="Confirm password"
+                    type="password"
+                  ></v-text-field>
+                </validation-provider>
+              </validation-observer>
             </form>
           </v-card-text>
         </v-stepper-content>
@@ -69,13 +111,32 @@
 </template>
 
 <script>
+import { ValidationProvider, extend, ValidationObserver } from 'vee-validate'
+import {
+  required,
+  email,
+  alpha_num as alphaNum,
+  confirmed,
+  min
+} from 'vee-validate/dist/rules'
 import UserProfileEdit from '@/components/UserProfileEditPage.vue'
+
+extend('required', required)
+extend('email', email)
+extend('alphaNum', alphaNum)
+extend('confirmed', confirmed)
+extend('min', {
+  ...min,
+  message: (fieldName, { length }) =>
+    `${fieldName} should have a minimum length of ${length}`
+})
 export default {
   name: 'SignUpPage',
-  components: { UserProfileEdit },
+  components: { UserProfileEdit, ValidationProvider, ValidationObserver },
   data() {
     return {
-      currentStep: 1
+      currentStep: 1,
+      passwordConfirmation: ''
     }
   },
   computed: {
