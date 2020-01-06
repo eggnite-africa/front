@@ -13,17 +13,31 @@
     </v-card-title>
     <form>
       <v-container>
-        <v-text-field
-          v-model="username"
-          label="Username"
-          outlined
-        ></v-text-field>
-        <v-text-field
-          v-model="password"
-          label="Password"
-          outlined
-          type="password"
-        ></v-text-field>
+        <validation-provider
+          #default="{ errors }"
+          name="The username"
+          rules="required|aplhaNum"
+        >
+          <v-text-field
+            v-model="username"
+            :error-messages="errors"
+            label="Username"
+            outlined
+          ></v-text-field>
+        </validation-provider>
+        <validation-provider
+          #default="{ errors }"
+          name="The password"
+          rules="required|min:8"
+        >
+          <v-text-field
+            v-model="password"
+            :error-messages="errors"
+            label="Password"
+            outlined
+            type="password"
+          ></v-text-field>
+        </validation-provider>
       </v-container>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -34,7 +48,17 @@
 </template>
 
 <script>
+import { ValidationProvider, extend } from 'vee-validate'
+import { required, alpha_num as alphaNum, min } from 'vee-validate/dist/rules'
+
+extend('required', required)
+extend('alphaNum', alphaNum)
+extend('min', min)
+
 export default {
+  components: {
+    ValidationProvider
+  },
   data() {
     return {
       username: null,
