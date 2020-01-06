@@ -1,11 +1,13 @@
 <template>
-  <file-pond
-    :server="server"
-    :label-idle="label"
-    accepted-file-types="image/jpeg, image/gif"
-    allow-multiple="true"
-    class="grid"
-  ></file-pond>
+  <client-only>
+    <file-pond
+      :server="server"
+      :label-idle="label"
+      accepted-file-types="image/jpeg, image/gif"
+      allow-multiple="true"
+      class="grid"
+    ></file-pond>
+  </client-only>
 </template>
 
 <script>

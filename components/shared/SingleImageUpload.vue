@@ -1,22 +1,24 @@
 <template>
-  <file-pond
-    ref="singleImageUploader"
-    :class="{ 'uploaded-file': addedFile }"
-    :label-idle="label"
-    :server="server"
-    @addfile="addedFile = true"
-    @removefile="addedFile = false"
-    @init="handleInit()"
-    style-panel-layout="compact circle"
-    image-crop-aspect-ratio="1:1"
-    image-preview-height="170"
-    image-resize-target-width="200"
-    image-resize-target-height="200"
-    style-load-indicator-position="center bottom"
-    style-button-remove-item-position="center bottom"
-    style="width: 170px"
-    allowed-file-type="image/jpeg, image/png, image/gif"
-  ></file-pond>
+  <client-only>
+    <file-pond
+      ref="singleImageUploader"
+      :class="{ 'uploaded-file': addedFile }"
+      :label-idle="label"
+      :server="server"
+      @addfile="addedFile = true"
+      @removefile="addedFile = false"
+      @init="handleInit()"
+      style-panel-layout="compact circle"
+      image-crop-aspect-ratio="1:1"
+      image-preview-height="170"
+      image-resize-target-width="200"
+      image-resize-target-height="200"
+      style-load-indicator-position="center bottom"
+      style-button-remove-item-position="center bottom"
+      style="width: 170px"
+      allowed-file-type="image/jpeg, image/png, image/gif"
+    ></file-pond>
+  </client-only>
 </template>
 
 <script>
