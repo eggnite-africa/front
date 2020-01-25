@@ -4,6 +4,8 @@
       <v-textarea
         :disabled="!this.$auth.loggedIn"
         :placeholder="placeholder"
+        v-model="content"
+        @keydown.ctrl.enter="addComment()"
         dense
         outlined
         auto-grow
@@ -13,6 +15,7 @@
     <v-col>
       <v-btn
         :disabled="!this.$auth.loggedIn"
+        @click="addComment()"
         block
         color="orange"
         large
@@ -25,13 +28,46 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
 export default {
   name: 'ProductPageCommentAdd',
+  props: {
+    productId: {
+      type: String,
+      required: true
+    }
+  },
+  data() {
+    return {
+      content: ''
+    }
+  },
   computed: {
     placeholder() {
       const isLoggedIn = this.$auth.loggedIn
-      if (!isLoggedIn) return ''
+      if (isLoggedIn) return ''
       else return 'Please login or signup to add a comment'
+    }
+  },
+  methods: {
+    addComment() {
+      this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation addComment($commentInput: CommentInput!) {
+              addComment(commentInput: $commentInput) {
+                content
+              }
+            }
+          `,
+          variables: {
+            commentInput: {
+              productId: this.productId,
+              content: this.content
+            }
+          }
+        })
+        .then(() => this.$emit('update-comments'))
     }
   }
 }

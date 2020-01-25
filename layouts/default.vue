@@ -4,6 +4,7 @@
       <nuxt-link to="/" class="homepage-link">
         <v-toolbar-title v-text="title" />
       </nuxt-link>
+      <Search />
       <v-spacer />
       <Menu />
     </v-app-bar>
@@ -21,27 +22,16 @@
 </template>
 
 <script>
+import Search from '@/components/Search.vue'
 import Menu from '@/components/Menu.vue'
 
 export default {
   components: {
+    Search,
     Menu
   },
   data() {
     return {
-      drawer: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
       title: '🚀 Eggnite'
     }
   }

@@ -49,7 +49,8 @@ export default {
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/apollo'
   ],
   /*
    ** Axios module configuration
@@ -79,6 +80,14 @@ export default {
       }
     }
   },
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: 'http://localhost:4000/graphql',
+        wsEndpoint: 'ws://localhost:4000/graphql'
+      }
+    }
+  },
   /*
    ** Build configuration
    */
@@ -86,8 +95,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    // Add exception as it's a ES6 export
-    transpile: ['vee-validate/dist/rules'],
+    transpile: [],
     extend(config, ctx) {}
   },
   auth: {

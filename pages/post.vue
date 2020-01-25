@@ -5,7 +5,9 @@
         Post Product
       </v-card-title>
       <v-card-text>
-        <product-post :on-submit="onSubmit">Post</product-post>
+        <product-post ref="productPost" :on-submit="onSubmit"
+          >Post</product-post
+        >
       </v-card-text>
     </v-container>
   </v-card>
@@ -18,7 +20,9 @@ export default {
     ProductPost
   },
   methods: {
-    onSubmit() {}
+    onSubmit() {
+      this.$refs.productPost.addProduct()
+    }
   }
 }
 </script>

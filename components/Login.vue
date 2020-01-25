@@ -13,52 +13,29 @@
     </v-card-title>
     <form>
       <v-container>
-        <validation-provider
-          #default="{ errors }"
-          name="The username"
-          rules="required|aplhaNum"
-        >
-          <v-text-field
-            v-model="username"
-            :error-messages="errors"
-            label="Username"
-            outlined
-          ></v-text-field>
-        </validation-provider>
-        <validation-provider
-          #default="{ errors }"
-          name="The password"
-          rules="required|min:8"
-        >
-          <v-text-field
-            v-model="password"
-            :error-messages="errors"
-            label="Password"
-            outlined
-            type="password"
-          ></v-text-field>
-        </validation-provider>
+        <v-text-field
+          v-model="username"
+          @keypress.enter.native="onSubmit()"
+          label="Username"
+          outlined
+        ></v-text-field>
+
+        <v-text-field
+          v-model="password"
+          @keypress.enter.native="onSubmit()"
+          label="Password"
+          outlined
+          type="password"
+        ></v-text-field>
       </v-container>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn @click.prevent="submit" type="submit" text>Login</v-btn>
-      </v-card-actions>
     </form>
   </v-card>
 </template>
 
 <script>
-import { ValidationProvider, extend } from 'vee-validate'
-import { required, alpha_num as alphaNum, min } from 'vee-validate/dist/rules'
-
-extend('required', required)
-extend('alphaNum', alphaNum)
-extend('min', min)
+import { mapActions } from 'vuex'
 
 export default {
-  components: {
-    ValidationProvider
-  },
   data() {
     return {
       username: null,
@@ -66,14 +43,12 @@ export default {
     }
   },
   methods: {
-    submit() {
+    ...mapActions({
+      login: 'utils/login'
+    }),
+    async onSubmit() {
       const [username, password] = [this.username, this.password]
-      return this.$auth.loginWith('local', {
-        data: {
-          username,
-          password
-        }
-      })
+      await this.login({ username, password })
     },
     closeDialog() {
       this.$emit('close-dialog')

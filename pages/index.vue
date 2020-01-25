@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!$apollo.queries.products.loading">
     <v-row
       v-for="(product, index) in products"
       :key="index"
@@ -7,46 +7,29 @@
       align="center"
     >
       <v-col>
-        <product-item
-          :product-name="product.name"
-          :product-tagline="product.tagline"
-          :productVotesCount="product.votesCount"
-          :productCommentsCount="product.commentsCount"
-        ></product-item>
+        <product-item :product-id="product.id"></product-item>
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
+import gql from 'graphql-tag'
 import ProductItem from '@/components/ProductItem.vue'
 
 export default {
   components: {
     ProductItem
   },
-  asyncData() {
-    return {
-      products: [
-        {
-          name: 'test',
-          tagline: 'this is the tagline',
-          votesCount: 42,
-          commentsCount: 10
-        },
-        {
-          name: 'test 2',
-          tagline: 'this is the tagline',
-          votesCount: 42,
-          commentsCount: 10
-        },
-        {
-          name: 'test 3',
-          tagline: 'this is the tagline',
-          votesCount: 42,
-          commentsCount: 10
+  apollo: {
+    products: {
+      query: gql`
+        query fetchAllProducts {
+          products {
+            id
+          }
         }
-      ]
+      `
     }
   }
 }

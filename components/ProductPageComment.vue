@@ -1,9 +1,15 @@
 <template>
-  <section>
-    <add-comment></add-comment>
-    <v-row dense>
-      <v-col cols="12">
-        <single-comment></single-comment>
+  <section id="comments">
+    <add-comment
+      @update-comments="$emit('update-comments')"
+      :product-id="productId"
+    ></add-comment>
+    <v-row v-for="(comment, i) in comments" :key="i" dense>
+      <v-col tag="section" cols="12">
+        <single-comment
+          @update-comments="$emit('update-comments')"
+          :comment="comment"
+        ></single-comment>
         <v-divider></v-divider>
       </v-col>
     </v-row>
@@ -18,6 +24,16 @@ export default {
   components: {
     AddComment,
     SingleComment
+  },
+  props: {
+    comments: {
+      type: Array,
+      required: true
+    },
+    productId: {
+      type: String,
+      required: true
+    }
   }
 }
 </script>

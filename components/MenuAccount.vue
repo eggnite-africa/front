@@ -2,50 +2,24 @@
   <v-menu offset-y bottom>
     <template #activator="{ on }">
       <v-btn icon>
-        <v-avatar v-on="on" color="primary" size="36"></v-avatar>
+        <v-avatar v-on="on" color="primary" size="36">
+          <client-only>
+            <v-img :src="userProfilePicture"></v-img>
+          </client-only>
+        </v-avatar>
       </v-btn>
     </template>
-    <v-list flat>
-      <v-list-item :to="'/u/' + username" nuxt>
+    <v-list flat dense nav>
+      <v-list-item
+        v-for="link in userLinks"
+        :to="link.link"
+        :key="link.name"
+        link
+      >
         <v-list-item-avatar>
-          <v-icon>mdi-account-details</v-icon>
+          <v-icon>{{ link.icon }}</v-icon>
         </v-list-item-avatar>
-        <v-list-item-content>Profile</v-list-item-content>
-      </v-list-item>
-
-      <v-list-item>
-        <v-list-item-avatar>
-          <v-icon>mdi-lightbulb</v-icon>
-        </v-list-item-avatar>
-        <v-list-item-content>Products</v-list-item-content>
-      </v-list-item>
-
-      <v-list-item>
-        <v-list-item-avatar>
-          <v-icon>mdi-thumb-up</v-icon>
-        </v-list-item-avatar>
-        <v-list-item-content>Upvotes</v-list-item-content>
-      </v-list-item>
-
-      <v-list-item>
-        <v-list-item-avatar>
-          <v-icon>mdi-comment</v-icon>
-        </v-list-item-avatar>
-        <v-list-item-content>Comments</v-list-item-content>
-      </v-list-item>
-
-      <v-list-item>
-        <v-list-item-avatar>
-          <v-icon>mdi-bell</v-icon>
-        </v-list-item-avatar>
-        <v-list-item-content>Notifications</v-list-item-content>
-      </v-list-item>
-
-      <v-list-item>
-        <v-list-item-avatar>
-          <v-icon>mdi-settings</v-icon>
-        </v-list-item-avatar>
-        <v-list-item-content>Settings</v-list-item-content>
+        <v-list-item-content>{{ link.name }}</v-list-item-content>
       </v-list-item>
 
       <v-divider></v-divider>
@@ -57,17 +31,43 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'MenuAccount',
+  props: {
+    userProfilePicture: {
+      type: String,
+      required: true
+    },
+    username: {
+      type: String,
+      required: true
+    }
+  },
   computed: {
-    username() {
-      return this.$auth.user.username
+    userProfileLink() {
+      return `/u/${this.username}`
+    },
+    userLinks() {
+      return [
+        {
+          icon: 'mdi-account-details',
+          name: 'Profile',
+          link: this.userProfileLink
+        },
+        {
+          icon: 'mdi-settings',
+          name: 'Settings',
+          link: `${this.userProfileLink}/settings/account`
+        }
+      ]
     }
   },
   methods: {
-    async logout() {
-      await this.$auth.logout('local')
-    }
+    ...mapActions({
+      logout: 'utils/logout'
+    })
   }
 }
 </script>

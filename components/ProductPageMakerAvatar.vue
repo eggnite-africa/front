@@ -1,6 +1,10 @@
 <template>
-  <v-btn :to="`/u/${makerProfileLink}`" text nuxt>
-    <v-avatar color="blue" size="36" left class="mr-2"></v-avatar>
+  <v-btn :to="makerProfileLink" text nuxt>
+    <v-avatar size="36" left class="mr-2">
+      <client-only>
+        <v-img :src="makerPicture"></v-img>
+      </client-only>
+    </v-avatar>
     <span v-text="makerName"></span>
   </v-btn>
 </template>
@@ -9,13 +13,22 @@
 export default {
   name: 'ProductPageMakerAvatar',
   props: {
+    makerPicture: {
+      type: String,
+      required: true
+    },
     makerName: {
       type: String,
       required: true
     },
-    makerProfileLink: {
+    makerUsername: {
       type: String,
       required: true
+    }
+  },
+  computed: {
+    makerProfileLink() {
+      return `/u/${this.makerUsername}`
     }
   }
 }

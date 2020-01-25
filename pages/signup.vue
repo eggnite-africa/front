@@ -11,89 +11,50 @@
         <v-stepper-step :complete="currentStep > 2" step="2"
           >User Profile</v-stepper-step
         >
-        <v-divider></v-divider>
-        <v-stepper-step step="3">Done</v-stepper-step>
       </v-stepper-header>
 
       <v-stepper-items>
         <v-stepper-content step="1">
           <v-card-text>
-            <validation-observer ref="accountInfo" slim>
-              <form>
-                <validation-provider
-                  #default="{ errors, valid }"
-                  name="The email"
-                  rules="required|email"
-                >
-                  <v-text-field
-                    v-model="email"
-                    :error-messages="errors"
-                    :success="valid"
-                    label="Email"
-                    type="email"
-                  ></v-text-field>
-                </validation-provider>
+            <form>
+              <v-text-field
+                v-model="email"
+                label="Email"
+                type="email"
+              ></v-text-field>
 
-                <validation-provider
-                  #default="{ errors, valid }"
-                  name="The username"
-                  rules="required|alphaNum|min:2"
-                >
-                  <v-text-field
-                    v-model="username"
-                    :error-messages="errors"
-                    :success="valid"
-                    label="Username"
-                  ></v-text-field>
-                </validation-provider>
+              <v-text-field v-model="username" label="Username"></v-text-field>
 
-                <validation-observer>
-                  <validation-provider
-                    #default="{ errors, valid }"
-                    name="The password"
-                    rules="required|confirmed:confirmation|min:8"
-                  >
-                    <v-text-field
-                      v-model="password"
-                      :error-messages="errors"
-                      :success="valid"
-                      label="Password"
-                      type="password"
-                      hint="Minimum length: 8"
-                    ></v-text-field>
-                  </validation-provider>
-                  <validation-provider
-                    #default="{ errors, valid }"
-                    vid="confirmation"
-                    rules="required"
-                    name="The field"
-                  >
-                    <v-text-field
-                      v-model="passwordConfirmation"
-                      :error-messages="errors"
-                      :success="valid"
-                      @change="invalid = false"
-                      label="Confirm password"
-                      type="password"
-                    ></v-text-field>
-                  </validation-provider>
-                </validation-observer>
-              </form>
-            </validation-observer>
+              <v-text-field
+                v-model="password"
+                label="Password"
+                type="password"
+                hint="Minimum length: 8"
+              ></v-text-field>
+
+              <v-text-field
+                v-model="passwordConfirmation"
+                label="Confirm password"
+                type="password"
+              ></v-text-field>
+            </form>
           </v-card-text>
         </v-stepper-content>
 
         <v-stepper-content step="2">
           <v-card-text>
-            <validation-observer ref="userProfile" slim>
-              <user-profile-edit @next-step="nextStep()"></user-profile-edit>
-            </validation-observer>
-          </v-card-text>
-        </v-stepper-content>
-
-        <v-stepper-content step="3">
-          <v-card-text>
-            All set
+            <user-profile-edit
+              ref="userProfile"
+              :profilePicture="profilePicture"
+              :firstName="firstName"
+              :lastName="lastName"
+              :sex="sex"
+              :birthDate="birthDate"
+              :occupation="occupation"
+              :university="university"
+              :bio="bio"
+              :socialLinks="socialLinks"
+            ></user-profile-edit>
           </v-card-text>
         </v-stepper-content>
       </v-stepper-items>
@@ -105,101 +66,113 @@
       <v-btn
         ref="continueButton"
         @click="nextStep()"
-        v-show="currentStep !== 3"
-        :disabled="invalid"
+        v-show="currentStep !== 2"
         depressed
         color="blue"
         >Continue</v-btn
       >
-      <v-btn v-show="currentStep === 3" depressed color="green">Sign up</v-btn>
+      <v-btn @click="signUp()" v-if="currentStep === 2" depressed color="green"
+        >Sign up</v-btn
+      >
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
-import { ValidationProvider, extend, ValidationObserver } from 'vee-validate'
-import {
-  required,
-  email,
-  alpha_num as alphaNum,
-  confirmed,
-  min
-} from 'vee-validate/dist/rules'
+import gql from 'graphql-tag'
+import { mapActions } from 'vuex'
 import UserProfileEdit from '@/components/UserProfileEditPage.vue'
 
-extend('required', required)
-extend('email', email)
-extend('alphaNum', alphaNum)
-extend('confirmed', confirmed)
-extend('min', {
-  ...min,
-  message: (fieldName, { length }) =>
-    `${fieldName} should have a minimum length of ${length}`
-})
 export default {
   name: 'SignUpPage',
-  components: { UserProfileEdit, ValidationProvider, ValidationObserver },
-  data() {
+  components: { UserProfileEdit },
+  asyncData() {
     return {
       currentStep: 1,
+      email: '',
+      username: '',
+      password: '',
       passwordConfirmation: '',
-      invalid: true
-    }
-  },
-  computed: {
-    email: {
-      get() {
-        return this.$store.state.user.email
-      },
-      set(value) {
-        this.$store.commit('user/updateField', {
-          field: 'email',
-          value
-        })
-      }
-    },
-    username: {
-      get() {
-        return this.$store.state.user.username
-      },
-      set(value) {
-        this.$store.commit('user/updateField', {
-          field: 'username',
-          value
-        })
-      }
-    },
-    password: {
-      get() {
-        return this.$store.state.user.password
-      },
-      set(value) {
-        this.$store.commit('user/updateField', {
-          field: 'password',
-          value
-        })
-      }
+      profilePicture: '',
+      firstName: '',
+      lastName: '',
+      sex: '',
+      birthDate: '1999',
+      occupation: '',
+      university: '',
+      bio: '',
+      socialLinks: ['']
     }
   },
   methods: {
+    ...mapActions({
+      signIn: 'utils/login'
+    }),
     nextStep() {
-      let step
-      if (this.currentStep === 1) {
-        step = this.$refs.accountInfo
-      } else if (this.currentStep === 2) {
-        step = this.$refs.userProfile
-      }
-      step.validate().then((success) => {
-        if (!success) {
-          this.invalid = true
-        } else {
-          this.invalid = false
-          this.currentStep++
-        }
-      })
+      this.currentStep++
     },
     previousStep() {
       this.currentStep--
+    },
+    async login() {
+      const [username, password] = [this.username, this.password]
+      await this.signIn({ username, password })
+    },
+    async signUp() {
+      let { profilePicture } = this.$refs.userProfile.getProfileInfo()
+      const {
+        firstName,
+        lastName,
+        sex,
+        birthDate,
+        occupation,
+        university,
+        bio,
+        socialLinks
+      } = this.$refs.userProfile.getProfileInfo()
+
+      if (!profilePicture) {
+        if (sex === 'MALE') {
+          profilePicture =
+            'https://upload.wikimedia.org/wikipedia/en/d/dc/Pocket_Mortys.png'
+        } else {
+          profilePicture =
+            'https://vignette1.wikia.nocookie.net/rickandmorty/images/f/fc/S1e8_confused_summer.png/revision/latest?cb=20160917205129'
+        }
+      }
+
+      await this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation userSignUp($userInput: UserInput!) {
+              signUp(UserInput: $userInput) {
+                id
+                username
+              }
+            }
+          `,
+          variables: {
+            userInput: {
+              username: this.username,
+              email: this.email,
+              password: this.password,
+              profile: {
+                profilePicture,
+                firstName,
+                lastName,
+                sex,
+                birthDate,
+                occupation,
+                bio,
+                university,
+                socialLinks
+              }
+            }
+          }
+        })
+        .then(async () => {
+          await this.login()
+        })
     }
   }
 }
