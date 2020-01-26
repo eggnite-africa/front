@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Search from '@/components/Search.vue'
+import Search from '@/components/MenuSearch.vue'
 import Menu from '@/components/Menu.vue'
 
 export default {

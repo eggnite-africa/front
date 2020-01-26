@@ -91,8 +91,8 @@ import gql from 'graphql-tag'
 import { required, minLength } from 'vuelidate/lib/validators'
 import UserAvatar from '@/components/shared/SingleImageUpload.vue'
 import SocialMediaLink from '@/components/UserProfileEditPageSocialMedia.vue'
-import OccupationField from '@/components/shared/OccupationField.vue'
-import BirthdateField from '@/components/shared/BirthdateField.vue'
+import OccupationField from '@/components/UserProfileEditPageOccupationField.vue'
+import BirthdateField from '@/components/UserProfileEditPageBirthdateField.vue'
 
 export default {
   name: 'UserProfileEditPage',
