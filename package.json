@@ -25,7 +25,8 @@
     "filepond-plugin-image-resize": "^2.0.4",
     "filepond-plugin-image-transform": "^3.7.0",
     "nuxt": "^2.0.0",
-    "vue-filepond": "^6.0.0"
+    "vue-filepond": "^6.0.0",
+    "vuelidate": "^0.7.5"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",

@@ -16,7 +16,10 @@
           <v-row dense>
             <v-col>
               <v-text-field
-                v-model="user.email"
+                v-model.trim="user.email"
+                :error-messages="emailErrors"
+                @input="$v.user.email.$touch()"
+                @blur="$v.user.email.$touch()"
                 type="email"
                 label="Email"
                 outlined
@@ -38,6 +41,9 @@
               <v-text-field
                 v-model="newPassword"
                 :disabled="!correctPassword"
+                :error-messages="passwordErrors"
+                @input="$v.newPassword.$touch()"
+                @blur="$v.newPassword.$touch()"
                 type="password"
                 label="New password"
                 outlined
@@ -47,6 +53,9 @@
               <v-text-field
                 v-model="passwordConfirmation"
                 :disabled="!correctPassword"
+                :error-messages="confirmPasswordErrors"
+                @input="$v.passwordConfirmation.$touch()"
+                @blur="$v.passwordConfirmation.$touch()"
                 type="password"
                 label="Confirm password"
                 outlined
@@ -101,12 +110,67 @@
 <script>
 import gql from 'graphql-tag'
 import { mapActions } from 'vuex'
-
+import {
+  email,
+  required,
+  requiredIf,
+  sameAs,
+  minLength
+} from 'vuelidate/lib/validators'
 export default {
   name: 'SettingsAccount',
   computed: {
     userId() {
       return this.$auth.user.id
+    },
+    emailErrors() {
+      const errors = []
+      if (!this.$v.user.email.$dirty) return errors
+      !this.$v.user.email.email && errors.push('email is invalid')
+      !this.$v.user.email.isUnique && errors.push('email is already in use')
+      !this.$v.user.email.required && errors.push('email is required')
+      return errors
+    },
+    passwordErrors() {
+      const errors = []
+      if (!this.$v.newPassword.$dirty) return errors
+      !this.$v.newPassword.required && errors.push('password is required')
+      !this.$v.newPassword.minLength &&
+        errors.push('password should have a minimum length of 8 characters')
+      return errors
+    },
+    confirmPasswordErrors() {
+      const errors = []
+      if (!this.$v.passwordConfirmation.$dirty) return errors
+      !this.$v.passwordConfirmation.required &&
+        errors.push('password confirmation is required')
+      !this.$v.passwordConfirmation.sameAsNewPassword &&
+        errors.push('password does not match')
+      return errors
+    }
+  },
+  validations: {
+    user: {
+      email: {
+        email,
+        required,
+        isUnique(v) {
+          if (v === '') return !this.emailExists
+          return !this.emailExists
+        }
+      }
+    },
+    newPassword: {
+      required: requiredIf(function() {
+        return this.correctPassword && this.newPassword
+      }),
+      minLength: minLength(8)
+    },
+    passwordConfirmation: {
+      required: requiredIf(function() {
+        return this.correctPassword && this.newPassword
+      }),
+      sameAsNewPassword: sameAs('newPassword')
     }
   },
   watch: {
@@ -167,11 +231,16 @@ export default {
       await this.$axios.$post('auth/change-password', { password })
     },
     async onSubmit() {
+      this.$v.$touch()
+      if (this.$v.$invalid) return
+
       const email = this.user.email
       const newPassword = this.newPassword
       try {
-        await this.changeUserEmail(email)
-        await this.changeUserPassword(newPassword)
+        if (email && email !== this.$auth.user.email)
+          await this.changeUserEmail(email)
+        if (newPassword && this.correctPassword)
+          await this.changeUserPassword(newPassword)
         this.message.err = false
         this.message.icon = 'mdi-check'
         this.message.text = 'Your account settings were successfully updated! '

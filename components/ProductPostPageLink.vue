@@ -4,11 +4,16 @@
     :label="label"
     :prepend-icon="icon"
     :color="color"
+    :error-messages="linkErrors"
+    @input="$v.link.$touch()"
+    @blur="$v.link.$touch()"
     type="url"
   ></v-text-field>
 </template>
 
 <script>
+import { requiredIf } from 'vuelidate/lib/validators'
+
 export default {
   name: 'ProductPostPageLink',
   props: {
@@ -24,9 +29,9 @@ export default {
       type: String,
       default: 'primary'
     },
-    rules: {
-      type: String,
-      default: null
+    isRequired: {
+      type: Boolean,
+      default: false
     },
     pLink: {
       type: String,
@@ -36,6 +41,22 @@ export default {
   data() {
     return {
       link: this.pLink
+    }
+  },
+  computed: {
+    linkErrors() {
+      const errors = []
+      if (!this.$v.link.$dirty) return errors
+      !this.$v.link.required &&
+        errors.push('at least the website link has to be provided')
+      return errors
+    }
+  },
+  validations: {
+    link: {
+      required: requiredIf(function() {
+        return this.isRequired
+      })
     }
   }
 }

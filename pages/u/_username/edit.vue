@@ -99,7 +99,7 @@ export default {
         this.message.text = 'Your profile was successfully updated!'
       } catch (e) {
         this.message.err = true
-        this.message.icon = 'mdi-cross'
+        this.message.icon = 'mdi-close'
         this.message.text = 'An error occured'
       } finally {
         this.message.display = true

@@ -2,6 +2,8 @@
   <v-autocomplete
     v-model="makers"
     :items="users"
+    :error-messages="makersErrors"
+    @blur="$v.makers.$touch()"
     @input="addMaker"
     multiple
     label="Makers"
@@ -52,6 +54,8 @@
 
 <script>
 import gql from 'graphql-tag'
+import { required } from 'vuelidate/lib/validators'
+
 export default {
   name: 'ProductPostPageProductMakers',
   props: {
@@ -71,6 +75,22 @@ export default {
   data() {
     return {
       makers: this.pMakers.map(({ id }) => id)
+    }
+  },
+  validations: {
+    makers: {
+      required
+    }
+  },
+  computed: {
+    makersErrors() {
+      const errors = []
+      if (!this.$v.makers.$dirty) return errors
+      !this.$v.makers.required &&
+        errors.push(
+          "there can't be a product without at least one maker... duh!"
+        )
+      return errors
     }
   },
   methods: {
@@ -113,6 +133,7 @@ export default {
             }
           }
         })
+        this.$v.makers.$touch()
       }
     }
   },

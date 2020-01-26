@@ -14,6 +14,8 @@
           v-on="on"
           prepend-icon="mdi-cake-variant"
           readonly
+          placeholder="1999"
+          hint="Party like it's 1999 (0 2 1)"
         ></v-text-field>
       </template>
       <v-date-picker v-model="userBirthDate" :max="validDate()" scrollable>
@@ -38,7 +40,7 @@ export default {
   },
   data() {
     return {
-      userBirthDate: this.birthDate.split('T')[0],
+      userBirthDate: this.birthDate.split('T')[0] || null,
       modal: false
     }
   },
@@ -46,7 +48,7 @@ export default {
     validDate() {
       const date = new Date()
       const thisYear = date.getFullYear()
-      return `${thisYear - 16}`
+      return `${thisYear - 18}`
     }
   }
 }

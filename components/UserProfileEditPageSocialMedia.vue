@@ -82,19 +82,15 @@ export default {
     socialLink: {
       type: String,
       default: null
+    },
+    socialNetworks: {
+      type: Array,
+      required: true
     }
   },
   data() {
     return {
-      socialMedia: [
-        { value: 'Facebook', icon: 'facebook-box' },
-        { value: 'Twitter', icon: 'twitter-box' },
-        { value: 'Instagram', icon: 'instagram' },
-        { value: 'LinkedIn', icon: 'linkedin-box' },
-        { value: 'Medium', icon: 'medium' },
-        { value: 'YouTube', icon: 'youtube' },
-        { value: 'Website', icon: 'web' }
-      ],
+      socialMedia: this.socialNetworks,
       link: {
         media: getMediaType(this.socialLink),
         contact: getContactInfo(this.socialLink)

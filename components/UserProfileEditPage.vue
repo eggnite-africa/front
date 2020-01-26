@@ -5,17 +5,35 @@
     </v-row>
     <v-row dense>
       <v-col>
-        <v-text-field v-model="userFirstName" label="First Name"></v-text-field>
+        <v-text-field
+          v-model.trim="userFirstName"
+          :error-messages="userFirstNameErrors"
+          @input="$v.userFirstName.$touch()"
+          @blur="$v.userFirstName.$touch()"
+          label="First Name"
+        ></v-text-field>
       </v-col>
       <v-col>
-        <v-text-field v-model="userLastName" label="Last Name"></v-text-field>
+        <v-text-field
+          v-model.trim="userLastName"
+          :error-messages="userLastNameErrors"
+          @input="$v.userLastName.$touch()"
+          @blur="$v.userLastName.$touch()"
+          label="Last Name"
+        ></v-text-field>
       </v-col>
     </v-row>
     <v-row dense>
       <v-col>
         <header>Sex</header>
 
-        <v-radio-group v-model="userSex" row>
+        <v-radio-group
+          v-model="userSex"
+          :error-messages="userSexErrors"
+          @input="$v.userSex.$touch()"
+          @blur="$v.userSex.$touch()"
+          row
+        >
           <v-radio label="Male" value="MALE" color="white"></v-radio>
           <v-radio label="Female" value="FEMALE" color="white"></v-radio>
         </v-radio-group>
@@ -48,10 +66,11 @@
             :is="link"
             :key="index"
             :social-link="userSocialLinks[index]"
+            :social-networks="socialNetworks"
           >
             <div>
               <v-btn
-                @click="addSocialMediaLink()"
+                @click="addSocialMediaLink(index)"
                 color="primary"
                 icon
                 rounded
@@ -69,6 +88,7 @@
 
 <script>
 import gql from 'graphql-tag'
+import { required, minLength } from 'vuelidate/lib/validators'
 import UserAvatar from '@/components/shared/SingleImageUpload.vue'
 import SocialMediaLink from '@/components/UserProfileEditPageSocialMedia.vue'
 import OccupationField from '@/components/shared/OccupationField.vue'
@@ -129,7 +149,53 @@ export default {
       userSex: this.sex,
       userBio: this.bio,
       userSocialLinks: this.socialLinks.filter((link) => link !== 'null'),
-      socialMediaLinks: []
+      socialMediaLinks: [],
+      socialNetworks: [
+        { value: 'Facebook', icon: 'facebook-box' },
+        { value: 'Twitter', icon: 'twitter-box' },
+        { value: 'Instagram', icon: 'instagram' },
+        { value: 'LinkedIn', icon: 'linkedin-box' },
+        { value: 'Medium', icon: 'medium' },
+        { value: 'YouTube', icon: 'youtube' },
+        { value: 'Website', icon: 'web' }
+      ]
+    }
+  },
+  computed: {
+    userFirstNameErrors() {
+      const errors = []
+      if (!this.$v.userFirstName.$dirty) return errors
+      !this.$v.userFirstName.required && errors.push('first name is required')
+      !this.$v.userFirstName.minLength &&
+        errors.push('first name should be at least 3 characters long')
+      return errors
+    },
+    userLastNameErrors() {
+      const errors = []
+      if (!this.$v.userLastName.$dirty) return errors
+      !this.$v.userLastName.required && errors.push('last name is required')
+      !this.$v.userLastName.minLength &&
+        errors.push('last name should be at least 3 characters long')
+      return errors
+    },
+    userSexErrors() {
+      const errors = []
+      if (!this.$v.userSex.$dirty) return errors
+      !this.$v.userSex.required && errors.push('sex is required... 🍆🍑')
+      return errors
+    }
+  },
+  validations: {
+    userFirstName: {
+      required,
+      minLength: minLength(3)
+    },
+    userLastName: {
+      required,
+      minLength: minLength(3)
+    },
+    userSex: {
+      required
     }
   },
   created() {
@@ -139,9 +205,26 @@ export default {
     this.userSocialLinks.forEach((link) => this.addSocialMediaLink())
   },
   methods: {
-    addSocialMediaLink() {
+    isValid() {
+      this.$v.$touch()
+      const occupationFieldIsValid = this.$refs.userOccupationField.isValid()
+      return !this.$v.$invalid && occupationFieldIsValid
+    },
+    addSocialMediaLink(i) {
       this.userSocialLinks.push('')
       this.socialMediaLinks.push(SocialMediaLink)
+      if (i >= 0) {
+        const link = this.$refs[`smLink-${i}`][0].getSocialMediaLink()
+        if (link === null) return
+        const is = (value) => link.includes(value)
+        const filter = (value) =>
+          this.socialNetworks.filter((network) => network.value !== value)
+        this.socialNetworks.forEach((n) => {
+          if (is(n.value)) {
+            this.socialNetworks = filter(n.value)
+          }
+        })
+      }
     },
     getProfileInfo() {
       const [
@@ -184,6 +267,8 @@ export default {
       }
     },
     async updateUserProfile() {
+      if (!this.isValid()) throw Error
+
       const {
         profilePicture,
         firstName,
