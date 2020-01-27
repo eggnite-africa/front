@@ -175,7 +175,7 @@ export default {
   },
   computed: {
     productLink() {
-      const productUrl = this.product.name.replace(' ', '-')
+      const productUrl = this.product.name.replace(/ /gi, '-')
       return `/p/${productUrl}`
     },
     votersIds() {

@@ -126,7 +126,7 @@ export default {
       return this.$route.params.name
     },
     productName() {
-      const productName = this.productUrl.replace('-', ' ')
+      const productName = this.productUrl.replace(/-/g, ' ')
       return productName
     },
     votersIds() {

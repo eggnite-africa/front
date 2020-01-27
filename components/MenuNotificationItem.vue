@@ -56,7 +56,7 @@ export default {
       return this.$auth.loggedIn
     },
     notificationLink() {
-      const productUrl = this.product.name.replace(' ', '-')
+      const productUrl = this.product.name.replace(/ /gi, '-')
       const productLink = `/p/${productUrl}`
       if (this.vote) return productLink
       else {

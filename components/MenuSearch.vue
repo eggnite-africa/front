@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     navigateToProduct(name) {
-      this.$router.push(`/p/${name.replace(' ', '-')}`)
+      this.$router.push(`/p/${name.replace(/ /gi, '-')}`)
     }
   }
 }

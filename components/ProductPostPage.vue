@@ -254,7 +254,7 @@ export default {
         }
       },
       variables() {
-        const name = this.$route.params.name.replace('-', ' ')
+        const name = this.$route.params.name.replace(/-/g, ' ')
         return {
           name
         }
@@ -375,7 +375,7 @@ export default {
           }
         })
         .then(() => {
-          const productUrl = `/p/${name.replace(' ', '-')}`
+          const productUrl = `/p/${name.replace(/ /gi, '-')}`
           this.$router.replace(productUrl)
         })
     },

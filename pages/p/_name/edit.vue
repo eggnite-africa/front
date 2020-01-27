@@ -39,7 +39,7 @@ export default {
   },
   computed: {
     productName() {
-      return this.$route.params.name.replace('-', ' ')
+      return this.$route.params.name.replace(/-/g, ' ')
     }
   },
   methods: {
