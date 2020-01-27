@@ -5,7 +5,9 @@
 <script>
 export default {
   middleware({ store, redirect }) {
-    return redirect(`/u/${store.$auth.user.username}/settings/account`)
+    if (store.$auth.user)
+      redirect(`/u/${store.$auth.user.username}/settings/account`)
+    else redirect('/')
   }
 }
 </script>
