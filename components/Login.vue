@@ -15,14 +15,14 @@
       <v-container>
         <v-text-field
           v-model="username"
-          @keypress.enter.native="onSubmit()"
+          @keypress.enter.native.prevent="onSubmit()"
           label="Username"
           outlined
         ></v-text-field>
 
         <v-text-field
           v-model="password"
-          @keypress.enter.native="onSubmit()"
+          @keypress.enter.native.prevent="onSubmit()"
           label="Password"
           outlined
           type="password"
@@ -48,7 +48,8 @@ export default {
     }),
     async onSubmit() {
       const [username, password] = [this.username, this.password]
-      await this.login({ username, password })
+      if (username && password.length >= 8)
+        await this.login({ username, password })
     },
     closeDialog() {
       this.$emit('close-dialog')
