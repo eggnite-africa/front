@@ -58,6 +58,6 @@ export default {
       }
     }
   },
-  middleware: ['auth']
+  middleware: ['auth', 'isProductOwner']
 }
 </script>
