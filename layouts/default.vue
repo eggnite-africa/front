@@ -41,21 +41,23 @@
     </v-content>
 
     <v-footer fixed app>
-      <v-dialog v-model="dialog" max-width="500">
-        <template #activator="{ on }">
-          <v-btn v-on="on" class="mb-8" fixed fab right bottom color="info">
-            <v-icon>mdi-voice</v-icon>
-          </v-btn>
-        </template>
+      <client-only>
+        <v-dialog v-model="dialog" v-if="$auth.loggedIn" max-width="500">
+          <template #activator="{ on }">
+            <v-btn v-on="on" class="mb-8" fixed fab right bottom color="info">
+              <v-icon>mdi-voice</v-icon>
+            </v-btn>
+          </template>
 
-        <v-card>
-          <v-card-title>Your voice matters!</v-card-title>
-          <v-card-text
-            >Your feedback is more than welcome... If you'd like to be part of
-            the larger community and give your feedback...</v-card-text
-          >
-        </v-card>
-      </v-dialog>
+          <v-card>
+            <v-card-title>Your voice matters!</v-card-title>
+            <v-card-text
+              >Your feedback is more than welcome... If you'd like to be part of
+              the larger community and give your feedback...</v-card-text
+            >
+          </v-card>
+        </v-dialog>
+      </client-only>
       <span>&copy; 2019</span>
     </v-footer>
   </v-app>
