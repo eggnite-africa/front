@@ -3,7 +3,7 @@
     <v-card-text>
       <blockquote class="blockquote">
         <div>
-          <p v-text="comment.content" class="font-italic"></p>
+          <p v-text="comment.content"></p>
           <footer>
             {{ product.name }}
           </footer>
