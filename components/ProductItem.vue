@@ -1,5 +1,5 @@
 <template>
-  <v-card @click="navigateToProductPage()" nuxt>
+  <v-card @click="navigateToProductPage()">
     <v-container>
       <v-row dense align="center">
         <v-col cols="3" sm="1">

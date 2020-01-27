@@ -1,8 +1,8 @@
 <template>
   <div v-if="!$apollo.queries.products.loading">
     <v-row
-      v-for="(product, index) in products"
-      :key="index"
+      v-for="product in products"
+      :key="product.id"
       justify="center"
       align="center"
     >
