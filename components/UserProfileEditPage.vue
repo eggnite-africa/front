@@ -116,7 +116,7 @@ export default {
       required: true
     },
     birthDate: {
-      type: String,
+      type: null,
       required: true
     },
     sex: {
