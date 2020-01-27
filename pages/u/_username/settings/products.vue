@@ -47,6 +47,6 @@ export default {
       }
     }
   },
-  middleware: ['auth']
+  middleware: ['auth', 'isAccountOwner']
 }
 </script>
