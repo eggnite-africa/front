@@ -82,5 +82,8 @@ export default {
   text-decoration: none;
   color: #bdbdbd;
   margin-right: 0.5rem;
+  &:hover {
+    color: #e0e0e0;
+  }
 }
 </style>
