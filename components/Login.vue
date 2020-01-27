@@ -11,6 +11,11 @@
         </v-icon>
       </v-btn>
     </v-card-title>
+    <v-card-subtitle class="hidden-sm-and-up"
+      >Don't have an account?
+      <nuxt-link @click.native="closeDialog()" to="/signup">join us</nuxt-link
+      >!</v-card-subtitle
+    >
     <form>
       <v-container>
         <v-text-field
