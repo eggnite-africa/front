@@ -33,8 +33,7 @@ export default {
   computed: {
     commentUrl() {
       const productUrl = this.product.name.replace(/ /gi, '-')
-      const commentSection = `/p/${productUrl}#comments`
-      return `${commentSection}/${this.comment.id}`
+      return `/p/${productUrl}#comments`
     }
   },
   apollo: {
