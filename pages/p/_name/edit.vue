@@ -57,6 +57,7 @@ export default {
         this.message.display = true
       }
     }
-  }
+  },
+  middleware: ['auth']
 }
 </script>
