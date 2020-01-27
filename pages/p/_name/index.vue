@@ -181,7 +181,8 @@ export default {
           {
             id: '',
             content: '',
-            userId: ''
+            userId: '',
+            postedAt: ''
           }
         ],
         votes: [
@@ -223,6 +224,7 @@ export default {
               id
               content
               userId
+              postedAt
             }
             votes {
               userId

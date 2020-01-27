@@ -1,37 +1,19 @@
 <template>
   <v-card v-if="!$apollo.queries.user.loading" elevation="0">
-    <v-row dense align="baseline" class="mb-n5">
-      <v-col cols="2" sm="1" class="mr-md-n6">
-        <v-avatar
-          @click="navigateToUrl(userUrl)"
-          left
-          color="blue"
-          size="56"
-          class="mt-4"
-        >
-          <client-only>
-            <v-img :src="user.profile.profilePicture"></v-img>
-          </client-only>
-        </v-avatar>
-      </v-col>
-      <v-col>
-        <v-card-title @click="navigateToUrl(userUrl)">
-          <div class="mr-auto">
-            {{ `${user.profile.firstName} ${user.profile.lastName}` }}
-            <span class="subtitle-1 font-weight-thin">
-              {{ `(@${user.username})` }}</span
-            >
-          </div>
-          <div class="ml-auto overline">
-            <!-- comment (creation) date should go here -->
-          </div>
-        </v-card-title>
-        <v-card-subtitle class="text-justify">
-          {{ user.profile.bio }}
-        </v-card-subtitle>
-      </v-col>
-    </v-row>
-    <v-card-text class="text-justify">
+    <v-list-item :to="`/u/${user.username}`" nuxt>
+      <v-list-item-avatar size="56">
+        <v-img :src="user.profile.profilePicture"></v-img>
+      </v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title>
+          {{ `${user.profile.firstName} ${user.profile.lastName}` }}
+          <span class="font-weight-thin">{{ `(@${user.username})` }}</span>
+        </v-list-item-title>
+        <v-list-item-subtitle> {{ user.profile.bio }} </v-list-item-subtitle>
+      </v-list-item-content>
+      <span class="ml-auto overline"> {{ postedAt }} </span>
+    </v-list-item>
+    <v-card-text>
       {{ comment.content }}
     </v-card-text>
     <v-card-actions v-if="isOwner" class="mt-n5">
@@ -62,6 +44,11 @@ export default {
     },
     userUrl() {
       return `/u/${this.user.username}`
+    },
+    postedAt() {
+      const date = this.$dateFns.parseISO(this.comment.postedAt)
+      const formattedDate = this.$dateFns.format(date, 'd MMMM yyy')
+      return formattedDate
     }
   },
   apollo: {
