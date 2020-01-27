@@ -106,7 +106,7 @@ export default {
   },
   methods: {
     async removeMaker({ id }) {
-      if (this.makers.length === 1) {
+      if (this.makers.length === 1 && this.isEdit) {
         this.err = true
         return
       }
