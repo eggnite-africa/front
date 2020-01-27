@@ -58,7 +58,7 @@
           </v-card>
         </v-dialog>
       </client-only>
-      <span>&copy; 2019</span>
+      <span>&copy; {{ $dateFns.getYear(new Date()) }}</span>
     </v-footer>
   </v-app>
 </template>
