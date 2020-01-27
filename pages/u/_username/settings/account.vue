@@ -270,6 +270,7 @@ export default {
           await this.logout()
         })
     }
-  }
+  },
+  middleware: ['auth']
 }
 </script>

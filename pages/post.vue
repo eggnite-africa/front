@@ -23,6 +23,7 @@ export default {
     onSubmit() {
       this.$refs.productPost.addProduct()
     }
-  }
+  },
+  middleware: 'auth'
 }
 </script>
