@@ -31,6 +31,12 @@ export default {
         }
       `
     }
+  },
+  head() {
+    return {
+      titleTemplate: null,
+      title: '🚀 Eggnite'
+    }
   }
 }
 </script>

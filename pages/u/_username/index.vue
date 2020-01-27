@@ -109,6 +109,30 @@ export default {
       return this.$route.params.username
     }
   },
+  asyncData() {
+    return {
+      user: {
+        profile: {
+          profilePicture: '',
+          firstName: '',
+          lastName: '',
+          sex: '',
+          university: '',
+          bio: '',
+          socialLinks: ['']
+        },
+        products: [{ id: '' }],
+        votes: [{ productId: '' }],
+        comments: [
+          {
+            id: '',
+            content: '',
+            productId: ''
+          }
+        ]
+      }
+    }
+  },
   apollo: {
     user: {
       query: gql`
@@ -118,6 +142,7 @@ export default {
               profilePicture
               firstName
               lastName
+              sex
               university
               bio
               socialLinks
@@ -153,6 +178,38 @@ export default {
       } else {
         return false
       }
+    }
+  },
+  head() {
+    return {
+      title: '@' + this.username,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.user.profile.bio
+        },
+        {
+          property: 'og:type',
+          content: 'profile'
+        },
+        {
+          property: 'profile:first_name',
+          content: this.user.profile.firstName
+        },
+        {
+          property: 'profile:last_name',
+          content: this.user.profile.lastName
+        },
+        {
+          property: 'profile:username',
+          content: this.username
+        },
+        {
+          property: 'profile:gender',
+          content: this.user.profile.sex
+        }
+      ]
     }
   }
 }

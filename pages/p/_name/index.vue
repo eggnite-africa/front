@@ -150,6 +150,48 @@ export default {
       )
     }
   },
+  asyncData() {
+    return {
+      product: {
+        id: '',
+        name: '',
+        tagline: '',
+        media: {
+          logo: '',
+          pictures: ['']
+        },
+        description: '',
+        makers: [
+          {
+            username: '',
+            profile: {
+              profilePicture: '',
+              firstName: '',
+              lastName: ''
+            }
+          }
+        ],
+        links: {
+          website: '',
+          github: '',
+          appStore: '',
+          playStore: ''
+        },
+        comments: [
+          {
+            id: '',
+            content: '',
+            userId: ''
+          }
+        ],
+        votes: [
+          {
+            userId: ''
+          }
+        ]
+      }
+    }
+  },
   apollo: {
     product: {
       query: gql`
@@ -235,6 +277,42 @@ export default {
           })
           .then(() => this.$apollo.queries.product.refetch())
       }
+    }
+  },
+  head() {
+    return {
+      title: this.product.name,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.product.tagline
+        },
+        {
+          property: 'og:title',
+          content: this.product.name
+        },
+        {
+          property: 'og:url',
+          content: this.$route.fullPath
+        },
+        {
+          property: 'og:image',
+          content: this.product.media.logo
+        },
+        {
+          property: 'og:type',
+          content: 'website'
+        },
+        {
+          property: 'og:description',
+          content: this.product.tagline
+        },
+        {
+          property: 'twitter:card',
+          content: 'summary_large_image'
+        }
+      ]
     }
   }
 }

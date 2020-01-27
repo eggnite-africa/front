@@ -69,6 +69,16 @@ export default {
       }
     }
   },
-  middleware: ['auth', 'isAccountOwner']
+  middleware: ['auth', 'isAccountOwner'],
+  head() {
+    return {
+      meta: [
+        {
+          name: 'robots',
+          content: 'noindex,nofollow'
+        }
+      ]
+    }
+  }
 }
 </script>

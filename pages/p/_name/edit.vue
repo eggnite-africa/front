@@ -58,6 +58,17 @@ export default {
       }
     }
   },
-  middleware: ['auth', 'isProductOwner']
+  middleware: ['auth', 'isProductOwner'],
+  head() {
+    return {
+      title: 'Edit ' + this.productName,
+      meta: [
+        {
+          name: 'robots',
+          content: 'noindex,nofollow'
+        }
+      ]
+    }
+  }
 }
 </script>

@@ -12,6 +12,16 @@ export default {
         redirect(`/u/${store.$auth.user.username}/settings/account`)
       else redirect('/')
     }
-  ]
+  ],
+  head() {
+    return {
+      meta: [
+        {
+          name: 'robots',
+          content: 'noindex,nofollow'
+        }
+      ]
+    }
+  }
 }
 </script>

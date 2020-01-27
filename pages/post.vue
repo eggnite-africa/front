@@ -24,6 +24,11 @@ export default {
       this.$refs.productPost.addProduct()
     }
   },
-  middleware: 'auth'
+  middleware: 'auth',
+  head() {
+    return {
+      title: 'Post'
+    }
+  }
 }
 </script>

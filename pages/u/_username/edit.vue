@@ -106,6 +106,17 @@ export default {
       }
     }
   },
-  middleware: ['auth', 'isAccountOwner']
+  middleware: ['auth', 'isAccountOwner'],
+  head() {
+    return {
+      title: '🎨 Edit Profile',
+      meta: [
+        {
+          name: 'robots',
+          content: 'noindex,nofollow'
+        }
+      ]
+    }
+  }
 }
 </script>

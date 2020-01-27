@@ -62,6 +62,17 @@ export default {
         }
       ]
     }
+  },
+  head() {
+    return {
+      title: '⚙ Settings',
+      meta: [
+        {
+          name: 'robots',
+          content: 'noindex,nofollow'
+        }
+      ]
+    }
   }
 }
 </script>

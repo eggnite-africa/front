@@ -292,6 +292,11 @@ export default {
           await this.login()
         })
     }
+  },
+  head() {
+    return {
+      title: 'signup'
+    }
   }
 }
 </script>
