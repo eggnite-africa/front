@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Sign up</v-card-title>
+    <v-card-title>Join us</v-card-title>
 
     <v-stepper v-model="currentStep">
       <v-stepper-header>
@@ -86,7 +86,7 @@
         >Continue</v-btn
       >
       <v-btn @click="signUp()" v-if="currentStep === 2" depressed color="green"
-        >Sign up</v-btn
+        >Join</v-btn
       >
     </v-card-actions>
   </v-card>
@@ -99,7 +99,7 @@ import { email, required, sameAs, minLength } from 'vuelidate/lib/validators'
 import UserProfileEdit from '@/components/UserProfileEditPage.vue'
 
 export default {
-  name: 'SignUpPage',
+  name: 'JoinUsPage',
   components: { UserProfileEdit },
   computed: {
     emailErrors() {
@@ -295,7 +295,7 @@ export default {
   },
   head() {
     return {
-      title: 'signup'
+      title: '🌍 Join'
     }
   }
 }

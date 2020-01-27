@@ -19,8 +19,8 @@
       </v-row>
     </template>
     <template v-else>
-      <v-btn color="red" outlined class="mr-1 hidden-xs-only" nuxt to="/signup"
-        >signup</v-btn
+      <v-btn color="red" outlined class="mr-1 hidden-xs-only" nuxt to="/join"
+        >join</v-btn
       >
       <v-dialog v-model="dialog" persistent max-width="300">
         <template #activator="{ on }">

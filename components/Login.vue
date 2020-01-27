@@ -13,7 +13,7 @@
     </v-card-title>
     <v-card-subtitle class="hidden-sm-and-up"
       >Don't have an account?
-      <nuxt-link @click.native="closeDialog()" to="/signup">join us</nuxt-link
+      <nuxt-link @click.native="closeDialog()" to="/join">join us</nuxt-link
       >!</v-card-subtitle
     >
     <form>

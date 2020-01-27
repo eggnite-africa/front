@@ -46,7 +46,7 @@ export default {
     placeholder() {
       const isLoggedIn = this.$auth.loggedIn
       if (isLoggedIn) return ''
-      else return 'Please login or signup to add a comment'
+      else return 'Please login or join us to add a comment'
     }
   },
   methods: {
