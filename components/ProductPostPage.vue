@@ -375,8 +375,12 @@ export default {
           }
         })
         .then(() => {
-          const productUrl = `/p/${name.replace(/ /gi, '-')}`
-          this.$router.replace(productUrl)
+          const productName = name.replace(/ /gi, '-')
+          const congrats = this.$auth.user.products.length === 1
+          this.$router.replace({
+            name: 'p-name',
+            params: { name: productName, congrats }
+          })
         })
     },
     async updateProduct() {

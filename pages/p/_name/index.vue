@@ -1,110 +1,148 @@
 <template>
-  <div v-if="!$apollo.queries.product.loading">
-    <v-row>
-      <v-col cols="12">
-        <v-card>
-          <v-container>
-            <v-row align="center" dense tag="section">
-              <v-col cols="3" sm="2" md="1">
-                <v-avatar size="72">
-                  <client-only>
-                    <v-img :src="product.media.logo" contain></v-img>
-                  </client-only>
-                </v-avatar>
-              </v-col>
-              <v-col class="ml-md-n2 ml-sm-n10">
-                <v-card-title>{{ product.name }}</v-card-title>
-                <v-card-subtitle>{{ product.tagline }}</v-card-subtitle>
-              </v-col>
+  <div>
+    <v-dialog v-model="congrats" persistent max-width="500">
+      <v-card>
+        <v-card-title>🎉🎊 Congratulation</v-card-title>
+        <v-card-text>
+          <p>
+            Creating a product, is no small feat, no matter what the product is;
+            To create, it not only takes technical know-how but also creativity.
+            And if only for this, you deserve to be applauded 👏🏼 <br />
+            <br />
+            However, as I'm sure you already know, the real thing™ starts now.
+            It is time for you to share your creation with whomever listens.<br />
+            <br />
+            In practical terms what does it mean?
+          </p>
+          <ol>
+            <li>Post it here ✅</li>
+            <li>Solicitate the community's feedback</li>
+            <li>Share it: on social media, irl etc...</li>
+            <li>Listen. Listen. Listen.</li>
+          </ol>
+          <br />
+          <v-img
+            max-width="300"
+            class="mx-auto"
+            src="https://media.giphy.com/media/l41JU9pUyosHzWyuQ/giphy.gif"
+          />
+          <br />
+          <span>~ Karim</span>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click.stop="congrats = false" text icon class="ml-auto">
+            <v-icon tag="span">💪🏼</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <div v-if="!$apollo.queries.product.loading">
+      <v-row>
+        <v-col cols="12">
+          <v-card>
+            <v-container>
+              <v-row align="center" dense tag="section">
+                <v-col cols="3" sm="2" md="1">
+                  <v-avatar size="72">
+                    <client-only>
+                      <v-img :src="product.media.logo" contain></v-img>
+                    </client-only>
+                  </v-avatar>
+                </v-col>
+                <v-col class="ml-md-n2 ml-sm-n10">
+                  <v-card-title>{{ product.name }}</v-card-title>
+                  <v-card-subtitle>{{ product.tagline }}</v-card-subtitle>
+                </v-col>
 
-              <v-col cols="3" sm="2" md="1">
-                <v-btn
-                  v-if="isOwner"
-                  :to="`${productUrl}/edit`"
-                  color="indigo"
-                  depressed
-                  nuxt
-                  >Edit</v-btn
-                >
-              </v-col>
-            </v-row>
+                <v-col cols="3" sm="2" md="1">
+                  <v-btn
+                    v-if="isOwner"
+                    :to="`${productUrl}/edit`"
+                    color="indigo"
+                    depressed
+                    nuxt
+                    >Edit</v-btn
+                  >
+                </v-col>
+              </v-row>
 
-            <v-row dense tag="section">
-              <v-col>
-                <product-images
-                  :pictures="product.media.pictures"
-                ></product-images>
-              </v-col>
-            </v-row>
+              <v-row dense tag="section">
+                <v-col>
+                  <product-images
+                    :pictures="product.media.pictures"
+                  ></product-images>
+                </v-col>
+              </v-row>
 
-            <v-row align="start" tag="section">
-              <v-col cols="12" md="8">
-                <v-row dense>
-                  <v-col>
-                    <header>Description</header>
-                    <p class="text-justify body-1">
-                      {{ product.description }}
-                    </p>
-                  </v-col>
-                </v-row>
-
-                <v-row dense>
-                  <v-col cols="12">
-                    <header>
-                      {{ product.makers.length > 1 ? 'Makers' : 'Maker' }}
-                    </header>
-                  </v-col>
-                  <v-row>
-                    <v-col
-                      v-for="(maker, i) in product.makers"
-                      :key="i"
-                      cols="6"
-                      sm="4"
-                    >
-                      <maker-avatar
-                        :maker-username="maker.username"
-                        :maker-name="
-                          `${maker.profile.firstName} ${maker.profile.lastName}`
-                        "
-                        :maker-picture="maker.profile.profilePicture"
-                      ></maker-avatar>
+              <v-row align="start" tag="section">
+                <v-col cols="12" md="8">
+                  <v-row dense>
+                    <v-col>
+                      <header>Description</header>
+                      <p class="text-justify body-1">
+                        {{ product.description }}
+                      </p>
                     </v-col>
                   </v-row>
-                </v-row>
-              </v-col>
 
-              <v-col cols="12" md="4">
-                <v-btn
-                  :disabled="!this.$auth.loggedIn"
-                  :outlined="!hasVoted"
-                  @click.stop="upvote()"
-                  block
-                  color="orange"
-                  class="my-1"
-                >
-                  <v-icon left>mdi-arrow-up-thick</v-icon>upvote
-                </v-btn>
-                <action-buttons :links="product.links"></action-buttons>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card>
-      </v-col>
-    </v-row>
+                  <v-row dense>
+                    <v-col cols="12">
+                      <header>
+                        {{ product.makers.length > 1 ? 'Makers' : 'Maker' }}
+                      </header>
+                    </v-col>
+                    <v-row>
+                      <v-col
+                        v-for="(maker, i) in product.makers"
+                        :key="i"
+                        cols="6"
+                        sm="4"
+                      >
+                        <maker-avatar
+                          :maker-username="maker.username"
+                          :maker-name="
+                            `${maker.profile.firstName} ${maker.profile.lastName}`
+                          "
+                          :maker-picture="maker.profile.profilePicture"
+                        ></maker-avatar>
+                      </v-col>
+                    </v-row>
+                  </v-row>
+                </v-col>
 
-    <v-row>
-      <v-col cols="12">
-        <v-card>
-          <v-container>
-            <comment-section
-              :product-id="product.id"
-              :comments="product.comments"
-              @update-comments="updateProduct()"
-            ></comment-section>
-          </v-container>
-        </v-card>
-      </v-col>
-    </v-row>
+                <v-col cols="12" md="4">
+                  <v-btn
+                    :disabled="!this.$auth.loggedIn"
+                    :outlined="!hasVoted"
+                    @click.stop="upvote()"
+                    block
+                    color="orange"
+                    class="my-1"
+                  >
+                    <v-icon left>mdi-arrow-up-thick</v-icon>upvote
+                  </v-btn>
+                  <action-buttons :links="product.links"></action-buttons>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card>
+        </v-col>
+      </v-row>
+
+      <v-row>
+        <v-col cols="12">
+          <v-card>
+            <v-container>
+              <comment-section
+                :product-id="product.id"
+                :comments="product.comments"
+                @update-comments="updateProduct()"
+              ></comment-section>
+            </v-container>
+          </v-card>
+        </v-col>
+      </v-row>
+    </div>
   </div>
 </template>
 
@@ -120,6 +158,11 @@ export default {
     ActionButtons,
     ProductImages,
     CommentSection
+  },
+  data() {
+    return {
+      congrats: this.$route.params.congrats || false
+    }
   },
   computed: {
     productUrl() {
