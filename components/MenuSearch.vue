@@ -13,6 +13,7 @@
     item-text="name"
     item-value="name"
     return-object
+    placeholder="Search 👀"
   >
     <template #item="{ item }">
       <v-list-item-avatar>
