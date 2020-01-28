@@ -290,6 +290,7 @@ export default {
         })
         .then(async () => {
           await this.login()
+          this.$router.push({ name: 'index', params: { welcome: true } })
         })
     }
   },
