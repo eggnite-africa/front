@@ -16,7 +16,7 @@
                 <h2
                   v-text="`${user.profile.firstName} ${user.profile.lastName}`"
                 ></h2>
-                <span>
+                <span v-show="user.profile.university">
                   <v-icon dense>mdi-school</v-icon>
                   <span v-text="user.profile.university"></span>
                 </span>
