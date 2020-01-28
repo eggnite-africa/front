@@ -11,7 +11,7 @@
         <v-card-text>
           <p class="white--text">
             Aaslema
-            <span class="font-weight-bold">{{ user.profile.firstName }}</span
+            <span class="font-weight-bold">{{ firstName }}</span
             >, <br />
             <br />
             I want you to know that I'm sincerely happy that you joined our
@@ -72,26 +72,6 @@ export default {
           }
         }
       `
-    },
-    user: {
-      query: gql`
-        query fetchUserFirstName($id: ID!) {
-          user(id: $id) {
-            id
-            profile {
-              firstName
-            }
-          }
-        }
-      `,
-      variables() {
-        return {
-          id: this.$auth.user.id
-        }
-      },
-      skip() {
-        return !this.welcome || !this.$auth.loggedIn
-      }
     }
   },
   head() {
@@ -103,12 +83,7 @@ export default {
   data() {
     return {
       welcome: this.$route.params.welcome || false,
-      user: {
-        id: '',
-        profile: {
-          firstName: ''
-        }
-      }
+      firstName: this.$route.params.firstName || ''
     }
   }
 }
