@@ -66,7 +66,8 @@ export default {
       },
       skip() {
         return !this.$auth.loggedIn
-      }
+      },
+      debounce: 0.0001
     }
   }
 }
