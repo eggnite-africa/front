@@ -52,7 +52,12 @@
     ></occupation-field>
     <v-row dense>
       <v-col>
-        <v-textarea v-model="userBio" label="Bio" outlined></v-textarea>
+        <v-textarea
+          v-model="userBio"
+          label="Bio"
+          outlined
+          rows="2"
+        ></v-textarea>
       </v-col>
     </v-row>
     <v-row dense no-gutters>
