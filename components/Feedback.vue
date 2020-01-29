@@ -22,7 +22,7 @@
           Hey {{ user.profile.firstName }},<br />
           <br />
           I want you to know that I <strong>really</strong> value your input, so
-          if you have any idea on how I can further improve your experience on
+          if you have any ideas on how I can further improve your experience on
           the platform, don't hesitate!<br />
           <br />
           ~ Karim
