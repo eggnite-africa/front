@@ -1,7 +1,16 @@
 <template>
   <v-dialog v-model="dialog" v-if="$auth.loggedIn" max-width="500">
     <template #activator="{ on }">
-      <v-btn v-on="on" class="mb-8" fixed fab right bottom color="info">
+      <v-btn
+        v-on="on"
+        class="mb-10"
+        elevation="3"
+        fixed
+        fab
+        right
+        bottom
+        color="info"
+      >
         <v-icon>mdi-voice</v-icon>
       </v-btn>
     </template>
