@@ -52,7 +52,7 @@ export default {
     userLinks() {
       return [
         {
-          icon: 'mdi-account-details',
+          icon: 'mdi-account-circle',
           name: 'Profile',
           link: this.userProfileLink
         },
