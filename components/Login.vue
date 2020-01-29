@@ -34,6 +34,14 @@
         ></v-text-field>
       </v-container>
     </form>
+
+    <v-card-text>
+      <v-img
+        v-show="wrong"
+        src="https://media.giphy.com/media/3oAt1UMs91SEiHAMow/giphy.gif"
+      ></v-img>
+      <span>{{ tryAgain }}</span>
+    </v-card-text>
   </v-card>
 </template>
 
@@ -44,7 +52,9 @@ export default {
   data() {
     return {
       username: null,
-      password: null
+      password: null,
+      wrong: false,
+      tryAgain: ''
     }
   },
   methods: {
@@ -53,8 +63,16 @@ export default {
     }),
     async onSubmit() {
       const [username, password] = [this.username, this.password]
-      if (username && password.length >= 8)
-        await this.login({ username, password })
+      if (username && password && password.length >= 8)
+        try {
+          await this.login({ username, password })
+        } catch (e) {
+          this.wrong = true
+          setTimeout(() => {
+            this.wrong = false
+            this.tryAgain = 'Try again'
+          }, 3000)
+        }
     },
     closeDialog() {
       this.$emit('close-dialog')
