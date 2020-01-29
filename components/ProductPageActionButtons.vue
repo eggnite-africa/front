@@ -40,15 +40,13 @@
     >
       <v-icon left>mdi-google-play</v-icon>get on google play
     </v-btn>
-    <share-buttons></share-buttons>
   </div>
 </template>
 
 <script>
-import ShareButtons from '@/components/ProductPageActionButtonsShare.vue'
 export default {
   name: 'ProductPageActionButtons',
-  components: { ShareButtons },
+  components: {},
   props: {
     links: {
       type: Object,
