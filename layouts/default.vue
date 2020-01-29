@@ -40,11 +40,26 @@
       </v-container>
     </v-content>
 
+    <client-only>
+      <Feedback />
+    </client-only>
     <v-footer fixed app>
-      <client-only>
-        <Feedback />
-      </client-only>
-      <span>&copy; {{ $dateFns.getYear(new Date()) }}</span>
+      <v-row dense align="center">
+        <v-col>
+          <span>&copy; {{ $dateFns.getYear(new Date()) }}</span>
+        </v-col>
+        <v-col class="d-flex justify-center">
+          <span class="overline">
+            Made with
+            <v-icon x-small color="red">mdi-heart</v-icon> in Tunis
+          </span>
+        </v-col>
+        <v-col class="d-flex justify-end">
+          <v-btn icon small href="https://fb.com/#">
+            <v-icon>mdi-facebook-box</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
     </v-footer>
   </v-app>
 </template>
