@@ -3,7 +3,6 @@
     <h1 v-if="error.statusCode === 404">
       {{ pageNotFound }}
     </h1>
-    <h1 v-else-if="error.statusCode === 401">Auth Error</h1>
     <h1 v-else>not auth error</h1>
     <NuxtLink to="/">
       Home page
