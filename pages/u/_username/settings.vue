@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" sm="3">
-      <v-card height="400" max-width="400">
+      <v-card height="400" max-width="250">
         <v-navigation-drawer permanent>
           <v-list-item>
             <v-list-item-content>
