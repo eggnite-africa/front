@@ -46,14 +46,15 @@ export default {
     FilePond
   },
   props: {
-    // eslint-disable-next-line vue/require-default-prop
     initImage: {
       // Either the profile picture or the product logo
       type: String,
       default: null
     },
-    // eslint-disable-next-line vue/require-default-prop
-    imageLabel: null
+    imageLabel: {
+      type: String,
+      default: null
+    }
   },
   data() {
     return {
