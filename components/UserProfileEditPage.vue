@@ -1,7 +1,10 @@
 <template>
   <form>
     <v-row dense justify="center">
-      <user-avatar :image-label="'your picture'"></user-avatar>
+      <user-avatar
+        :image-label="'your picture'"
+        :init-image="profilePicture"
+      ></user-avatar>
     </v-row>
     <v-row dense>
       <v-col>

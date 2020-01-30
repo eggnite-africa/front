@@ -1,6 +1,7 @@
 <template>
   <client-only>
     <file-pond
+      id="singleImageUploader"
       ref="singleImageUploader"
       :class="{ 'uploaded-file': addedFile }"
       :label-idle="label"
@@ -63,9 +64,12 @@ export default {
       server: {
         process: (fieldName, file, metadata, load, error, progress, abort) => {
           // Upload image to aws s3
-
-          /* eslint-disable no-console */
-          console.log('file: ', file)
+          load(file)
+        },
+        fetch: (url, load) => {
+          fetch(url)
+            .then((file) => file.blob())
+            .then((blob) => load(blob))
         }
       }
     }
@@ -80,20 +84,19 @@ export default {
 }
 </script>
 
-<style>
-.filepond--panel-root {
-  background-color: transparent;
-  border: 0.05em solid whitesmoke;
-}
+<style lang="scss" scoped>
+#singleImageUploader {
+  .filepond--panel-root {
+    background-color: transparent;
+    border: 0.05em solid whitesmoke;
+  }
 
-.filepond--drop-label {
-  color: whitesmoke;
-}
-</style>
-
-<style scoped>
-.uploaded-file >>> .filepond--panel-root {
-  background-color: transparent;
-  border: none;
+  .filepond--drop-label {
+    color: whitesmoke;
+  }
+  .uploaded-file >>> .filepond--panel-root {
+    background-color: transparent;
+    border: none;
+  }
 }
 </style>
