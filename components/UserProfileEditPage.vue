@@ -2,6 +2,7 @@
   <form>
     <v-row dense justify="center">
       <user-avatar
+        ref="userAvatar"
         :image-label="'your picture'"
         :init-image="profilePicture"
       ></user-avatar>
@@ -236,7 +237,6 @@ export default {
     },
     getProfileInfo() {
       const [
-        profilePicture,
         firstName,
         lastName,
         sex,
@@ -245,7 +245,6 @@ export default {
         university,
         bio
       ] = [
-        this.userProfilePicture,
         this.userFirstName,
         this.userLastName,
         this.userSex,
@@ -261,6 +260,8 @@ export default {
         const link = this.$refs[`smLink-${i}`][0].getSocialMediaLink()
         if (link !== null) socialLinks.push(link)
       }
+
+      const profilePicture = this.$refs.userAvatar.getProfilePicture()
 
       return {
         profilePicture,

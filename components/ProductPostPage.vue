@@ -47,12 +47,19 @@
     <v-row justify="center" align="center">
       <v-col cols="12" sm="3">
         <logo-uploader
+          ref="productLogo"
           :image-label="'product logo'"
+          :init-image="product.media.logo"
           class="mx-auto"
         ></logo-uploader>
       </v-col>
       <v-col cols="12" sm="9">
-        <images-uploader></images-uploader>
+        <images-uploader
+          ref="productPictures"
+          :image-label="'product pictures'"
+          :init-images="product.media.pictures"
+          :is-edit="isEdit"
+        ></images-uploader>
       </v-col>
     </v-row>
     <header>Links</header>
@@ -121,7 +128,7 @@ import {
   requiredIf,
   minLength
 } from 'vuelidate/lib/validators'
-import ImagesUploader from '@/components/ProductPostPageImagesUpload.vue'
+import ImagesUploader from '@/components/shared/MultipleImageUploader.vue'
 import LogoUploader from '@/components/shared/SingleImageUpload.vue'
 import ProductLink from '@/components/ProductPostPageLink.vue'
 import ProductMakers from '@/components/ProductPostPageProductMakers.vue'
@@ -151,7 +158,8 @@ export default {
         name: '',
         tagline: '',
         media: {
-          logo: ''
+          logo: '',
+          pictures: ['']
         },
         description: '',
         links: {
@@ -238,6 +246,7 @@ export default {
                 description
                 media {
                   logo
+                  pictures
                 }
                 links {
                   website
@@ -286,7 +295,6 @@ export default {
         id,
         name,
         tagline,
-        logo,
         description,
         website,
         github,
@@ -297,7 +305,6 @@ export default {
         this.product.id,
         this.product.name,
         this.product.tagline,
-        this.product.media.logo,
         this.product.description,
         this.$refs.productWebsite.link,
         this.$refs.productRepo.link,
@@ -305,12 +312,15 @@ export default {
         this.$refs.productPlayStore.link,
         this.$refs.productMakers.makers
       ]
+      const logo = this.$refs.productLogo.getProductLogo()
+      const pictures = this.$refs.productPictures.getProductPictures()
 
       return {
         id,
         name,
         tagline,
         logo,
+        pictures,
         description,
         website,
         github,
@@ -324,6 +334,7 @@ export default {
         name,
         tagline,
         logo,
+        pictures,
         description,
         website,
         github,
@@ -362,7 +373,8 @@ export default {
               tagline,
               description,
               media: {
-                logo
+                logo,
+                pictures
               },
               links: {
                 website,
@@ -376,7 +388,7 @@ export default {
         })
         .then(() => {
           const productName = name.replace(/ /gi, '-')
-          const congrats = this.$auth.user.products.length === 1
+          const congrats = this.$auth.user.products.length === 0
           this.$router.replace({
             name: 'p-name',
             params: { name: productName, congrats }
@@ -388,6 +400,8 @@ export default {
         id,
         tagline,
         description,
+        logo,
+        pictures,
         website,
         github,
         appStore,
@@ -408,6 +422,10 @@ export default {
             id,
             tagline,
             description,
+            media: {
+              logo,
+              pictures
+            },
             links: {
               website,
               github,

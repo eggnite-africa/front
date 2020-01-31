@@ -1,21 +1,15 @@
 <template>
   <client-only>
     <file-pond
-      id="singleImageUploader"
-      ref="singleImageUploader"
+      id="multipleImageUploader"
+      ref="multipleImageUploader"
       @init="handleInit()"
       :files="files"
       :server="server"
       :label-idle="label"
-      style-panel-layout="compact circle"
-      image-crop-aspect-ratio="1:1"
-      image-preview-height="170"
-      image-resize-target-width="200"
-      image-resize-target-height="200"
-      style-load-indicator-position="center bottom"
-      style-button-remove-item-position="center bottom"
-      style="width: 170px"
+      allow-multiple="true"
       allowed-file-type="image/jpeg, image/png, image/gif"
+      class="grid"
     ></file-pond>
   </client-only>
 </template>
@@ -27,17 +21,11 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
-import FilePondPluginImageResize from 'filepond-plugin-image-resize'
-import FilePondPluginImageCrop from 'filepond-plugin-image-crop'
-import FilePondPluginImageTransform from 'filepond-plugin-image-transform'
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode'
 
 const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
   FilePondPluginImagePreview,
-  FilePondPluginImageResize,
-  FilePondPluginImageCrop,
-  FilePondPluginImageTransform,
   FilePondPluginFileEncode
 )
 export default {
@@ -45,14 +33,17 @@ export default {
     FilePond
   },
   props: {
-    initImage: {
-      // Either the profile picture or the product logo
-      type: String,
+    initImages: {
+      type: Array,
       default: null
     },
     imageLabel: {
       type: String,
       default: null
+    },
+    isEdit: {
+      type: Boolean,
+      required: true
     }
   },
   data() {
@@ -73,7 +64,6 @@ export default {
         ) => {
           try {
             const link = await this.uploadImage(file)
-            this.files = []
             this._pushFile(link)
             load(file)
           } catch (e) {
@@ -87,18 +77,14 @@ export default {
         },
         restore: null,
         fetch: null,
-        revert: null,
-        remove: (source, load, err) => {
-          this.files = this.files.filter((file) => file.source !== source)
-          load()
-        }
+        revert: null
       }
     }
   },
   methods: {
     handleInit() {
-      if (this.initImage !== '') {
-        this._pushFile(this.initImage)
+      if (this.isEdit) {
+        this.initImages.forEach((file) => this._pushFile(file))
       }
     },
     _pushFile(file) {
@@ -126,7 +112,6 @@ export default {
     },
     _getImage() {
       const file = this.files[0]
-      if (!file) return ''
       const image = file.source
       return image
     },
@@ -135,24 +120,36 @@ export default {
     },
     getProductLogo() {
       return this._getImage()
+    },
+    getProductPictures() {
+      const pictures = this.files.map((file) => file.source)
+      return pictures
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-#singleImageUploader {
-  .filepond--panel-root {
-    background-color: transparent;
-    border: 0.05em solid whitesmoke;
-  }
+<style>
+.filepond--panel-root {
+  background-color: transparent;
+  border: 0.05em solid whitesmoke;
+}
 
-  .filepond--drop-label {
-    color: whitesmoke;
+.filepond--drop-label {
+  color: whitesmoke;
+}
+</style>
+
+<style scoped>
+@media (min-width: 30em) {
+  .grid >>> .filepond--item {
+    width: calc(50% - 0.5em);
   }
-  .uploaded-file >>> .filepond--panel-root {
-    background-color: transparent;
-    border: none;
+}
+
+@media (min-width: 50em) {
+  .grid >>> .filepond--item {
+    width: calc(33.33% - 0.5em);
   }
 }
 </style>
