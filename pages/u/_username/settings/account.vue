@@ -267,6 +267,7 @@ export default {
         .then(async () => {
           this.dialog = false
           await this.logout()
+          this.$router.replace('/')
         })
     }
   },
