@@ -253,7 +253,6 @@ export default {
       }
     },
     async deleteAccount() {
-      const userId = this.userId
       await this.$apollo
         .mutate({
           mutation: gql`
@@ -262,7 +261,7 @@ export default {
             }
           `,
           variables: {
-            userId
+            userId: this.userId
           }
         })
         .then(async () => {
