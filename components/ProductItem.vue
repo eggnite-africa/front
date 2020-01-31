@@ -47,7 +47,6 @@
                 <template v-else>
                   <v-btn
                     :to="productEditLink"
-                    link
                     color="indigo"
                     block
                     depressed
