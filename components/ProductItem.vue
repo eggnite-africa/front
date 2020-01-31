@@ -237,16 +237,21 @@ export default {
       }
     },
     async deleteProduct(id) {
-      await this.$apollo.mutate({
-        mutation: gql`
-          mutation deleteProduct($id: ID!) {
-            deleteProduct(id: $id)
+      await this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation deleteProduct($id: ID!) {
+              deleteProduct(id: $id)
+            }
+          `,
+          variables: {
+            id
           }
-        `,
-        variables: {
-          id
-        }
-      })
+        })
+        .then(() => {
+          this.dialog = false
+          this.$router.go(0)
+        })
     }
   }
 }
