@@ -237,8 +237,8 @@ export default {
       const userProfileIsValid = userProfile.isValid()
       if ((this.$v.$touch() && this.$v.$invalid) || !userProfileIsValid) return
 
-      let { profilePicture } = userProfile.getProfileInfo()
       const {
+        profilePicture,
         firstName,
         lastName,
         sex,
@@ -248,16 +248,6 @@ export default {
         bio,
         socialLinks
       } = userProfile.getProfileInfo()
-
-      if (!profilePicture) {
-        if (sex === 'MALE') {
-          profilePicture =
-            'https://upload.wikimedia.org/wikipedia/en/d/dc/Pocket_Mortys.png'
-        } else {
-          profilePicture =
-            'https://vignette1.wikia.nocookie.net/rickandmorty/images/f/fc/S1e8_confused_summer.png/revision/latest?cb=20160917205129'
-        }
-      }
 
       await this.$apollo
         .mutate({
