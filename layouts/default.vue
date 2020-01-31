@@ -55,7 +55,7 @@
           </span>
         </v-col>
         <v-col class="d-flex justify-end">
-          <v-btn icon small href="https://fb.com/#">
+          <v-btn icon small href="https://fb.me/eggniteco">
             <v-icon>mdi-facebook-box</v-icon>
           </v-btn>
         </v-col>
