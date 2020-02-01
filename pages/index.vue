@@ -59,6 +59,14 @@
         </v-col>
       </v-row>
     </div>
+    <div v-else class="d-flex justify-center">
+      <v-progress-circular
+        :size="70"
+        :width="7"
+        color="yellow"
+        indeterminate
+      ></v-progress-circular>
+    </div>
   </div>
 </template>
 
