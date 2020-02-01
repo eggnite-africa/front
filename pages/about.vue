@@ -16,7 +16,7 @@
           <header class="headline">Who's behind this?</header>
         </v-col>
         <v-col cols="12">
-          <v-img src="/hacker.svg" max-width="500" class="mx-auto"></v-img>
+          <v-img src="/dev.svg" max-width="500" class="mx-auto"></v-img>
         </v-col>
         <v-col cols="12">
           <p class="body-1">
