@@ -42,7 +42,7 @@ export default {
       user: {
         id: '',
         profile: {
-          firstName: 'Rick'
+          firstName: ''
         }
       }
     }
