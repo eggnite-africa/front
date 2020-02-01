@@ -24,7 +24,7 @@
 
       <v-divider></v-divider>
       <v-list-item class="mt-1">
-        <v-btn @click="logout()" block outlined color="orange">logout</v-btn>
+        <v-btn @click="logout()" block outlined color="primary">logout</v-btn>
       </v-list-item>
     </v-list>
   </v-menu>

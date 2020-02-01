@@ -3,8 +3,8 @@
     <template v-if="isLoggedIn && !$apollo.queries.user.loading">
       <v-row align="center">
         <v-col class="hidden-xs-only">
-          <v-btn to="/post" nuxt color="yellow" outlined>
-            <v-icon class="mr-1">mdi-plus</v-icon>post a product
+          <v-btn to="/post" nuxt color="secondary" outlined>
+            <v-icon left dense>mdi-plus</v-icon>post a product
           </v-btn>
         </v-col>
         <v-col class="d-flex">
@@ -19,7 +19,7 @@
       </v-row>
     </template>
     <template v-else>
-      <v-btn color="red" outlined class="mr-1 hidden-xs-only" nuxt to="/join"
+      <v-btn color="green" outlined class="mr-1 hidden-xs-only" nuxt to="/join"
         >join</v-btn
       >
       <v-dialog v-model="dialog" persistent max-width="300">
