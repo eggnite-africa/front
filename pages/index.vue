@@ -7,7 +7,7 @@
       max-width="500"
     >
       <v-card v-if="$auth.loggedIn && welcome" color="teal">
-        <v-card-title>Welcome! ╰(*°▽°*)╯</v-card-title>
+        <v-card-title>Welcome!</v-card-title>
         <v-card-text>
           <p class="white--text">
             Aaslema
