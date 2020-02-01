@@ -354,7 +354,7 @@ export default {
         productWebsite.$v.$touch()
       }
 
-      if (this.$v.$invalid && productMakers.$v.$invalid && !linksAreValid)
+      if (this.$v.$invalid || productMakers.$v.$invalid || !linksAreValid)
         return
 
       await this.$apollo
