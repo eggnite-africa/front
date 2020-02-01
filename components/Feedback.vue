@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" v-if="$auth.loggedIn" max-width="500">
+  <v-dialog v-model="dialog" v-if="$auth.loggedIn" max-width="500" persistent>
     <template #activator="{ on }">
       <v-btn
         v-on="on"
@@ -16,7 +16,9 @@
     </template>
 
     <v-card color="info">
-      <v-card-title>Your voice matters!</v-card-title>
+      <v-card-title>
+        Your voice matters!
+      </v-card-title>
       <v-card-text>
         <p class="white--text">
           Hey {{ user.profile.firstName }},<br />
@@ -28,6 +30,33 @@
           ~ Karim
         </p>
       </v-card-text>
+    </v-card>
+
+    <v-card color="teal" class="mt-5">
+      <v-card-title>
+        Your feedback
+        <div class="ml-auto">
+          <v-btn @click.stop="dialog = false" icon>
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </div>
+      </v-card-title>
+      <v-card-text>
+        <v-select
+          :items="types"
+          v-model="feedback.type"
+          filled
+          label="Type"
+        ></v-select>
+        <v-textarea v-model="feedback.content" filled auto-grow></v-textarea>
+      </v-card-text>
+      <v-card-actions>
+        <div class="ml-auto mr-4">
+          <v-btn icon>
+            <v-icon dense>mdi-send</v-icon>
+          </v-btn>
+        </div>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -44,6 +73,11 @@ export default {
         profile: {
           firstName: ''
         }
+      },
+      types: ['Bug', 'Feature request', 'Other'],
+      feedback: {
+        type: '',
+        content: ''
       }
     }
   },
