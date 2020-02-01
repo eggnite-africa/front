@@ -112,7 +112,6 @@
 
                 <v-col cols="12" md="4">
                   <v-btn
-                    :disabled="!this.$auth.loggedIn"
                     :outlined="!hasVoted"
                     @click.stop="upvote()"
                     block
@@ -148,6 +147,7 @@
 
 <script>
 import gql from 'graphql-tag'
+import { mapMutations } from 'vuex'
 import MakerAvatar from '@/components/ProductPageMakerAvatar.vue'
 import ActionButtons from '@/components/ProductPageActionButtons.vue'
 import ProductImages from '@/components/ProductPageCarousel.vue'
@@ -283,45 +283,48 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({ openLoginDialog: 'utils/openLoginDialog' }),
     updateProduct() {
       this.$apollo.queries.product.refetch()
     },
 
     upvote() {
-      if (this.hasVoted) {
-        this.$apollo
-          .mutate({
-            mutation: gql`
-              mutation unvote($voteInput: VoteInput!) {
-                deleteVote(voteInput: $voteInput)
-              }
-            `,
-            variables: {
-              voteInput: {
-                productId: this.product.id
-              }
-            }
-          })
-          .then(() => this.$apollo.queries.product.refetch())
-      } else {
-        this.$apollo
-          .mutate({
-            mutation: gql`
-              mutation upvote($voteInput: VoteInput!) {
-                upvote(voteInput: $voteInput) {
-                  userId
-                  productId
+      if (this.$auth.loggedIn) {
+        if (this.hasVoted) {
+          this.$apollo
+            .mutate({
+              mutation: gql`
+                mutation unvote($voteInput: VoteInput!) {
+                  deleteVote(voteInput: $voteInput)
+                }
+              `,
+              variables: {
+                voteInput: {
+                  productId: this.product.id
                 }
               }
-            `,
-            variables: {
-              voteInput: {
-                productId: this.product.id
+            })
+            .then(() => this.$apollo.queries.product.refetch())
+        } else {
+          this.$apollo
+            .mutate({
+              mutation: gql`
+                mutation upvote($voteInput: VoteInput!) {
+                  upvote(voteInput: $voteInput) {
+                    userId
+                    productId
+                  }
+                }
+              `,
+              variables: {
+                voteInput: {
+                  productId: this.product.id
+                }
               }
-            }
-          })
-          .then(() => this.$apollo.queries.product.refetch())
-      }
+            })
+            .then(() => this.$apollo.queries.product.refetch())
+        }
+      } else this.openLoginDialog()
     }
   },
   head() {

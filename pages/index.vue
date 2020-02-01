@@ -56,7 +56,13 @@
         </v-row>
         <v-row class="hidden-xs-only">
           <v-col cols="12" class="d-flex justify-center">
-            <v-btn color="secondary" depressed nuxt to="/post">
+            <v-btn
+              @click.stop="openLoginDialog()"
+              color="secondary"
+              depressed
+              nuxt
+              to="/post"
+            >
               post your product
             </v-btn>
           </v-col>
@@ -79,6 +85,7 @@
 
 <script>
 import gql from 'graphql-tag'
+import { mapMutations } from 'vuex'
 import WelcomeBanner from '@/components/WelcomeBanner.vue'
 import ProductItem from '@/components/ProductItem.vue'
 
@@ -109,6 +116,9 @@ export default {
       welcome: this.$route.params.welcome || false,
       firstName: this.$route.params.firstName || ''
     }
+  },
+  methods: {
+    ...mapMutations({ openLoginDialog: 'utils/openLoginDialog' })
   }
 }
 </script>

@@ -14,7 +14,6 @@
     </v-col>
     <v-col>
       <v-btn
-        :disabled="!this.$auth.loggedIn"
         @click="addComment()"
         block
         color="orange"
@@ -29,6 +28,7 @@
 
 <script>
 import gql from 'graphql-tag'
+import { mapMutations } from 'vuex'
 export default {
   name: 'ProductPageCommentAdd',
   props: {
@@ -44,13 +44,14 @@ export default {
   },
   computed: {
     placeholder() {
-      const isLoggedIn = this.$auth.loggedIn
-      if (isLoggedIn) return ''
+      if (this.$auth.loggedIn) return ''
       else return 'Please login or join us to add a comment'
     }
   },
   methods: {
+    ...mapMutations({ openLoginDialog: 'utils/openLoginDialog' }),
     addComment() {
+      if (!this.$auth.loggedIn) this.openLoginDialog()
       this.$apollo
         .mutate({
           mutation: gql`
