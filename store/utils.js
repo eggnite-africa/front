@@ -1,5 +1,6 @@
 export const state = () => ({
-  welcomeBannerHidden: false
+  welcomeBannerHidden: false,
+  loginDialog: false
 })
 
 export const mutations = {

@@ -22,13 +22,13 @@
       <v-btn color="green" outlined class="mr-1 hidden-xs-only" nuxt to="/join"
         >join</v-btn
       >
-      <v-dialog v-model="dialog" persistent max-width="300">
+      <v-dialog v-model="loginDialog" persistent max-width="300">
         <template #activator="{ on }">
           <v-btn v-on="on" color="primary" depressed>
             login
           </v-btn>
         </template>
-        <login @close-dialog="dialog = false"></login>
+        <Login @close-dialog="loginDialog = false" />
       </v-dialog>
     </template>
   </div>
@@ -48,7 +48,6 @@ export default {
   },
   data() {
     return {
-      dialog: false,
       user: {
         id: '',
         username: '',
@@ -78,6 +77,17 @@ export default {
     },
     isLoggedIn() {
       return this.$auth.loggedIn
+    },
+    loginDialog: {
+      get() {
+        return this.$store.state.utils.loginDialog
+      },
+      set(value) {
+        this.$store.commit('utils/setState', {
+          key: 'loginDialog',
+          value
+        })
+      }
     }
   },
   apollo: {
