@@ -52,12 +52,16 @@
       </v-card-text>
       <v-card-actions>
         <div class="ml-auto mr-4">
-          <v-btn icon>
-            <v-icon dense>mdi-send</v-icon>
+          <v-btn @click.stop="sendFeedback()" :loading="loading" icon>
+            <v-icon v-text="icon" dense></v-icon>
           </v-btn>
         </div>
       </v-card-actions>
     </v-card>
+
+    <v-snackbar v-model="sent">
+      Sent
+    </v-snackbar>
   </v-dialog>
 </template>
 
@@ -68,6 +72,7 @@ export default {
   data() {
     return {
       dialog: false,
+      sent: false,
       user: {
         id: '',
         profile: {
@@ -78,7 +83,9 @@ export default {
       feedback: {
         type: '',
         content: ''
-      }
+      },
+      loading: false,
+      icon: 'mdi-send'
     }
   },
   apollo: {
@@ -102,6 +109,38 @@ export default {
         return !this.$auth.loggedIn
       },
       debounce: 0.0001
+    }
+  },
+  methods: {
+    async sendFeedback() {
+      const feedback = { ...this.feedback }
+      if (!feedback.type || !feedback.content) return
+      feedback.type = feedback.type.split(' ')[0].toUpperCase()
+      this.loading = true
+      try {
+        await this.$apollo.mutate({
+          mutation: gql`
+            mutation sendFeedback($feedback: NewFeedbackInput!) {
+              addFeedback(feedback: $feedback) {
+                id
+              }
+            }
+          `,
+          variables: {
+            feedback
+          }
+        })
+        this.loading = false
+        this.icon = 'mdi-checkbox-marked-circle-outline'
+        setTimeout(() => {
+          this.feedback.type = ''
+          this.feedback.content = ''
+          this.icon = 'mdi-send'
+        }, 3000)
+      } catch (err) {
+        this.loading = false
+        this.icon = 'mdi-alert-circle-outline'
+      }
     }
   }
 }
