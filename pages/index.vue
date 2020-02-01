@@ -56,7 +56,7 @@
         </v-row>
         <v-row class="hidden-xs-only">
           <v-col cols="12" class="d-flex justify-center">
-            <v-btn color="secondary" elevation="3" nuxt to="/post">
+            <v-btn color="secondary" depressed nuxt to="/post">
               post your product
             </v-btn>
           </v-col>
