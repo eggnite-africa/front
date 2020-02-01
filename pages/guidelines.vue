@@ -11,14 +11,14 @@
         </p>
         <ul>
           <li>
-            Product has to be either an app, a website, an open-source project
-            or hardware-based
+            Product can be an app, a website, an open-source project, or a
+            hardware-based one
           </li>
           <li>
-            If product is a hardware-based, a website has to be provided and
-            pictures should be included
+            If product is hardware-based, a website has to be provided and at
+            least one picture should be included
           </li>
-          <li>Product has to be either in production or in a 'ready' state</li>
+          <li>Product has to be in a <strong>useable</strong> state</li>
         </ul>
         <v-subheader class="overline font-weight-light text-lowercase">
           *Disrespect of the guidelines may result in removal of the product
