@@ -60,6 +60,9 @@
               post your product
             </v-btn>
           </v-col>
+          <v-col cols="12">
+            <v-img src="/ignite.svg" max-width="500" class="mx-auto"></v-img>
+          </v-col>
         </v-row>
       </div>
       <div v-else class="d-flex justify-center">
