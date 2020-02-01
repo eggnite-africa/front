@@ -284,7 +284,7 @@ export default {
         }
       },
       skip() {
-        return this.product.name === '' || this.productExists
+        return this.product.name === ''
       },
       fetchPolicy: 'network-only'
     }
