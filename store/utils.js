@@ -1,6 +1,12 @@
-export const state = () => ({})
+export const state = () => ({
+  welcomeBannerHidden: false
+})
 
-export const mutations = {}
+export const mutations = {
+  setState(state, { key, value }) {
+    state[key] = value
+  }
+}
 
 export const actions = {
   async logout() {

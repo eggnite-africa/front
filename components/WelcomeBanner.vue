@@ -23,9 +23,19 @@
 <script>
 export default {
   name: 'WelcomeBanner',
-  data() {
-    return {
-      hidden: false
+  computed: {
+    hidden: {
+      get() {
+        return (
+          this.$auth.loggedIn || this.$store.state.utils.welcomeBannerHidden
+        )
+      },
+      set(value) {
+        return this.$store.commit('utils/setState', {
+          key: 'welcomeBannerHidden',
+          value
+        })
+      }
     }
   }
 }
