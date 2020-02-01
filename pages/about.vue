@@ -3,10 +3,10 @@
     <div class="text-center">
       <v-row tag="section">
         <v-col cols="12">
-          <p class="display-1 font-weight-light">
-            Eggnite aims to be the platform, that enables Tunisian student
-            developers and entrepreneurs alike to share their creations with the
-            rest of the community.
+          <p class="headline">
+            Eggnite aims to be <em>the</em> platform, that enables Tunisian
+            student developers and entrepreneurs alike to share their creations
+            with the rest of the community.
           </p>
         </v-col>
       </v-row>
