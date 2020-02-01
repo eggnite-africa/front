@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-dialog v-model="congrats" persistent max-width="500">
       <v-card>
         <v-card-title>🎉🎊 Congratulation</v-card-title>
@@ -143,7 +143,7 @@
         </v-col>
       </v-row>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>

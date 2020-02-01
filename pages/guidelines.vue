@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-row id="posting" tag="section">
       <v-col cols="12">
         <v-img src="/checklist.svg" max-width="500" class="mx-auto"></v-img>
@@ -26,7 +26,7 @@
       </v-col>
       <v-col cols="12"> </v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>

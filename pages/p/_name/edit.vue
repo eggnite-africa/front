@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-snackbar v-model="message.display">
       <v-icon :color="message.err ? 'red' : 'green'" left dense>
         {{ message.icon }}
@@ -17,7 +17,7 @@
         </product-edit>
       </v-card-text>
     </v-card>
-  </div>
+  </v-container>
 </template>
 
 <script>

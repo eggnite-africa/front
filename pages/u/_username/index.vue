@@ -1,95 +1,99 @@
 <template>
-  <v-card v-if="!$apollo.queries.user.loading">
-    <v-container>
-      <v-row justify="center">
-        <v-col cols="3" sm="2" class="mr-md-n10">
-          <v-avatar color="blue" size="96">
-            <client-only>
-              <v-img :src="user.profile.profilePicture"></v-img>
-            </client-only>
-          </v-avatar>
-        </v-col>
-        <v-col cols="9" sm="10" class="ml-sm-n6 ml-md-n5 mt-n4">
-          <v-card-text class="mt-n2">
-            <v-row class="mb-n5" justify="start">
-              <v-col cols="9">
-                <h2
-                  v-text="`${user.profile.firstName} ${user.profile.lastName}`"
-                ></h2>
-                <span v-show="user.profile.university">
-                  <v-icon dense>mdi-school</v-icon>
-                  <span v-text="user.profile.university"></span>
-                </span>
-              </v-col>
-              <v-col v-if="isOwner()" cols="3">
-                <div style="float: right">
-                  <v-btn depressed nuxt to="edit" append color="indigo"
-                    >Edit</v-btn
-                  >
-                </div>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <p v-text="user.profile.bio" class="text-justify"></p>
-              </v-col>
-            </v-row>
-            <v-row dense no-gutters class="ml-n1 mt-n1">
-              <v-col>
-                <user-social :links="user.profile.socialLinks"></user-social>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-col>
-      </v-row>
+  <v-container>
+    <v-card v-if="!$apollo.queries.user.loading">
+      <v-container>
+        <v-row justify="center">
+          <v-col cols="3" sm="2" class="mr-md-n10">
+            <v-avatar color="blue" size="96">
+              <client-only>
+                <v-img :src="user.profile.profilePicture"></v-img>
+              </client-only>
+            </v-avatar>
+          </v-col>
+          <v-col cols="9" sm="10" class="ml-sm-n6 ml-md-n5 mt-n4">
+            <v-card-text class="mt-n2">
+              <v-row class="mb-n5" justify="start">
+                <v-col cols="9">
+                  <h2
+                    v-text="
+                      `${user.profile.firstName} ${user.profile.lastName}`
+                    "
+                  ></h2>
+                  <span v-show="user.profile.university">
+                    <v-icon dense>mdi-school</v-icon>
+                    <span v-text="user.profile.university"></span>
+                  </span>
+                </v-col>
+                <v-col v-if="isOwner()" cols="3">
+                  <div style="float: right">
+                    <v-btn depressed nuxt to="edit" append color="indigo"
+                      >Edit</v-btn
+                    >
+                  </div>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <p v-text="user.profile.bio" class="text-justify"></p>
+                </v-col>
+              </v-row>
+              <v-row dense no-gutters class="ml-n1 mt-n1">
+                <v-col>
+                  <user-social :links="user.profile.socialLinks"></user-social>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-col>
+        </v-row>
 
-      <v-row>
-        <v-tabs fixed-tabs>
-          <v-tab href="#products">
-            products
-          </v-tab>
-          <v-tab href="#upvotes">
-            upvotes
-          </v-tab>
-          <v-tab href="#comments">
-            comments
-          </v-tab>
+        <v-row>
+          <v-tabs fixed-tabs>
+            <v-tab href="#products">
+              products
+            </v-tab>
+            <v-tab href="#upvotes">
+              upvotes
+            </v-tab>
+            <v-tab href="#comments">
+              comments
+            </v-tab>
 
-          <v-tab-item value="products">
-            <v-container>
-              <template v-for="(product, i) in user.products">
-                <product-item
-                  :key="i"
-                  :product-id="product.id"
-                  class="my-products"
-                ></product-item>
-              </template>
-            </v-container>
-          </v-tab-item>
+            <v-tab-item value="products">
+              <v-container>
+                <template v-for="(product, i) in user.products">
+                  <product-item
+                    :key="i"
+                    :product-id="product.id"
+                    class="my-products"
+                  ></product-item>
+                </template>
+              </v-container>
+            </v-tab-item>
 
-          <v-tab-item value="upvotes">
-            <v-container>
-              <template v-for="(upvote, i) in user.votes">
-                <product-item
-                  :key="i"
-                  :product-id="upvote.productId"
-                  class="my-products"
-                ></product-item>
-              </template>
-            </v-container>
-          </v-tab-item>
+            <v-tab-item value="upvotes">
+              <v-container>
+                <template v-for="(upvote, i) in user.votes">
+                  <product-item
+                    :key="i"
+                    :product-id="upvote.productId"
+                    class="my-products"
+                  ></product-item>
+                </template>
+              </v-container>
+            </v-tab-item>
 
-          <v-tab-item value="comments">
-            <v-container>
-              <template v-for="(comment, i) in user.comments">
-                <user-comment :key="i" :comment="comment"></user-comment>
-              </template>
-            </v-container>
-          </v-tab-item>
-        </v-tabs>
-      </v-row>
-    </v-container>
-  </v-card>
+            <v-tab-item value="comments">
+              <v-container>
+                <template v-for="(comment, i) in user.comments">
+                  <user-comment :key="i" :comment="comment"></user-comment>
+                </template>
+              </v-container>
+            </v-tab-item>
+          </v-tabs>
+        </v-row>
+      </v-container>
+    </v-card>
+  </v-container>
 </template>
 
 <script>

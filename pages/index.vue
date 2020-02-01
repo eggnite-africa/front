@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-dialog
       v-if="$auth.loggedIn && welcome"
       v-model="welcome"
@@ -67,7 +67,7 @@
         indeterminate
       ></v-progress-circular>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
