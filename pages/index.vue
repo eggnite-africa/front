@@ -51,6 +51,13 @@
           <product-item :product-id="product.id"></product-item>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col cols="12" class="d-flex justify-center">
+          <v-btn color="secondary" elevation="3" nuxt to="/post">
+            post your product
+          </v-btn>
+        </v-col>
+      </v-row>
     </div>
   </div>
 </template>
