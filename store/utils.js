@@ -6,6 +6,9 @@ export const state = () => ({
 export const mutations = {
   setState(state, { key, value }) {
     state[key] = value
+  },
+  openLoginDialog(state) {
+    if (!this.$auth.loggedIn) state.loginDialog = true
   }
 }
 
