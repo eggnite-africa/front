@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+require('dotenv').config()
 
 export default {
   mode: 'universal',
@@ -6,15 +7,15 @@ export default {
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: '%s | 🚀 Eggnite',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content:
+          'Eggnite enables developers and entrepreneurs alike to share their products with the rest of the community'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
@@ -30,7 +31,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['@/plugins/vuelidate'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -48,13 +49,18 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/auth',
+    '@nuxtjs/apollo',
+    '@nuxtjs/date-fns'
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: process.env.API_URL
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -76,6 +82,17 @@ export default {
       }
     }
   },
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: process.env.HTTP_ENDPOINT,
+        wsEndpoint: process.env.WS_ENDPOINT,
+        httpLinkOptions: {
+          credentials: 'same-origin'
+        }
+      }
+    }
+  },
   /*
    ** Build configuration
    */
@@ -83,6 +100,28 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    transpile: [],
     extend(config, ctx) {}
+  },
+  auth: {
+    redirect: {
+      login: '/',
+      home: false
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/auth/login',
+            method: 'post',
+            propertyName: false
+          },
+          logout: { url: '/auth/logout', method: 'delete' },
+          user: { url: '/auth/me', method: 'get', propertyName: false }
+        }
+        // tokenRequired: true,
+        // tokenType: 'bearer'
+      }
+    }
   }
 }

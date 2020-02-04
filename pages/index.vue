@@ -1,75 +1,124 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a href="https://vuetifyjs.com" target="_blank"> documentation </a>.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a href="https://chat.vuetifyjs.com/" target="_blank" title="chat">
-              discord </a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
+  <div>
+    <WelcomeBanner />
+    <v-container>
+      <v-dialog
+        v-if="$auth.loggedIn && welcome"
+        v-model="welcome"
+        persistent
+        max-width="500"
+      >
+        <v-card v-if="$auth.loggedIn && welcome" color="teal">
+          <v-card-title>Welcome!</v-card-title>
+          <v-card-text>
+            <p class="white--text">
+              Aaslema
+              <span class="font-weight-bold">{{ firstName }}</span
+              >, <br />
+              <br />
+              I want you to know that I'm sincerely happy that you joined our
+              community! It might not mean much to you, but to me, it means the
+              world. <br />
+              <br />
+              I strongly believe that together we can build a resilient,
+              supportive and diverse community where developers and
+              entrepreneurs alike can share their products (whether that'd be an
+              app, an open-source project or a website) with the larger
+              community enabling them to further improve upon received
+              feedback.<br />
+              <br />
+              I can't wait to see what you've got to offer. We're all here to
+              support and learn from each other!<br />
+              <br />
+              Again, thanks for joining; and know that I'm always here so if you
+              have anything you'd like to say, don't hesitate to let me know!<br />
+              <br />
+              <span class="font-weight-medium">Sincerely, Karim Daghari.</span>
+            </p>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn @click.stop="welcome = false" text icon class="ml-auto">
+              <v-icon tag="span" dense>👌🏼</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <div v-if="!$apollo.queries.products.loading">
+        <v-row
+          v-for="product in products"
+          :key="product.id"
+          justify="center"
+          align="center"
+        >
+          <v-col>
+            <product-item :product-id="product.id"></product-item>
+          </v-col>
+        </v-row>
+        <v-row class="hidden-xs-only">
+          <v-col cols="12" class="d-flex justify-center">
+            <v-btn
+              @click.stop="openLoginDialog()"
+              color="secondary"
+              depressed
+              nuxt
+              to="/post"
             >
-              issue board </a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a href="https://nuxtjs.org/" target="_blank">
-            Nuxt Documentation
-          </a>
-          <br />
-          <a href="https://github.com/nuxt/nuxt.js" target="_blank">
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire">
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+              post your product
+            </v-btn>
+          </v-col>
+          <v-col cols="12">
+            <v-img src="/ignite.svg" max-width="500" class="mx-auto"></v-img>
+          </v-col>
+        </v-row>
+      </div>
+      <div v-else class="d-flex justify-center">
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="yellow"
+          indeterminate
+        ></v-progress-circular>
+      </div>
+    </v-container>
+  </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import gql from 'graphql-tag'
+import { mapMutations } from 'vuex'
+import WelcomeBanner from '@/components/WelcomeBanner.vue'
+import ProductItem from '@/components/ProductItem.vue'
 
 export default {
   components: {
-    Logo,
-    VuetifyLogo
+    WelcomeBanner,
+    ProductItem
+  },
+  apollo: {
+    products: {
+      query: gql`
+        query fetchAllProducts {
+          products {
+            id
+          }
+        }
+      `
+    }
+  },
+  head() {
+    return {
+      titleTemplate: null,
+      title: '🚀 Eggnite'
+    }
+  },
+  data() {
+    return {
+      welcome: this.$route.params.welcome || false,
+      firstName: this.$route.params.firstName || ''
+    }
+  },
+  methods: {
+    ...mapMutations({ openLoginDialog: 'utils/openLoginDialog' })
   }
 }
 </script>

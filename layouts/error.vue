@@ -1,14 +1,27 @@
 <template>
   <v-app dark>
-    <h1 v-if="error.statusCode === 404">
-      {{ pageNotFound }}
-    </h1>
-    <h1 v-else>
-      {{ otherError }}
-    </h1>
-    <NuxtLink to="/">
-      Home page
-    </NuxtLink>
+    <v-row dense>
+      <v-col cols="12">
+        <v-img
+          v-if="error.statusCode === 404"
+          src="/404.svg"
+          max-width="600"
+          class="mx-auto"
+        ></v-img>
+        <v-img v-else src="/wrong.svg" max-width="500" class="mx-auto"></v-img>
+        <div class="mt-12">
+          <p v-if="error.statusCode !== 404" class="text-center headline">
+            Something must've gone terribly wrong 🤔 <br />
+            If this error persists do let me know!
+          </p>
+          <div class="d-flex justify-center">
+            <v-btn @click.stop="$router.back()" outlined x-large>
+              Go back
+            </v-btn>
+          </div>
+        </div>
+      </v-col>
+    </v-row>
   </v-app>
 </template>
 
@@ -30,8 +43,8 @@ export default {
   },
   data() {
     return {
-      pageNotFound: '404 Not Found',
-      otherError: 'An error occurred'
+      pageNotFound: '¯\\_(ツ)_/¯ ',
+      otherError: '💩'
     }
   }
 }

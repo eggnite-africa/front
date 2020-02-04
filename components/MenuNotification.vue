@@ -1,0 +1,57 @@
+<template>
+  <v-menu offset-y bottom>
+    <template #activator="{ on }">
+      <v-btn v-on="on" icon>
+        <v-badge :value="unreadCount" overlap class="ml-1 mr-2">
+          <template #badge>{{ unreadCount }}</template>
+          <v-icon color="red">{{
+            unreadCount ? 'mdi-bell' : 'mdi-bell-outline'
+          }}</v-icon>
+        </v-badge>
+      </v-btn>
+    </template>
+    <v-list flat>
+      <v-list-item-group>
+        <template v-for="notification in notifications">
+          <template v-if="notification.vote">
+            <menu-notification-item
+              :key="notification.id"
+              :notification-id="notification.id"
+              :vote="notification.vote"
+              notification-type="VOTE"
+            ></menu-notification-item>
+          </template>
+          <template v-else-if="notification.comment">
+            <menu-notification-item
+              :key="notification.id"
+              :notification-id="notification.id"
+              :comment="notification.comment"
+              notification-type="COMMENT"
+            ></menu-notification-item>
+          </template>
+        </template>
+      </v-list-item-group>
+    </v-list>
+  </v-menu>
+</template>
+
+<script>
+import MenuNotificationItem from '@/components/MenuNotificationItem.vue'
+export default {
+  name: 'MenuNotification',
+  components: {
+    MenuNotificationItem
+  },
+  props: {
+    notifications: {
+      type: Array,
+      required: true
+    }
+  },
+  computed: {
+    unreadCount() {
+      return this.notifications.length
+    }
+  }
+}
+</script>

@@ -1,93 +1,109 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
+    <v-app-bar app>
+      <nuxt-link to="/" class="homepage-link">
+        <v-toolbar-title v-text="title" />
+      </nuxt-link>
+      <Search />
+      <div :class="this.$auth.loggedIn ? 'd-md-none ml-n4' : 'd-sm-none ml-n4'">
+        <v-menu offset-y bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" small icon left>
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+          </template>
+          <v-list flat>
+            <v-list-item v-for="item in items" :to="item.link" :key="item.name">
+              <v-list-item-title v-text="item.name"></v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
+      <div
+        :class="this.$auth.loggedIn ? 'hidden-sm-and-down' : 'hidden-xs-only'"
+      >
+        <nuxt-link
+          v-for="item in items"
+          :to="item.link"
+          :key="item.name"
+          class="menu-link"
+          >{{ item.name }}</nuxt-link
         >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn @click.stop="miniVariant = !miniVariant" icon>
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn @click.stop="clipped = !clipped" icon>
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn @click.stop="fixed = !fixed" icon>
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
+      </div>
       <v-spacer />
-      <v-btn @click.stop="rightDrawer = !rightDrawer" icon>
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
+      <Menu />
     </v-app-bar>
+
     <v-content>
-      <v-container>
+      <v-container fluid>
         <nuxt />
       </v-container>
     </v-content>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; 2019</span>
+
+    <client-only>
+      <Feedback />
+    </client-only>
+    <v-footer fixed app>
+      <v-row dense align="center">
+        <v-col>
+          <span>&copy; {{ $dateFns.getYear(new Date()) }}</span>
+        </v-col>
+        <v-col class="d-flex justify-center">
+          <span class="overline">
+            Made with
+            <v-icon x-small color="red">mdi-heart</v-icon> in Tunis
+          </span>
+        </v-col>
+        <v-col class="d-flex justify-end">
+          <v-btn icon small href="https://fb.me/eggniteco">
+            <v-icon>mdi-facebook-box</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+import Menu from '@/components/Menu.vue'
+import Search from '@/components/MenuSearch.vue'
+import Feedback from '@/components/Feedback.vue'
+
 export default {
+  components: {
+    Menu,
+    Search,
+    Feedback
+  },
   data() {
     return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
+      title: '🚀 Eggnite',
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
+          name: 'About',
+          link: '/about'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          name: 'Guidelines',
+          link: '/guidelines'
         }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+      ]
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.homepage-link {
+  text-decoration: none;
+  color: unset;
+}
+.menu-link {
+  text-decoration: none;
+  color: #bdbdbd;
+  margin-right: 0.5rem;
+  &:hover {
+    color: #e0e0e0;
+  }
+}
+</style>
