@@ -186,10 +186,13 @@ export default {
     productMakers() {
       return this.product.makers.map(({ username }) => username)
     },
+    isAdmin() {
+      return this.$auth.user.type === 'ADMIN'
+    },
     isOwner() {
       return (
         this.$auth.loggedIn &&
-        this.productMakers.includes(this.$auth.user.username)
+        (this.isAdmin || this.productMakers.includes(this.$auth.user.username))
       )
     }
   },

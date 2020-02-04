@@ -275,7 +275,7 @@ export default {
         socialLinks
       }
     },
-    async updateUserProfile() {
+    async updateUserProfile(userId) {
       if (!this.isValid()) throw Error
 
       const {
@@ -292,8 +292,11 @@ export default {
 
       await this.$apollo.mutate({
         mutation: gql`
-          mutation updateUserProfile($updatedProfile: UpdateProfileInput!) {
-            updateProfile(updatedProfile: $updatedProfile) {
+          mutation updateUserProfile(
+            $userId: ID!
+            $updatedProfile: UpdateProfileInput!
+          ) {
+            updateProfile(userId: $userId, updatedProfile: $updatedProfile) {
               profilePicture
               firstName
               lastName
@@ -306,6 +309,7 @@ export default {
           }
         `,
         variables: {
+          userId,
           updatedProfile: {
             profilePicture,
             firstName,

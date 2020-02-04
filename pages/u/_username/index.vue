@@ -111,6 +111,9 @@ export default {
   computed: {
     username() {
       return this.$route.params.username
+    },
+    isAdmin() {
+      return this.$auth.user.type === 'ADMIN'
     }
   },
   asyncData() {
@@ -140,8 +143,9 @@ export default {
   apollo: {
     user: {
       query: gql`
-        query getUser($username: String) {
+        query getUser($username: String!) {
           user(username: $username) {
+            id
             profile {
               profilePicture
               firstName
@@ -178,7 +182,7 @@ export default {
       if (this.$auth.loggedIn) {
         const currentUser = this.$auth.user.username
         const currentUserProfile = this.username
-        return currentUser === currentUserProfile
+        return this.isAdmin || currentUser === currentUserProfile
       } else {
         return false
       }

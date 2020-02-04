@@ -22,6 +22,13 @@
         <v-list-item-content>{{ link.name }}</v-list-item-content>
       </v-list-item>
 
+      <v-list-item v-if="isAdmin" to="/admin">
+        <v-list-item-avatar>
+          <v-icon>mdi-shield-account</v-icon>
+        </v-list-item-avatar>
+        <v-list-item-content>Admin</v-list-item-content>
+      </v-list-item>
+
       <v-divider></v-divider>
       <v-list-item class="mt-1">
         <v-btn @click="logout()" block outlined color="primary">logout</v-btn>
@@ -62,6 +69,9 @@ export default {
           link: `${this.userProfileLink}/settings/account`
         }
       ]
+    },
+    isAdmin() {
+      return this.$auth.user.type === 'ADMIN'
     }
   },
   methods: {

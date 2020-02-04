@@ -1,3 +1,6 @@
 export default function({ params, store, redirect }) {
-  if (params.username !== store.$auth.user.username) redirect('/')
+  const user = store.$auth.user
+  const isAdmin = user.type === 'ADMIN'
+  const isOwner = isAdmin || params.username === user.username
+  if (!isOwner) redirect('/')
 }

@@ -49,8 +49,8 @@ export default {
     UserProfileEdit
   },
   computed: {
-    userId() {
-      return this.$auth.user.id
+    username() {
+      return this.$route.params.username
     }
   },
   asyncData() {
@@ -60,14 +60,28 @@ export default {
         text: '',
         icon: '',
         error: false
+      },
+      user: {
+        id: '',
+        profile: {
+          profilePicture: '',
+          firstName: '',
+          lastName: '',
+          sex: '',
+          birthDate: '',
+          occupation: '',
+          university: '',
+          bio: '',
+          socialLinks: ['']
+        }
       }
     }
   },
   apollo: {
     user: {
       query: gql`
-        query getUserProfile($id: ID!) {
-          user(id: $id) {
+        query getUserProfile($username: String!) {
+          user(username: $username) {
             id
             profile {
               profilePicture
@@ -85,7 +99,7 @@ export default {
       `,
       variables() {
         return {
-          id: this.userId
+          username: this.username
         }
       }
     }
@@ -93,7 +107,8 @@ export default {
   methods: {
     async onSubmit() {
       try {
-        await this.$refs.profileEdit.updateUserProfile()
+        const userId = this.user.id
+        await this.$refs.profileEdit.updateUserProfile(userId)
         this.message.err = false
         this.message.icon = 'mdi-check'
         this.message.text = 'Your profile was successfully updated!'

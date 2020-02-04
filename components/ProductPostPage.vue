@@ -284,7 +284,7 @@ export default {
         }
       },
       skip() {
-        return this.product.name === ''
+        return this.isEdit || this.product.name === ''
       },
       fetchPolicy: 'network-only'
     }
@@ -413,7 +413,6 @@ export default {
           mutation updateProduct($updatedProduct: UpdatedProductInput!) {
             updateProduct(updatedProduct: $updatedProduct) {
               id
-              name
             }
           }
         `,
