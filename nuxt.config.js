@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+require('dotenv').config()
 
 export default {
   mode: 'universal',
@@ -58,7 +59,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'http://localhost:4000/'
+    baseURL: process.env.API_URL
   },
   /*
    ** vuetify module configuration
@@ -84,8 +85,11 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://localhost:4000/graphql',
-        wsEndpoint: 'ws://localhost:4000/graphql'
+        httpEndpoint: process.env.HTTP_ENDPOINT,
+        wsEndpoint: process.env.WS_ENDPOINT,
+        httpLinkOptions: {
+          credentials: 'same-origin'
+        }
       }
     }
   },
