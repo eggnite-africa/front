@@ -86,10 +86,7 @@ export default {
     clientConfigs: {
       default: {
         httpEndpoint: process.env.HTTP_ENDPOINT,
-        wsEndpoint: process.env.WS_ENDPOINT,
-        httpLinkOptions: {
-          credentials: 'same-origin'
-        }
+        wsEndpoint: process.env.WS_ENDPOINT
       }
     }
   },
