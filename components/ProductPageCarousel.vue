@@ -1,5 +1,5 @@
 <template>
-  <v-carousel continuous hide-delimiter-background>
+  <v-carousel continuous hide-delimiter-background height="100%">
     <v-carousel-item
       v-for="(picture, i) in pictures"
       :key="i"
