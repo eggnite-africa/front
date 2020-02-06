@@ -11,7 +11,7 @@
         </v-list-item-title>
         <v-list-item-subtitle> {{ user.profile.bio }} </v-list-item-subtitle>
       </v-list-item-content>
-      <span class="ml-auto overline"> {{ postedAt }} </span>
+      <span class="ml-auto overline hidden-xs-only"> {{ postedAt }} </span>
     </v-list-item>
     <v-card-text>
       {{ comment.content }}
