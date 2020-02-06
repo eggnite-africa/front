@@ -27,7 +27,6 @@
             src="https://media.giphy.com/media/l41JU9pUyosHzWyuQ/giphy.gif"
           />
           <br />
-          <span>~ Karim</span>
         </v-card-text>
         <v-card-actions>
           <v-btn @click.stop="congrats = false" text icon class="ml-auto">

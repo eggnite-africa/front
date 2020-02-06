@@ -27,7 +27,6 @@
           if you have any ideas on how I can further improve your experience on
           the platform, don't hesitate!<br />
           <br />
-          ~ Karim
         </p>
       </v-card-text>
     </v-card>

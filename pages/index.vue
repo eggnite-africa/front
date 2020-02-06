@@ -12,28 +12,22 @@
           <v-card-title>Welcome!</v-card-title>
           <v-card-text>
             <p class="white--text">
-              Aaslema
+              Hi
               <span class="font-weight-bold">{{ firstName }}</span
               >, <br />
               <br />
-              I want you to know that I'm sincerely happy that you joined our
-              community! It might not mean much to you, but to me, it means the
-              world. <br />
+              We're sincerely happy that you joined our community! It might not
+              mean much to you, but to us, it means the world! <br />
               <br />
-              I strongly believe that together we can build a resilient,
+              We strongly believe that together we can build a resilient,
               supportive and diverse community where developers and
               entrepreneurs alike can share their products (whether that'd be an
               app, an open-source project or a website) with the larger
               community enabling them to further improve upon received
               feedback.<br />
               <br />
-              I can't wait to see what you've got to offer. We're all here to
-              support and learn from each other!<br />
-              <br />
-              Again, thanks for joining; and know that I'm always here so if you
-              have anything you'd like to say, don't hesitate to let me know!<br />
-              <br />
-              <span class="font-weight-medium">Sincerely, Karim Daghari.</span>
+              We can't wait to see what you've got to offer. Remember, we're all
+              here to support and learn from each other!<br />
             </p>
           </v-card-text>
           <v-card-actions>
