@@ -31,6 +31,12 @@
           outlined
           type="password"
         ></v-text-field>
+
+        <div class="d-flex justify-end">
+          <v-btn @click.prevent="onSubmit()" :color="color" type="submit">
+            login
+          </v-btn>
+        </div>
       </v-container>
     </form>
   </v-card>
@@ -43,7 +49,8 @@ export default {
   data() {
     return {
       username: null,
-      password: null
+      password: null,
+      color: 'primary'
     }
   },
   methods: {
@@ -52,10 +59,14 @@ export default {
     }),
     async onSubmit() {
       const [username, password] = [this.username, this.password]
-      if (username && password && password.length >= 8)
+      if (username && password && password.length >= 8) {
         try {
           await this.login({ username, password })
-        } catch (e) {}
+        } catch (e) {
+          this.color = 'red'
+          setTimeout(() => (this.color = 'primary'), 1000)
+        }
+      }
     },
     closeDialog() {
       this.$emit('close-dialog')
