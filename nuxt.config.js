@@ -7,7 +7,7 @@ export default {
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s | 🚀 Eggnite',
+    titleTemplate: '%s | Eggnite',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -86,10 +86,7 @@ export default {
     clientConfigs: {
       default: {
         httpEndpoint: process.env.HTTP_ENDPOINT,
-        wsEndpoint: process.env.WS_ENDPOINT,
-        httpLinkOptions: {
-          credentials: 'same-origin'
-        }
+        wsEndpoint: process.env.WS_ENDPOINT
       }
     }
   },
