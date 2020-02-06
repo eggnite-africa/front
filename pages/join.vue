@@ -1,95 +1,103 @@
 <template>
-  <v-card>
-    <v-card-title>Join us</v-card-title>
+  <v-container>
+    <v-card>
+      <v-card-title>Join us</v-card-title>
 
-    <v-stepper v-model="currentStep">
-      <v-stepper-header>
-        <v-stepper-step :complete="currentStep > 1" step="1"
-          >Account Information</v-stepper-step
+      <v-stepper v-model="currentStep">
+        <v-stepper-header>
+          <v-stepper-step :complete="currentStep > 1" step="1"
+            >Account Information</v-stepper-step
+          >
+          <v-divider></v-divider>
+          <v-stepper-step :complete="currentStep > 2" step="2"
+            >User Profile</v-stepper-step
+          >
+        </v-stepper-header>
+
+        <v-stepper-items>
+          <v-stepper-content step="1">
+            <v-card-text>
+              <form>
+                <v-text-field
+                  v-model.trim="email"
+                  :error-messages="emailErrors"
+                  @input="$v.email.$touch()"
+                  @blur="$v.email.$touch()"
+                  label="Email"
+                  type="email"
+                ></v-text-field>
+
+                <v-text-field
+                  v-model.trim="username"
+                  :error-messages="usernameErrors"
+                  @input="$v.username.$touch()"
+                  @blur="$v.username.$touch()"
+                  label="Username"
+                ></v-text-field>
+
+                <v-text-field
+                  v-model="password"
+                  :error-messages="passwordErrors"
+                  @input="$v.password.$touch()"
+                  @blur="$v.password.$touch()"
+                  label="Password"
+                  type="password"
+                ></v-text-field>
+
+                <v-text-field
+                  v-model="passwordConfirmation"
+                  :error-messages="confirmPasswordErrors"
+                  @input="$v.passwordConfirmation.$touch()"
+                  @blur="$v.passwordConfirmation.$touch()"
+                  label="Confirm password"
+                  type="password"
+                ></v-text-field>
+              </form>
+            </v-card-text>
+          </v-stepper-content>
+
+          <v-stepper-content step="2">
+            <v-card-text>
+              <user-profile-edit
+                ref="userProfile"
+                :profilePicture="profilePicture"
+                :firstName="firstName"
+                :lastName="lastName"
+                :sex="sex"
+                :birthDate="birthDate"
+                :occupation="occupation"
+                :university="university"
+                :bio="bio"
+                :socialLinks="socialLinks"
+              ></user-profile-edit>
+            </v-card-text>
+          </v-stepper-content>
+        </v-stepper-items>
+      </v-stepper>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn @click="previousStep()" v-show="currentStep > 1" text
+          >back</v-btn
         >
-        <v-divider></v-divider>
-        <v-stepper-step :complete="currentStep > 2" step="2"
-          >User Profile</v-stepper-step
+        <v-btn
+          ref="continueButton"
+          @click="nextStep()"
+          v-show="currentStep !== 2"
+          :color="$v.$anyError ? 'red' : 'blue'"
+          depressed
+          >Continue</v-btn
         >
-      </v-stepper-header>
-
-      <v-stepper-items>
-        <v-stepper-content step="1">
-          <v-card-text>
-            <form>
-              <v-text-field
-                v-model.trim="email"
-                :error-messages="emailErrors"
-                @input="$v.email.$touch()"
-                @blur="$v.email.$touch()"
-                label="Email"
-                type="email"
-              ></v-text-field>
-
-              <v-text-field
-                v-model.trim="username"
-                :error-messages="usernameErrors"
-                @input="$v.username.$touch()"
-                @blur="$v.username.$touch()"
-                label="Username"
-              ></v-text-field>
-
-              <v-text-field
-                v-model="password"
-                :error-messages="passwordErrors"
-                @input="$v.password.$touch()"
-                @blur="$v.password.$touch()"
-                label="Password"
-                type="password"
-              ></v-text-field>
-
-              <v-text-field
-                v-model="passwordConfirmation"
-                :error-messages="confirmPasswordErrors"
-                @input="$v.passwordConfirmation.$touch()"
-                @blur="$v.passwordConfirmation.$touch()"
-                label="Confirm password"
-                type="password"
-              ></v-text-field>
-            </form>
-          </v-card-text>
-        </v-stepper-content>
-
-        <v-stepper-content step="2">
-          <v-card-text>
-            <user-profile-edit
-              ref="userProfile"
-              :profilePicture="profilePicture"
-              :firstName="firstName"
-              :lastName="lastName"
-              :sex="sex"
-              :birthDate="birthDate"
-              :occupation="occupation"
-              :university="university"
-              :bio="bio"
-              :socialLinks="socialLinks"
-            ></user-profile-edit>
-          </v-card-text>
-        </v-stepper-content>
-      </v-stepper-items>
-    </v-stepper>
-
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn @click="previousStep()" v-show="currentStep > 1" text>back</v-btn>
-      <v-btn
-        ref="continueButton"
-        @click="nextStep()"
-        v-show="currentStep !== 2"
-        :color="$v.$anyError ? 'red' : 'blue'"
-        depressed
-        >Continue</v-btn
-      >
-      <v-btn @click="signUp()" v-if="currentStep === 2" depressed color="green"
-        >Join</v-btn
-      >
-    </v-card-actions>
-  </v-card>
+        <v-btn
+          @click="signUp()"
+          v-if="currentStep === 2"
+          depressed
+          color="green"
+          >Join</v-btn
+        >
+      </v-card-actions>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
