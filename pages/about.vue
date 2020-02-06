@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="text-center">
-      <v-row tag="section">
+      <v-row tag="section" dense>
         <v-col cols="12">
           <p class="headline">
             Eggnite aims to be <em>the</em> platform, that enables Tunisian
@@ -11,7 +11,7 @@
         </v-col>
       </v-row>
 
-      <v-row tag="section">
+      <v-row tag="section" dense>
         <v-col cols="12">
           <header class="headline">Who's behind this?</header>
         </v-col>

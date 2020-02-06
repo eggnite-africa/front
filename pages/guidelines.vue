@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row id="posting" tag="section">
+    <v-row id="posting" tag="section" dense>
       <v-col cols="12">
         <v-img src="/checklist.svg" max-width="500" class="mx-auto"></v-img>
       </v-col>
