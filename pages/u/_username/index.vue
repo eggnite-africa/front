@@ -11,7 +11,7 @@
             </v-avatar>
           </v-col>
           <v-col cols="9" sm="10" class="ml-sm-n6 ml-md-n5 mt-n4">
-            <v-card-text class="mt-n2">
+            <v-card-text class="ml-3 ml-sm-0 mt-n2">
               <v-row class="mb-n5" justify="start">
                 <v-col cols="9">
                   <h2
