@@ -102,7 +102,7 @@ export default {
   head() {
     return {
       titleTemplate: null,
-      title: '🚀 Eggnite'
+      title: 'Eggnite: Discover a new product everyday'
     }
   },
   data() {

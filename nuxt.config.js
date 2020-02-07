@@ -15,10 +15,10 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'Eggnite enables developers and entrepreneurs alike to share their products with the rest of the community'
+          'Eggnite enables developers and entrepreneurs alike to share their products with the the community'
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', href: '/Logo.png' }]
   },
   /*
    ** Customize the progress-bar color
