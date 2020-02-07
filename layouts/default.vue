@@ -2,6 +2,7 @@
   <v-app dark>
     <v-app-bar app>
       <nuxt-link to="/" class="homepage-link">
+        <v-img class="mr-2" src="/Logo.png" contain max-width="48"></v-img>
         <v-toolbar-title v-text="title" />
       </nuxt-link>
       <Search />
@@ -77,7 +78,7 @@ export default {
   },
   data() {
     return {
-      title: '🚀 Eggnite',
+      title: 'Eggnite',
       items: [
         {
           name: 'About',
@@ -95,6 +96,8 @@ export default {
 
 <style lang="scss" scoped>
 .homepage-link {
+  display: flex;
+  align-items: center;
   text-decoration: none;
   color: unset;
 }
