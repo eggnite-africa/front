@@ -37,7 +37,7 @@
 
       <template #item="data">
         <v-list-item-avatar>
-          <v-img :src="data.item.profile.profilePicture"></v-img>
+          <v-img :src="makerAvatar(data.item.id)"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title
@@ -150,6 +150,16 @@ export default {
         })
         this.$v.makers.$touch()
       }
+    },
+    makerAvatar(id) {
+      const maker = this.users.find((maker) => maker.id === id)
+      const profilePicture = maker.profile.profilePicture
+      if (profilePicture) return profilePicture
+
+      const gender = maker.profile.sex
+      if (gender === 'MALE') {
+        return '/male_avatar.svg'
+      } else return '/female_avatar.svg'
     }
   },
   apollo: {
