@@ -2,7 +2,7 @@
   <v-card v-if="!$apollo.queries.user.loading" elevation="0">
     <v-list-item :to="`/u/${user.username}`" nuxt>
       <v-list-item-avatar size="56">
-        <v-img :src="user.profile.profilePicture"></v-img>
+        <v-img :src="profilePicture"></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title>
@@ -49,6 +49,15 @@ export default {
       const date = this.$dateFns.parseISO(this.comment.postedAt)
       const formattedDate = this.$dateFns.format(date, 'd MMMM yyy')
       return formattedDate
+    },
+    profilePicture() {
+      const profilePicture = this.user.profile.profilePicture
+      if (profilePicture) return profilePicture
+
+      const gender = this.user.profile.sex
+      if (gender === 'MALE') {
+        return '/male_avatar.svg'
+      } else return '/female_avatar.svg'
     }
   },
   apollo: {
@@ -63,6 +72,7 @@ export default {
               firstName
               lastName
               bio
+              sex
             }
           }
         }

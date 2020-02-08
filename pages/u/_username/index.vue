@@ -6,7 +6,7 @@
           <v-col cols="3" sm="2" class="mr-md-n10">
             <v-avatar color="blue" size="96">
               <client-only>
-                <v-img :src="user.profile.profilePicture"></v-img>
+                <v-img :src="profilePicture"></v-img>
               </client-only>
             </v-avatar>
           </v-col>
@@ -114,6 +114,15 @@ export default {
     },
     isAdmin() {
       return this.$auth.user.type === 'ADMIN'
+    },
+    profilePicture() {
+      const profilePicture = this.user.profile.profilePicture
+      if (profilePicture) return profilePicture
+
+      const gender = this.user.profile.sex
+      if (gender === 'MALE') {
+        return '/male_avatar.svg'
+      } else return '/female_avatar.svg'
     }
   },
   asyncData() {

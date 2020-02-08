@@ -13,7 +13,7 @@
           ></menu-notification>
           <menu-account
             :username="user.username"
-            :user-profile-picture="user.profile.profilePicture"
+            :user-profile-picture="profilePicture"
           ></menu-account>
         </v-col>
       </v-row>
@@ -52,7 +52,8 @@ export default {
         id: '',
         username: '',
         profile: {
-          profilePicture: ''
+          profilePicture: '',
+          sex: ''
         },
         notifications: [
           {
@@ -88,6 +89,15 @@ export default {
           value
         })
       }
+    },
+    profilePicture() {
+      const profilePicture = this.user.profile.profilePicture
+      if (profilePicture) return profilePicture
+
+      const gender = this.user.profile.sex
+      if (gender === 'MALE') {
+        return '/male_avatar.svg'
+      } else return '/female_avatar.svg'
     }
   },
   apollo: {
@@ -99,6 +109,7 @@ export default {
             username
             profile {
               profilePicture
+              sex
             }
             notifications(seen: $seen) {
               id

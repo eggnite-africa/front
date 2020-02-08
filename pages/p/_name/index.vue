@@ -102,7 +102,7 @@
                           :maker-name="
                             `${maker.profile.firstName} ${maker.profile.lastName}`
                           "
-                          :maker-picture="maker.profile.profilePicture"
+                          :maker-picture="makerAvatar(i)"
                         ></maker-avatar>
                       </v-col>
                     </v-row>
@@ -212,7 +212,8 @@ export default {
             profile: {
               profilePicture: '',
               firstName: '',
-              lastName: ''
+              lastName: '',
+              sex: ''
             }
           }
         ],
@@ -257,6 +258,7 @@ export default {
                 profilePicture
                 firstName
                 lastName
+                sex
               }
             }
             links {
@@ -327,6 +329,16 @@ export default {
             .then(() => this.$apollo.queries.product.refetch())
         }
       } else this.openLoginDialog()
+    },
+    makerAvatar(index) {
+      const maker = this.product.makers[index]
+      const profilePicture = maker.profile.profilePicture
+      if (profilePicture) return profilePicture
+
+      const gender = maker.profile.sex
+      if (gender === 'MALE') {
+        return '/male_avatar.svg'
+      } else return '/female_avatar.svg'
     }
   },
   head() {

@@ -19,7 +19,7 @@
                 :maker-name="
                   `${maker.profile.firstName} ${maker.profile.lastName}`
                 "
-                :maker-picture="maker.profile.profilePicture"
+                :maker-picture="makerAvatar(i)"
               ></product-maker-avatar>
             </span>
           </v-card-text>
@@ -130,9 +130,27 @@ export default {
         },
         name: '',
         tagline: '',
-        makers: [],
-        votes: [],
-        comments: []
+        makers: [
+          {
+            username: '',
+            profile: {
+              profilePicture: '',
+              firstName: '',
+              lastName: '',
+              sex: ''
+            }
+          }
+        ],
+        votes: [
+          {
+            userId: ''
+          }
+        ],
+        comments: [
+          {
+            id: ''
+          }
+        ]
       }
     }
   },
@@ -153,6 +171,7 @@ export default {
                 profilePicture
                 firstName
                 lastName
+                sex
               }
             }
             votes {
@@ -256,6 +275,16 @@ export default {
           this.dialog = false
           this.$router.go(0)
         })
+    },
+    makerAvatar(index) {
+      const maker = this.product.makers[index]
+      const profilePicture = maker.profile.profilePicture
+      if (profilePicture) return profilePicture
+
+      const gender = maker.profile.sex
+      if (gender === 'MALE') {
+        return '/male_avatar.svg'
+      } else return '/female_avatar.svg'
     }
   }
 }
