@@ -27,6 +27,16 @@ import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode'
 
+import S3 from 'aws-s3'
+const config = {
+  bucketName: process.env.S3_BUCKET,
+  region: process.env.AWS_REGION,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+}
+
+const S3Client = new S3(config)
+
 const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
   FilePondPluginImagePreview,
@@ -82,8 +92,8 @@ export default {
         restore: null,
         fetch: null,
         revert: null,
-        remove: (source, load, err) => {
-          this.files = this.files.filter((file) => file.source !== source)
+        remove: async (source, load, err) => {
+          await this.removeImage(source)
           load()
         }
       }
@@ -109,25 +119,18 @@ export default {
     _pushFile(file) {
       this.files.push({ source: file, options: { type: 'local' } })
     },
-    async uploadImage(file) {
-      const headers = new Headers()
-      headers.append('Authorization', 'Client-ID 634e6e78a031851')
-
-      const body = new FormData()
-      body.append('image', file)
-
-      const requestOptions = {
-        method: 'POST',
-        headers,
-        body,
-        redirect: 'follow'
+    async removeImage(link) {
+      try {
+        const fileName = link.split('.com/')[1]
+        await S3Client.deleteFile(fileName)
+        this.files = this.files.filter((file) => file.source !== link)
+      } catch (e) {
+        throw new Error('There was a problem deleting the picture')
       }
-
-      const { data: picture } = await fetch(
-        'https://api.imgur.com/3/image',
-        requestOptions
-      ).then((response) => response.json())
-      return picture.link
+    },
+    async uploadImage(file) {
+      const { location } = await S3Client.uploadFile(file)
+      return location
     },
     getProductPictures() {
       const pictures = this.files.map((file) => file.source)
