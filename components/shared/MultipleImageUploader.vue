@@ -1,20 +1,24 @@
 <template>
-  <client-only>
-    <file-pond
-      id="multipleImageUploader"
-      ref="multipleImageUploader"
-      @init="handleInit()"
-      :files="files"
-      :server="server"
-      :label-idle="label"
-      allow-multiple="true"
-      allowed-file-type="image/jpeg, image/png, image/gif"
-      class="grid"
-    ></file-pond>
-  </client-only>
+  <div id="multipleImageUploader">
+    <client-only>
+      <file-pond
+        ref="multipleImageUploader"
+        @init="handleInit()"
+        @input="$v.files.$touch()"
+        :files="files"
+        :server="server"
+        :label-idle="label"
+        :class="$v.files.$invalid ? 'grid errors' : 'grid'"
+        allow-multiple="true"
+        accepted-file-types="image/jpeg, image/png, image/gif"
+      ></file-pond>
+    </client-only>
+    <p class="red--text">{{ multipleImageErrors }}</p>
+  </div>
 </template>
 
 <script>
+import { required, minLength } from 'vuelidate/lib/validators'
 import vueFilePond from 'vue-filepond'
 import 'filepond/dist/filepond.min.css'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
@@ -77,8 +81,23 @@ export default {
         },
         restore: null,
         fetch: null,
-        revert: null
+        revert: null,
+        remove: (source, load, err) => {
+          this.files = this.files.filter((file) => file.source !== source)
+          load()
+        }
       }
+    }
+  },
+  computed: {
+    multipleImageErrors() {
+      const errors = []
+      if (!this.$v.files.$invalid) return
+      !this.$v.files.required &&
+        errors.push('Pictures of the product are required')
+      !this.$v.files.minLength &&
+        errors.push('At least 2 pictures are required')
+      return errors[0]
     }
   },
   methods: {
@@ -110,46 +129,47 @@ export default {
       ).then((response) => response.json())
       return picture.link
     },
-    _getImage() {
-      const file = this.files[0]
-      const image = file.source
-      return image
-    },
-    getProfilePicture() {
-      return this._getImage()
-    },
-    getProductLogo() {
-      return this._getImage()
-    },
     getProductPictures() {
       const pictures = this.files.map((file) => file.source)
       return pictures
+    }
+  },
+  validations: {
+    files: {
+      required,
+      minLength: minLength(2)
     }
   }
 }
 </script>
 
-<style>
-.filepond--panel-root {
-  background-color: transparent;
-  border: 0.05em solid whitesmoke;
-}
-
-.filepond--drop-label {
-  color: whitesmoke;
-}
-</style>
-
-<style scoped>
-@media (min-width: 30em) {
-  .grid >>> .filepond--item {
-    width: calc(50% - 0.5em);
+<style lang="scss">
+#multipleImageUploader {
+  .filepond--panel-root {
+    background-color: transparent;
+    border: 0.1em solid #fff;
   }
-}
-
-@media (min-width: 50em) {
-  .grid >>> .filepond--item {
-    width: calc(33.33% - 0.5em);
+  .filepond--drop-label {
+    color: #fff;
+  }
+  @media (min-width: 30em) {
+    .grid {
+      .filepond--item {
+        width: calc(50% - 0.5em);
+      }
+    }
+  }
+  @media (min-width: 50em) {
+    .grid {
+      .filepond--item {
+        width: calc(33.33% - 0.5em);
+      }
+    }
+  }
+  .errors {
+    .filepond--panel-root {
+      border: 0.1em solid red;
+    }
   }
 }
 </style>

@@ -1,26 +1,31 @@
 <template>
   <client-only>
-    <file-pond
-      id="singleImageUploader"
-      ref="singleImageUploader"
-      @init="handleInit()"
-      :files="files"
-      :server="server"
-      :label-idle="label"
-      style-panel-layout="compact circle"
-      image-crop-aspect-ratio="1:1"
-      image-preview-height="170"
-      image-resize-target-width="200"
-      image-resize-target-height="200"
-      style-load-indicator-position="center bottom"
-      style-button-remove-item-position="center bottom"
-      style="width: 170px"
-      allowed-file-type="image/jpeg, image/png, image/gif"
-    ></file-pond>
+    <div id="singleImageUploader">
+      <file-pond
+        ref="singleImageUploader"
+        @init="handleInit()"
+        @input="$v.files.$touch()"
+        :files="files"
+        :server="server"
+        :label-idle="label"
+        :class="singleImageClass"
+        style-panel-layout="compact circle"
+        image-crop-aspect-ratio="1:1"
+        image-preview-height="170"
+        image-resize-target-width="200"
+        image-resize-target-height="200"
+        style-load-indicator-position="center bottom"
+        style-button-remove-item-position="center bottom"
+        style="width: 170px"
+        accepted-file-types="image/jpeg, image/png, image/gif"
+      ></file-pond>
+      <p v-show="isProductLogo" class="red--text">{{ singleImageErrors }}</p>
+    </div>
   </client-only>
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators'
 import vueFilePond from 'vue-filepond'
 import 'filepond/dist/filepond.min.css'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
@@ -95,6 +100,21 @@ export default {
       }
     }
   },
+  computed: {
+    isProductLogo() {
+      return this.imageLabel.toLowerCase().includes('product')
+    },
+    singleImageErrors() {
+      const errors = []
+      if (!this.$v.files.$invalid) return
+      !this.$v.files.required && errors.push('Product logo is required')
+      return errors[0]
+    },
+    singleImageClass() {
+      if (this.isProductLogo && this.$v.files.$invalid) return 'errors'
+      return ''
+    }
+  },
   methods: {
     handleInit() {
       if (this.initImage !== '') {
@@ -136,23 +156,33 @@ export default {
     getProductLogo() {
       return this._getImage()
     }
+  },
+  validations: {
+    files: {
+      required
+    }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #singleImageUploader {
   .filepond--panel-root {
     background-color: transparent;
-    border: 0.05em solid whitesmoke;
+    border: 0.1em solid #fff;
   }
 
   .filepond--drop-label {
-    color: whitesmoke;
+    color: #fff;
   }
   .uploaded-file >>> .filepond--panel-root {
     background-color: transparent;
     border: none;
+  }
+  .errors {
+    .filepond--panel-root {
+      border: 0.1em solid red;
+    }
   }
 }
 </style>

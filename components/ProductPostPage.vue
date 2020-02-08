@@ -1,123 +1,132 @@
 <template>
-  <form @submit.prevent="onSubmit" v-if="!$apollo.queries.product.loading">
-    <v-row v-if="!isEdit">
-      <v-col cols="12">
-        <v-text-field
-          v-model="product.name"
-          :error-messages="nameErrors"
-          @input="$v.product.name.$touch()"
-          @blur="$v.product.name.$touch()"
-          loader-height="2px"
-          label="Name"
-          outlined
-          hint="Make sure to choose a good, unique name as you won't be able to change it later!"
-        ></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <v-textarea
-          v-model="product.tagline"
-          :error-messages="taglineErrors"
-          @input="$v.product.tagline.$touch()"
-          @blur="$v.product.tagline.$touch()"
-          label="Tagline"
-          outlined
-          rows="1"
-          counter="80"
-          hint="A catchy tagline can generate more leads, so don't underestimate it!"
-        ></v-textarea>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <v-textarea
-          v-model="product.description"
-          :error-messages="descriptionErrors"
-          @input="$v.product.description.$touch()"
-          @blur="$v.product.description.$touch()"
-          label="Description"
-          outlined
-          auto-grow
-          counter="280"
-        ></v-textarea>
-      </v-col>
-    </v-row>
-    <header>Media</header>
-    <v-row justify="center" align="center">
-      <v-col cols="12" sm="3">
-        <logo-uploader
-          ref="productLogo"
-          :image-label="'product logo'"
-          :init-image="product.media.logo"
-          class="mx-auto"
-        ></logo-uploader>
-      </v-col>
-      <v-col cols="12" sm="9">
-        <images-uploader
-          ref="productPictures"
-          :image-label="'product pictures'"
-          :init-images="product.media.pictures"
-          :is-edit="isEdit"
-        ></images-uploader>
-      </v-col>
-    </v-row>
-    <header>Links</header>
-    <v-row>
-      <v-col cols="12">
-        <product-link
-          ref="productWebsite"
-          :p-link="product.links.website"
-          :is-required="requireWebsite"
-          icon="mdi-web"
-          label="Website"
-        ></product-link>
-      </v-col>
-      <v-col cols="12">
-        <product-link
-          ref="productRepo"
-          :p-link="product.links.github"
-          icon="mdi-github-circle"
-          label="Github"
-          color="white"
-        ></product-link>
-      </v-col>
-      <v-col cols="12">
-        <product-link
-          ref="productAppStore"
-          :p-link="product.links.appStore"
-          icon="mdi-apple"
-          label="App Store"
-          field-name="appStore"
-          color="grey lighten-1"
-        ></product-link>
-      </v-col>
-      <v-col cols="12">
-        <product-link
-          ref="productPlayStore"
-          :p-link="product.links.playStore"
-          icon="mdi-google-play"
-          label="Google Play"
-          field-name="playStore"
-          color="green"
-        ></product-link>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <product-makers
-          ref="productMakers"
-          :p-id="product.id"
-          :p-makers="product.makers"
-          :is-edit="isEdit"
-        ></product-makers>
-      </v-col>
-    </v-row>
-    <v-row dense>
-      <v-spacer></v-spacer>
-      <v-btn type="submit" color="primary" depressed><slot></slot></v-btn>
-    </v-row>
-  </form>
+  <div>
+    <form @submit.prevent="onSubmit" v-if="!$apollo.queries.product.loading">
+      <v-row v-if="!isEdit">
+        <v-col cols="12">
+          <v-text-field
+            v-model="product.name"
+            :error-messages="nameErrors"
+            @input="$v.product.name.$touch()"
+            @blur="$v.product.name.$touch()"
+            loader-height="2px"
+            label="Name"
+            outlined
+            hint="Make sure to choose a good, unique name as you won't be able to change it later!"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <v-textarea
+            v-model="product.tagline"
+            :error-messages="taglineErrors"
+            @input="$v.product.tagline.$touch()"
+            @blur="$v.product.tagline.$touch()"
+            label="Tagline"
+            outlined
+            rows="1"
+            counter="80"
+            hint="A catchy tagline can generate more leads, so don't underestimate it!"
+          ></v-textarea>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <v-textarea
+            v-model="product.description"
+            :error-messages="descriptionErrors"
+            @input="$v.product.description.$touch()"
+            @blur="$v.product.description.$touch()"
+            label="Description"
+            outlined
+            auto-grow
+            counter="280"
+          ></v-textarea>
+        </v-col>
+      </v-row>
+      <header>Media</header>
+      <v-row justify="center" align="center">
+        <v-col cols="12" sm="3">
+          <logo-uploader
+            ref="productLogo"
+            :image-label="'product logo'"
+            :init-image="product.media.logo"
+            class="mx-auto"
+          ></logo-uploader>
+        </v-col>
+        <v-col cols="12" sm="9">
+          <images-uploader
+            ref="productPictures"
+            :image-label="'product pictures'"
+            :init-images="product.media.pictures"
+            :is-edit="isEdit"
+          ></images-uploader>
+        </v-col>
+      </v-row>
+      <header>Links</header>
+      <v-row>
+        <v-col cols="12">
+          <product-link
+            ref="productWebsite"
+            :p-link="product.links.website"
+            :is-required="requireWebsite"
+            icon="mdi-web"
+            label="Website"
+          ></product-link>
+        </v-col>
+        <v-col cols="12">
+          <product-link
+            ref="productRepo"
+            :p-link="product.links.github"
+            icon="mdi-github-circle"
+            label="Github"
+            color="white"
+          ></product-link>
+        </v-col>
+        <v-col cols="12">
+          <product-link
+            ref="productAppStore"
+            :p-link="product.links.appStore"
+            icon="mdi-apple"
+            label="App Store"
+            field-name="appStore"
+            color="grey lighten-1"
+          ></product-link>
+        </v-col>
+        <v-col cols="12">
+          <product-link
+            ref="productPlayStore"
+            :p-link="product.links.playStore"
+            icon="mdi-google-play"
+            label="Google Play"
+            field-name="playStore"
+            color="green"
+          ></product-link>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <product-makers
+            ref="productMakers"
+            :p-id="product.id"
+            :p-makers="product.makers"
+            :is-edit="isEdit"
+          ></product-makers>
+        </v-col>
+      </v-row>
+      <v-row dense>
+        <v-spacer></v-spacer>
+        <v-btn color="primary" type="submit" depressed><slot></slot></v-btn>
+      </v-row>
+    </form>
+
+    <v-snackbar v-model="invalidForm">
+      <v-icon color="yellow" left>mdi-alert</v-icon>
+      <span class="mr-auto">
+        There's an error somewhere
+      </span>
+    </v-snackbar>
+  </div>
 </template>
 
 <script>
@@ -171,7 +180,8 @@ export default {
         makers: []
       },
       productExists: this.isEdit,
-      requireWebsite: false
+      requireWebsite: false,
+      invalidForm: false
     }
   },
   validations: {
@@ -342,20 +352,33 @@ export default {
         playStore,
         makers
       } = this.getProductData()
+      const productLogo = this.$refs.productLogo
+      const productPictures = this.$refs.productPictures
       const productWebsite = this.$refs.productWebsite
       const productMakers = this.$refs.productMakers
       let linksAreValid = true
 
       this.$v.$touch()
       productMakers.$v.$touch()
+      productLogo.$v.$touch()
+      productPictures.$v.$touch()
+
       if (!website && !github && !appStore && !playStore) {
         linksAreValid = false
         this.requireWebsite = true
         productWebsite.$v.$touch()
       }
 
-      if (this.$v.$invalid || productMakers.$v.$invalid || !linksAreValid)
+      if (
+        this.$v.$invalid ||
+        productMakers.$v.$invalid ||
+        !linksAreValid ||
+        productLogo.$v.$invalid ||
+        productPictures.$v.$invalid
+      ) {
+        this.invalidForm = true
         return
+      }
 
       await this.$apollo
         .mutate({
