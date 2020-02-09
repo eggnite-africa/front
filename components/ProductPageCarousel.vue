@@ -1,11 +1,12 @@
 <template>
-  <v-carousel continuous hide-delimiter-background height="100%">
-    <v-carousel-item
-      v-for="(picture, i) in pictures"
-      :key="i"
-      :src="picture"
-      eager
-    >
+  <v-carousel
+    continuous
+    hide-delimiter-background
+    delimiter-icon="mdi-minus"
+    height="100%"
+  >
+    <v-carousel-item v-for="(picture, i) in pictures" :key="i" eager>
+      <v-img :src="picture" aspect-ratio="2.5" contain></v-img>
     </v-carousel-item>
   </v-carousel>
 </template>
