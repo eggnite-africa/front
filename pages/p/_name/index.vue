@@ -74,7 +74,7 @@
               </v-row>
 
               <v-row align="start" tag="section">
-                <v-col cols="12" md="8">
+                <v-col cols="12" sm="8">
                   <v-row dense>
                     <v-col>
                       <header>Description</header>
@@ -110,7 +110,7 @@
                   </v-row>
                 </v-col>
 
-                <v-col cols="12" md="4">
+                <v-col cols="12" sm="4">
                   <v-btn
                     :outlined="!hasVoted"
                     @click.stop="upvote()"
