@@ -94,10 +94,11 @@
                       <v-col
                         v-for="(maker, i) in product.makers"
                         :key="i"
-                        cols="6"
-                        sm="4"
+                        cols="12"
+                        sm="6"
                       >
                         <maker-avatar
+                          :class="i > 2 ? 'mt-3 mt-sm-0' : ''"
                           :maker-username="maker.username"
                           :maker-name="
                             `${maker.profile.firstName} ${maker.profile.lastName}`
