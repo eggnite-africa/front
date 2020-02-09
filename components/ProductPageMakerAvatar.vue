@@ -1,9 +1,7 @@
 <template>
   <v-btn :to="makerProfileLink" text nuxt>
     <v-avatar size="36" left class="mr-2">
-      <client-only>
-        <v-img :src="makerPicture"></v-img>
-      </client-only>
+      <v-img :src="makerPicture"></v-img>
     </v-avatar>
     <span v-text="makerName"></span>
   </v-btn>
