@@ -16,6 +16,31 @@ export default {
         name: 'description',
         content:
           'Eggnite enables developers and entrepreneurs alike to share their products with the the community'
+      },
+      {
+        property: 'og:title',
+        content: 'Eggnite'
+      },
+      {
+        property: 'og:url',
+        content: 'https://eggnite.xyz'
+      },
+      {
+        property: 'og:image',
+        content: '/sm_card.png'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:description',
+        content:
+          'Eggnite enables developers and entrepreneurs alike to share their products with the the community'
+      },
+      {
+        property: 'twitter:card',
+        content: 'summary_large_image'
       }
     ],
     link: [{ rel: 'icon', href: '/Logo.png' }]
