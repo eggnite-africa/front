@@ -218,9 +218,8 @@ export default {
       logout: 'utils/logout'
     }),
     async checkPassword(password) {
-      const { userId } = this.$auth.user
       this.correctPassword = await this.$axios.$post('auth/check-password', {
-        userId,
+        userId: this.userId,
         password
       })
     },
