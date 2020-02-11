@@ -44,7 +44,7 @@
     <client-only>
       <Feedback />
     </client-only>
-    <v-footer fixed app>
+    <v-footer absolute app>
       <v-row dense align="center">
         <v-col>
           <span>&copy; {{ $dateFns.getYear(new Date()) }}</span>
