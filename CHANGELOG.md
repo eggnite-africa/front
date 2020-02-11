@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.5](https://github.com/kdaghari/eggnite-frontend/compare/v1.1.4...v1.1.5) (2020-02-11)
+
+
+### Bug Fixes
+
+* activate missing functions ([23abb75](https://github.com/kdaghari/eggnite-frontend/commit/23abb7511512f56628558c9194c4e14e9577ed32))
+* use computed prop to get user id instead of fetching it ([aabf8da](https://github.com/kdaghari/eggnite-frontend/commit/aabf8dae055df10f9c75821825a41a8abefdce2b))
+
 ### [1.1.4](https://github.com/kdaghari/eggnite-frontend/compare/v1.1.3...v1.1.4) (2020-02-11)
 
 ### [1.1.3](https://github.com/kdaghari/eggnite-frontend/compare/v1.1.2...v1.1.3) (2020-02-11)
