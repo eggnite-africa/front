@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.3](https://github.com/kdaghari/eggnite-frontend/compare/v1.1.2...v1.1.3) (2020-02-11)
+
+
+### Bug Fixes
+
+* add missing param (userId) ([7633922](https://github.com/kdaghari/eggnite-frontend/commit/76339221ab554442c12c4f4e9b302eaf31000365))
+
 ### [1.1.2](https://github.com/kdaghari/eggnite-frontend/compare/v1.1.1...v1.1.2) (2020-02-11)
 
 ### [1.1.1](https://github.com/kdaghari/eggnite-frontend/compare/v1.1.0...v1.1.1) (2020-02-11)
