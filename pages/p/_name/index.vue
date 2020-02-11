@@ -361,7 +361,7 @@ export default {
         },
         {
           property: 'og:image',
-          content: this.product.media.logo
+          content: '/sm_card.png'
         },
         {
           property: 'og:type',
