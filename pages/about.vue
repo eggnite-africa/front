@@ -4,9 +4,8 @@
       <v-row tag="section" dense>
         <v-col cols="12">
           <p class="headline">
-            Eggnite aims to be <em>the</em> platform, that enables Tunisian
-            student developers and entrepreneurs alike to share their creations
-            with the rest of the community.
+            Eggnite enables African developers and entrepreneurs to share their
+            products with the community.
           </p>
         </v-col>
       </v-row>
