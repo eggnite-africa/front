@@ -218,18 +218,24 @@ export default {
       logout: 'utils/logout'
     }),
     async checkPassword(password) {
+      const userId = this.userId
       this.correctPassword = await this.$axios.$post('auth/check-password', {
-        userId: this.userId,
+        userId,
         password
       })
     },
     async changeUserEmail(email) {
+      const userId = this.userId
       await this.$axios
-        .$post('auth/change-email', { email })
+        .$post('auth/change-email', { userId, email })
         .then(() => this.$apollo.queries.user.refresh())
     },
     async changeUserPassword(password) {
-      await this.$axios.$post('auth/change-password', { password })
+      const userId = this.userId
+      await this.$axios.$post('auth/change-password', {
+        userId,
+        password
+      })
     },
     async onSubmit() {
       this.$v.$touch()
