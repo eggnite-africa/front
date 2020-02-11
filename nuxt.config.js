@@ -27,7 +27,7 @@ export default {
       },
       {
         property: 'og:image',
-        content: '/sm_card.png'
+        content: 'https://eggnite.xyz/sm_card.png'
       },
       {
         property: 'og:type',
