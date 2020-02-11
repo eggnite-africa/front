@@ -11,7 +11,7 @@ export default {
     titleTemplate: '%s | Eggnite',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width: device-width, initial-scale: 1' },
       {
         hid: 'description',
         name: 'description',
@@ -146,5 +146,11 @@ export default {
         // tokenType: 'bearer'
       }
     }
+  },
+  env: {
+    S3_BUCKET: process.env.S3_BUCKET,
+    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
+    AWS_REGION: process.env.AWS_REGION
   }
 }
