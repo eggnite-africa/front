@@ -103,10 +103,13 @@ export default {
 }
 .menu-link {
   text-decoration: none;
-  color: #bdbdbd;
-  margin-right: 0.5rem;
+  color: #e0e0e0;
+  &:first-child {
+    margin-left: 0.5rem;
+  }
+  margin-right: 1.5rem;
   &:hover {
-    color: #e0e0e0;
+    color: #fff;
   }
 }
 </style>
