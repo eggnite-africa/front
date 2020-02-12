@@ -37,6 +37,11 @@ export default {
         content: 'https://eggnite.xyz/sm_card.png'
       },
       {
+        hid: 'twitterImage',
+        property: 'twitter:image',
+        content: 'https://eggnite.xyz/sm_card.png'
+      },
+      {
         hid: 'type',
         property: 'og:type',
         content: 'website'
