@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/kdaghari/eggnite-frontend/compare/v1.1.12...v1.2.0) (2020-02-12)
+
+
+### Features
+
+* prefetch to ensure a snappier feel ([66c6ff1](https://github.com/kdaghari/eggnite-frontend/commit/66c6ff19f39202c646737a0f23798fe32dd4cfb7))
+
 ### [1.1.12](https://github.com/kdaghari/eggnite-frontend/compare/v1.1.11...v1.1.12) (2020-02-12)
 
 ### [1.1.11](https://github.com/kdaghari/eggnite-frontend/compare/v1.1.10...v1.1.11) (2020-02-12)
