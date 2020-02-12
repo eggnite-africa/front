@@ -25,7 +25,7 @@
         v-model="link.contact"
       ></v-text-field>
     </v-col>
-    <v-col cols="12" sm="2" align-self="center">
+    <v-col cols="2" sm="2" align-self="center">
       <slot></slot>
     </v-col>
   </v-row>
