@@ -9,8 +9,7 @@
           </v-btn>
         </div>
         <p class="subtitle-1 mt-n2">
-          Discover new products made by Tunisian student developers &
-          entrepreneurs
+          {{ rotateMessages() }}
         </p>
         <v-btn color="green" depressed nuxt to="/join">Join us</v-btn>
         and become part of an awesome community.
@@ -23,6 +22,14 @@
 <script>
 export default {
   name: 'WelcomeBanner',
+  data() {
+    return {
+      messages: [
+        'Discover new products made by African makers',
+        'Share your product with a community of African makers'
+      ]
+    }
+  },
   computed: {
     hidden: {
       get() {
@@ -36,6 +43,12 @@ export default {
           value
         })
       }
+    }
+  },
+  methods: {
+    rotateMessages() {
+      const i = Math.floor(Math.random() * this.messages.length)
+      return this.messages[i]
     }
   }
 }
