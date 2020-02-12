@@ -19,9 +19,21 @@
                       `${user.profile.firstName} ${user.profile.lastName}`
                     "
                   ></h2>
-                  <span v-show="user.profile.university">
-                    <v-icon dense>mdi-school</v-icon>
-                    <span v-text="user.profile.university"></span>
+                  <span
+                    v-show="user.profile.university || user.profile.company"
+                  >
+                    <v-icon dense>{{
+                      user.profile.university !== ''
+                        ? 'mdi-school'
+                        : 'mdi-briefcase'
+                    }}</v-icon>
+                    <span>
+                      {{
+                        user.profile.university !== ''
+                          ? user.profile.university
+                          : user.profile.company
+                      }}
+                    </span>
                   </span>
                 </v-col>
                 <v-col v-if="isOwner()" cols="3">
@@ -134,6 +146,7 @@ export default {
           lastName: '',
           gender: '',
           university: '',
+          company: '',
           bio: '',
           socialLinks: ['']
         },
@@ -161,6 +174,7 @@ export default {
               lastName
               gender
               university
+              company
               bio
               socialLinks
             }
