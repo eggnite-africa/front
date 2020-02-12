@@ -85,7 +85,19 @@ export default {
   data() {
     return {
       makers: this.pMakers.map(({ id }) => id),
-      err: false
+      err: false,
+      users: [
+        {
+          id: '',
+          username: '',
+          profile: {
+            profilePicture: '',
+            firstName: '',
+            lastName: '',
+            gender: ''
+          }
+        }
+      ]
     }
   },
   validations: {
@@ -173,6 +185,7 @@ export default {
               profilePicture
               firstName
               lastName
+              gender
             }
           }
         }
