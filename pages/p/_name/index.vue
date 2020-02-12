@@ -77,8 +77,8 @@
                 <v-col cols="12" sm="8">
                   <v-row dense>
                     <v-col>
-                      <header>Description</header>
-                      <p class="text-justify body-1">
+                      <header class="title">Description</header>
+                      <p class="body-1">
                         {{ product.description }}
                       </p>
                     </v-col>
@@ -86,7 +86,7 @@
 
                   <v-row dense>
                     <v-col cols="12">
-                      <header>
+                      <header class="title">
                         {{ product.makers.length > 1 ? 'Makers' : 'Maker' }}
                       </header>
                     </v-col>
