@@ -1,6 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
-import { config } from 'dotenv'
-config()
+require('dotenv').config()
 
 export default {
   mode: 'universal',
@@ -11,7 +10,11 @@ export default {
     titleTemplate: '%s | Eggnite',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width: device-width, initial-scale: 1' },
+      {
+        hid: 'viewport',
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      },
       {
         hid: 'description',
         name: 'description',
@@ -19,27 +22,33 @@ export default {
           'Eggnite enables African developers and entrepreneurs alike to share their products with the the community'
       },
       {
+        hid: 'title',
         property: 'og:title',
         content: 'Eggnite'
       },
       {
+        hid: 'url',
         property: 'og:url',
         content: 'https://eggnite.xyz'
       },
       {
+        hid: 'image',
         property: 'og:image',
         content: 'https://eggnite.xyz/sm_card.png'
       },
       {
+        hid: 'type',
         property: 'og:type',
         content: 'website'
       },
       {
+        hid: 'ogDescription',
         property: 'og:description',
         content:
           'Eggnite enables African developers and entrepreneurs alike to share their products with the the community'
       },
       {
+        hid: 'twitterCard',
         property: 'twitter:card',
         content: 'summary_large_image'
       }
