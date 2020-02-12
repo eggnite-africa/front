@@ -2,7 +2,7 @@
   <v-menu offset-y bottom>
     <template #activator="{ on }">
       <v-btn icon>
-        <v-avatar v-on="on" color="primary" size="36">
+        <v-avatar v-on="on" size="36">
           <client-only>
             <v-img :src="userProfilePicture"></v-img>
           </client-only>
