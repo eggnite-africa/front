@@ -63,7 +63,7 @@
                 :profilePicture="profilePicture"
                 :firstName="firstName"
                 :lastName="lastName"
-                :sex="sex"
+                :gender="gender"
                 :birthDate="birthDate"
                 :occupation="occupation"
                 :university="university"
@@ -155,7 +155,7 @@ export default {
       profilePicture: '',
       firstName: '',
       lastName: '',
-      sex: '',
+      gender: '',
       birthDate: '',
       occupation: '',
       university: '',
@@ -249,7 +249,7 @@ export default {
         profilePicture,
         firstName,
         lastName,
-        sex,
+        gender,
         birthDate,
         occupation,
         university,
@@ -276,7 +276,7 @@ export default {
                 profilePicture,
                 firstName,
                 lastName,
-                sex,
+                gender,
                 birthDate,
                 occupation,
                 bio,

@@ -119,7 +119,7 @@ export default {
       const profilePicture = this.user.profile.profilePicture
       if (profilePicture) return profilePicture
 
-      const gender = this.user.profile.sex
+      const gender = this.user.profile.gender
       if (gender === 'MALE') {
         return '/male_avatar.svg'
       } else return '/female_avatar.svg'
@@ -132,7 +132,7 @@ export default {
           profilePicture: '',
           firstName: '',
           lastName: '',
-          sex: '',
+          gender: '',
           university: '',
           bio: '',
           socialLinks: ['']
@@ -159,7 +159,7 @@ export default {
               profilePicture
               firstName
               lastName
-              sex
+              gender
               university
               bio
               socialLinks
@@ -224,7 +224,7 @@ export default {
         },
         {
           property: 'profile:gender',
-          content: this.user.profile.sex
+          content: this.user.profile.gender
         }
       ]
     }

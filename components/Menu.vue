@@ -53,7 +53,7 @@ export default {
         username: '',
         profile: {
           profilePicture: '',
-          sex: ''
+          gender: ''
         },
         notifications: [
           {
@@ -94,7 +94,7 @@ export default {
       const profilePicture = this.user.profile.profilePicture
       if (profilePicture) return profilePicture
 
-      const gender = this.user.profile.sex
+      const gender = this.user.profile.gender
       if (gender === 'MALE') {
         return '/male_avatar.svg'
       } else return '/female_avatar.svg'
@@ -109,7 +109,7 @@ export default {
             username
             profile {
               profilePicture
-              sex
+              gender
             }
             notifications(seen: $seen) {
               id

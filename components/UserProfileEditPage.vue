@@ -29,13 +29,13 @@
     </v-row>
     <v-row dense>
       <v-col>
-        <header>Sex</header>
+        <header>Gender</header>
 
         <v-radio-group
-          v-model="userSex"
-          :error-messages="userSexErrors"
-          @input="$v.userSex.$touch()"
-          @blur="$v.userSex.$touch()"
+          v-model="userGender"
+          :error-messages="userGenderErrors"
+          @input="$v.userGender.$touch()"
+          @blur="$v.userGender.$touch()"
           row
         >
           <v-radio label="Male" value="MALE" color="white"></v-radio>
@@ -128,7 +128,7 @@ export default {
       type: null,
       required: true
     },
-    sex: {
+    gender: {
       type: String,
       required: true
     },
@@ -155,7 +155,7 @@ export default {
       userProfilePicture: this.profilePicture,
       userFirstName: this.firstName,
       userLastName: this.lastName,
-      userSex: this.sex,
+      userGender: this.gender,
       userBio: this.bio,
       userSocialLinks: this.socialLinks.filter((link) => link !== 'null'),
       socialMediaLinks: [],
@@ -187,10 +187,10 @@ export default {
         errors.push('last name should be at least 3 characters long')
       return errors
     },
-    userSexErrors() {
+    userGenderErrors() {
       const errors = []
-      if (!this.$v.userSex.$dirty) return errors
-      !this.$v.userSex.required && errors.push('sex is required... 🍆🍑')
+      if (!this.$v.userGender.$dirty) return errors
+      !this.$v.userGender.required && errors.push('gender is required... 🍆🍑')
       return errors
     }
   },
@@ -203,7 +203,7 @@ export default {
       required,
       minLength: minLength(3)
     },
-    userSex: {
+    userGender: {
       required
     }
   },
@@ -239,7 +239,7 @@ export default {
       const [
         firstName,
         lastName,
-        sex,
+        gender,
         birthDate,
         occupation,
         university,
@@ -247,7 +247,7 @@ export default {
       ] = [
         this.userFirstName,
         this.userLastName,
-        this.userSex,
+        this.userGender,
         this.$refs.userBirthDateField.userBirthDate,
         this.$refs.userOccupationField.userOccupation,
         this.$refs.userOccupationField.userUniversity,
@@ -267,7 +267,7 @@ export default {
         profilePicture,
         firstName,
         lastName,
-        sex,
+        gender,
         birthDate,
         occupation,
         university,
@@ -282,7 +282,7 @@ export default {
         profilePicture,
         firstName,
         lastName,
-        sex,
+        gender,
         birthDate,
         occupation,
         university,
@@ -300,7 +300,7 @@ export default {
               profilePicture
               firstName
               lastName
-              sex
+              gender
               birthDate
               occupation
               university
@@ -314,7 +314,7 @@ export default {
             profilePicture,
             firstName,
             lastName,
-            sex,
+            gender,
             birthDate,
             occupation,
             university,

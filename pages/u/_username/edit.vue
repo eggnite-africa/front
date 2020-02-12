@@ -18,7 +18,7 @@
           :profilePicture="user.profile.profilePicture"
           :firstName="user.profile.firstName"
           :lastName="user.profile.lastName"
-          :sex="user.profile.sex"
+          :gender="user.profile.gender"
           :birthDate="user.profile.birthDate"
           :occupation="user.profile.occupation"
           :university="user.profile.university"
@@ -67,7 +67,7 @@ export default {
           profilePicture: '',
           firstName: '',
           lastName: '',
-          sex: '',
+          gender: '',
           birthDate: '',
           occupation: '',
           university: '',
@@ -87,7 +87,7 @@ export default {
               profilePicture
               firstName
               lastName
-              sex
+              gender
               birthDate
               occupation
               university

@@ -156,7 +156,7 @@ export default {
       const profilePicture = maker.profile.profilePicture
       if (profilePicture) return profilePicture
 
-      const gender = maker.profile.sex
+      const gender = maker.profile.gender
       if (gender === 'MALE') {
         return '/male_avatar.svg'
       } else return '/female_avatar.svg'
