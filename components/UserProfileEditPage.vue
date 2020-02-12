@@ -145,6 +145,11 @@ export default {
       default: null,
       required: false
     },
+    company: {
+      type: String,
+      default: null,
+      required: false
+    },
     socialLinks: {
       type: Array,
       required: true
@@ -243,6 +248,7 @@ export default {
         birthDate,
         occupation,
         university,
+        company,
         bio
       ] = [
         this.userFirstName,
@@ -251,6 +257,7 @@ export default {
         this.$refs.userBirthDateField.userBirthDate,
         this.$refs.userOccupationField.userOccupation,
         this.$refs.userOccupationField.userUniversity,
+        this.$refs.userOccupationField.userCompany,
         this.userBio
       ]
 
@@ -271,6 +278,7 @@ export default {
         birthDate,
         occupation,
         university,
+        company,
         bio,
         socialLinks
       }
@@ -286,6 +294,7 @@ export default {
         birthDate,
         occupation,
         university,
+        company,
         bio,
         socialLinks
       } = this.getProfileInfo()
@@ -303,6 +312,7 @@ export default {
               gender
               birthDate
               occupation
+              company
               university
               bio
             }
@@ -318,6 +328,7 @@ export default {
             birthDate,
             occupation,
             university,
+            company,
             bio,
             socialLinks
           }

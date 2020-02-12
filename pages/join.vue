@@ -159,6 +159,7 @@ export default {
       birthDate: '',
       occupation: '',
       university: '',
+      company: '',
       bio: '',
       socialLinks: [''],
       usernameExists: false,
@@ -253,6 +254,7 @@ export default {
         birthDate,
         occupation,
         university,
+        company,
         bio,
         socialLinks
       } = userProfile.getProfileInfo()
@@ -281,6 +283,7 @@ export default {
                 occupation,
                 bio,
                 university,
+                company,
                 socialLinks
               }
             }

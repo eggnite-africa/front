@@ -20,14 +20,26 @@
       </v-radio-group>
     </v-col>
     <v-col>
-      <header>University</header>
-      <v-text-field
-        v-model.trim="userUniversity"
-        :error-messages="userUniversityErrors"
-        @input="$v.userUniversity.$touch()"
-        @blur="$v.userUniversity.$touch()"
-        prepend-icon="mdi-school"
-      ></v-text-field>
+      <template v-if="userOccupation === 'STUDENT'">
+        <header>University</header>
+        <v-text-field
+          v-model.trim="userUniversity"
+          :error-messages="userUniversityErrors"
+          @input="$v.userUniversity.$touch()"
+          @blur="$v.userUniversity.$touch()"
+          prepend-icon="mdi-school"
+        ></v-text-field>
+      </template>
+      <template v-else>
+        <header>Company</header>
+        <v-text-field
+          v-model.trim="userCompany"
+          :error-messages="userCompanyErrors"
+          @input="$v.userCompany.$touch()"
+          @blur="$v.userCompany.$touch()"
+          prepend-icon="mdi-briefcase"
+        ></v-text-field>
+      </template>
     </v-col>
   </v-row>
 </template>
@@ -44,12 +56,17 @@ export default {
     university: {
       type: String,
       default: null
+    },
+    company: {
+      type: String,
+      default: null
     }
   },
   data() {
     return {
       userOccupation: this.occupation,
-      userUniversity: this.university
+      userUniversity: this.university,
+      userCompany: this.company
     }
   },
   computed: {
@@ -65,6 +82,12 @@ export default {
       !this.$v.userUniversity.required &&
         errors.push('So... Where do you study?')
       return errors
+    },
+    userCompanyErrors() {
+      const errors = []
+      if (!this.$v.userCompany.$dirty) return errors
+      !this.$v.userCompany.required && errors.push('So... Where do you work?')
+      return errors
     }
   },
   validations: {
@@ -74,6 +97,11 @@ export default {
     userUniversity: {
       required: requiredIf(function() {
         return this.userOccupation === 'STUDENT'
+      })
+    },
+    userCompany: {
+      required: requiredIf(function() {
+        return this.userOccupation !== 'STUDENT'
       })
     }
   },
