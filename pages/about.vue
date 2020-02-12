@@ -10,6 +10,12 @@
         </v-col>
       </v-row>
 
+      <v-row>
+        <v-col>
+          <product-item product-id="1"></product-item>
+        </v-col>
+      </v-row>
+
       <v-row tag="section" dense>
         <v-col cols="12">
           <header class="headline">Who's behind this?</header>
@@ -30,7 +36,11 @@
 </template>
 
 <script>
+import ProductItem from '@/components/ProductItem.vue'
 export default {
+  components: {
+    ProductItem
+  },
   head() {
     return {
       title: '💡 About'
