@@ -2,6 +2,7 @@
   <div>
     <v-autocomplete
       v-model="makers"
+      v-if="!$apollo.queries.users.loading"
       :items="users"
       :error-messages="makersErrors"
       @blur="$v.makers.$touch()"
@@ -29,7 +30,7 @@
           close
         >
           <v-avatar left>
-            <v-img :src="data.item.profile.profilePicture"></v-img>
+            <v-img :src="makerAvatar(data.item.id)"></v-img>
           </v-avatar>
           {{ data.item.profile.firstName + ' ' + data.item.profile.lastName }}
         </v-chip>
@@ -189,7 +190,8 @@ export default {
             }
           }
         }
-      `
+      `,
+      prefetch: true
     }
   }
 }
