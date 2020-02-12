@@ -3,9 +3,7 @@
     <template #activator="{ on }">
       <v-btn :to="makerProfileLink" icon nuxt>
         <v-avatar v-on="on" size="28">
-          <client-only>
-            <v-img :src="makerPicture"></v-img>
-          </client-only>
+          <v-img :src="makerPicture" eager></v-img>
         </v-avatar>
       </v-btn>
     </template>

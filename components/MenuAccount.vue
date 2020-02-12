@@ -3,9 +3,7 @@
     <template #activator="{ on }">
       <v-btn icon>
         <v-avatar v-on="on" size="36">
-          <client-only>
-            <v-img :src="userProfilePicture"></v-img>
-          </client-only>
+          <v-img :src="userProfilePicture" eager></v-img>
         </v-avatar>
       </v-btn>
     </template>
