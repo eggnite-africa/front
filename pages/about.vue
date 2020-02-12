@@ -10,7 +10,7 @@
         </v-col>
       </v-row>
 
-      <v-row>
+      <v-row class="text-left">
         <v-col>
           <product-item product-id="1"></product-item>
         </v-col>
