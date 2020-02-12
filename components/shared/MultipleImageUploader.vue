@@ -85,7 +85,13 @@ export default {
           }
         },
         load: (url, load) => {
-          fetch(url)
+          fetch(url, {
+            headers: {
+              get: {
+                'Access-Control-Allow-Origin': '*'
+              }
+            }
+          })
             .then((response) => response.blob())
             .then((blob) => load(blob))
         },
