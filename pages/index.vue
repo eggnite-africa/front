@@ -96,7 +96,8 @@ export default {
             id
           }
         }
-      `
+      `,
+      prefetch: true
     }
   },
   head() {
