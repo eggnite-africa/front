@@ -11,7 +11,7 @@
         row
       >
         <v-radio label="Student" value="STUDENT" color="blue"></v-radio>
-        <v-radio label="Developer" value="DEV" color="green"></v-radio>
+        <v-radio label="Developer" value="DEVELOPER" color="green"></v-radio>
         <v-radio
           label="Entrepreneur"
           value="ENTREPRENEUR"
