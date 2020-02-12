@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.11](https://github.com/kdaghari/eggnite-frontend/compare/v1.1.10...v1.1.11) (2020-02-12)
+
+
+### Bug Fixes
+
+* setup correct headers ([e285b8b](https://github.com/kdaghari/eggnite-frontend/commit/e285b8b11302b76794d95658941d3bee3cf2c6f1))
+
 ### [1.1.10](https://github.com/kdaghari/eggnite-frontend/compare/v1.1.9...v1.1.10) (2020-02-11)
 
 ### [1.1.9](https://github.com/kdaghari/eggnite-frontend/compare/v1.1.8...v1.1.9) (2020-02-11)
