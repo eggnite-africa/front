@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/kdaghari/eggnite-frontend/compare/v1.3.0...v1.4.0) (2020-02-12)
+
+
+### Features
+
+* eagerly load images and remove aspect ratio ([7fedf55](https://github.com/kdaghari/eggnite-frontend/commit/7fedf5517535fa14d015ca066a184d01924f9d9a))
+
+
+### Bug Fixes
+
+* sometimes get request has problems fetching the ressource in question ([64d3eb1](https://github.com/kdaghari/eggnite-frontend/commit/64d3eb10d641356ca50c2fd3ef2133d3e3ff153b))
+
 ## [1.3.0](https://github.com/kdaghari/eggnite-frontend/compare/v1.2.1...v1.3.0) (2020-02-12)
 
 
