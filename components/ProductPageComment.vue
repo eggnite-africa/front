@@ -20,6 +20,7 @@
               @delete-comment="deleteComment($event)"
               @add-reply="addReply($event)"
               :comment="reply"
+              :can-reply="false"
             ></single-comment>
             <v-divider></v-divider>
           </v-col>

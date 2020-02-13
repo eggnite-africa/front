@@ -17,7 +17,7 @@
       {{ comment.content }}
     </v-card-text>
     <v-card-actions v-if="isOwner" class="mt-n5">
-      <v-btn @click="reply = !reply" text>reply</v-btn>
+      <v-btn v-if="canReply" @click="reply = !reply" text>reply</v-btn>
       <v-btn @click="deleteComment()" text>delete</v-btn>
     </v-card-actions>
     <comment-reply
@@ -40,6 +40,10 @@ export default {
     comment: {
       type: Object,
       required: true
+    },
+    canReply: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
