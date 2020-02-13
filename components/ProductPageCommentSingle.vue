@@ -22,7 +22,7 @@
     </v-card-actions>
     <comment-reply
       v-if="reply"
-      @add-reply="$emit('add-reply', $event)"
+      @add-reply="addReply($event)"
       :comment-id="commentId"
       :product-id="productId"
     ></comment-reply>
@@ -137,6 +137,10 @@ export default {
     },
     navigateToUrl(url) {
       this.$router.push(url)
+    },
+    addReply(reply) {
+      this.$emit('add-reply', reply)
+      this.reply = !this.reply
     }
   }
 }
