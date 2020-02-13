@@ -272,6 +272,12 @@ export default {
               content
               userId
               postedAt
+              replies {
+                id
+                content
+                userId
+                postedAt
+              }
             }
             votes {
               userId
