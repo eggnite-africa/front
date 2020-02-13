@@ -13,6 +13,18 @@
         ></single-comment>
         <v-divider></v-divider>
       </v-col>
+      <v-col cols="12">
+        <v-row v-for="(reply, j) in comment.replies" :key="j" dense>
+          <v-col cols="12">
+            <single-comment
+              @delete-comment="deleteComment($event)"
+              @add-reply="addReply($event)"
+              :comment="reply"
+            ></single-comment>
+            <v-divider></v-divider>
+          </v-col>
+        </v-row>
+      </v-col>
     </v-row>
   </section>
 </template>
