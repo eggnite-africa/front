@@ -8,6 +8,7 @@
       <v-col tag="section" cols="12">
         <single-comment
           @delete-comment="deleteComment($event)"
+          @add-reply="addReply($event)"
           :comment="comment"
         ></single-comment>
         <v-divider></v-divider>
@@ -46,6 +47,11 @@ export default {
     },
     deleteComment(id) {
       this.productComments = this.productComments.filter((c) => +c.id === +id)
+    },
+    addReply(reply) {
+      const parentId = reply.parentId
+      const index = this.productComments.findIndex((c) => +c.id === +parentId)
+      this.productComments[index].replies.push(reply)
     }
   }
 }

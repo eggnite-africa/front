@@ -30,12 +30,16 @@
 </template>
 
 <script>
-// import gql from 'graphql-tag'
+import gql from 'graphql-tag'
 import { mapMutations } from 'vuex'
 export default {
   name: 'ProductPageCommentAdd',
   props: {
     commentId: {
+      type: String,
+      required: true
+    },
+    productId: {
       type: String,
       required: true
     }
@@ -55,6 +59,30 @@ export default {
     ...mapMutations({ openLoginDialog: 'utils/openLoginDialog' }),
     addReply() {
       if (!this.$auth.loggedIn) this.openLoginDialog()
+      this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation addReply($reply: CommentInput!) {
+              addReply: addComment(commentInput: $reply) {
+                id
+                content
+                userId
+                postedAt
+                parentId
+              }
+            }
+          `,
+          variables: {
+            reply: {
+              productId: this.productId,
+              content: this.content,
+              parentId: this.parentId
+            }
+          }
+        })
+        .then(({ data: { addReply: reply } }) => {
+          this.$emit('add-reply', reply)
+        })
     }
   }
 }
