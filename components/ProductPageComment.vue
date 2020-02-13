@@ -59,8 +59,8 @@ export default {
     addComment(comment) {
       this.productComments.unshift(comment)
     },
-    deleteComment(id) {
-      this.productComments = this.productComments.filter((c) => +c.id === +id)
+    deleteComment({ commentId: id }) {
+      this.productComments = this.productComments.filter((c) => +c.id !== +id)
     },
     addReply(reply) {
       const parentId = reply.parentId
