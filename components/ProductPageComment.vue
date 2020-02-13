@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     addComment(comment) {
-      this.productComments.push(comment)
+      this.productComments.unshift(comment)
     },
     deleteComment(id) {
       this.productComments = this.productComments.filter((c) => +c.id === +id)
@@ -65,7 +65,7 @@ export default {
     addReply(reply) {
       const parentId = reply.parentId
       const index = this.productComments.findIndex((c) => +c.id === +parentId)
-      this.productComments[index].replies.push(reply)
+      this.productComments[index].replies.unshift(reply)
     },
     deleteReply(payload) {
       const parentId = payload.parentId
