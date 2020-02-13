@@ -65,7 +65,8 @@ export default {
             comment: {
               id: '',
               productId: '',
-              userId: ''
+              userId: '',
+              parentId: ''
             }
           }
         ]
@@ -121,6 +122,7 @@ export default {
                 id
                 productId
                 userId
+                parentId
               }
             }
           }

@@ -11,7 +11,8 @@
       <strong v-text="product.name"></strong>
       <span v-if="notificationType === 'VOTE'">Your product was upvoted!</span>
       <span v-else
-        ><strong>@{{ user.username }}</strong> commented on your product!</span
+        ><strong>@{{ user.username }}</strong>
+        {{ productId ? 'commented on your product!' : 'replied to you!' }}</span
       >
     </v-list-item-content>
   </v-list-item>
@@ -84,8 +85,11 @@ export default {
       `,
       variables() {
         return {
-          id: !this.isLoggedIn || this.productId
+          id: this.productId
         }
+      },
+      skip() {
+        return !this.isLoggedIn || !this.productId
       },
       fetchPolicy: 'network-only'
     },
