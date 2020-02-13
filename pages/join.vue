@@ -69,6 +69,7 @@
                 :university="university"
                 :bio="bio"
                 :socialLinks="socialLinks"
+                :country="country"
               ></user-profile-edit>
             </v-card-text>
           </v-stepper-content>
@@ -161,6 +162,7 @@ export default {
       university: '',
       company: '',
       bio: '',
+      country: '',
       socialLinks: [''],
       usernameExists: false,
       emailExists: false
@@ -256,7 +258,8 @@ export default {
         university,
         company,
         bio,
-        socialLinks
+        socialLinks,
+        country
       } = userProfile.getProfileInfo()
 
       await this.$apollo
@@ -284,7 +287,8 @@ export default {
                 bio,
                 university,
                 company,
-                socialLinks
+                socialLinks,
+                country
               }
             }
           }

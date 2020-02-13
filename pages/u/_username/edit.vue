@@ -24,6 +24,7 @@
           :university="user.profile.university"
           :bio="user.profile.bio"
           :social-links="user.profile.socialLinks"
+          :country="user.profile.country"
         ></user-profile-edit>
       </v-card-text>
       <v-card-actions>
@@ -72,7 +73,8 @@ export default {
           occupation: '',
           university: '',
           bio: '',
-          socialLinks: ['']
+          socialLinks: [''],
+          country: ''
         }
       }
     }
@@ -93,6 +95,7 @@ export default {
               university
               bio
               socialLinks
+              country
             }
           }
         }

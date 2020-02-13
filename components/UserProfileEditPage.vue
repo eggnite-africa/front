@@ -27,7 +27,7 @@
         ></v-text-field>
       </v-col>
     </v-row>
-    <v-row dense>
+    <v-row>
       <v-col>
         <header>Gender</header>
 
@@ -47,6 +47,16 @@
           ref="userBirthDateField"
           :birthDate="birthDate"
         ></birthdate-field>
+      </v-col>
+      <v-col>
+        <header>Country</header>
+        <v-autocomplete
+          v-model="userCountry"
+          :items="africanCountries"
+          prepend-icon="mdi-map"
+          item-text="name"
+          item-value="code"
+        ></v-autocomplete>
       </v-col>
     </v-row>
     <occupation-field
@@ -98,6 +108,7 @@
 <script>
 import gql from 'graphql-tag'
 import { required, minLength } from 'vuelidate/lib/validators'
+import { countries } from 'countries-list'
 import UserAvatar from '@/components/shared/SingleImageUpload.vue'
 import SocialMediaLink from '@/components/UserProfileEditPageSocialMedia.vue'
 import OccupationField from '@/components/UserProfileEditPageOccupationField.vue'
@@ -132,6 +143,10 @@ export default {
       type: String,
       required: true
     },
+    country: {
+      type: String,
+      required: true
+    },
     bio: {
       type: String,
       required: true
@@ -161,6 +176,7 @@ export default {
       userFirstName: this.firstName,
       userLastName: this.lastName,
       userGender: this.gender,
+      userCountry: this.country,
       userBio: this.bio,
       userSocialLinks: this.socialLinks.filter((link) => link !== 'null'),
       socialMediaLinks: [],
@@ -172,6 +188,12 @@ export default {
         { value: 'Medium', icon: 'medium' },
         { value: 'YouTube', icon: 'youtube' },
         { value: 'Website', icon: 'web' }
+      ],
+      africanCountries: [
+        {
+          code: '',
+          name: ''
+        }
       ]
     }
   },
@@ -197,6 +219,12 @@ export default {
       if (!this.$v.userGender.$dirty) return errors
       !this.$v.userGender.required && errors.push('gender is required... 🍆🍑')
       return errors
+    },
+    userCountryErrors() {
+      const errors = []
+      if (!this.$v.userGender.$dirty) return errors
+      !this.$v.userGender.required && errors.push('So... Where are you from?')
+      return errors
     }
   },
   validations: {
@@ -210,6 +238,9 @@ export default {
     },
     userGender: {
       required
+    },
+    userCountry: {
+      required
     }
   },
   created() {
@@ -217,6 +248,18 @@ export default {
       this.userSocialLinks = ['']
     }
     this.userSocialLinks.forEach((link) => this.addSocialMediaLink())
+    const africanCountries = Object.entries(countries).filter(
+      (c) => c[1].continent === 'AF'
+    )
+    const africanCountriesFinal = []
+    africanCountries.forEach((c) => {
+      const country = {
+        code: c[0],
+        name: c[1].name
+      }
+      africanCountriesFinal.push(country)
+    })
+    this.africanCountries = africanCountriesFinal
   },
   methods: {
     isValid() {
@@ -249,7 +292,8 @@ export default {
         occupation,
         university,
         company,
-        bio
+        bio,
+        country
       ] = [
         this.userFirstName,
         this.userLastName,
@@ -258,7 +302,8 @@ export default {
         this.$refs.userOccupationField.userOccupation,
         this.$refs.userOccupationField.userUniversity,
         this.$refs.userOccupationField.userCompany,
-        this.userBio
+        this.userBio,
+        this.userCountry
       ]
 
       const socialLinks = []
@@ -280,7 +325,8 @@ export default {
         university,
         company,
         bio,
-        socialLinks
+        socialLinks,
+        country
       }
     },
     async updateUserProfile(userId) {
@@ -296,7 +342,8 @@ export default {
         university,
         company,
         bio,
-        socialLinks
+        socialLinks,
+        country
       } = this.getProfileInfo()
 
       await this.$apollo.mutate({
@@ -315,6 +362,7 @@ export default {
               company
               university
               bio
+              country
             }
           }
         `,
@@ -330,7 +378,8 @@ export default {
             university,
             company,
             bio,
-            socialLinks
+            socialLinks,
+            country
           }
         }
       })
