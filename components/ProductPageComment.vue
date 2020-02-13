@@ -19,6 +19,7 @@
             <single-comment
               @delete-comment="deleteComment($event)"
               @add-reply="addReply($event)"
+              @delete-reply="deleteReply($event)"
               :comment="reply"
               :can-reply="false"
             ></single-comment>
@@ -65,6 +66,15 @@ export default {
       const parentId = reply.parentId
       const index = this.productComments.findIndex((c) => +c.id === +parentId)
       this.productComments[index].replies.push(reply)
+    },
+    deleteReply(payload) {
+      const parentId = payload.parentId
+      const replyId = payload.commentId
+      const index = this.productComments.findIndex((c) => +c.id === +parentId)
+      // eslint-disable-next-line standard/computed-property-even-spacing
+      this.productComments[index].replies = this.productComments[
+        index
+      ].replies.filter((r) => +r.id !== +replyId)
     }
   }
 }

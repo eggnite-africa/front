@@ -287,6 +287,7 @@ export default {
               replies {
                 id
                 productId
+                parentId
                 content
                 userId
                 postedAt
