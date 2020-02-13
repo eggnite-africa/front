@@ -17,19 +17,30 @@
       {{ comment.content }}
     </v-card-text>
     <v-card-actions v-if="isOwner" class="mt-n5">
+      <v-btn @click="reply = !reply" text>reply</v-btn>
       <v-btn @click="deleteComment()" text>delete</v-btn>
     </v-card-actions>
+    <comment-reply v-if="reply" :comment-id="commentId"></comment-reply>
   </v-card>
 </template>
 
 <script>
 import gql from 'graphql-tag'
+import CommentReply from '@/components/ProductPageCommentReply.vue'
 export default {
   name: 'ProductPageCommentSingle',
+  components: {
+    CommentReply
+  },
   props: {
     comment: {
       type: Object,
       required: true
+    }
+  },
+  data() {
+    return {
+      reply: false
     }
   },
   computed: {
