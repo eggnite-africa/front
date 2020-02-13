@@ -228,7 +228,18 @@ export default {
             id: '',
             content: '',
             userId: '',
-            postedAt: ''
+            postedAt: '',
+            productId: '',
+            replies: [
+              {
+                id: '',
+                content: '',
+                userId: '',
+                postedAt: '',
+                productId: '',
+                parentId: ''
+              }
+            ]
           }
         ],
         votes: [
@@ -271,9 +282,11 @@ export default {
               id
               content
               userId
+              productId
               postedAt
               replies {
                 id
+                productId
                 content
                 userId
                 postedAt
