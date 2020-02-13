@@ -15,7 +15,7 @@
       </v-col>
       <v-col cols="12">
         <v-row v-for="(reply, j) in comment.replies" :key="j" dense>
-          <v-col cols="12">
+          <v-col cols="11" offset="1">
             <single-comment
               @delete-comment="deleteComment($event)"
               @add-reply="addReply($event)"
