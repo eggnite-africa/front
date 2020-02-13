@@ -62,6 +62,12 @@ export default {
     productId() {
       return this.comment.productId
     },
+    parentId() {
+      return this.comment.parentId
+    },
+    isReply() {
+      return !!this.parentId
+    },
     isOwner() {
       return this.$auth.loggedIn && +this.userId === this.$auth.user.id
     },
@@ -120,7 +126,14 @@ export default {
             commentId: this.commentId
           }
         })
-        .then(() => this.$emit('delete-comment', { commentId: this.commentId }))
+        .then(() => {
+          const comment = {
+            commentId: +this.commentId
+          }
+          if (!this.isReply) this.$emit('delete-comment', { ...comment })
+          else
+            this.$emit('delete-reply', { ...comment, parentId: +this.parentId })
+        })
     },
     navigateToUrl(url) {
       this.$router.push(url)
