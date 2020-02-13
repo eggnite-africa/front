@@ -12,11 +12,13 @@
             <v-card-text class="ml-3 ml-sm-0 mt-n2">
               <v-row class="mb-n5" justify="start">
                 <v-col cols="9">
-                  <h2
-                    v-text="
-                      `${user.profile.firstName} ${user.profile.lastName}`
-                    "
-                  ></h2>
+                  <h2>
+                    {{ user.profile.firstName + ' ' + user.profile.lastName }}
+                    <v-icon
+                      :class="`flag-icons square ${user.profile.country}`"
+                      dense
+                    ></v-icon>
+                  </h2>
                   <span
                     v-show="user.profile.university || user.profile.company"
                   >
@@ -111,6 +113,7 @@ import gql from 'graphql-tag'
 import UserSocial from '@/components/UserProfileSocialMediaLinks.vue'
 import ProductItem from '@/components/ProductItem.vue'
 import UserComment from '@/components/UserProfileComment.vue'
+import '@/assets/flag-icons.scss'
 
 export default {
   components: {
