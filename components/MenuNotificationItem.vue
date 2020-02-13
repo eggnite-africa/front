@@ -89,7 +89,7 @@ export default {
         }
       },
       skip() {
-        return !this.isLoggedIn || !this.productId
+        return !this.isLoggedIn
       },
       fetchPolicy: 'network-only'
     },
