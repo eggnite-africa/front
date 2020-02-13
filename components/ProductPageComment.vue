@@ -6,7 +6,10 @@
     ></add-comment>
     <v-row v-for="(comment, i) in productComments" :key="i" dense>
       <v-col tag="section" cols="12">
-        <single-comment :comment="comment"></single-comment>
+        <single-comment
+          @delete-comment="deleteComment($event)"
+          :comment="comment"
+        ></single-comment>
         <v-divider></v-divider>
       </v-col>
     </v-row>
@@ -40,6 +43,9 @@ export default {
   methods: {
     addComment(comment) {
       this.productComments.push(comment)
+    },
+    deleteComment(id) {
+      this.productComments = this.productComments.filter((c) => +c.id === +id)
     }
   }
 }

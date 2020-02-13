@@ -97,7 +97,7 @@ export default {
             commentId: this.commentId
           }
         })
-        .then(() => this.$emit('update-comments'))
+        .then(() => this.$emit('delete-comment', { commentId: this.commentId }))
     },
     navigateToUrl(url) {
       this.$router.push(url)
