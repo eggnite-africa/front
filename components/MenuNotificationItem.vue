@@ -67,6 +67,9 @@ export default {
     productId() {
       if (this.vote) return this.vote.productId
       else return this.comment.productId
+    },
+    userId() {
+      return this.comment.userId
     }
   },
   apollo: {
@@ -88,8 +91,8 @@ export default {
     },
     user: {
       query: gql`
-        query fetchCommenterUsernameForNotification($userId: ID!) {
-          user(id: $userId) {
+        query fetchCommenterUsernameForNotification($id: ID!) {
+          user(id: $id) {
             id
             username
           }
@@ -97,7 +100,7 @@ export default {
       `,
       variables() {
         return {
-          userId: this.comment.userId
+          id: this.userId
         }
       },
       skip() {
