@@ -57,7 +57,10 @@ export default {
           mutation: gql`
             mutation addComment($commentInput: CommentInput!) {
               addComment(commentInput: $commentInput) {
+                id
+                userId
                 content
+                postedAt
               }
             }
           `,
@@ -68,7 +71,10 @@ export default {
             }
           }
         })
-        .then(() => this.$emit('update-comments'))
+        .then(({ data: { addComment } }) => {
+          this.$emit('add-comment', addComment)
+          this.content = ''
+        })
     }
   }
 }

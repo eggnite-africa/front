@@ -135,7 +135,6 @@
               <comment-section
                 :product-id="product.id"
                 :comments="product.comments"
-                @update-comments="updateProduct()"
               ></comment-section>
             </v-container>
           </v-card>
@@ -289,10 +288,6 @@ export default {
   },
   methods: {
     ...mapMutations({ openLoginDialog: 'utils/openLoginDialog' }),
-    updateProduct() {
-      this.$apollo.queries.product.refetch()
-    },
-
     upvote() {
       if (this.$auth.loggedIn) {
         if (this.hasVoted) {

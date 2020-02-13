@@ -1,15 +1,12 @@
 <template>
   <section id="comments">
     <add-comment
-      @update-comments="$emit('update-comments')"
+      @add-comment="addComment($event)"
       :product-id="productId"
     ></add-comment>
-    <v-row v-for="(comment, i) in comments" :key="i" dense>
+    <v-row v-for="(comment, i) in productComments" :key="i" dense>
       <v-col tag="section" cols="12">
-        <single-comment
-          @update-comments="$emit('update-comments')"
-          :comment="comment"
-        ></single-comment>
+        <single-comment :comment="comment"></single-comment>
         <v-divider></v-divider>
       </v-col>
     </v-row>
@@ -33,6 +30,16 @@ export default {
     productId: {
       type: String,
       required: true
+    }
+  },
+  data() {
+    return {
+      productComments: this.comments
+    }
+  },
+  methods: {
+    addComment(comment) {
+      this.productComments.push(comment)
     }
   }
 }
