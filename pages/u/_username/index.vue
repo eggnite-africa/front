@@ -4,10 +4,8 @@
       <v-container>
         <v-row justify="center">
           <v-col cols="3" sm="2" class="mr-md-n10">
-            <v-avatar color="blue" size="96">
-              <client-only>
-                <v-img :src="profilePicture"></v-img>
-              </client-only>
+            <v-avatar size="96">
+              <v-img :src="profilePicture" eager></v-img>
             </v-avatar>
           </v-col>
           <v-col cols="9" sm="10" class="ml-sm-n6 ml-md-n5 mt-n4">
