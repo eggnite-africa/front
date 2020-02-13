@@ -38,9 +38,10 @@
                 </v-col>
                 <v-col v-if="isOwner()" cols="3">
                   <div style="float: right">
-                    <v-btn depressed nuxt to="edit" append color="indigo"
-                      >Edit</v-btn
-                    >
+                    <v-btn depressed nuxt to="edit" append color="indigo">
+                      <span class="hidden-xs-only">Edit</span>
+                      <v-icon small class="hidden-sm-and-up">mdi-wrench</v-icon>
+                    </v-btn>
                   </div>
                 </v-col>
               </v-row>
