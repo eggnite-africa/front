@@ -8,7 +8,7 @@
         :disabled="!this.$auth.loggedIn"
         :placeholder="placeholder"
         v-model="content"
-        @keydown.ctrl.enter="addComment()"
+        @keydown.ctrl.enter="addReply()"
         dense
         outlined
         auto-grow
@@ -17,7 +17,7 @@
     </v-col>
     <v-col cols="12" sm="2">
       <v-btn
-        @click="addComment()"
+        @click="addReply()"
         block
         color="orange"
         large
@@ -76,12 +76,12 @@ export default {
             reply: {
               productId: this.productId,
               content: this.content,
-              parentId: this.parentId
+              parentId: this.commentId
             }
           }
         })
-        .then(({ data: { addReply: reply } }) => {
-          this.$emit('add-reply', reply)
+        .then(({ data: { addReply } }) => {
+          this.$emit('add-reply', addReply)
         })
     }
   }
