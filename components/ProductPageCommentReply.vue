@@ -38,10 +38,6 @@ export default {
     commentId: {
       type: String,
       required: true
-    },
-    productId: {
-      type: String,
-      required: true
     }
   },
   data() {
@@ -74,7 +70,6 @@ export default {
           `,
           variables: {
             reply: {
-              productId: this.productId,
               content: this.content,
               parentId: this.commentId
             }
