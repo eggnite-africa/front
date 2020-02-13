@@ -148,7 +148,8 @@ export default {
           university: '',
           company: '',
           bio: '',
-          socialLinks: ['']
+          socialLinks: [''],
+          country: ''
         },
         products: [{ id: '' }],
         votes: [{ productId: '' }],
@@ -177,6 +178,7 @@ export default {
               company
               bio
               socialLinks
+              country
             }
             products {
               id
