@@ -24,6 +24,7 @@
       v-if="reply"
       @add-reply="$emit('add-reply', $event)"
       :comment-id="commentId"
+      :product-id="productId"
     ></comment-reply>
   </v-card>
 </template>
@@ -57,6 +58,9 @@ export default {
     },
     commentId() {
       return this.comment.id
+    },
+    productId() {
+      return this.comment.productId
     },
     isOwner() {
       return this.$auth.loggedIn && +this.userId === this.$auth.user.id
