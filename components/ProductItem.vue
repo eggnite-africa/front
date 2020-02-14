@@ -119,6 +119,11 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      dialog: false
+    }
+  },
   computed: {
     productLink() {
       const productUrl = this.product.name.replace(/ /gi, '-')
@@ -151,7 +156,6 @@ export default {
   },
   asyncData() {
     return {
-      dialog: false,
       product: {
         id: '',
         media: {
