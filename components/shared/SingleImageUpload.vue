@@ -37,15 +37,6 @@ import FilePondPluginImageCrop from 'filepond-plugin-image-crop'
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform'
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode'
 
-import S3 from 'aws-s3'
-const config = {
-  bucketName: process.env.S3_BUCKET,
-  region: process.env.AWS_REGION,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-}
-
-const S3Client = new S3(config)
 const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
   FilePondPluginImagePreview,
@@ -97,9 +88,7 @@ export default {
         load: (url, load) => {
           fetch(url, {
             headers: {
-              get: {
-                'Access-Control-Allow-Origin': '*'
-              }
+              'Access-Control-Allow-Origin': '*'
             }
           })
             .then((response) => response.blob())
@@ -139,18 +128,27 @@ export default {
     _pushFile(file) {
       this.files.push({ source: file, options: { type: 'local' } })
     },
-    async removeImage(link) {
+    removeImage(link) {
       try {
-        const fileName = link.split('.com/')[1]
-        await S3Client.deleteFile(fileName)
         this.files = this.files.filter((file) => file.source !== link)
       } catch (e) {
         throw new Error('There was a problem deleting the picture')
       }
     },
     async uploadImage(file) {
-      const { location } = await S3Client.uploadFile(file)
-      return location
+      let link = ''
+      const { signedUrl, url } = await this.$axios.$post('/sign-s3', {
+        fileType: file.type
+      })
+      await fetch(signedUrl, {
+        body: file,
+        method: 'put'
+      })
+        .then((res) => (link = url))
+        .catch((e) => {
+          throw new Error(e)
+        })
+      return link
     },
     _getImage() {
       const file = this.files[0]
