@@ -16,13 +16,7 @@
       ></v-textarea>
     </v-col>
     <v-col cols="12" sm="2">
-      <v-btn
-        @click="addReply()"
-        block
-        color="orange"
-        large
-        class="mt-n5 mt-md-0"
-      >
+      <v-btn @click="addReply()" block color="orange" large>
         reply
       </v-btn>
     </v-col>
