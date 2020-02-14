@@ -4,9 +4,7 @@
       <v-row dense align="center">
         <v-col cols="3" sm="1">
           <v-avatar size="72">
-            <client-only>
-              <v-img :src="product.media.logo" contain></v-img>
-            </client-only>
+            <v-img :src="product.media.logo" contain eager></v-img>
           </v-avatar>
         </v-col>
         <v-col justify-self="start">
