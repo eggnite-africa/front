@@ -1,14 +1,9 @@
-<template>
-  <v-dialog
-    v-model="dialog"
-    v-if="$auth.loggedIn && !isAdmin"
-    max-width="500"
-    persistent
-  >
+<template v-if="$auth.loggedIn && !isAdmin">
+  <v-dialog v-model="dialog" max-width="500" persistent>
     <template #activator="{ on }">
       <v-btn
         v-on="on"
-        class="mb-10"
+        class="mb-5"
         elevation="3"
         fixed
         fab
