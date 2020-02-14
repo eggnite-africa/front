@@ -41,8 +41,10 @@
       </v-container>
     </v-content>
 
-    <client-only v-if="displayFeedback">
-      <Feedback />
+    <client-only>
+      <div v-if="displayFeedback">
+        <Feedback />
+      </div>
     </client-only>
     <v-footer absolute app>
       <v-row dense align="center">
@@ -93,7 +95,7 @@ export default {
   },
   computed: {
     displayFeedback() {
-      return !this.$auth.user.type !== 'ADMIN' && this.$auth.loggedIn
+      return this.$auth.loggedIn && this.$auth.user.type !== 'ADMIN'
     }
   }
 }

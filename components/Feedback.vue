@@ -107,7 +107,9 @@ export default {
       skip() {
         return !this.$auth.loggedIn || this.isAdmin
       },
-      debounce: 0.0001
+      debounce: 0.0001,
+      prefetch: false,
+      fetchPolicy: 'cache-first'
     }
   },
   methods: {
