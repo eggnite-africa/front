@@ -1,4 +1,4 @@
-<template v-if="$auth.loggedIn && !isAdmin">
+<template>
   <v-dialog v-model="dialog" max-width="500" persistent>
     <template #activator="{ on }">
       <v-btn
@@ -85,11 +85,6 @@ export default {
       },
       loading: false,
       icon: 'mdi-send'
-    }
-  },
-  computed: {
-    isAdmin() {
-      return this.$auth.user.type === 'ADMIN'
     }
   },
   apollo: {
