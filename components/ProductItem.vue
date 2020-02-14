@@ -56,7 +56,7 @@
                 <template v-if="!isInSettings">
                   <v-btn :to="commentsSection" nuxt outlined block>
                     <v-icon left>mdi-comment</v-icon>
-                    <span v-text="product.comments.length"></span>
+                    <span v-text="commentsLength"></span>
                   </v-btn>
                 </template>
                 <template v-else>
@@ -131,7 +131,41 @@ export default {
   },
   data() {
     return {
-      dialog: false,
+      dialog: false
+    }
+  },
+  computed: {
+    productLink() {
+      const productUrl = this.product.name.replace(/ /gi, '-')
+      return `/p/${productUrl}`
+    },
+    votersIds() {
+      return this.product.votes.map((v) => v.userId)
+    },
+    hasVoted() {
+      if (this.$auth.loggedIn) {
+        const userId = this.$auth.user.id.toString()
+        return this.votersIds.includes(userId)
+      } else {
+        return false
+      }
+    },
+    commentsSection() {
+      return `${this.productLink}#comments`
+    },
+    productEditLink() {
+      return this.productLink + '/edit'
+    },
+    commentsLength() {
+      let total = 0
+      const comments = this.product.comments
+      total += comments.length
+      comments.forEach((c) => (total += c.replies.length))
+      return total
+    }
+  },
+  asyncData() {
+    return {
       product: {
         media: {
           logo: '',
@@ -157,7 +191,10 @@ export default {
         ],
         comments: [
           {
-            id: ''
+            id: '',
+            replies: {
+              id: ''
+            }
           }
         ]
       }
@@ -189,6 +226,9 @@ export default {
             }
             comments {
               id
+              replies {
+                id
+              }
             }
           }
         }
@@ -199,29 +239,6 @@ export default {
         }
       },
       prefetch: true
-    }
-  },
-  computed: {
-    productLink() {
-      const productUrl = this.product.name.replace(/ /gi, '-')
-      return `/p/${productUrl}`
-    },
-    votersIds() {
-      return this.product.votes.map((v) => v.userId)
-    },
-    hasVoted() {
-      if (this.$auth.loggedIn) {
-        const userId = this.$auth.user.id.toString()
-        return this.votersIds.includes(userId)
-      } else {
-        return false
-      }
-    },
-    commentsSection() {
-      return `${this.productLink}#comments`
-    },
-    productEditLink() {
-      return this.productLink + '/edit'
     }
   },
   methods: {
