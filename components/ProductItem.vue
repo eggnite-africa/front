@@ -103,17 +103,7 @@
 <script>
 import gql from 'graphql-tag'
 import { mapMutations } from 'vuex'
-import S3 from 'aws-s3'
 import ProductMakerAvatar from '@/components/ProductItemMakerAvatar.vue'
-
-const config = {
-  bucketName: process.env.S3_BUCKET,
-  region: process.env.AWS_REGION,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-}
-
-const S3Client = new S3(config)
 export default {
   name: 'ProductItem',
   components: {
@@ -127,11 +117,6 @@ export default {
     isInSettings: {
       type: Boolean,
       default: false
-    }
-  },
-  data() {
-    return {
-      dialog: false
     }
   },
   computed: {
@@ -166,7 +151,9 @@ export default {
   },
   asyncData() {
     return {
+      dialog: false,
       product: {
+        id: '',
         media: {
           logo: '',
           products: ['']
@@ -237,8 +224,7 @@ export default {
         return {
           id: this.productId
         }
-      },
-      prefetch: true
+      }
     }
   },
   methods: {
@@ -286,26 +272,7 @@ export default {
         }
       } else this.openLoginDialog()
     },
-    async removeImage(link, isArray = false) {
-      try {
-        if (!isArray) {
-          const fileName = link.split('.com/')[1]
-          await S3Client.deleteFile(fileName)
-        } else {
-          link.forEach(async (l) => {
-            const fileName = l.split('.com/')[1]
-            await S3Client.deleteFile(fileName)
-          })
-        }
-      } catch (e) {
-        throw new Error('There was a problem deleting the picture')
-      }
-    },
     async deleteProduct(id) {
-      await Promise.all([
-        await this.removeImage(this.product.media.logo),
-        await this.removeImage(this.product.media.pictures, true)
-      ])
       await this.$apollo
         .mutate({
           mutation: gql`
