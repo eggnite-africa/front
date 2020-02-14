@@ -41,9 +41,7 @@
       </v-container>
     </v-content>
 
-    <client-only>
-      <Feedback />
-    </client-only>
+    <Feedback />
     <v-footer absolute app>
       <v-row dense align="center">
         <v-col>
