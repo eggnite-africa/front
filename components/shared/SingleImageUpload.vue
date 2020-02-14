@@ -99,6 +99,7 @@ export default {
         revert: null,
         remove: async (source, load, err) => {
           await this.removeImage(source)
+          this.files = []
           load()
         }
       }
@@ -128,11 +129,11 @@ export default {
     _pushFile(file) {
       this.files.push({ source: file, options: { type: 'local' } })
     },
-    removeImage(link) {
+    async removeImage(link) {
       try {
-        this.files = this.files.filter((file) => file.source !== link)
+        await this.$axios.$post('/delete-image', { link })
       } catch (e) {
-        throw new Error('There was a problem deleting the picture')
+        throw new Error('There was a problem deleting the image. please LMK!')
       }
     },
     async uploadImage(file) {
