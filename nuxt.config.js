@@ -81,7 +81,17 @@ export default {
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    [
+      '@nuxtjs/google-analytics',
+      {
+        id: 'UA-158583097-1',
+        debug: {
+          enabled: true,
+          sendHitTask: true
+        }
+      }
+    ]
   ],
   /*
    ** Nuxt.js modules
