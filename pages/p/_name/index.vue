@@ -250,6 +250,9 @@ export default {
       }
     }
   },
+  async mounted() {
+    await this.$auth.fetchUser()
+  },
   apollo: {
     product: {
       query: gql`

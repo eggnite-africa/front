@@ -409,10 +409,9 @@ export default {
             }
           }
         })
-        .then(async () => {
+        .then(() => {
           const productName = name.replace(/ /gi, '-')
           const congrats = this.$auth.user.products.length === 0
-          await this.$auth.fetchUser()
           this.$router.replace({
             name: 'p-name',
             params: { name: productName, congrats }
