@@ -70,6 +70,11 @@ export default {
           icon: 'mdi-voice',
           name: 'Feedback',
           link: '/admin/feedback'
+        },
+        {
+          icon: 'mdi-lightbulb',
+          name: 'Products',
+          link: '/admin/products'
         }
       ]
     }
