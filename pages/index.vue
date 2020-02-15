@@ -37,9 +37,9 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <div v-if="!$apollo.queries.products.loading">
+      <div v-if="!$apollo.loading">
         <v-row
-          v-for="product in products"
+          v-for="product in productsList.products"
           :key="product.id"
           justify="center"
           align="center"
@@ -89,15 +89,42 @@ export default {
     WelcomeBanner,
     ProductItem
   },
+  data() {
+    return {
+      welcome: this.$route.params.welcome || false,
+      firstName: this.$route.params.firstName || '',
+      page: 0
+    }
+  },
+  asyncData() {
+    return {
+      productsList: {
+        products: [
+          {
+            id: ''
+          }
+        ],
+        hasMore: ''
+      }
+    }
+  },
   apollo: {
-    products: {
+    productsList: {
       query: gql`
-        query fetchAllProducts {
-          products {
-            id
+        query fetchAllProducts($page: Int!) {
+          productsList(page: $page) {
+            products {
+              id
+            }
+            hasMore
           }
         }
       `,
+      variables() {
+        return {
+          page: this.page
+        }
+      },
       fetchPolicy: 'network-only'
     }
   },
@@ -105,12 +132,6 @@ export default {
     return {
       titleTemplate: null,
       title: 'Eggnite: Discover a new product everyday'
-    }
-  },
-  data() {
-    return {
-      welcome: this.$route.params.welcome || false,
-      firstName: this.$route.params.firstName || ''
     }
   },
   methods: {
