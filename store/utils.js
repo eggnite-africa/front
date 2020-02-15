@@ -13,14 +13,14 @@ export const mutations = {
 }
 
 export const actions = {
-  async logout() {
+  async logout(state) {
     this.$router.push('/')
     return Promise.all([
       await this.$auth.logout('local'),
       await this.$apolloHelpers.onLogout()
     ])
   },
-  async login(_, { username, password }) {
+  async login(state, { username, password }) {
     await this.$auth
       .loginWith('local', {
         data: {
@@ -35,7 +35,7 @@ export const actions = {
         await this.$apolloHelpers.onLogin(token)
       })
   },
-  async uploadImage(file) {
+  async uploadImage(state, file) {
     let link = ''
     const { signedUrl, url } = await this.$axios.$post('/sign-s3', {
       fileType: file.type
@@ -50,7 +50,7 @@ export const actions = {
       })
     return link
   },
-  async removeImage(link) {
+  async removeImage(state, link) {
     try {
       await this.$axios.$post('/delete-image', { link })
     } catch (e) {
