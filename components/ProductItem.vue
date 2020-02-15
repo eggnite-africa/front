@@ -5,7 +5,7 @@
   >
     <v-container>
       <v-row dense align="center">
-        <v-col cols="3" sm="1">
+        <v-col cols="3" sm="1" class="mr-sm-8 mr-md-0">
           <v-avatar size="80">
             <v-img :src="product.media.logo" contain eager></v-img>
           </v-avatar>
@@ -26,7 +26,7 @@
           </v-card-text>
         </v-col>
 
-        <v-col cols="3" sm="2">
+        <v-col cols="5" sm="2">
           <v-card-actions>
             <v-row dense>
               <v-col cols="12">
