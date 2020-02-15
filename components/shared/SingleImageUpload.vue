@@ -26,6 +26,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators'
+import { mapActions } from 'vuex'
 import vueFilePond from 'vue-filepond'
 import 'filepond/dist/filepond.min.css'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
@@ -121,6 +122,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      uploadImage: 'utils/uploadImage',
+      removeImage: 'utils/removeImage'
+    }),
     handleInit() {
       if (this.initImage !== '') {
         this._pushFile(this.initImage)
@@ -128,28 +133,6 @@ export default {
     },
     _pushFile(file) {
       this.files.push({ source: file, options: { type: 'local' } })
-    },
-    async removeImage(link) {
-      try {
-        await this.$axios.$post('/delete-image', { link })
-      } catch (e) {
-        throw new Error('There was a problem deleting the image. please LMK!')
-      }
-    },
-    async uploadImage(file) {
-      let link = ''
-      const { signedUrl, url } = await this.$axios.$post('/sign-s3', {
-        fileType: file.type
-      })
-      await fetch(signedUrl, {
-        body: file,
-        method: 'put'
-      })
-        .then((res) => (link = url))
-        .catch((e) => {
-          throw new Error(e)
-        })
-      return link
     },
     _getImage() {
       const file = this.files[0]

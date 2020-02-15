@@ -34,5 +34,27 @@ export const actions = {
           .split('Bearer ')[1]
         await this.$apolloHelpers.onLogin(token)
       })
+  },
+  async uploadImage(file) {
+    let link = ''
+    const { signedUrl, url } = await this.$axios.$post('/sign-s3', {
+      fileType: file.type
+    })
+    await fetch(signedUrl, {
+      body: file,
+      method: 'put'
+    })
+      .then(() => (link = url))
+      .catch((e) => {
+        throw new Error(e)
+      })
+    return link
+  },
+  async removeImage(link) {
+    try {
+      await this.$axios.$post('/delete-image', { link })
+    } catch (e) {
+      throw new Error('There was a problem deleting the image. please LMK!')
+    }
   }
 }
