@@ -58,7 +58,8 @@ export default {
         content: 'summary_large_image'
       }
     ],
-    link: [{ rel: 'icon', href: '/Logo.png' }]
+    link: [{ rel: 'icon', href: '/Logo.png' }],
+    script: [{ src: './segment.js' }]
   },
   /*
    ** Customize the progress-bar color
