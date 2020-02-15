@@ -2,10 +2,10 @@
   <v-menu offset-y bottom>
     <template #activator="{ on }">
       <v-btn v-on="on" icon>
-        <v-badge :value="unreadCount" overlap class="ml-1 mr-2" color="red">
-          <template #badge>{{ unreadCount }}</template>
+        <v-badge :value="unreadCount()" overlap class="ml-1 mr-2" color="red">
+          <template #badge>{{ unreadCount() }}</template>
           <v-icon color="blue">{{
-            unreadCount ? 'mdi-bell' : 'mdi-bell-outline'
+            unreadCount() ? 'mdi-bell' : 'mdi-bell-outline'
           }}</v-icon>
         </v-badge>
       </v-btn>
@@ -50,9 +50,9 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      unreadCount: this.notifications.length
+  methods: {
+    unreadCount() {
+      return this.notifications.length
     }
   }
 }
