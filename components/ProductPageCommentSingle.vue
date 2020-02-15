@@ -8,6 +8,7 @@
         <v-list-item-title>
           {{ `${user.profile.firstName} ${user.profile.lastName}` }}
           <span class="font-weight-thin">{{ `(@${user.username})` }}</span>
+          <v-icon :class="country" dense></v-icon>
         </v-list-item-title>
         <v-list-item-subtitle> {{ user.profile.bio }} </v-list-item-subtitle>
       </v-list-item-content>
@@ -87,6 +88,9 @@ export default {
       if (gender === 'MALE') {
         return '/male_avatar.svg'
       } else return '/female_avatar.svg'
+    },
+    country() {
+      return `flag-icons square ${this.user.profile.country}`
     }
   },
   apollo: {
@@ -102,6 +106,7 @@ export default {
               lastName
               bio
               gender
+              country
             }
           }
         }
