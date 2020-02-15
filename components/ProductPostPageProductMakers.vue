@@ -190,8 +190,7 @@ export default {
             }
           }
         }
-      `,
-      prefetch: true
+      `
     }
   }
 }

@@ -97,7 +97,6 @@ export default {
           }
         }
       `,
-      prefetch: true,
       fetchPolicy: 'network-only'
     }
   },
