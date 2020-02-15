@@ -1,5 +1,8 @@
 <template>
-  <v-card @click="navigateToProductPage()">
+  <v-card
+    @click="navigateToProductPage()"
+    v-if="!$apollo.queries.product.loading"
+  >
     <v-container>
       <v-row dense align="center">
         <v-col cols="3" sm="1">
@@ -228,7 +231,8 @@ export default {
         return {
           id: this.productId
         }
-      }
+      },
+      fetchPolicy: 'network-only'
     }
   },
   methods: {
