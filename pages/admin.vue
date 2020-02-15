@@ -75,6 +75,11 @@ export default {
           icon: 'mdi-lightbulb',
           name: 'Products',
           link: '/admin/products'
+        },
+        {
+          icon: 'mdi-account-box-multiple',
+          name: 'Users',
+          link: '/admin/users'
         }
       ]
     }
