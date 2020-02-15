@@ -17,7 +17,7 @@
             <v-list-item
               v-for="item in items"
               :key="item.name"
-              :to="'/admin/' + item.link"
+              :to="item.link"
               link
               nuxt
             >
@@ -31,7 +31,12 @@
             </v-list-item>
           </v-list>
         </v-navigation-drawer>
-        <v-bottom-navigation grow shift color="teal" class="hidden-sm-and-up">
+        <v-bottom-navigation
+          grow
+          shift
+          color="primary"
+          class="hidden-sm-and-up"
+        >
           <v-btn
             v-for="setting in items"
             :key="setting.name"
@@ -57,9 +62,14 @@ export default {
     return {
       items: [
         {
+          icon: 'mdi-home-analytics',
+          name: 'Overview',
+          link: '/admin/'
+        },
+        {
           icon: 'mdi-voice',
           name: 'Feedback',
-          link: 'feedback'
+          link: '/admin/feedback'
         }
       ]
     }
