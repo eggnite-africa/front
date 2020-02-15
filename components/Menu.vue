@@ -2,7 +2,7 @@
   <div>
     <template v-if="isLoggedIn && !$apollo.queries.user.loading">
       <v-row align="center">
-        <v-col class="hidden-xs-only">
+        <v-col class="hidden-sm-and-down">
           <v-btn to="/post" nuxt color="secondary" outlined>
             <v-icon left dense>mdi-plus</v-icon>post a product
           </v-btn>
