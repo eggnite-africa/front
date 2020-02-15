@@ -2,9 +2,9 @@
   <v-menu offset-y bottom>
     <template #activator="{ on }">
       <v-btn v-on="on" icon>
-        <v-badge :value="unreadCount" overlap class="ml-1 mr-2">
+        <v-badge :value="unreadCount" overlap class="ml-1 mr-2" color="red">
           <template #badge>{{ unreadCount }}</template>
-          <v-icon color="red">{{
+          <v-icon color="blue">{{
             unreadCount ? 'mdi-bell' : 'mdi-bell-outline'
           }}</v-icon>
         </v-badge>
@@ -15,6 +15,7 @@
         <template v-for="notification in notifications">
           <template v-if="notification.vote">
             <menu-notification-item
+              @update-count="unreadCount--"
               :key="notification.id"
               :notification-id="notification.id"
               :vote="notification.vote"
@@ -23,6 +24,7 @@
           </template>
           <template v-else-if="notification.comment">
             <menu-notification-item
+              @update-count="unreadCount--"
               :key="notification.id"
               :notification-id="notification.id"
               :comment="notification.comment"
@@ -48,9 +50,9 @@ export default {
       required: true
     }
   },
-  computed: {
-    unreadCount() {
-      return this.notifications.length
+  data() {
+    return {
+      unreadCount: this.notifications.length
     }
   }
 }
