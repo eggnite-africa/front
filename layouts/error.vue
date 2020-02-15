@@ -12,6 +12,7 @@
         <div class="mt-12">
           <p v-if="error.statusCode !== 404" class="text-center headline">
             Something must've gone terribly wrong 🤔 <br />
+            Try refereshing the page <br />
             If this error persists do let me know!
           </p>
           <div class="d-flex justify-center">
