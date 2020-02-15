@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row dense>
       <v-col cols="12" sm="3">
-        <v-card height="400" max-width="250">
+        <v-card height="400" max-width="250" class="hidden-xs-only">
           <v-navigation-drawer permanent>
             <v-list-item>
               <v-list-item-content>
@@ -33,6 +33,18 @@
             </v-list>
           </v-navigation-drawer>
         </v-card>
+        <v-bottom-navigation grow shift color="teal" class="hidden-sm-and-up">
+          <v-btn
+            v-for="setting in userSettings"
+            :key="setting.name"
+            :to="setting.link"
+            nuxt
+            link
+          >
+            <span v-text="setting.name"></span>
+            <v-icon v-text="setting.icon"> </v-icon>
+          </v-btn>
+        </v-bottom-navigation>
       </v-col>
       <v-col>
         <nuxt-child></nuxt-child>
