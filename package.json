@@ -19,6 +19,7 @@
     "@nuxtjs/auth": "^4.8.4",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/sitemap": "^2.0.1",
     "aws-s3": "^2.0.5",
     "countries-list": "^2.5.1",
     "filepond": "^4.9.3",

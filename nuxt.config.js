@@ -93,7 +93,8 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/auth',
     '@nuxtjs/apollo',
-    '@nuxtjs/date-fns'
+    '@nuxtjs/date-fns',
+    '@nuxtjs/sitemap'
   ],
   /*
    ** Axios module configuration
