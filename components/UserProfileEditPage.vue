@@ -63,6 +63,7 @@
       ref="userOccupationField"
       :occupation="occupation"
       :university="university"
+      :company="company"
     ></occupation-field>
     <v-row dense>
       <v-col>

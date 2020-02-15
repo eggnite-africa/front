@@ -25,6 +25,7 @@
           :bio="user.profile.bio"
           :social-links="user.profile.socialLinks"
           :country="user.profile.country"
+          :company="user.profile.company"
         ></user-profile-edit>
       </v-card-text>
       <v-card-actions>
@@ -74,7 +75,8 @@ export default {
           university: '',
           bio: '',
           socialLinks: [''],
-          country: ''
+          country: '',
+          company: ''
         }
       }
     }
@@ -96,6 +98,7 @@ export default {
               bio
               socialLinks
               country
+              company
             }
           }
         }
