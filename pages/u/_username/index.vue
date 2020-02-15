@@ -11,7 +11,7 @@
           <v-col cols="9" sm="10" class="ml-sm-n6 ml-md-n5 mt-n4">
             <v-card-text class="ml-3 ml-sm-0 mt-n2">
               <v-row class="mb-n5" justify="start">
-                <v-col cols="9">
+                <v-col cols="8" sm="9">
                   <h2>
                     {{ user.profile.firstName + ' ' + user.profile.lastName }}
                     <v-icon
@@ -36,13 +36,16 @@
                     </span>
                   </span>
                 </v-col>
-                <v-col v-if="isOwner()" cols="3">
-                  <div style="float: right">
-                    <v-btn depressed nuxt to="edit" append color="indigo">
-                      <span class="hidden-xs-only">Edit</span>
-                      <v-icon small class="hidden-sm-and-up">mdi-wrench</v-icon>
-                    </v-btn>
-                  </div>
+                <v-col
+                  v-if="isOwner()"
+                  cols="4"
+                  sm="3"
+                  class="d-flex justify-end"
+                >
+                  <v-btn depressed nuxt to="edit" append color="indigo">
+                    <span class="hidden-xs-only">Edit</span>
+                    <v-icon small class="hidden-sm-and-up">mdi-wrench</v-icon>
+                  </v-btn>
                 </v-col>
               </v-row>
               <v-row>
