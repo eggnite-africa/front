@@ -304,6 +304,7 @@ export default {
           productName: this.productName
         }
       },
+      prefetch: true,
       fetchPolicy: 'network-only'
     }
   },
