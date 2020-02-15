@@ -138,8 +138,7 @@ export default {
         return !this.isLoggedIn
       },
       debounce: 0.0001,
-      fetchPolicy: 'network-only',
-      pollInterval: 30000
+      fetchPolicy: 'network-only'
     }
   }
 }
