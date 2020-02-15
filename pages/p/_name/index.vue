@@ -303,7 +303,8 @@ export default {
         return {
           productName: this.productName
         }
-      }
+      },
+      fetchPolicy: 'network-only'
     }
   },
   methods: {
