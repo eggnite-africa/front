@@ -4,13 +4,17 @@
       <v-col>
         <v-card>
           <v-card-title>Products</v-card-title>
-          <v-card-text>{{ productsCount }}</v-card-text>
+          <v-card-text class="display-1 white--text">
+            {{ productsCount }}
+          </v-card-text>
         </v-card>
       </v-col>
       <v-col>
         <v-card>
           <v-card-title>Users</v-card-title>
-          <v-card-text>{{ usersCount }}</v-card-text>
+          <v-card-text class="display-1 white--text">
+            {{ usersCount }}
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
