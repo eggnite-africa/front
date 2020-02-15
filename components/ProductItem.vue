@@ -6,7 +6,7 @@
     <v-container>
       <v-row dense align="center">
         <v-col cols="3" sm="1">
-          <v-avatar size="72">
+          <v-avatar size="80">
             <v-img :src="product.media.logo" contain eager></v-img>
           </v-avatar>
         </v-col>
@@ -63,9 +63,14 @@
                   </v-btn>
                 </template>
                 <template v-else>
-                  <v-btn @click.stop="dialog = true" color="red" depressed block
-                    >Delete</v-btn
+                  <v-btn
+                    @click.stop="dialog = true"
+                    color="red"
+                    depressed
+                    block
                   >
+                    Delete
+                  </v-btn>
                   <v-dialog v-model="dialog" persistent max-width="290">
                     <v-card>
                       <v-card-title class="headline"
