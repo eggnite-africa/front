@@ -48,7 +48,7 @@
             <product-item :product-id="product.id"></product-item>
           </v-col>
         </v-row>
-        <v-row class="hidden-xs-only">
+        <v-row>
           <v-col cols="12" class="d-flex justify-center">
             <v-btn
               @click.stop="openLoginDialog()"
@@ -56,6 +56,7 @@
               depressed
               nuxt
               to="/post"
+              class="hidden-sm-and-down"
             >
               post your product
             </v-btn>
