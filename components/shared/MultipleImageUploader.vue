@@ -10,7 +10,7 @@
         :label-idle="label"
         :class="$v.files.$invalid ? 'grid errors' : 'grid'"
         allow-multiple="true"
-        accepted-file-types="image/jpeg, image/png, image/gif"
+        accepted-file-types="image/*"
       ></file-pond>
     </client-only>
     <p class="red--text">{{ multipleImageErrors }}</p>

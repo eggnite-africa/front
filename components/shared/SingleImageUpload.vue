@@ -12,12 +12,12 @@
         style-panel-layout="compact circle"
         image-crop-aspect-ratio="1:1"
         image-preview-height="170"
-        image-resize-target-width="200"
-        image-resize-target-height="200"
+        image-resize-target-width="512"
+        image-resize-target-height="512"
         style-load-indicator-position="center bottom"
         style-button-remove-item-position="center bottom"
         style="width: 170px"
-        accepted-file-types="image/jpeg, image/png, image/gif"
+        accepted-file-types="image/*"
       ></file-pond>
       <p v-show="isProductLogo" class="red--text">{{ singleImageErrors }}</p>
     </div>
