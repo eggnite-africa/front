@@ -171,10 +171,6 @@ export default {
     }
   },
   env: {
-    S3_BUCKET: process.env.S3_BUCKET,
-    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
-    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
-    AWS_REGION: process.env.AWS_REGION,
     API_URL: process.env.API_URL,
     HTTP_ENDPOINT: process.env.HTTP_ENDPOINT
   }
