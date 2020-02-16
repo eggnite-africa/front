@@ -20,8 +20,6 @@
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/sitemap": "^2.0.1",
-    "aws-s3": "^2.0.5",
-    "countries-list": "^2.5.1",
     "filepond": "^4.9.3",
     "filepond-plugin-file-encode": "^2.1.4",
     "filepond-plugin-file-validate-type": "^1.2.4",
@@ -32,7 +30,6 @@
     "nuxt": "^2.0.0",
     "nuxt-helmet": "^1.2.2",
     "vue-filepond": "^6.0.0",
-    "vue-infinite-scroll": "^2.0.2",
     "vuelidate": "^0.7.5"
   },
   "devDependencies": {
