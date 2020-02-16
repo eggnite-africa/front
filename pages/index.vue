@@ -79,25 +79,29 @@
         ></v-progress-circular>
       </div>
     </v-container>
+    <mugen-scroll :handler="showMore" :should-handle="!loading"> </mugen-scroll>
   </div>
 </template>
 
 <script>
 import gql from 'graphql-tag'
 import { mapMutations } from 'vuex'
+import MugenScroll from 'vue-mugen-scroll'
 import WelcomeBanner from '@/components/WelcomeBanner.vue'
 import ProductItem from '@/components/ProductItem.vue'
 
 export default {
   components: {
     WelcomeBanner,
-    ProductItem
+    ProductItem,
+    MugenScroll
   },
   data() {
     return {
       welcome: this.$route.params.welcome || false,
       firstName: this.$route.params.firstName || '',
-      page: 0
+      page: 0,
+      loading: false
     }
   },
   asyncData() {
@@ -139,6 +143,8 @@ export default {
   methods: {
     ...mapMutations({ openLoginDialog: 'utils/openLoginDialog' }),
     showMore() {
+      if (!this.productsList.hasMore) return
+      this.loading = true
       this.page++
       // Fetch more data and transform the original result
       this.$apollo.queries.productsList.fetchMore({
@@ -150,6 +156,7 @@ export default {
         updateQuery: (previousResult, { fetchMoreResult }) => {
           const newProducts = fetchMoreResult.productsList.products
           const hasMore = fetchMoreResult.productsList.hasMore
+          this.loading = false
           return {
             productsList: {
               __typename: previousResult.productsList.__typename,
