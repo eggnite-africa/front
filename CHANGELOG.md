@@ -2,6 +2,76 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/kdaghari/eggnite-frontend/compare/v1.4.0...v2.0.0) (2020-02-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* it's no longer doing it on the FE but rather fetching a signedUrl on the BE and then sending in the put request through that signed url
+* no longer using custom event as a way to refetch the whole page, but rather optimistically update the comments array
+* changed field name from gender to sex
+
+### Features
+
+* add helpful message for !404 errors ([3e5c41f](https://github.com/kdaghari/eggnite-frontend/commit/3e5c41fd4f38398d6a6ed4bcf09f030122eba992))
+* add image deletion ([f62522e](https://github.com/kdaghari/eggnite-frontend/commit/f62522ea62d5c07177f11a5dc6b7e340fc8444ac))
+* add infinite scrolling ([4dfcfe9](https://github.com/kdaghari/eggnite-frontend/commit/4dfcfe92d2422c3d8babdb4cc83f9f4071bcb410))
+* add polling ([3c2f342](https://github.com/kdaghari/eggnite-frontend/commit/3c2f3426d315d6b078563bc974c5651e2b48dff0))
+* **wip:** add pagination support ([6aed025](https://github.com/kdaghari/eggnite-frontend/commit/6aed02529ffbea24a83cb692cfc78cdbba054f57))
+* add comment deletion ([a6f8b63](https://github.com/kdaghari/eggnite-frontend/commit/a6f8b63071a610ddd1aef19ff21a754e97d4841d))
+* add comment reply ([e7e74f5](https://github.com/kdaghari/eggnite-frontend/commit/e7e74f56b41ff4be29797bad88043abaf1b8e538))
+* add company field ([193c0fc](https://github.com/kdaghari/eggnite-frontend/commit/193c0fc12634a385ea601c404f95899be8fe1127))
+* add country field ([8155ceb](https://github.com/kdaghari/eggnite-frontend/commit/8155ceb270cd1e1bb1c7cbd21f0dbcc22c99eb58))
+* add products table ([4d2744f](https://github.com/kdaghari/eggnite-frontend/commit/4d2744f4477f19e7f4e0fe8f20214b9b2f4c15d8))
+* add products/users count ([f43d8a6](https://github.com/kdaghari/eggnite-frontend/commit/f43d8a6f39307f1acaf3bd57a9e65685e64402c3))
+* add reply display ([50854ce](https://github.com/kdaghari/eggnite-frontend/commit/50854ce1bbeed22240f31a7caacca7367ec299f7))
+* add reply removal ([4e143e0](https://github.com/kdaghari/eggnite-frontend/commit/4e143e00946a47e0582ab33a63d56d2f330f736c))
+* add users view ([c10bd0b](https://github.com/kdaghari/eggnite-frontend/commit/c10bd0b3cebd7dab09ab1f783aea3c1452815f6e))
+* adding a comment pushs it to the comments array ([e8ea7fb](https://github.com/kdaghari/eggnite-frontend/commit/e8ea7fba8cc66a0ac850ad621a2dc00c0a496cf1))
+* clicking a notification updates the unread count ([dc388ba](https://github.com/kdaghari/eggnite-frontend/commit/dc388ba312453fb9d0577f82b07abbdcb3a65226))
+* factor in the number of replies when counting comments ([8e70ac3](https://github.com/kdaghari/eggnite-frontend/commit/8e70ac34b4c8a106132ed38d2e2594a0273f282b))
+* fetch comment replies ([f5b1083](https://github.com/kdaghari/eggnite-frontend/commit/f5b10833f7118158a799fcff46fbe189bf39fec1))
+* fetch country ([1830d89](https://github.com/kdaghari/eggnite-frontend/commit/1830d89648ebc4cf03826242a517d1ef5b4527eb))
+* fetch notifications periodically ([1e9c4de](https://github.com/kdaghari/eggnite-frontend/commit/1e9c4dece76c545a0fe7bb6f000af70e4bd944b5))
+* image upload ([cce23d7](https://github.com/kdaghari/eggnite-frontend/commit/cce23d70cb33236722b889ff202db7b23a03a4a9))
+* restrict replies to 1-level ([83b5b55](https://github.com/kdaghari/eggnite-frontend/commit/83b5b55384f5bd8bdffdf32a4790898e65ee0555))
+* **wip:** add comment reply ([5b170aa](https://github.com/kdaghari/eggnite-frontend/commit/5b170aa181800079dd1159ad2afd19c5852ae1fe))
+* remove media before deleting the product ([69226d6](https://github.com/kdaghari/eggnite-frontend/commit/69226d6b93141c46b280e86272a9c1586c9a772c))
+
+
+### Bug Fixes
+
+* `_vm.product is undefined` was due to the query relying on cache instead of network ([a1f3112](https://github.com/kdaghari/eggnite-frontend/commit/a1f31125ab277292a8a860856f0a394492802ba1))
+* add comment/reply to the start of the array ([a254324](https://github.com/kdaghari/eggnite-frontend/commit/a254324c94d6fdaf1ef69d6cf4c461ee671b91eb))
+* add missing `company` field ([8cbe970](https://github.com/kdaghari/eggnite-frontend/commit/8cbe97088fb53d8582aba714a25df31e25c24da2))
+* add missing `state` param ([374bbdd](https://github.com/kdaghari/eggnite-frontend/commit/374bbddd06d50f07af94220c6bc01c547fcbaadc))
+* add missing fields ([cd4b263](https://github.com/kdaghari/eggnite-frontend/commit/cd4b263887cc5417e0f67a4044460291f1c9bca7))
+* change fetch policy to avoid any clashing with cache ([33cc436](https://github.com/kdaghari/eggnite-frontend/commit/33cc4361bb6221cd098347f28ff0d6cf9f4adf3e))
+* count length/display ([94a6892](https://github.com/kdaghari/eggnite-frontend/commit/94a6892aad28c6879554d0aefd61060041063fcb))
+* delete comment proactively ([a9d93b2](https://github.com/kdaghari/eggnite-frontend/commit/a9d93b25a66c171ce0c75c15db4f88f57ab437b0))
+* dialog prop should be on the data object as it's use only on the client ([bba2283](https://github.com/kdaghari/eggnite-frontend/commit/bba2283d14c8676d56d0ee9e7f73b5ed97e69456))
+* differenciate between comment and reply ([e7126c7](https://github.com/kdaghari/eggnite-frontend/commit/e7126c70812a49441f290040d84c9475b5cffffb))
+* display feedback and fetch it only if needed ([130df2d](https://github.com/kdaghari/eggnite-frontend/commit/130df2dea45c0a49446fc47a4efe9100012388ec))
+* don't render the whole component if conditions are invalid ([d61b3f5](https://github.com/kdaghari/eggnite-frontend/commit/d61b3f525837b1267a327780bfa7c9150ea38bf9))
+* eagrly load logo ([316fd07](https://github.com/kdaghari/eggnite-frontend/commit/316fd070336f382779aeeffe913c0b463841700a))
+* feedback is rendered on client only and only if user is not admin and is logged in ([efa2938](https://github.com/kdaghari/eggnite-frontend/commit/efa293876839aa2d7f152e6ca8eca7c9582a9b55))
+* fetch user everytime he visits product page to check if he's the owner ([3bfeea1](https://github.com/kdaghari/eggnite-frontend/commit/3bfeea102ffb19098c1ee8c3ef849a5727af1e46))
+* initial variables have to be static ([69ced1d](https://github.com/kdaghari/eggnite-frontend/commit/69ced1dba9bd5eac20b062dd4ed411184f95d5fe))
+* issue related to product not being rendered ([43d41a0](https://github.com/kdaghari/eggnite-frontend/commit/43d41a05ea9bb542aba32f0100183be35c285658))
+* issue related to product not loading at all/in time ([6d98183](https://github.com/kdaghari/eggnite-frontend/commit/6d98183cf943ef1b0b233b24142dac59cb0ae1f5))
+* prefetch users list, display list only when it's ready and display default avatar on chip ([1bfe35e](https://github.com/kdaghari/eggnite-frontend/commit/1bfe35ecf7d34147469d5c1144621f719372fc1c))
+* prefetching is the default behavior for ssr ([9080949](https://github.com/kdaghari/eggnite-frontend/commit/90809492d2fa0791bca8dc73aba2f65a02459ff3))
+* remove product id for reply ([081ebf2](https://github.com/kdaghari/eggnite-frontend/commit/081ebf2757e11f2480f51acf6594531beee0a172))
+* remove s3 client and add remove/upload ([f69a038](https://github.com/kdaghari/eggnite-frontend/commit/f69a038665977a402c51eee5dbb2d67d4f79f2dd))
+* rename field ([03bac7e](https://github.com/kdaghari/eggnite-frontend/commit/03bac7edafe2d446215fffb79d3c868f71c834c9))
+* rename sex to gender ([34a4db4](https://github.com/kdaghari/eggnite-frontend/commit/34a4db49ba4e158340c5dc8b2e7d36449852c39d))
+* resize image to 512x512 and accept all images ([d696f9e](https://github.com/kdaghari/eggnite-frontend/commit/d696f9ed1997a7ff960253d815015d5df9c1b3ea))
+* return users object ([ad51581](https://github.com/kdaghari/eggnite-frontend/commit/ad51581fa07e64e4e8bb8a1756bf3cb13291cc6b))
+* set product it for reply ([ba12a9c](https://github.com/kdaghari/eggnite-frontend/commit/ba12a9cd7374938b70e807cf8cf869e4019e0069))
+* skip query if user is not logged in ([d0e7fa4](https://github.com/kdaghari/eggnite-frontend/commit/d0e7fa4181048ed25211e948f7f9141e7fc37865))
+* various ([23720bb](https://github.com/kdaghari/eggnite-frontend/commit/23720bb8d658e6a54444c8d2e292cd802e3cd5c2))
+* various ([339a2b6](https://github.com/kdaghari/eggnite-frontend/commit/339a2b66f4805bfcb0675b464b3fb65e977a7647))
+
 ## [1.4.0](https://github.com/kdaghari/eggnite-frontend/compare/v1.3.0...v1.4.0) (2020-02-12)
 
 
