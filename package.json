@@ -1,6 +1,6 @@
 {
   "name": "eggnite-frontend",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "front end for the eggnite platform",
   "author": "Karim Daghari",
   "private": true,
