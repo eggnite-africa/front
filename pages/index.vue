@@ -50,7 +50,11 @@
         </v-row>
         <v-row>
           <v-col cols="12" class="d-flex justify-center">
+            <v-btn v-if="productsList.hasMore" @click="showMore()"
+              >See more</v-btn
+            >
             <v-btn
+              v-else
               @click.stop="openLoginDialog()"
               color="secondary"
               depressed
@@ -61,7 +65,7 @@
               post your product
             </v-btn>
           </v-col>
-          <v-col cols="12">
+          <v-col v-if="!productsList.hasMore" cols="12">
             <v-img src="/ignite.svg" max-width="500" class="mx-auto"></v-img>
           </v-col>
         </v-row>
@@ -120,10 +124,8 @@ export default {
           }
         }
       `,
-      variables() {
-        return {
-          page: this.page
-        }
+      variables: {
+        page: 0
       },
       fetchPolicy: 'network-only'
     }
@@ -135,7 +137,33 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({ openLoginDialog: 'utils/openLoginDialog' })
+    ...mapMutations({ openLoginDialog: 'utils/openLoginDialog' }),
+    showMore() {
+      this.page++
+      // Fetch more data and transform the original result
+      this.$apollo.queries.productsList.fetchMore({
+        // New variables
+        variables: {
+          page: this.page
+        },
+        // Transform the previous result with new data
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          const newProducts = fetchMoreResult.productsList.products
+          const hasMore = fetchMoreResult.productsList.hasMore
+          return {
+            productsList: {
+              __typename: previousResult.productsList.__typename,
+              // Merging the tag list
+              products: [
+                ...previousResult.productsList.products,
+                ...newProducts
+              ],
+              hasMore
+            }
+          }
+        }
+      })
+    }
   }
 }
 </script>
