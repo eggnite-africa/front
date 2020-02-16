@@ -72,7 +72,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/vuelidate', '@/plugins/vue-mugen-scroll'],
+  plugins: ['@/plugins/vuelidate'],
   /*
    ** Nuxt.js dev-modules
    */
