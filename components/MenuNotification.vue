@@ -15,7 +15,6 @@
         <template v-for="notification in notifications">
           <template v-if="notification.vote">
             <menu-notification-item
-              @update-count="unreadCount--"
               :key="notification.id"
               :notification-id="notification.id"
               :vote="notification.vote"
@@ -24,7 +23,6 @@
           </template>
           <template v-else-if="notification.comment">
             <menu-notification-item
-              @update-count="unreadCount--"
               :key="notification.id"
               :notification-id="notification.id"
               :comment="notification.comment"

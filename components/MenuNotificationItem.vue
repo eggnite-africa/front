@@ -115,20 +115,18 @@ export default {
   },
   methods: {
     async markNotificationAsSeen(id) {
-      await this.$apollo
-        .mutate({
-          mutation: gql`
-            mutation markNotificationAsSeen($id: ID!) {
-              markNotificationAsSeen(id: $id) {
-                id
-              }
+      await this.$apollo.mutate({
+        mutation: gql`
+          mutation markNotificationAsSeen($id: ID!) {
+            markNotificationAsSeen(id: $id) {
+              id
             }
-          `,
-          variables: {
-            id
           }
-        })
-        .then(() => this.$emit('update-count'))
+        `,
+        variables: {
+          id
+        }
+      })
     }
   }
 }
