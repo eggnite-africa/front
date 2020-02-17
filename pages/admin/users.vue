@@ -20,7 +20,35 @@
       <template #item.products="{ item }">
         {{ item.products.map(({ id }) => +id) }}
       </template>
+      <template #item.actions="{ item }">
+        <v-btn @click.stop="getUserInfo(item.id)" icon>
+          <v-icon>mdi-information</v-icon>
+        </v-btn>
+      </template>
     </v-data-table>
+
+    <v-dialog v-model="showUserInfo" max-width="500">
+      <v-card max-width="500">
+        <v-card-title>
+          {{ user.profile.firstName + ' ' + user.profile.lastName }}
+        </v-card-title>
+        <v-card-subtitle>
+          {{ '@' + user.username }}
+        </v-card-subtitle>
+        <v-card-text>
+          <v-row dense>
+            <v-col v-show="user.products.length" cols="12">
+              <p class="title">Products</p>
+              <p
+                v-for="product in user.products"
+                :key="product.id"
+                v-text="product.name"
+              ></p>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -40,8 +68,14 @@ export default {
         { text: 'Name', value: 'profile' },
         { text: 'Occupation', value: 'profile.occupation' },
         { text: 'Type', value: 'type' },
-        { text: 'Products', value: 'products' }
-      ]
+        { text: 'Products', value: 'products.length' },
+        { text: 'Actions', value: 'actions', sortable: false }
+      ],
+      user: {
+        profile: {},
+        products: [{}]
+      },
+      showUserInfo: false
     }
   },
   asyncData() {
@@ -57,9 +91,15 @@ export default {
             occupation: ''
           },
           type: '',
-          products: [{ id: '' }]
+          products: [{ id: '', name: '' }]
         }
       ]
+    }
+  },
+  methods: {
+    getUserInfo(id) {
+      this.user = this.users.filter((u) => +u.id === +id)[0]
+      this.showUserInfo = true
     }
   },
   apollo: {
@@ -78,6 +118,7 @@ export default {
             type
             products {
               id
+              name
             }
           }
         }
