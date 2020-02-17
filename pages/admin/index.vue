@@ -27,9 +27,6 @@ export default {
   name: 'AdminArea',
   middleware: ['auth', 'isAdmin'],
   computed: {
-    productsCount() {
-      return this.products.length
-    },
     usersCount() {
       return this.users.length
     }
@@ -37,7 +34,7 @@ export default {
   asyncData() {
     return {
       productsList: {
-        totalCount: 0
+        totalCount: ''
       },
       users: [
         {
@@ -48,7 +45,7 @@ export default {
   },
   apollo: {
     $fetchPolicy: 'network-only',
-    products: {
+    productsList: {
       query: gql`
         query fetchProductsTotalCount {
           productsList {
