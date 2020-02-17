@@ -37,6 +37,15 @@
         </v-card-subtitle>
         <v-card-text>
           <v-row dense>
+            <v-col cols="12">
+              <p class="title">Details</p>
+              <p>
+                Email: {{ user.email }}
+                <v-btn :href="`mailto:${user.email}`" icon
+                  ><v-icon>mdi-email</v-icon></v-btn
+                >
+              </p>
+            </v-col>
             <v-col v-show="user.products.length" cols="12">
               <p class="title">Products</p>
               <p
@@ -84,6 +93,7 @@ export default {
         {
           id: '',
           username: '',
+          email: '',
           profile: {
             firstName: '',
             lastName: '',
@@ -109,6 +119,7 @@ export default {
           users {
             id
             username
+            email
             profile {
               firstName
               lastName
