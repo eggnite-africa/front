@@ -26,7 +26,7 @@
           </v-card-text>
         </v-col>
 
-        <v-col cols="5" sm="2">
+        <v-col cols="5" sm="2" class="hidden-xs-only">
           <v-card-actions>
             <v-row dense>
               <v-col cols="12">
