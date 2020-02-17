@@ -12,8 +12,7 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "test": "jest",
-    "predeploy": "standard-version",
-    "deploy": "git push heroku master"
+    "release": "standard-version"
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc19",
