@@ -37,12 +37,28 @@
         </v-card-title>
         <v-card-subtitle>{{ productToShow.tagline }}</v-card-subtitle>
         <v-card-text>
-          <p class="title">Upvoters</p>
-          <upvoter-avatar
-            v-for="(vote, i) in productToShow.votes"
-            :user-id="vote.userId"
-            :key="i"
-          ></upvoter-avatar>
+          <v-row dense>
+            <v-col cols="12">
+              <p class="title">Makers</p>
+              <maker-avatar
+                v-for="(maker, i) in productToShow.makers"
+                :key="i"
+                :maker-username="maker.username"
+                :maker-picture="maker.profile.profilePicture"
+                :maker-name="
+                  `${maker.profile.firstName} ${maker.profile.lastName}`
+                "
+              ></maker-avatar>
+            </v-col>
+            <v-col cols="12">
+              <p class="title">Upvoters</p>
+              <upvoter-avatar
+                v-for="(vote, i) in productToShow.votes"
+                :user-id="vote.userId"
+                :key="i"
+              ></upvoter-avatar>
+            </v-col>
+          </v-row>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -52,10 +68,12 @@
 <script>
 import gql from 'graphql-tag'
 import UpvoterAvatar from '@/components/AdminUpvoterAvatar.vue'
+import MakerAvatar from '@/components/ProductPageMakerAvatar.vue'
 export default {
   name: 'ProductsAdmin',
   components: {
-    UpvoterAvatar
+    UpvoterAvatar,
+    MakerAvatar
   },
   data() {
     return {
@@ -66,7 +84,7 @@ export default {
         { text: 'Tagline', value: 'tagline', width: 200 },
         { text: 'Votes', value: 'votes.length' },
         { text: 'Comments', value: 'comments.length' },
-        { text: 'Makers', value: 'makers' },
+        { text: 'Makers', value: 'makers.length' },
         { text: 'Actions', value: 'actions', sortable: false }
       ],
       page: 0,
@@ -86,7 +104,9 @@ export default {
             tagline: '',
             votes: [{ id: '', userId: '' }],
             comments: [{ id: '' }],
-            makers: [{ id: '' }]
+            makers: [
+              { id: '', username: '', profile: { firstName: '', lastName: '' } }
+            ]
           }
         ]
       }
@@ -111,6 +131,12 @@ export default {
               }
               makers {
                 id
+                username
+                profile {
+                  profilePicture
+                  firstName
+                  lastName
+                }
               }
             }
           }
