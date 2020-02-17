@@ -23,14 +23,40 @@
       <template #item.makers="{ item }">
         {{ item.makers.map(({ id }) => +id) }}
       </template>
+      <template #item.actions="{ item }">
+        <v-btn @click="getProductInfo(item.id)" icon>
+          <v-icon>mdi-information</v-icon>
+        </v-btn>
+      </template>
     </v-data-table>
+
+    <v-dialog v-model="showProductInfo" max-width="500">
+      <v-card max-width="500">
+        <v-card-title>
+          {{ productToShow.name }}
+        </v-card-title>
+        <v-card-subtitle>{{ productToShow.tagline }}</v-card-subtitle>
+        <v-card-text>
+          <p class="title">Upvoters</p>
+          <upvoter-avatar
+            v-for="(vote, i) in productToShow.votes"
+            :user-id="vote.userId"
+            :key="i"
+          ></upvoter-avatar>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
 <script>
 import gql from 'graphql-tag'
+import UpvoterAvatar from '@/components/AdminUpvoterAvatar.vue'
 export default {
   name: 'ProductsAdmin',
+  components: {
+    UpvoterAvatar
+  },
   data() {
     return {
       search: '',
@@ -40,10 +66,13 @@ export default {
         { text: 'Tagline', value: 'tagline', width: 200 },
         { text: 'Votes', value: 'votes.length' },
         { text: 'Comments', value: 'comments.length' },
-        { text: 'Makers', value: 'makers' }
+        { text: 'Makers', value: 'makers' },
+        { text: 'Actions', value: 'actions', sortable: false }
       ],
       page: 0,
-      pageSize: 7
+      pageSize: 7,
+      showProductInfo: false,
+      productToShow: {}
     }
   },
   asyncData() {
@@ -55,7 +84,7 @@ export default {
             id: '',
             name: '',
             tagline: '',
-            votes: [{ id: '' }],
+            votes: [{ id: '', userId: '' }],
             comments: [{ id: '' }],
             makers: [{ id: '' }]
           }
@@ -75,17 +104,13 @@ export default {
               tagline
               votes {
                 id
+                userId
               }
               comments {
                 id
               }
               makers {
                 id
-                username
-                profile {
-                  firstName
-                  lastName
-                }
               }
             }
           }
@@ -121,6 +146,12 @@ export default {
           }
         }
       })
+    },
+    getProductInfo(id) {
+      this.productToShow = this.productsList.products.filter(
+        (p) => +p.id === +id
+      )[0]
+      this.showProductInfo = true
     }
   }
 }
