@@ -10,7 +10,16 @@
       >
       </v-text-field>
     </v-card-title>
-    <v-data-table :headers="headers" :search="search" :items="products">
+    <v-data-table
+      :headers="headers"
+      :search="search"
+      :page.sync="page"
+      :items="productsList.products"
+      :server-items-length="productsList.totalCount"
+      :items-per-page="pageSize"
+      @update:page="fetchMore($event)"
+      @update:items-per-page="fetchMore(_, $event)"
+    >
       <template #item.makers="{ item }">
         {{ item.makers.map(({ id }) => +id) }}
       </template>
@@ -32,48 +41,86 @@ export default {
         { text: 'Votes', value: 'votes.length' },
         { text: 'Comments', value: 'comments.length' },
         { text: 'Makers', value: 'makers' }
-      ]
+      ],
+      page: 0,
+      pageSize: 7
     }
   },
   asyncData() {
     return {
-      products: [
-        {
-          id: '',
-          name: '',
-          tagline: '',
-          votes: [{ id: '' }],
-          comments: [{ id: '' }],
-          makers: [{ id: '' }]
-        }
-      ]
+      productsList: {
+        totalCount: 0,
+        products: [
+          {
+            id: '',
+            name: '',
+            tagline: '',
+            votes: [{ id: '' }],
+            comments: [{ id: '' }],
+            makers: [{ id: '' }]
+          }
+        ]
+      }
     }
   },
   apollo: {
-    products: {
+    productsList: {
       query: gql`
-        query fetchAllProductsForAdmin {
-          products {
-            id
-            name
-            tagline
-            votes {
+        query fetchAllProductsForAdmin($page: Int!) {
+          productsList(page: $page) {
+            totalCount
+            products {
               id
-            }
-            comments {
-              id
-            }
-            makers {
-              id
-              username
-              profile {
-                firstName
-                lastName
+              name
+              tagline
+              votes {
+                id
+              }
+              comments {
+                id
+              }
+              makers {
+                id
+                username
+                profile {
+                  firstName
+                  lastName
+                }
               }
             }
           }
         }
-      `
+      `,
+      variables: {
+        page: 0
+      }
+    }
+  },
+  methods: {
+    fetchMore(page, pageSize) {
+      this.$apollo.queries.productsList.fetchMore({
+        variables: {
+          page,
+          pageSize
+        },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          const newProducts = fetchMoreResult.productsList.products
+          const totalCount = fetchMoreResult.productsList.totalCount
+          const hasMore = fetchMoreResult.productsList.hasMore
+          return {
+            productsList: {
+              __typename: previousResult.productsList.__typename,
+              // Merging the tag list
+              totalCount,
+              products: [
+                ...previousResult.productsList.products,
+                ...newProducts
+              ],
+              hasMore
+            }
+          }
+        }
+      })
     }
   }
 }
