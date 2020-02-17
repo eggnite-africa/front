@@ -5,7 +5,7 @@
         <v-card>
           <v-card-title>Products</v-card-title>
           <v-card-text class="display-1 white--text">
-            {{ productsCount }}
+            {{ productsList.totalCount }}
           </v-card-text>
         </v-card>
       </v-col>
@@ -36,11 +36,9 @@ export default {
   },
   asyncData() {
     return {
-      products: [
-        {
-          id: ''
-        }
-      ],
+      productsList: {
+        totalCount: 0
+      },
       users: [
         {
           id: ''
@@ -52,9 +50,9 @@ export default {
     $fetchPolicy: 'network-only',
     products: {
       query: gql`
-        query fetchProductsForCount {
-          products {
-            id
+        query fetchProductsTotalCount {
+          productsList {
+            totalCount
           }
         }
       `
