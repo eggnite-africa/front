@@ -11,14 +11,10 @@
         <p class="subtitle-1 mt-n2">
           {{ rotateMessages() }}
         </p>
-        <div class="d-flex justify-space-between">
-          <v-btn color="purple" nuxt to="/join" width="125" max-width="125"
-            >Join us</v-btn
-          >
-          <v-btn to="/about" nuxt color="green" max-width="125"
-            >Learn more</v-btn
-          >
-        </div>
+        <v-btn color="purple" nuxt to="/join" width="125" max-width="125">
+          Join us
+        </v-btn>
+        <v-btn to="/about" nuxt color="green">What is this?</v-btn>
       </v-col>
     </v-container>
   </v-row>
