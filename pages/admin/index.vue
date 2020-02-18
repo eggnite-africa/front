@@ -28,7 +28,7 @@ export default {
   middleware: ['auth', 'isAdmin'],
   computed: {
     usersCount() {
-      return this.users.length
+      return this.users.length - 1
     }
   },
   asyncData() {
