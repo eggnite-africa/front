@@ -17,9 +17,9 @@
     <v-card-text>
       {{ comment.content }}
     </v-card-text>
-    <v-card-actions v-if="isOwner" class="mt-n5">
+    <v-card-actions class="mt-n5">
       <v-btn v-if="canReply" @click="reply = !reply" text>reply</v-btn>
-      <v-btn @click="deleteComment()" text>delete</v-btn>
+      <v-btn v-if="isOwner" @click="deleteComment()" text>delete</v-btn>
     </v-card-actions>
     <comment-reply
       v-if="reply"
@@ -54,8 +54,8 @@ export default {
     }
   },
   computed: {
-    userId() {
-      return this.comment.userId
+    commentUserId() {
+      return this.comment.commentUserId
     },
     commentId() {
       return this.comment.id
@@ -70,7 +70,7 @@ export default {
       return !!this.parentId
     },
     isOwner() {
-      return this.$auth.loggedIn && +this.userId === this.$auth.user.id
+      return this.$auth.loggedIn && +this.commentUserId === this.$auth.user.id
     },
     userUrl() {
       return `/u/${this.user.username}`
@@ -113,7 +113,7 @@ export default {
       `,
       variables() {
         return {
-          id: this.userId
+          id: this.commentUserId
         }
       }
     }
