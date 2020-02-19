@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     commentUserId() {
-      return this.comment.commentUserId
+      return this.comment.userId
     },
     commentId() {
       return this.comment.id
