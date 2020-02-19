@@ -1,14 +1,11 @@
 <template>
   <v-container>
-    <div class="d-flex justify-center">
-      <v-switch v-model="bs" label="Marketing speak" dense></v-switch>
-    </div>
-    <div v-if="bs" class="text-center">
+    <div class="text-center">
       <v-row tag="section" dense>
         <v-col cols="12">
           <p class="headline">
-            Eggnite enables African developers and entrepreneurs to share their
-            products with the community.
+            Eggnite enables African makers to share their creations with the
+            larger community.
           </p>
         </v-col>
       </v-row>
@@ -29,19 +26,11 @@
         </v-col>
       </v-row>
     </div>
-    <div v-else class="text-center">
-      NO BS MESSAGE HERE.
-    </div>
   </v-container>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      bs: true
-    }
-  },
   head() {
     return {
       title: '💡 About'
