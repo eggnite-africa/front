@@ -64,6 +64,7 @@ export default {
                 userId
                 postedAt
                 parentId
+                productId
               }
             }
           `,
