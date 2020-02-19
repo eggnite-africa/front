@@ -4,7 +4,7 @@
       <v-textarea
         :disabled="!this.$auth.loggedIn"
         :placeholder="placeholder"
-        v-model="content"
+        v-model.trim="content"
         @keydown.ctrl.enter="addComment()"
         dense
         outlined
@@ -52,6 +52,7 @@ export default {
     ...mapMutations({ openLoginDialog: 'utils/openLoginDialog' }),
     addComment() {
       if (!this.$auth.loggedIn) this.openLoginDialog()
+      if (this.content === '') return
       this.$apollo
         .mutate({
           mutation: gql`
@@ -61,6 +62,7 @@ export default {
                 userId
                 content
                 postedAt
+                productId
               }
             }
           `,
