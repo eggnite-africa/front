@@ -7,7 +7,7 @@
       <v-textarea
         :disabled="!this.$auth.loggedIn"
         :placeholder="placeholder"
-        v-model="content"
+        v-model.trim="content"
         @keydown.ctrl.enter="addReply()"
         dense
         outlined
@@ -53,6 +53,7 @@ export default {
     ...mapMutations({ openLoginDialog: 'utils/openLoginDialog' }),
     addReply() {
       if (!this.$auth.loggedIn) this.openLoginDialog()
+      if (this.content === '') return
       this.$apollo
         .mutate({
           mutation: gql`
