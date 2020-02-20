@@ -9,7 +9,7 @@
           </v-btn>
         </div>
         <p class="subtitle-1 mt-n2">
-          {{ rotateMessages() }}
+          {{ rotateMessages() + '!' }}
         </p>
         <v-btn to="/about" nuxt color="green" class="mr-2">What is this?</v-btn>
         <v-btn class="amber darken-2" nuxt to="/join">Join us</v-btn>
