@@ -5,7 +5,7 @@
       <v-col cols="12" sm="8" md="7">
         <v-row dense>
           <v-col cols="12">
-            <v-img src="/moonlight.svg" contain></v-img>
+            <v-img src="/moonlight.svg" contain eager></v-img>
           </v-col>
           <v-col cols="12">
             <p class="title">What is Eggnite?</p>
