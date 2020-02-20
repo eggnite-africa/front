@@ -25,10 +25,25 @@
           <v-col cols="12">
             <p class="title">Why was it created?</p>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Repudiandae consectetur, animi esse minima ullam sint perferendis
-              corrupti quae modi error optio quia, autem veniam culpa aliquam
-              eos iure maiores est.
+              From a micro-perspective, because I feel like the makers'
+              community is not really valued so most the creations (unless it's
+              an outlier) go unheard of. And because such a solution<sup>*</sup>
+              hadn't existed so far.
+            </p>
+            <p>
+              From a macro-perspective; In my view, most, if not all, of the
+              current products/solutions are revenue-driven. This approach, by
+              default, corners them into using revenue as their (sole) primary
+              metric. Thing is, in Africa's current state that is the wrong
+              metric to track because it doesn't foster the spirit of
+              experimentation and risk-taking. Rather, it greatly constraints
+              makers to choose only the most profitable alternative.
+            </p>
+            <p class="caption">
+              <sup>*</sup>Reddit, ProductHunt, BetaList etc... (you name it)
+              aren't really meant for African countries. They're mostly aimed at
+              developed countries, so the posted products address a different
+              set of challenges.
             </p>
           </v-col>
           <v-col cols="12">
