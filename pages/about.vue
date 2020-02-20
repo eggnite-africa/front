@@ -48,14 +48,14 @@
             <p>
               Probably, but we'd need to talk about it first. Simply let me
               know, either through the feedback bubble (bottom-right of your
-              screen) or contact me through my socials (see:
+              screen) or through my socials (see:
               <nuxt-link to="u/kd" target="_blank">@kd</nuxt-link>).
             </p>
           </v-col>
           <v-col cols="12">
             <p class="title">What tech stack is Eggnite built on?</p>
             <p>
-              It's built on NodeJS. For the frontend I'm using Nuxt.The backend
+              It's built on NodeJS. For the frontend I'm using Nuxt. The backend
               is powered by Nest, GraphQL and postgres. And it's being hosted on
               Heroku.
             </p>
