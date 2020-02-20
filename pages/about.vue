@@ -2,7 +2,7 @@
   <v-container>
     <v-row tag="section" dense>
       <v-col></v-col>
-      <v-col cols="12" sm="8" md="6">
+      <v-col cols="12" sm="8" md="7">
         <v-row dense>
           <v-col cols="12">
             <v-img src="/moonlight.svg" contain></v-img>
