@@ -102,7 +102,8 @@ export default {
     '@nuxtjs/auth',
     '@nuxtjs/apollo',
     '@nuxtjs/date-fns',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    '@nuxtjs/device'
   ],
   /*
    ** Axios module configuration
