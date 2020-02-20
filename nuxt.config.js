@@ -19,7 +19,7 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'Eggnite enables African developers and entrepreneurs alike to share their products with the the community'
+          'Eggnite enables African makers to share their creations with the larger community'
       },
       {
         hid: 'title',
@@ -50,7 +50,7 @@ export default {
         hid: 'ogDescription',
         property: 'og:description',
         content:
-          'Eggnite enables African developers and entrepreneurs alike to share their products with the the community'
+          'Eggnite enables African makers to share their creations with the larger community'
       },
       {
         hid: 'twitterCard',
