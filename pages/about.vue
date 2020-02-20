@@ -5,6 +5,9 @@
       <v-col cols="12" sm="8" md="6">
         <v-row dense>
           <v-col cols="12">
+            <v-img src="/moonlight.svg" contain></v-img>
+          </v-col>
+          <v-col cols="12">
             <p class="title">What is Eggnite?</p>
             <p>
               In this first iteration<sup>*</sup>, it's a platform that enables
@@ -20,7 +23,16 @@
             </p>
           </v-col>
           <v-col cols="12">
-            <p class="title">What is the vision behind this?</p>
+            <p class="title">Why was it created?</p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Repudiandae consectetur, animi esse minima ullam sint perferendis
+              corrupti quae modi error optio quia, autem veniam culpa aliquam
+              eos iure maiores est.
+            </p>
+          </v-col>
+          <v-col cols="12">
+            <p class="title">What is the vision behind it?</p>
             <p>
               Fundamentally Eggnite is about fostering a community of African
               makers and giving them the tools they need to develop products
