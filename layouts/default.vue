@@ -54,7 +54,7 @@
         <v-col class="d-flex justify-center">
           <span class="overline">
             Made with
-            <v-icon x-small color="red">mdi-heart</v-icon> in Tunis
+            <v-icon x-small color="red">mdi-heart</v-icon> in Tunisia
           </span>
         </v-col>
         <v-col class="d-flex justify-end">
