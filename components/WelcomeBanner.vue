@@ -11,10 +11,8 @@
         <p class="subtitle-1 mt-n2">
           {{ rotateMessages() }}
         </p>
-        <v-btn color="purple" nuxt to="/join" width="125" max-width="125">
-          Join us
-        </v-btn>
-        <v-btn to="/about" nuxt color="green">What is this?</v-btn>
+        <v-btn to="/about" nuxt color="green" class="mr-2">What is this?</v-btn>
+        <v-btn class="amber darken-2" nuxt to="/join">Join us</v-btn>
       </v-col>
     </v-container>
   </v-row>
