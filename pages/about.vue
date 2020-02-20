@@ -35,9 +35,8 @@
             <p class="title">What is the vision behind it?</p>
             <p>
               Fundamentally Eggnite is about fostering a community of African
-              makers and giving them the tools they need to develop products
-              that can make things around them a bit better (or at least, less
-              shitty).
+              makers and giving them the tools they need to further develop
+              their products and maximize their impact on their market.
             </p>
             <p>
               In this first iteration, the focus is going to be on shining a
