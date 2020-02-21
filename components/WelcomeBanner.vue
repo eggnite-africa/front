@@ -11,7 +11,7 @@
         <p class="subtitle-1 mt-n2">
           {{ rotateMessages() + '!' }}
         </p>
-        <v-btn to="/about" nuxt color="green" class="mr-2">What is this?</v-btn>
+        <v-btn to="/about" nuxt color="green" class="mr-2">Tell me more</v-btn>
         <v-btn class="amber darken-2" nuxt to="/join">Join us</v-btn>
       </v-col>
     </v-container>
