@@ -1,6 +1,5 @@
 <template>
   <div>
-    <WelcomeBanner />
     <v-container>
       <v-dialog
         v-if="$auth.loggedIn && welcome"
@@ -87,12 +86,10 @@
 import gql from 'graphql-tag'
 import { mapMutations } from 'vuex'
 import MugenScroll from 'vue-mugen-scroll'
-import WelcomeBanner from '@/components/WelcomeBanner.vue'
 import ProductItem from '@/components/ProductItem.vue'
 
 export default {
   components: {
-    WelcomeBanner,
     ProductItem,
     MugenScroll
   },
