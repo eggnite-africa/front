@@ -59,13 +59,9 @@
               depressed
               nuxt
               to="/post"
-              class="hidden-sm-and-down"
             >
-              post your product
+              add your product
             </v-btn>
-          </v-col>
-          <v-col v-if="!productsList.hasMore" cols="12">
-            <v-img src="/ignite.svg" max-width="500" class="mx-auto"></v-img>
           </v-col>
         </v-row>
       </div>
