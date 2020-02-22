@@ -67,7 +67,7 @@
 <script>
 import gql from 'graphql-tag'
 import { mapActions, mapMutations } from 'vuex'
-import { required, sameAs, minLength } from 'vuelidate/lib/validators'
+import { required, sameAs, minLength, alphaNum } from 'vuelidate/lib/validators'
 
 export default {
   name: 'JoinUs',
@@ -90,6 +90,8 @@ export default {
       !this.$v.username.minLength &&
         errors.push('username should be at least 2 characters long')
       !this.$v.username.isUnique && errors.push('username is already in use')
+      !this.$v.username.alphaNum &&
+        errors.push('username contains invalids characters')
       return errors
     },
     fullNameErrors() {
@@ -133,6 +135,7 @@ export default {
     },
     username: {
       required,
+      alphaNum,
       minLength: minLength(2),
       isUnique(v) {
         if (v === '') return !this.usernameExists
