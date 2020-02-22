@@ -42,7 +42,10 @@
               </v-radio-group>
             </v-col>
             <v-col>
-              birthdate here
+              <user-birthdate-field
+                :birthDate="user.profile.birthDate"
+                @update-birthdate="updateBirthdate($event)"
+              ></user-birthdate-field>
             </v-col>
           </v-row>
           <v-row align="center">
@@ -99,10 +102,12 @@ import gql from 'graphql-tag'
 import { countries } from 'countries-list'
 import { required } from 'vuelidate/lib/validators'
 import UserProfileEdit from '@/components/UserProfileEditPage.vue'
+import UserBirthdateField from '@/components/UserProfileEditPageBirthdateField.vue'
 
 export default {
   components: {
-    UserProfileEdit
+    UserProfileEdit,
+    UserBirthdateField
   },
   data() {
     return {
@@ -219,6 +224,9 @@ export default {
       } finally {
         this.message.display = true
       }
+    },
+    updateBirthdate(date) {
+      this.user.profile.birthDate = date
     }
   },
   middleware: ['auth', 'isAccountOwner'],
