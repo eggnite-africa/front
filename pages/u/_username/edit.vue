@@ -12,6 +12,57 @@
     <v-card>
       <v-card-title>Edit Profile</v-card-title>
       <v-card-text>
+        <form>
+          <v-row justify="center">
+            profile picture here
+          </v-row>
+          <v-row align="center">
+            <v-col>
+              <v-text-field label="Full name"></v-text-field>
+            </v-col>
+            <v-col>
+              <v-autocomplete
+                v-model="user.profile.country"
+                :items="africanCountries"
+                @input="$v.user.profile.country.$touch()"
+                @blur="$v.user.profile.country.$touch()"
+                :error-messages="CountryErrors"
+                prepend-icon="mdi-map"
+                item-text="name"
+                item-value="code"
+                label="Country"
+              ></v-autocomplete>
+            </v-col>
+          </v-row>
+          <v-row align="center">
+            <v-col>
+              <v-radio-group v-model="user.profile.gender" label="Gender" row>
+                <v-radio label="Female" value="FEMALE"></v-radio>
+                <v-radio label="Male" value="MALE"></v-radio>
+              </v-radio-group>
+            </v-col>
+            <v-col>
+              birthdate here
+            </v-col>
+          </v-row>
+          <v-row align="center">
+            <v-col>occupation</v-col>
+            <v-col>company/school</v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-textarea
+                v-model.trim="user.profile.bio"
+                label="Bio"
+                outlined
+                rows="3"
+              ></v-textarea>
+            </v-col>
+          </v-row>
+          <v-row>
+            social
+          </v-row>
+        </form>
         <user-profile-edit
           ref="profileEdit"
           v-if="!$apollo.queries.user.loading"
@@ -45,14 +96,43 @@
 
 <script>
 import gql from 'graphql-tag'
+import { countries } from 'countries-list'
+import { required } from 'vuelidate/lib/validators'
 import UserProfileEdit from '@/components/UserProfileEditPage.vue'
+
 export default {
   components: {
     UserProfileEdit
   },
+  data() {
+    return {
+      africanCountries: [
+        {
+          code: '',
+          name: ''
+        }
+      ]
+    }
+  },
+  validations: {
+    user: {
+      profile: {
+        country: {
+          required
+        }
+      }
+    }
+  },
   computed: {
     username() {
       return this.$route.params.username
+    },
+    CountryErrors() {
+      const errors = []
+      if (!this.$v.user.profile.country.$dirty) return errors
+      !this.$v.user.profile.country.required &&
+        errors.push('Country field is required')
+      return errors
     }
   },
   asyncData() {
@@ -80,6 +160,20 @@ export default {
         }
       }
     }
+  },
+  created() {
+    const africanCountries = Object.entries(countries).filter(
+      (c) => c[1].continent === 'AF'
+    )
+    const africanCountriesFinal = []
+    africanCountries.forEach((c) => {
+      const country = {
+        code: c[0],
+        name: c[1].name
+      }
+      africanCountriesFinal.push(country)
+    })
+    this.africanCountries = africanCountriesFinal
   },
   apollo: {
     user: {
