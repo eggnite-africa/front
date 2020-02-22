@@ -68,9 +68,10 @@
               ></v-textarea>
             </v-col>
           </v-row>
-          <v-row>
-            social
-          </v-row>
+          <user-social
+            :user-social-links="user.profile.socialLinks"
+            @update-social="updateField('socialLinks', $event)"
+          ></user-social>
         </form>
         <user-profile-edit
           ref="profileEdit"
@@ -110,12 +111,14 @@ import { required } from 'vuelidate/lib/validators'
 import UserProfileEdit from '@/components/UserProfileEditPage.vue'
 import UserBirthdateField from '@/components/UserProfileEditPageBirthdateField.vue'
 import UserOccupationField from '@/components/UserProfileEditPageOccupationField.vue'
+import UserSocial from '@/components/UserProfileEditPageSocial.vue'
 
 export default {
   components: {
     UserProfileEdit,
     UserBirthdateField,
-    UserOccupationField
+    UserOccupationField,
+    UserSocial
   },
   data() {
     return {
