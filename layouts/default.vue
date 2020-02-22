@@ -2,34 +2,19 @@
   <v-app dark>
     <v-app-bar app>
       <nuxt-link to="/" class="homepage-link">
-        <v-img class="mr-2" src="/Logo.png" contain max-width="48"></v-img>
+        <v-img class="mr-2" src="/Logo.png" contain max-width="42"></v-img>
         <v-toolbar-title v-text="title" />
       </nuxt-link>
       <Search />
-      <div :class="this.$auth.loggedIn ? 'd-md-none ml-n4' : 'd-sm-none ml-n4'">
-        <v-menu offset-y bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" small icon left>
-              <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
-          </template>
-          <v-list flat>
-            <v-list-item v-for="item in items" :to="item.link" :key="item.name">
-              <v-list-item-title v-text="item.name"></v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </div>
-      <div
-        :class="this.$auth.loggedIn ? 'hidden-sm-and-down' : 'hidden-xs-only'"
-      >
+      <div v-if="$device.isDesktopOrTablet">
         <nuxt-link
           v-for="item in items"
           :to="item.link"
           :key="item.name"
           class="menu-link"
-          >{{ item.name }}</nuxt-link
         >
+          {{ item.name }}
+        </nuxt-link>
       </div>
       <v-spacer />
       <Menu />
@@ -42,9 +27,7 @@
     </v-content>
 
     <client-only>
-      <div v-if="displayFeedback">
-        <Feedback />
-      </div>
+      <Feedback v-if="displayFeedback" />
     </client-only>
     <v-footer absolute app>
       <v-row dense align="center">
