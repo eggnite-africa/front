@@ -1,43 +1,37 @@
 <template>
-  <v-row dense>
+  <v-row align="center">
     <v-col>
-      <header>Occupation</header>
-
-      <v-radio-group
-        v-model="userOccupation"
-        :error-messages="userOccupationErrors"
-        @input="$v.userOccupation.$touch()"
-        @blur="$v.userOccupation.$touch()"
-        row
-      >
-        <v-radio label="Student" value="STUDENT" color="blue"></v-radio>
-        <v-radio label="Developer" value="DEVELOPER" color="green"></v-radio>
-        <v-radio
-          label="Entrepreneur"
-          value="ENTREPRENEUR"
-          color="yellow"
-        ></v-radio>
-      </v-radio-group>
+      <v-select
+        v-model="occupation"
+        :error-messages="occupationErrors"
+        :items="occupations"
+        @input="updateOccupation()"
+        @blur="updateOccupation()"
+        label="Occupation"
+        item-text="label"
+        item-value="value"
+        return-object
+      ></v-select>
     </v-col>
     <v-col>
-      <template v-if="userOccupation === 'STUDENT'">
-        <header>University</header>
+      <template v-if="occupation === 'ENTREPRENEUR'">
         <v-text-field
-          v-model.trim="userUniversity"
-          :error-messages="userUniversityErrors"
-          @input="$v.userUniversity.$touch()"
-          @blur="$v.userUniversity.$touch()"
-          prepend-icon="mdi-school"
+          v-model.trim="company"
+          :error-messages="companyErrors"
+          @input="updateCompany()"
+          @blur="updateCompany()"
+          prepend-icon="mdi-briefcase"
+          label="Company"
         ></v-text-field>
       </template>
       <template v-else>
-        <header>Company</header>
         <v-text-field
-          v-model.trim="userCompany"
-          :error-messages="userCompanyErrors"
-          @input="$v.userCompany.$touch()"
-          @blur="$v.userCompany.$touch()"
-          prepend-icon="mdi-briefcase"
+          v-model.trim="university"
+          :error-messages="universityErrors"
+          @input="updateUniversity()"
+          @blur="updateUniversity()"
+          prepend-icon="mdi-school"
+          label="University"
         ></v-text-field>
       </template>
     </v-col>
@@ -49,59 +43,64 @@ import { required, requiredIf } from 'vuelidate/lib/validators'
 export default {
   name: 'OccupationField',
   props: {
-    occupation: {
+    userOccupation: {
       type: String,
       required: true
     },
-    university: {
+    userUniversity: {
       type: String,
       default: null
     },
-    company: {
+    userCompany: {
       type: String,
       default: null
     }
   },
   data() {
     return {
-      userOccupation: this.occupation,
-      userUniversity: this.university,
-      userCompany: this.company
+      occupation: this.userOccupation,
+      university: this.userUniversity,
+      company: this.userCompany,
+      occupations: [
+        { label: 'Entrepreneur', value: 'ENTREPRENEUR' },
+        { label: 'Developer', value: 'DEVELOPER' },
+        { label: 'Professor', value: 'PROFESSOR' },
+        { label: 'Student', value: 'STUDENT' }
+      ]
     }
   },
   computed: {
-    userOccupationErrors() {
+    occupationErrors() {
       const errors = []
-      if (!this.$v.userOccupation.$dirty) return errors
-      !this.$v.userOccupation.required && errors.push('Batman?... Is that you?')
+      if (!this.$v.occupation.$dirty) return errors
+      !this.$v.occupation.required && errors.push('Batman?... Is that you?')
       return errors
     },
-    userUniversityErrors() {
+    universityErrors() {
       const errors = []
-      if (!this.$v.userUniversity.$dirty) return errors
-      !this.$v.userUniversity.required &&
-        errors.push('So... Where do you study?')
+      if (!this.$v.university.$dirty) return errors
+      !this.$v.university.required && errors.push('So... Where do you study?')
       return errors
     },
-    userCompanyErrors() {
+    companyErrors() {
       const errors = []
-      if (!this.$v.userCompany.$dirty) return errors
-      !this.$v.userCompany.required && errors.push('So... Where do you work?')
+      if (!this.$v.company.$dirty) return errors
+      !this.$v.company.required && errors.push('So... Where do you work?')
       return errors
     }
   },
   validations: {
-    userOccupation: {
+    occupation: {
       required
     },
-    userUniversity: {
+    university: {
       required: requiredIf(function() {
-        return this.userOccupation === 'STUDENT'
+        return this.occupation === 'STUDENT'
       })
     },
-    userCompany: {
+    company: {
       required: requiredIf(function() {
-        return this.userOccupation !== 'STUDENT'
+        return this.occupation !== 'STUDENT'
       })
     }
   },
@@ -109,6 +108,22 @@ export default {
     isValid() {
       this.$v.$touch()
       return !this.$v.$invalid
+    },
+    updateField(fieldName, value) {
+      this.$v[`${fieldName}`].$touch()
+      if (value) {
+        const eventName = `update-${fieldName}`
+        this.$emit(eventName, value)
+      }
+    },
+    updateCompany() {
+      this.updateField('company', this.company)
+    },
+    updateUniversity() {
+      this.updateField('university', this.university)
+    },
+    updateOccupation() {
+      this.updateField('occupation', this.occupation)
     }
   }
 }
