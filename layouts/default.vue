@@ -34,7 +34,7 @@
         <v-col>
           <span>&copy; {{ $dateFns.getYear(new Date()) }}</span>
         </v-col>
-        <v-col class="d-flex justify-center align-center">
+        <v-col class="d-flex justify-center text-center">
           <span class="overline">
             Made with
             <v-icon x-small color="red">mdi-heart</v-icon> in Tunisia
