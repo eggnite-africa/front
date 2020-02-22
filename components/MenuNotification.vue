@@ -2,17 +2,17 @@
   <v-menu offset-y bottom>
     <template #activator="{ on }">
       <v-btn v-on="on" icon>
-        <v-badge :value="unreadCount()" overlap class="ml-1 mr-2" color="red">
-          <template #badge>{{ unreadCount() }}</template>
+        <v-badge :value="unreadCount" overlap class="ml-1 mr-2" color="red">
+          <template #badge>{{ unreadCount }}</template>
           <v-icon color="blue">{{
-            unreadCount() ? 'mdi-bell' : 'mdi-bell-outline'
+            unreadCount ? 'mdi-bell' : 'mdi-bell-outline'
           }}</v-icon>
         </v-badge>
       </v-btn>
     </template>
     <v-list flat>
       <v-list-item-group>
-        <template v-for="notification in notifications">
+        <template v-for="notification in user.notifications">
           <template v-if="notification.vote">
             <menu-notification-item
               :key="notification.id"
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
 import MenuNotificationItem from '@/components/MenuNotificationItem.vue'
 export default {
   name: 'MenuNotification',
@@ -43,14 +44,72 @@ export default {
     MenuNotificationItem
   },
   props: {
-    notifications: {
-      type: Array,
-      required: true
+    userId: {
+      type: Number,
+      required: false,
+      default: 0
     }
   },
-  methods: {
+  data() {
+    return {
+      user: {
+        id: '',
+        notifications: [
+          {
+            id: '',
+            vote: {
+              id: '',
+              productId: ''
+            },
+            comment: {
+              id: '',
+              productId: '',
+              userId: '',
+              parentId: ''
+            }
+          }
+        ]
+      }
+    }
+  },
+  computed: {
     unreadCount() {
-      return this.notifications.length
+      return this.user.notifications.length
+    }
+  },
+  apollo: {
+    user: {
+      query: gql`
+        query getLoggedInUserInfoForMenu($id: ID!, $seen: Boolean!) {
+          user(id: $id) {
+            id
+            notifications(seen: $seen) {
+              id
+              vote {
+                id
+                productId
+              }
+              comment {
+                id
+                productId
+                userId
+                parentId
+              }
+            }
+          }
+        }
+      `,
+      variables() {
+        return {
+          id: this.userId,
+          seen: false
+        }
+      },
+      skip() {
+        return !this.userId
+      },
+      debounce: 0.0001,
+      pollInterval: process.client && 30000
     }
   }
 }

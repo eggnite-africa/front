@@ -1,23 +1,6 @@
 <template>
   <div>
-    <template v-if="isLoggedIn && !$apollo.queries.user.loading">
-      <v-row align="center">
-        <v-col class="hidden-sm-and-down">
-          <v-btn to="/post" nuxt color="secondary" outlined>
-            <v-icon left dense>mdi-plus</v-icon>post a product
-          </v-btn>
-        </v-col>
-        <v-col class="d-flex">
-          <menu-notification
-            :notifications="user.notifications"
-          ></menu-notification>
-          <menu-account
-            :username="user.username"
-            :user-profile-picture="profilePicture"
-          ></menu-account>
-        </v-col>
-      </v-row>
-    </template>
+    <MenuLoggedIn v-if="isLoggedIn" :user-id="userId" />
     <template v-else>
       <v-dialog v-model="loginDialog" persistent max-width="300">
         <template #activator="{ on }">
@@ -42,45 +25,15 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-import MenuNotification from '@/components/MenuNotification.vue'
-import MenuAccount from '@/components/MenuAccount.vue'
+import MenuLoggedIn from '@/components/MenuLoggedIn.vue'
 import Login from '@/components/Login.vue'
 import Join from '@/components/Join.vue'
 export default {
   name: 'Menu',
   components: {
-    MenuAccount,
-    MenuNotification,
+    MenuLoggedIn,
     Login,
     Join
-  },
-  data() {
-    return {
-      user: {
-        id: '',
-        username: '',
-        profile: {
-          profilePicture: '',
-          gender: ''
-        },
-        notifications: [
-          {
-            id: '',
-            vote: {
-              id: '',
-              productId: ''
-            },
-            comment: {
-              id: '',
-              productId: '',
-              userId: '',
-              parentId: ''
-            }
-          }
-        ]
-      }
-    }
   },
   computed: {
     userId() {
@@ -110,55 +63,6 @@ export default {
           value
         })
       }
-    },
-    profilePicture() {
-      const profilePicture = this.user.profile.profilePicture
-      if (profilePicture) return profilePicture
-
-      const gender = this.user.profile.gender
-      if (gender === 'MALE') {
-        return '/male_avatar.svg'
-      } else return '/female_avatar.svg'
-    }
-  },
-  apollo: {
-    user: {
-      query: gql`
-        query getLoggedInUserInfoForMenu($id: ID!, $seen: Boolean!) {
-          user(id: $id) {
-            id
-            username
-            profile {
-              profilePicture
-              gender
-            }
-            notifications(seen: $seen) {
-              id
-              vote {
-                id
-                productId
-              }
-              comment {
-                id
-                productId
-                userId
-                parentId
-              }
-            }
-          }
-        }
-      `,
-      variables() {
-        return {
-          id: this.userId,
-          seen: false
-        }
-      },
-      skip() {
-        return !this.isLoggedIn
-      },
-      debounce: 0.0001,
-      pollInterval: process.client && 30000
     }
   }
 }
