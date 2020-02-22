@@ -41,7 +41,11 @@
           <v-row align="center">
             <v-col>
               <v-radio-group v-model="user.profile.gender" label="Gender" row>
-                <v-radio label="Female" value="FEMALE"></v-radio>
+                <v-radio
+                  label="Female"
+                  value="FEMALE"
+                  class="my-2 my-sm-0"
+                ></v-radio>
                 <v-radio label="Male" value="MALE"></v-radio>
               </v-radio-group>
             </v-col>
