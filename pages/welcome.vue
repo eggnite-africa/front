@@ -7,7 +7,8 @@
           src="/welcome.svg"
           contain
           class="mx-auto"
-          aspect-ratio="2"
+          aspect-ratio="2.3"
+          eager
         ></v-img>
         <p>
           I'm sincerely happy that you joined our community! It might not mean
@@ -18,17 +19,17 @@
           here to support and learn from each other!
         </p>
         <p>
-          PS: I'm only one click away, so don't hesitate to come say hi!
+          P.S: I'm only one click away, so don't hesitate to come say hi!
         </p>
         <v-row>
           <v-col class="d-flex justify-center">
             <v-btn color="orange" nuxt to="/post">Add your product</v-btn>
           </v-col>
           <v-col class="d-flex justify-center">
-            <v-btn color="white" outlined nuxt to="/">Discover products</v-btn>
+            <v-btn color="blue" nuxt to="/">Discover products</v-btn>
           </v-col>
           <v-col class="d-flex justify-center">
-            <v-btn :to="userProfileEdit" color="blue" nuxt>
+            <v-btn :to="userProfileEdit" color="green" nuxt>
               Finish setting up your profile
               <v-icon right dense>mdi-arrow-right</v-icon>
             </v-btn>
@@ -48,6 +49,6 @@ export default {
       return `/u/${username}/edit`
     }
   },
-  middleware: ['auth']
+  middleware: 'auth'
 }
 </script>
