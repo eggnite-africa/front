@@ -50,20 +50,14 @@ export default {
     }
   },
   created() {
-    this.sortLinks()
-  },
-  methods: {
-    sortLinks() {
-      const links = [...this.links]
-      const is = (link, network) => link.includes(network)
-      for (const link of links) {
-        if (is(link, 'facebook')) {
-          this.facebook = link
-        } else if (is(link, 'twitter')) {
-          this.twitter = link
-        } else if (is(link, 'linkedIn')) {
-          this.linkedin = link
-        }
+    const is = (link, network) => link.includes(network)
+    for (const link of this.links) {
+      if (is(link, 'facebook')) {
+        this.facebook = link
+      } else if (is(link, 'twitter')) {
+        this.twitter = link
+      } else if (is(link, 'linkedin')) {
+        this.linkedin = link
       }
     }
   }
