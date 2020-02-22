@@ -13,7 +13,9 @@
     </v-card-title>
     <v-card-subtitle>
       Don't have an account?
-      <nuxt-link @click.native="closeDialog()" to="/join"> join us </nuxt-link>!
+      <v-btn @click.native="openJoinDialog()" x-small color="green" outlined>
+        join us
+      </v-btn>
     </v-card-subtitle>
     <form>
       <v-container>
@@ -34,7 +36,7 @@
 
         <div class="d-flex justify-end">
           <v-btn @click.prevent="onSubmit()" :color="color" type="submit">
-            login
+            Sign in
           </v-btn>
         </div>
       </v-container>
@@ -43,7 +45,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 
 export default {
   data() {
@@ -54,6 +56,9 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      openJoinDialog: 'utils/openJoinDialog'
+    }),
     ...mapActions({
       login: 'utils/login'
     }),

@@ -1,60 +1,76 @@
 <template>
-  <v-container>
-    <v-card>
-      <v-card-title>Join us</v-card-title>
-      <v-card-text>
-        <form>
-          <v-text-field
-            v-model.trim="username"
-            :error-messages="usernameErrors"
-            @input="$v.username.$touch()"
-            @blur="$v.username.$touch()"
-            label="Username"
-          ></v-text-field>
+  <v-card>
+    <v-card-title>
+      <span>
+        Join us
+      </span>
+      <v-spacer></v-spacer>
+      <v-btn @click="closeDialog()" icon rounded>
+        <v-icon>
+          mdi-close
+        </v-icon>
+      </v-btn>
+    </v-card-title>
+    <v-card-subtitle>
+      Already have an account?
+      <v-btn @click.native="openLoginDialog()" color="white" outlined x-small
+        >login</v-btn
+      >
+    </v-card-subtitle>
+    <v-container>
+      <form>
+        <v-text-field
+          v-model.trim="username"
+          :error-messages="usernameErrors"
+          @input="$v.username.$touch()"
+          @blur="$v.username.$touch()"
+          label="Username"
+          outlined
+        ></v-text-field>
 
-          <v-text-field
-            v-model.trim="fullName"
-            :error-messages="fullNameErrors"
-            @input="$v.fullName.$touch()"
-            @blur="$v.fullName.$touch()"
-            label="Full name"
-          ></v-text-field>
+        <v-text-field
+          v-model.trim="fullName"
+          :error-messages="fullNameErrors"
+          @input="$v.fullName.$touch()"
+          @blur="$v.fullName.$touch()"
+          label="Full name"
+          outlined
+        ></v-text-field>
 
-          <v-text-field
-            v-model="password"
-            :error-messages="passwordErrors"
-            @input="$v.password.$touch()"
-            @blur="$v.password.$touch()"
-            label="Password"
-            type="password"
-          ></v-text-field>
+        <v-text-field
+          v-model="password"
+          :error-messages="passwordErrors"
+          @input="$v.password.$touch()"
+          @blur="$v.password.$touch()"
+          label="Password"
+          type="password"
+          outlined
+        ></v-text-field>
 
-          <v-text-field
-            v-model="passwordConfirmation"
-            :error-messages="confirmPasswordErrors"
-            @input="$v.passwordConfirmation.$touch()"
-            @blur="$v.passwordConfirmation.$touch()"
-            label="Confirm password"
-            type="password"
-          ></v-text-field>
-        </form>
-      </v-card-text>
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn @click="signUp()" depressed color="green">Join</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-container>
+        <v-text-field
+          v-model="passwordConfirmation"
+          :error-messages="confirmPasswordErrors"
+          @input="$v.passwordConfirmation.$touch()"
+          @blur="$v.passwordConfirmation.$touch()"
+          label="Confirm password"
+          type="password"
+          outlined
+        ></v-text-field>
+      </form>
+      <div class="d-flex justify-end">
+        <v-btn @click="signUp()" depressed color="primary">Continue</v-btn>
+      </div>
+    </v-container>
+  </v-card>
 </template>
 
 <script>
 import gql from 'graphql-tag'
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import { required, sameAs, minLength } from 'vuelidate/lib/validators'
 
 export default {
-  name: 'JoinUsPage',
+  name: 'JoinUs',
   data() {
     return {
       username: '',
@@ -143,9 +159,15 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      openLoginDialog: 'utils/openLoginDialog'
+    }),
     ...mapActions({
       signIn: 'utils/login'
     }),
+    closeDialog() {
+      this.$emit('close-dialog')
+    },
     async login() {
       const [username, password] = [this.username, this.password]
       await this.signIn({ username, password })
@@ -180,11 +202,6 @@ export default {
             params: { welcome: true, firstName: this.firstName }
           })
         })
-    }
-  },
-  head() {
-    return {
-      title: '🌍 Join'
     }
   }
 }

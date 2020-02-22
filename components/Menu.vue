@@ -19,17 +19,24 @@
       </v-row>
     </template>
     <template v-else>
-      <v-btn color="green" outlined class="mr-1 hidden-xs-only" nuxt to="/join"
-        >join</v-btn
-      >
       <v-dialog v-model="loginDialog" persistent max-width="300">
         <template #activator="{ on }">
-          <v-btn v-on="on" color="primary" depressed>
+          <v-btn v-on="on" color="white" outlined depressed>
             login
           </v-btn>
         </template>
         <Login @close-dialog="loginDialog = false" />
       </v-dialog>
+      <span v-show="!$device.isMobile">
+        <v-dialog v-model="joinDialog" persistent max-width="300">
+          <template #activator="{ on }">
+            <v-btn v-on="on" color="green" depressed>
+              join
+            </v-btn>
+          </template>
+          <Join @close-dialog="joinDialog = false" />
+        </v-dialog>
+      </span>
     </template>
   </div>
 </template>
@@ -39,12 +46,14 @@ import gql from 'graphql-tag'
 import MenuNotification from '@/components/MenuNotification.vue'
 import MenuAccount from '@/components/MenuAccount.vue'
 import Login from '@/components/Login.vue'
+import Join from '@/components/Join.vue'
 export default {
   name: 'Menu',
   components: {
     MenuAccount,
     MenuNotification,
-    Login
+    Login,
+    Join
   },
   data() {
     return {
@@ -87,6 +96,17 @@ export default {
       set(value) {
         this.$store.commit('utils/setState', {
           key: 'loginDialog',
+          value
+        })
+      }
+    },
+    joinDialog: {
+      get() {
+        return this.$store.state.utils.joinDialog
+      },
+      set(value) {
+        this.$store.commit('utils/setState', {
+          key: 'joinDialog',
           value
         })
       }

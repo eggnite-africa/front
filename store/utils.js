@@ -1,6 +1,7 @@
 export const state = () => ({
   welcomeBannerHidden: false,
-  loginDialog: false
+  loginDialog: false,
+  joinDialog: false
 })
 
 export const mutations = {
@@ -9,6 +10,11 @@ export const mutations = {
   },
   openLoginDialog(state) {
     if (!this.$auth.loggedIn) state.loginDialog = true
+    state.joinDialog = false
+  },
+  openJoinDialog(state) {
+    state.loginDialog = false
+    state.joinDialog = true
   }
 }
 
