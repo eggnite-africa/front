@@ -11,7 +11,7 @@
           v-for="item in items"
           :to="item.link"
           :key="item.name"
-          class="menu-link"
+          class="menu-link overline"
         >
           {{ item.name }}
         </nuxt-link>
@@ -34,13 +34,14 @@
         <v-col>
           <span>&copy; {{ $dateFns.getYear(new Date()) }}</span>
         </v-col>
-        <v-col class="d-flex justify-center">
+        <v-col class="d-flex justify-center align-center">
           <span class="overline">
             Made with
             <v-icon x-small color="red">mdi-heart</v-icon> in Tunisia
           </span>
         </v-col>
-        <v-col class="d-flex justify-end">
+        <v-col class="d-flex justify-end align-center">
+          <nuxt-link to="/about" class="menu-link overline">About</nuxt-link>
           <v-btn icon small href="https://fb.me/eggniteco" target="_blank">
             <v-icon>mdi-facebook-box</v-icon>
           </v-btn>
@@ -97,7 +98,7 @@ export default {
   &:first-child {
     margin-left: 0.5rem;
   }
-  margin-right: 1.5rem;
+  margin-right: 0.5rem;
   &:hover {
     color: #fff;
   }
