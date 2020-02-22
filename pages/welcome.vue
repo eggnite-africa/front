@@ -1,30 +1,53 @@
 <template>
   <v-container>
-    <v-card color="teal">
-      <v-card-title>Welcome!</v-card-title>
-      <v-card-text>
-        <p class="white--text">
-          Hi
-          <span class="font-weight-bold">{{ firstName }}</span
-          >, <br />
-          <br />
-          We're sincerely happy that you joined our community! It might not mean
-          much to you, but to us, it means the world! <br />
-          <br />
-          We strongly believe that together we can build a resilient, supportive
-          and diverse community where developers and entrepreneurs alike can
-          share their products (whether that'd be an app, an open-source project
-          or a website) with the larger community enabling them to further
-          improve upon received feedback.<br />
-          <br />
-          We can't wait to see what you've got to offer. Remember, we're all
-          here to support and learn from each other!<br />
+    <v-row dense>
+      <v-col></v-col>
+      <v-col cols="12" sm="8">
+        <v-img
+          src="/welcome.svg"
+          contain
+          class="mx-auto"
+          aspect-ratio="2"
+        ></v-img>
+        <p>
+          I'm sincerely happy that you joined our community! It might not mean
+          much to you, but to me, it means the world! Thank you 🙏🏻
         </p>
-      </v-card-text>
-    </v-card>
+        <p>
+          I can't wait to see what you've got to offer and, remember, we're all
+          here to support and learn from each other!
+        </p>
+        <p>
+          PS: I'm only one click away, so don't hesitate to come say hi!
+        </p>
+        <v-row>
+          <v-col class="d-flex justify-center">
+            <v-btn color="orange" nuxt to="/post">Add your product</v-btn>
+          </v-col>
+          <v-col class="d-flex justify-center">
+            <v-btn color="white" outlined nuxt to="/">Discover products</v-btn>
+          </v-col>
+          <v-col class="d-flex justify-center">
+            <v-btn :to="userProfileEdit" color="blue" nuxt>
+              Finish setting up your profile
+              <v-icon right dense>mdi-arrow-right</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-col></v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
-export default {}
+export default {
+  computed: {
+    userProfileEdit() {
+      const { username } = this.$auth.user
+      return `/u/${username}/edit`
+    }
+  },
+  middleware: ['auth']
+}
 </script>
