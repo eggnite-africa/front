@@ -34,9 +34,12 @@
           type="password"
         ></v-text-field>
 
-        <div class="d-flex justify-end">
-          <v-btn @click.prevent="onSubmit()" :color="color" type="submit">
-            Sign in
+        <div class="d-flex justify-end align-center">
+          <span v-show="error" class="overline mx-auto red--text">
+            wrong credentials <span class="body-2">😕</span>
+          </span>
+          <v-btn @click.prevent="onSubmit()" color="primary" type="submit">
+            sign in
           </v-btn>
         </div>
       </v-container>
@@ -52,7 +55,7 @@ export default {
     return {
       username: null,
       password: null,
-      color: 'primary'
+      error: false
     }
   },
   methods: {
@@ -68,13 +71,15 @@ export default {
         try {
           await this.login({ username, password })
         } catch (e) {
-          this.color = 'red'
-          setTimeout(() => (this.color = 'primary'), 1000)
+          this.error = true
         }
       }
     },
     closeDialog() {
       this.$emit('close-dialog')
+      this.error = false
+      this.username = null
+      this.password = null
     }
   }
 }
