@@ -81,6 +81,7 @@ export default {
             const link = await this.uploadImage(file)
             this.files = []
             this._pushFile(link)
+            this.$emit('update-image', link)
             load(file)
           } catch (e) {
             throw new Error('there was a problem during upload')
@@ -101,6 +102,7 @@ export default {
         remove: async (source, load, err) => {
           await this.removeImage(source)
           this.files = []
+          this.$emit('update-image', '')
           load()
         }
       }
@@ -138,9 +140,6 @@ export default {
       const file = this.files[0]
       if (!file) return ''
       return file.source
-    },
-    getProfilePicture() {
-      return this._getImage()
     },
     getProductLogo() {
       return this._getImage()
