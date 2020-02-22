@@ -59,12 +59,6 @@
         ></v-autocomplete>
       </v-col>
     </v-row>
-    <occupation-field
-      ref="userOccupationField"
-      :occupation="occupation"
-      :university="university"
-      :company="company"
-    ></occupation-field>
     <v-row dense>
       <v-col>
         <v-textarea
@@ -112,7 +106,6 @@ import { required, minLength } from 'vuelidate/lib/validators'
 import { countries } from 'countries-list'
 import UserAvatar from '@/components/shared/SingleImageUpload.vue'
 import SocialMediaLink from '@/components/UserProfileEditPageSocialMedia.vue'
-import OccupationField from '@/components/UserProfileEditPageOccupationField.vue'
 import BirthdateField from '@/components/UserProfileEditPageBirthdateField.vue'
 
 export default {
@@ -120,7 +113,6 @@ export default {
   components: {
     UserAvatar,
     SocialMediaLink,
-    OccupationField,
     BirthdateField
   },
   props: {
