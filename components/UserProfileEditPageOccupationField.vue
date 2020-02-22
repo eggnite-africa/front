@@ -10,7 +10,6 @@
         label="Occupation"
         item-text="label"
         item-value="value"
-        return-object
       ></v-select>
     </v-col>
     <v-col>
