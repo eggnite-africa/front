@@ -44,14 +44,20 @@
             <v-col>
               <user-birthdate-field
                 :birthDate="user.profile.birthDate"
-                @update-birthdate="updateBirthdate($event)"
+                @update-birthdate="updateField('birthDate', $event)"
               ></user-birthdate-field>
             </v-col>
           </v-row>
-          <v-row align="center">
-            <v-col>occupation</v-col>
-            <v-col>company/school</v-col>
-          </v-row>
+          <template>
+            <user-occupation-field
+              :user-occupation="user.profile.occupation"
+              @update-occupation="updateField('occupation', $event)"
+              :user-university="user.profile.university"
+              @update-university="updateField('university', $event)"
+              :user-company="user.profile.company"
+              @update-company="updateField('company', $event)"
+            ></user-occupation-field>
+          </template>
           <v-row>
             <v-col>
               <v-textarea
@@ -103,11 +109,13 @@ import { countries } from 'countries-list'
 import { required } from 'vuelidate/lib/validators'
 import UserProfileEdit from '@/components/UserProfileEditPage.vue'
 import UserBirthdateField from '@/components/UserProfileEditPageBirthdateField.vue'
+import UserOccupationField from '@/components/UserProfileEditPageOccupationField.vue'
 
 export default {
   components: {
     UserProfileEdit,
-    UserBirthdateField
+    UserBirthdateField,
+    UserOccupationField
   },
   data() {
     return {
@@ -225,8 +233,8 @@ export default {
         this.message.display = true
       }
     },
-    updateBirthdate(date) {
-      this.user.profile.birthDate = date
+    updateField(fieldName, value) {
+      this.user.profile[fieldName] = value
     }
   },
   middleware: ['auth', 'isAccountOwner'],
