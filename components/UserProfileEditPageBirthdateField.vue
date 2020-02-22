@@ -1,6 +1,5 @@
 <template>
   <div>
-    <header>Birthdate</header>
     <v-dialog
       ref="dialog"
       v-model="modal"
@@ -16,14 +15,15 @@
           readonly
           placeholder="1999"
           hint="Party like it's 1999 (0 2 1)"
+          label="Birthdate"
         ></v-text-field>
       </template>
       <v-date-picker v-model="bDate" :max="validDate()" scrollable>
         <v-spacer></v-spacer>
         <v-btn @click="modal = false" text color="primary">Cancel</v-btn>
-        <v-btn @click="$refs.dialog.save(userBirthDate)" text color="primary"
-          >OK</v-btn
-        >
+        <v-btn @click="$refs.dialog.save(date)" text color="primary">
+          OK
+        </v-btn>
       </v-date-picker>
     </v-dialog>
   </div>
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      userBirthDate: null,
+      date: null,
       modal: false
     }
   },
@@ -53,7 +53,8 @@ export default {
         return null
       },
       set(date) {
-        this.userBirthDate = date
+        this.date = date
+        this.$emit('update-birthdate', date)
       }
     }
   },
