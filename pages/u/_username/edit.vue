@@ -11,10 +11,14 @@
     </v-snackbar>
     <v-card>
       <v-card-title>Edit Profile</v-card-title>
-      <v-card-text>
+      <v-card-text v-if="!$apollo.loading">
         <form>
           <v-row justify="center">
-            profile picture here
+            <user-avatar
+              :image-label="'your picture'"
+              :init-image="user.profile.profilePicture"
+              @update-image="updateField('profilePicture', $event)"
+            ></user-avatar>
           </v-row>
           <v-row align="center">
             <v-col>
@@ -73,21 +77,6 @@
             @update-social="updateField('socialLinks', $event)"
           ></user-social>
         </form>
-        <user-profile-edit
-          ref="profileEdit"
-          v-if="!$apollo.queries.user.loading"
-          :profilePicture="user.profile.profilePicture"
-          :firstName="user.profile.firstName"
-          :lastName="user.profile.lastName"
-          :gender="user.profile.gender"
-          :birthDate="user.profile.birthDate"
-          :occupation="user.profile.occupation"
-          :university="user.profile.university"
-          :bio="user.profile.bio"
-          :social-links="user.profile.socialLinks"
-          :country="user.profile.country"
-          :company="user.profile.company"
-        ></user-profile-edit>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -108,17 +97,17 @@
 import gql from 'graphql-tag'
 import { countries } from 'countries-list'
 import { required } from 'vuelidate/lib/validators'
-import UserProfileEdit from '@/components/UserProfileEditPage.vue'
 import UserBirthdateField from '@/components/UserProfileEditPageBirthdateField.vue'
 import UserOccupationField from '@/components/UserProfileEditPageOccupationField.vue'
 import UserSocial from '@/components/UserProfileEditPageSocial.vue'
+import UserAvatar from '@/components/shared/SingleImageUpload.vue'
 
 export default {
   components: {
-    UserProfileEdit,
     UserBirthdateField,
     UserOccupationField,
-    UserSocial
+    UserSocial,
+    UserAvatar
   },
   data() {
     return {
@@ -223,8 +212,7 @@ export default {
   methods: {
     async onSubmit() {
       try {
-        const userId = this.user.id
-        await this.$refs.profileEdit.updateUserProfile(userId)
+        await this.updateUserProfile()
         this.message.err = false
         this.message.icon = 'mdi-check'
         this.message.text = 'Your profile was successfully updated!'
@@ -238,6 +226,42 @@ export default {
     },
     updateField(fieldName, value) {
       this.user.profile[fieldName] = value
+    },
+    async updateUserProfile() {
+      const userId = this.user.id
+      // eslint-disable-next-line no-unused-vars
+      const { __typename, ...updatedProfile } = { ...this.user.profile }
+      await this.$apollo
+        .mutate({
+          mutation: gql`
+            mutation updateUserProfile(
+              $userId: ID!
+              $updatedProfile: UpdateProfileInput!
+            ) {
+              updateProfile(userId: $userId, updatedProfile: $updatedProfile) {
+                profilePicture
+                firstName
+                lastName
+                gender
+                birthDate
+                occupation
+                company
+                university
+                bio
+                country
+                socialLinks
+              }
+            }
+          `,
+          variables: {
+            userId,
+            updatedProfile
+          }
+        })
+        .then(
+          ({ data: { updateProfile } }) =>
+            (this.user.profile = { ...updateProfile })
+        )
     }
   },
   middleware: ['auth', 'isAccountOwner'],
