@@ -11,7 +11,7 @@
         <v-toolbar-title v-text="title" />
       </nuxt-link>
       <Search class="reduce-margins" />
-      <div v-if="$device.isDesktopOrTablet">
+      <div class="hidden-xs-only">
         <nuxt-link
           v-for="item in items"
           :to="item.link"
