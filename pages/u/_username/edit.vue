@@ -75,6 +75,7 @@
               ></v-textarea>
             </v-col>
           </v-row>
+          <header>Social</header>
           <user-social
             :user-social-links="user.profile.socialLinks"
             @update-social="updateField('socialLinks', $event)"
