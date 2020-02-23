@@ -45,9 +45,7 @@
                 :key="i"
                 :maker-username="maker.username"
                 :maker-picture="maker.profile.profilePicture"
-                :maker-name="
-                  `${maker.profile.firstName} ${maker.profile.lastName}`
-                "
+                :maker-name="maker.profile.fullName"
               ></maker-avatar>
             </v-col>
             <v-col cols="12">
@@ -104,9 +102,7 @@ export default {
             tagline: '',
             votes: [{ id: '', userId: '' }],
             comments: [{ id: '' }],
-            makers: [
-              { id: '', username: '', profile: { firstName: '', lastName: '' } }
-            ]
+            makers: [{ id: '', username: '', profile: { fullName: '' } }]
           }
         ]
       }
@@ -134,8 +130,7 @@ export default {
                 username
                 profile {
                   profilePicture
-                  firstName
-                  lastName
+                  fullName
                 }
               }
             }

@@ -9,7 +9,7 @@
     <v-avatar size="36" left class="mx-2 my-3">
       <v-img :src="upvoterPicture()"></v-img>
     </v-avatar>
-    <span v-text="upvoterName()"></span>
+    <span v-text="user.profile.fullName"></span>
   </v-btn>
 </template>
 
@@ -30,17 +30,12 @@ export default {
         username: '',
         profile: {
           profilePicture: '',
-          firstName: '',
-          lastName: ''
+          fullName: ''
         }
       }
     }
   },
   methods: {
-    upvoterName() {
-      const { profile } = this.user
-      return profile.firstName + ' ' + profile.lastName
-    },
     upvoterPicture() {
       const { profile } = this.user
       return profile.profilePicture
@@ -59,8 +54,7 @@ export default {
             username
             profile {
               profilePicture
-              firstName
-              lastName
+              fullName
             }
           }
         }

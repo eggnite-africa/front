@@ -100,9 +100,7 @@
                         <maker-avatar
                           :class="i > 2 ? 'mt-3 mt-sm-0' : ''"
                           :maker-username="maker.username"
-                          :maker-name="
-                            `${maker.profile.firstName} ${maker.profile.lastName}`
-                          "
+                          :maker-name="maker.profile.fullName"
                           :maker-picture="makerAvatar(i)"
                         ></maker-avatar>
                       </v-col>
@@ -211,8 +209,7 @@ export default {
             username: '',
             profile: {
               profilePicture: '',
-              firstName: '',
-              lastName: '',
+              fullName: '',
               gender: ''
             }
           }
@@ -270,8 +267,7 @@ export default {
               username
               profile {
                 profilePicture
-                firstName
-                lastName
+                fullName
                 gender
               }
             }

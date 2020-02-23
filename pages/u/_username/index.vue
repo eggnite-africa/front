@@ -13,7 +13,7 @@
               <v-row class="mb-n5" justify="start">
                 <v-col cols="8" sm="9">
                   <h2>
-                    {{ user.profile.firstName + ' ' + user.profile.lastName }}
+                    {{ user.profile.fullName }}
                     <v-icon
                       :class="`flag-icons square ${user.profile.country}`"
                       dense
@@ -147,8 +147,7 @@ export default {
       user: {
         profile: {
           profilePicture: '',
-          firstName: '',
-          lastName: '',
+          fullName: '',
           gender: '',
           university: '',
           company: '',
@@ -176,8 +175,7 @@ export default {
             id
             profile {
               profilePicture
-              firstName
-              lastName
+              fullName
               gender
               university
               company
@@ -233,11 +231,11 @@ export default {
         },
         {
           property: 'profile:first_name',
-          content: this.user.profile.firstName
+          content: this.user.profile.fullName.split(' ')[0]
         },
         {
           property: 'profile:last_name',
-          content: this.user.profile.lastName
+          content: this.user.profile.fullName.split(' ')[1]
         },
         {
           property: 'profile:username',

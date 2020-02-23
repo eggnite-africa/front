@@ -21,11 +21,11 @@
       </v-card-title>
       <v-card-text>
         <p class="white--text">
-          Hey {{ user.profile.firstName }},<br />
+          Hey,<br />
           <br />
-          I want you to know that I <strong>really</strong> value your input, so
-          if you have any ideas on how I can further improve your experience on
-          the platform, don't hesitate!<br />
+          I <strong>really</strong> value your input, so if you have any ideas
+          on how I can further improve your experience on the platform, don't
+          hesitate!<br />
           <br />
         </p>
       </v-card-text>
@@ -72,12 +72,6 @@ export default {
     return {
       dialog: false,
       sent: false,
-      user: {
-        id: '',
-        profile: {
-          firstName: ''
-        }
-      },
       types: ['Bug', 'Feature request', 'Other'],
       feedback: {
         type: '',
@@ -85,31 +79,6 @@ export default {
       },
       loading: false,
       icon: 'mdi-send'
-    }
-  },
-  apollo: {
-    user: {
-      query: gql`
-        query fetchUserFirstNameForFeedback($id: ID!) {
-          user(id: $id) {
-            id
-            profile {
-              firstName
-            }
-          }
-        }
-      `,
-      variables() {
-        return {
-          id: this.$auth.user.id
-        }
-      },
-      skip() {
-        return !this.$auth.loggedIn || this.isAdmin
-      },
-      debounce: 0.0001,
-      prefetch: false,
-      fetchPolicy: 'cache-first'
     }
   },
   methods: {

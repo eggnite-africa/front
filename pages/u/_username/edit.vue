@@ -156,8 +156,7 @@ export default {
         id: '',
         profile: {
           profilePicture: '',
-          firstName: '',
-          lastName: '',
+          fullName: '',
           gender: '',
           birthDate: '',
           occupation: '',
@@ -192,8 +191,7 @@ export default {
             id
             profile {
               profilePicture
-              firstName
-              lastName
+              fullName
               gender
               birthDate
               occupation
@@ -244,8 +242,7 @@ export default {
             ) {
               updateProfile(userId: $userId, updatedProfile: $updatedProfile) {
                 profilePicture
-                firstName
-                lastName
+                fullName
                 gender
                 birthDate
                 occupation

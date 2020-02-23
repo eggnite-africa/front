@@ -77,8 +77,6 @@ export default {
       password: '',
       passwordConfirmation: '',
       fullName: '',
-      firstName: '',
-      lastName: '',
       usernameExists: false
     }
   },
@@ -192,8 +190,7 @@ export default {
               email: this.email,
               password: this.password,
               profile: {
-                firstName: this.firstName,
-                lastName: this.lastName
+                fullName: this.fullName
               }
             }
           }

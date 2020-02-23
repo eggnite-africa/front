@@ -6,7 +6,7 @@
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title>
-          {{ `${user.profile.firstName} ${user.profile.lastName}` }}
+          {{ user.profile.fullName }}
           <span class="font-weight-thin">{{ `(@${user.username})` }}</span>
           <v-icon :class="country" dense></v-icon>
         </v-list-item-title>
@@ -102,8 +102,7 @@ export default {
             username
             profile {
               profilePicture
-              firstName
-              lastName
+              fullName
               bio
               gender
               country

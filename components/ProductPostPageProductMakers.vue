@@ -32,7 +32,7 @@
           <v-avatar left>
             <v-img :src="makerAvatar(data.item.id)"></v-img>
           </v-avatar>
-          {{ data.item.profile.firstName + ' ' + data.item.profile.lastName }}
+          {{ data.item.profile.fullName }}
         </v-chip>
       </template>
 
@@ -42,9 +42,7 @@
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title
-            v-text="
-              `${data.item.profile.firstName} ${data.item.profile.lastName}`
-            "
+            v-text="data.item.profile.fullName"
           ></v-list-item-title>
           <v-list-item-subtitle
             v-text="data.item.username"
@@ -93,8 +91,7 @@ export default {
           username: '',
           profile: {
             profilePicture: '',
-            firstName: '',
-            lastName: '',
+            fullName: '',
             gender: ''
           }
         }
@@ -184,8 +181,7 @@ export default {
             username
             profile {
               profilePicture
-              firstName
-              lastName
+              fullName
               gender
             }
           }

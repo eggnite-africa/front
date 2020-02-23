@@ -17,9 +17,7 @@
             <span v-for="(maker, i) in product.makers" :key="i">
               <product-maker-avatar
                 :maker-username="maker.username"
-                :maker-name="
-                  `${maker.profile.firstName} ${maker.profile.lastName}`
-                "
+                :maker-name="maker.profile.fullName"
                 :maker-picture="makerAvatar(i)"
               ></product-maker-avatar>
             </span>
@@ -177,8 +175,7 @@ export default {
             username: '',
             profile: {
               profilePicture: '',
-              firstName: '',
-              lastName: '',
+              fullName: '',
               gender: ''
             }
           }
@@ -215,8 +212,7 @@ export default {
               username
               profile {
                 profilePicture
-                firstName
-                lastName
+                fullName
                 gender
               }
             }

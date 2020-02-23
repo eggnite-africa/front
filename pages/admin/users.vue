@@ -14,9 +14,6 @@
         <span :class="`flag-icons ${item.profile.country}`"></span>
         {{ item.profile.country }}
       </template>
-      <template #item.profile="{item}">
-        {{ item.profile.firstName + ' ' + item.profile.lastName }}
-      </template>
       <template #item.products="{ item }">
         {{ item.products.map(({ id }) => +id) }}
       </template>
@@ -30,7 +27,7 @@
     <v-dialog v-model="showUserInfo" max-width="500">
       <v-card max-width="500">
         <v-card-title>
-          {{ user.profile.firstName + ' ' + user.profile.lastName }}
+          {{ user.profile.fullName }}
         </v-card-title>
         <v-card-subtitle>
           {{ '@' + user.username }}
@@ -74,7 +71,7 @@ export default {
         { text: 'ID', value: 'id' },
         { text: 'Country', value: 'profile.country' },
         { text: 'Username', value: 'username' },
-        { text: 'Name', value: 'profile' },
+        { text: 'Name', value: 'profile.fullName' },
         { text: 'Occupation', value: 'profile.occupation' },
         { text: 'Type', value: 'type' },
         { text: 'Products', value: 'products.length' },
@@ -95,8 +92,7 @@ export default {
           username: '',
           email: '',
           profile: {
-            firstName: '',
-            lastName: '',
+            fullName: '',
             country: '',
             occupation: ''
           },
@@ -121,8 +117,7 @@ export default {
             username
             email
             profile {
-              firstName
-              lastName
+              fullName
               country
               occupation
             }
