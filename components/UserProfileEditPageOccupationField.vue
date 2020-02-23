@@ -63,7 +63,7 @@ export default {
       occupations: [
         { label: 'Entrepreneur', value: 'ENTREPRENEUR' },
         { label: 'Developer', value: 'DEVELOPER' },
-        { label: 'Professor', value: 'PROFESSOR' },
+        // { label: 'Professor', value: 'PROFESSOR' },
         { label: 'Student', value: 'STUDENT' }
       ]
     }
