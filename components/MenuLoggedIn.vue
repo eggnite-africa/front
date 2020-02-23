@@ -1,8 +1,11 @@
 <template>
   <v-row v-if="!$apollo.loading" align="center">
     <v-col class="hidden-xs-only">
-      <v-btn to="/post" nuxt color="secondary" outlined>
-        <v-icon left dense>mdi-plus</v-icon>post a product
+      <v-btn v-if="$device.isDesktop" to="/post" nuxt color="secondary">
+        add product
+      </v-btn>
+      <v-btn v-else to="/post" nuxt color="secondary" icon class="mr-n6">
+        <v-icon dense>mdi-plus-circle</v-icon>
       </v-btn>
     </v-col>
     <v-col class="d-flex align-center">
