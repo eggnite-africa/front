@@ -106,7 +106,7 @@ export default {
         }
       },
       skip() {
-        return !this.userId
+        return !this.$auth.loggedIn || !this.userId
       },
       debounce: 0.0001,
       pollInterval: process.client && 30000
