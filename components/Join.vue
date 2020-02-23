@@ -175,7 +175,7 @@ export default {
     },
     async signUp() {
       this.$v.$touch()
-      if (this.$v.$invalid || !this.countryIsValid) return
+      if (this.$v.$invalid) return
       await this.$apollo
         .mutate({
           mutation: gql`
