@@ -30,6 +30,10 @@ export default {
     }
   },
   created() {
+    if (!this.userSocialLinks) {
+      this.links = []
+      return
+    }
     this.links = this.userSocialLinks.map((l) => l.toLowerCase())
   },
   methods: {
