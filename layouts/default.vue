@@ -10,7 +10,7 @@
         ></v-img>
         <v-toolbar-title v-text="title" />
       </nuxt-link>
-      <Search class="reduce-margins" />
+      <Search />
       <div class="hidden-xs-only">
         <nuxt-link
           v-for="item in items"
@@ -106,11 +106,6 @@ export default {
   margin-right: 0.5rem;
   &:hover {
     color: #fff;
-  }
-}
-.reduce-margins {
-  @media (max-width: 500px) {
-    margin-right: -0.01em !important;
   }
 }
 </style>
