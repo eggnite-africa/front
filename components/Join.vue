@@ -13,7 +13,7 @@
     </v-card-title>
     <v-card-subtitle>
       Already have an account?
-      <v-btn @click.native="openLoginDialog()" color="white" outlined x-small
+      <v-btn @click.native="openLoginDialog()" color="blue" outlined x-small
         >login</v-btn
       >
     </v-card-subtitle>

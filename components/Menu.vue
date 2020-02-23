@@ -4,7 +4,7 @@
     <template v-else>
       <v-dialog v-model="loginDialog" persistent max-width="300">
         <template #activator="{ on }">
-          <v-btn v-on="on" color="white" outlined depressed>
+          <v-btn v-on="on" color="blue" outlined depressed>
             login
           </v-btn>
         </template>
