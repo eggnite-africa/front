@@ -20,20 +20,20 @@
     <v-container>
       <form>
         <v-text-field
-          v-model.trim="username"
-          :error-messages="usernameErrors"
-          @input="$v.username.$touch()"
-          @blur="$v.username.$touch()"
-          label="Username"
-          outlined
-        ></v-text-field>
-
-        <v-text-field
           v-model.trim="fullName"
           :error-messages="fullNameErrors"
           @input="$v.fullName.$touch()"
           @blur="$v.fullName.$touch()"
           label="Full name"
+          outlined
+        ></v-text-field>
+
+        <v-text-field
+          v-model.trim="username"
+          :error-messages="usernameErrors"
+          @input="$v.username.$touch()"
+          @blur="$v.username.$touch()"
+          label="Username"
           outlined
         ></v-text-field>
 
@@ -47,7 +47,7 @@
           outlined
         ></v-text-field>
 
-        <v-text-field
+        <!-- <v-text-field
           v-model="passwordConfirmation"
           :error-messages="confirmPasswordErrors"
           @input="$v.passwordConfirmation.$touch()"
@@ -55,7 +55,7 @@
           label="Confirm password"
           type="password"
           outlined
-        ></v-text-field>
+        ></v-text-field> -->
       </form>
       <div class="d-flex justify-end">
         <v-btn @click="signUp()" depressed color="green">Join</v-btn>
@@ -67,7 +67,7 @@
 <script>
 import gql from 'graphql-tag'
 import { mapActions, mapMutations } from 'vuex'
-import { required, sameAs, minLength, alphaNum } from 'vuelidate/lib/validators'
+import { required, minLength, alphaNum } from 'vuelidate/lib/validators'
 
 export default {
   name: 'JoinUs',
@@ -107,26 +107,26 @@ export default {
       !this.$v.password.minLength &&
         errors.push('password should have a minimum length of 8 characters')
       return errors
-    },
-    confirmPasswordErrors() {
-      const errors = []
-      if (!this.$v.passwordConfirmation.$dirty) return errors
-      !this.$v.passwordConfirmation.required &&
-        errors.push('password confirmation is required')
-      !this.$v.passwordConfirmation.sameAsPassword &&
-        errors.push('password does not match')
-      return errors
     }
+    // confirmPasswordErrors() {
+    //   const errors = []
+    //   if (!this.$v.passwordConfirmation.$dirty) return errors
+    //   !this.$v.passwordConfirmation.required &&
+    //     errors.push('password confirmation is required')
+    //   !this.$v.passwordConfirmation.sameAsPassword &&
+    //     errors.push('password does not match')
+    //   return errors
+    // }
   },
   validations: {
     password: {
       required,
       minLength: minLength(8)
     },
-    passwordConfirmation: {
-      required,
-      sameAsPassword: sameAs('password')
-    },
+    // passwordConfirmation: {
+    //   required,
+    //   sameAsPassword: sameAs('password')
+    // },
     fullName: {
       required,
       minLength: minLength(3)
