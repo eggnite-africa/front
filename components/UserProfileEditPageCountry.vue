@@ -5,7 +5,8 @@
     @input="updateCountry($event)"
     @blur="$v.selectedCountry.$touch()"
     :error-messages="CountryErrors"
-    prepend-icon="mdi-map"
+    :outlined="isOutlined"
+    :prepend-icon="icon"
     item-text="name"
     item-value="code"
     label="Country"
@@ -21,6 +22,14 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    isOutlined: {
+      type: Boolean,
+      default: false
+    },
+    icon: {
+      type: String,
+      default: 'mdi-map'
     }
   },
   data() {
