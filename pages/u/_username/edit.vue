@@ -126,7 +126,7 @@ export default {
   },
   data() {
     return {
-      countryIsValid: ''
+      // countryIsValid: ''
     }
   },
   computed: {
@@ -212,13 +212,7 @@ export default {
       }
     },
     updateField(fieldName, newValue) {
-      if (typeof value === 'string') {
-        this.user.profile[fieldName] = newValue
-      } else {
-        const { value, isValid } = newValue
-        this.user.profile[fieldName] = value
-        this[`${fieldName}IsValid`] = isValid
-      }
+      this.user.profile[fieldName] = newValue
     },
     async updateUserProfile() {
       this.$v.$touch()

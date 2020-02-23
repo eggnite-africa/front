@@ -3,8 +3,6 @@
     :items="africanCountries"
     :value="selectedCountry"
     @input="updateCountry($event)"
-    @blur="$v.selectedCountry.$touch()"
-    :error-messages="CountryErrors"
     prepend-icon="mdi-map"
     item-text="name"
     item-value="code"
@@ -14,7 +12,7 @@
 
 <script>
 import { countries } from 'countries-list'
-import { required } from 'vuelidate/lib/validators'
+// import { required } from 'vuelidate/lib/validators'
 export default {
   props: {
     userCountry: {
@@ -34,15 +32,15 @@ export default {
       ]
     }
   },
-  computed: {
-    CountryErrors() {
-      const errors = []
-      if (!this.$v.selectedCountry.$dirty) return errors
-      !this.$v.selectedCountry.required &&
-        errors.push('Country field is required')
-      return errors
-    }
-  },
+  // computed: {
+  //   CountryErrors() {
+  //     const errors = []
+  //     if (!this.$v.selectedCountry.$dirty) return errors
+  //     !this.$v.selectedCountry.required &&
+  //       errors.push('Country field is required')
+  //     return errors
+  //   }
+  // },
   created() {
     const africanCountries = Object.entries(countries).filter(
       (c) => c[1].continent === 'AF'
@@ -60,15 +58,15 @@ export default {
   methods: {
     updateCountry(value) {
       this.selectedCountry = value
-      this.$v.selectedCountry.$touch()
-      const isValid = !this.$v.$invalid
-      this.$emit('update-country', { value, isValid })
-    }
-  },
-  validations: {
-    selectedCountry: {
-      required
+      // this.$v.selectedCountry.$touch()
+      // const isValid = !this.$v.$invalid
+      this.$emit('update-country', this.selectedCountry)
     }
   }
+  // validations: {
+  //   selectedCountry: {
+  //     required
+  //   }
+  // }
 }
 </script>
