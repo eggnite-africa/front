@@ -110,13 +110,7 @@
 <script>
 import gql from 'graphql-tag'
 import { mapActions } from 'vuex'
-import {
-  email,
-  required,
-  requiredIf,
-  sameAs,
-  minLength
-} from 'vuelidate/lib/validators'
+import { email, requiredIf, sameAs, minLength } from 'vuelidate/lib/validators'
 export default {
   name: 'SettingsAccount',
   computed: {
@@ -128,7 +122,6 @@ export default {
       if (!this.$v.user.email.$dirty) return errors
       !this.$v.user.email.email && errors.push('email is invalid')
       !this.$v.user.email.isUnique && errors.push('email is already in use')
-      !this.$v.user.email.required && errors.push('email is required')
       return errors
     },
     passwordErrors() {
@@ -153,7 +146,6 @@ export default {
     user: {
       email: {
         email,
-        required,
         isUnique(v) {
           if (v === '') return !this.emailExists
           return !this.emailExists
