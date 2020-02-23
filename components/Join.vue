@@ -58,7 +58,7 @@
         ></v-text-field>
       </form>
       <div class="d-flex justify-end">
-        <v-btn @click="signUp()" depressed color="primary">Continue</v-btn>
+        <v-btn @click="signUp()" depressed color="green">Continue</v-btn>
       </div>
     </v-container>
   </v-card>
