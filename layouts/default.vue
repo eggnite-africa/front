@@ -2,10 +2,15 @@
   <v-app dark>
     <v-app-bar app>
       <nuxt-link to="/" class="homepage-link">
-        <v-img class="mr-2" src="/Logo.png" contain max-width="42"></v-img>
+        <v-img
+          class="mr-1 mr-sm-2"
+          src="/Logo.png"
+          contain
+          max-width="42"
+        ></v-img>
         <v-toolbar-title v-text="title" />
       </nuxt-link>
-      <Search />
+      <Search class="reduce-margins" />
       <div v-if="$device.isDesktopOrTablet">
         <nuxt-link
           v-for="item in items"
@@ -101,6 +106,11 @@ export default {
   margin-right: 0.5rem;
   &:hover {
     color: #fff;
+  }
+}
+.reduce-margins {
+  @media (max-width: 500px) {
+    margin-right: -0.01em !important;
   }
 }
 </style>
