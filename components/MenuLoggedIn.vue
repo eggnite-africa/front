@@ -1,6 +1,6 @@
 <template>
   <v-row v-if="!$apollo.loading" align="center">
-    <v-col class="hidden-sm-and-down">
+    <v-col class="hidden-xs-only">
       <v-btn to="/post" nuxt color="secondary" outlined>
         <v-icon left dense>mdi-plus</v-icon>post a product
       </v-btn>
