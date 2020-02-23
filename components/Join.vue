@@ -37,6 +37,12 @@
           outlined
         ></v-text-field>
 
+        <user-country
+          @update-country="country = $event"
+          :is-outlined="true"
+          :icon="''"
+        ></user-country>
+
         <v-text-field
           v-model="password"
           :error-messages="passwordErrors"
@@ -68,15 +74,20 @@
 import gql from 'graphql-tag'
 import { mapActions, mapMutations } from 'vuex'
 import { required, sameAs, minLength, alphaNum } from 'vuelidate/lib/validators'
+import UserCountry from '@/components/UserProfileEditPageCountry.vue'
 
 export default {
   name: 'JoinUs',
+  components: {
+    UserCountry
+  },
   data() {
     return {
       username: '',
       password: '',
       passwordConfirmation: '',
       fullName: '',
+      country: '',
       usernameExists: false
     }
   },
@@ -190,7 +201,8 @@ export default {
               email: this.email,
               password: this.password,
               profile: {
-                fullName: this.fullName
+                fullName: this.fullName,
+                country: this.country
               }
             }
           }
