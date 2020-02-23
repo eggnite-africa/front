@@ -216,7 +216,7 @@ export default {
     },
     async updateUserProfile() {
       this.$v.$touch()
-      if (this.$v.$invalid || !this.countryIsValid) return
+      if (this.$v.$invalid) return
       const userId = this.user.id
       // eslint-disable-next-line no-unused-vars
       const { __typename, ...updatedProfile } = { ...this.user.profile }
