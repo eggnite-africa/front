@@ -31,17 +31,10 @@
               ></v-text-field>
             </v-col>
             <v-col>
-              <v-autocomplete
-                v-model="user.profile.country"
-                :items="africanCountries"
-                @input="$v.user.profile.country.$touch()"
-                @blur="$v.user.profile.country.$touch()"
-                :error-messages="CountryErrors"
-                prepend-icon="mdi-map"
-                item-text="name"
-                item-value="code"
-                label="Country"
-              ></v-autocomplete>
+              <user-country
+                :user-country="user.profile.country"
+                @update-country="updateField('country', $event)"
+              ></user-country>
             </v-col>
           </v-row>
           <v-row align="center">
@@ -105,36 +98,24 @@
 
 <script>
 import gql from 'graphql-tag'
-import { countries } from 'countries-list'
 import { required, minLength } from 'vuelidate/lib/validators'
 import UserBirthdateField from '@/components/UserProfileEditPageBirthdateField.vue'
 import UserOccupationField from '@/components/UserProfileEditPageOccupationField.vue'
 import UserSocial from '@/components/UserProfileEditPageSocial.vue'
 import UserAvatar from '@/components/shared/SingleImageUpload.vue'
+import UserCountry from '@/components/UserProfileEditPageCountry.vue'
 
 export default {
   components: {
     UserBirthdateField,
     UserOccupationField,
     UserSocial,
-    UserAvatar
-  },
-  data() {
-    return {
-      africanCountries: [
-        {
-          code: '',
-          name: ''
-        }
-      ]
-    }
+    UserAvatar,
+    UserCountry
   },
   validations: {
     user: {
       profile: {
-        country: {
-          required
-        },
         fullName: {
           required,
           minLength: minLength(3)
@@ -146,19 +127,12 @@ export default {
     username() {
       return this.$route.params.username
     },
-    CountryErrors() {
-      const errors = []
-      if (!this.$v.user.profile.country.$dirty) return errors
-      !this.$v.user.profile.country.required &&
-        errors.push('Country field is required')
-      return errors
-    },
     fullNameErrors() {
       const errors = []
-      if (!this.$v.user.profile.country.$dirty) return errors
-      !this.$v.user.profile.country.required &&
+      if (!this.$v.user.profile.fullName.$dirty) return errors
+      !this.$v.user.profile.fullName.required &&
         errors.push('full name is required')
-      !this.$v.fullName.minLength &&
+      !this.$v.user.profile.fullName.minLength &&
         errors.push('full name should be at least 3 characters long')
       return errors
     }
@@ -187,20 +161,6 @@ export default {
         }
       }
     }
-  },
-  created() {
-    const africanCountries = Object.entries(countries).filter(
-      (c) => c[1].continent === 'AF'
-    )
-    const africanCountriesFinal = []
-    africanCountries.forEach((c) => {
-      const country = {
-        code: c[0],
-        name: c[1].name
-      }
-      africanCountriesFinal.push(country)
-    })
-    this.africanCountries = africanCountriesFinal
   },
   apollo: {
     user: {
