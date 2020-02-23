@@ -22,7 +22,13 @@
           </v-row>
           <v-row align="center">
             <v-col>
-              <v-text-field label="Full name"></v-text-field>
+              <v-text-field
+                @input="$v.user.profile.fullName.$touch()"
+                @blur="$v.user.profile.fullName.$touch()"
+                :error-messages="fullNameErrors"
+                v-model="user.profile.fullName"
+                label="Full name"
+              ></v-text-field>
             </v-col>
             <v-col>
               <v-autocomplete
@@ -100,7 +106,7 @@
 <script>
 import gql from 'graphql-tag'
 import { countries } from 'countries-list'
-import { required } from 'vuelidate/lib/validators'
+import { required, minLength } from 'vuelidate/lib/validators'
 import UserBirthdateField from '@/components/UserProfileEditPageBirthdateField.vue'
 import UserOccupationField from '@/components/UserProfileEditPageOccupationField.vue'
 import UserSocial from '@/components/UserProfileEditPageSocial.vue'
@@ -128,6 +134,10 @@ export default {
       profile: {
         country: {
           required
+        },
+        fullName: {
+          required,
+          minLength: minLength(3)
         }
       }
     }
@@ -141,6 +151,15 @@ export default {
       if (!this.$v.user.profile.country.$dirty) return errors
       !this.$v.user.profile.country.required &&
         errors.push('Country field is required')
+      return errors
+    },
+    fullNameErrors() {
+      const errors = []
+      if (!this.$v.user.profile.country.$dirty) return errors
+      !this.$v.user.profile.country.required &&
+        errors.push('full name is required')
+      !this.$v.fullName.minLength &&
+        errors.push('full name should be at least 3 characters long')
       return errors
     }
   },
