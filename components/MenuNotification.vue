@@ -1,7 +1,7 @@
 <template>
   <v-menu offset-y bottom>
     <template #activator="{ on }">
-      <v-btn v-on="on" icon>
+      <v-btn v-on="on" icon small>
         <v-badge :value="unreadCount" overlap class="ml-1 mr-2" color="red">
           <template #badge>{{ unreadCount }}</template>
           <v-icon color="blue">{{

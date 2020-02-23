@@ -5,7 +5,7 @@
         <v-icon left dense>mdi-plus</v-icon>post a product
       </v-btn>
     </v-col>
-    <v-col class="d-flex">
+    <v-col class="d-flex align-center">
       <menu-notification :user-id="userId"></menu-notification>
       <menu-account
         :username="user.username"
