@@ -21,10 +21,8 @@ export const mutations = {
 export const actions = {
   async logout(state) {
     this.$router.push('/')
-    return Promise.all([
-      await this.$auth.logout('local'),
-      await this.$apolloHelpers.onLogout()
-    ])
+    await this.$auth.logout('local')
+    await this.$apolloHelpers.onLogout()
   },
   async login(state, { username, password }) {
     await this.$auth
