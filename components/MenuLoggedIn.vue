@@ -1,7 +1,13 @@
 <template>
   <v-row v-if="!$apollo.loading" align="center">
     <v-col class="hidden-xs-only">
-      <v-btn v-if="$device.isDesktop" to="/post" nuxt color="secondary">
+      <v-btn
+        v-if="$device.isDesktop"
+        to="/post"
+        nuxt
+        color="secondary"
+        class="mr-n4"
+      >
         add product
       </v-btn>
       <v-btn v-else to="/post" nuxt color="secondary" icon class="mr-n6">
