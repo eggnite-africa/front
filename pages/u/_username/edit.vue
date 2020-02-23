@@ -127,6 +127,12 @@ export default {
   data() {
     return {
       // countryIsValid: ''
+      message: {
+        display: false,
+        text: '',
+        icon: '',
+        error: false
+      }
     }
   },
   computed: {
@@ -145,12 +151,6 @@ export default {
   },
   asyncData() {
     return {
-      message: {
-        display: false,
-        text: '',
-        icon: '',
-        error: false
-      },
       user: {
         id: '',
         profile: {
