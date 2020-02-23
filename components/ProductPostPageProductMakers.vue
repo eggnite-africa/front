@@ -163,13 +163,8 @@ export default {
     },
     makerAvatar(id) {
       const maker = this.users.find((maker) => maker.id === id)
-      const picture = maker.profile.picture
-      if (picture) return picture
-
-      const gender = maker.profile.gender
-      if (gender === 'MALE') {
-        return '/male_avatar.svg'
-      } else return '/female_avatar.svg'
+      const { picture } = maker.profile
+      return picture
     }
   },
   apollo: {

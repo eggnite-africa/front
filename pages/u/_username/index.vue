@@ -5,7 +5,7 @@
         <v-row justify="center">
           <v-col cols="3" sm="2" class="mr-md-n10">
             <v-avatar size="96">
-              <v-img :src="picture" eager></v-img>
+              <v-img :src="user.profile.picture" eager></v-img>
             </v-avatar>
           </v-col>
           <v-col cols="9" sm="10" class="ml-sm-n6 ml-md-n5 mt-n4">
@@ -131,15 +131,6 @@ export default {
     },
     isAdmin() {
       return this.$auth.user.type === 'ADMIN'
-    },
-    picture() {
-      const picture = this.user.profile.picture
-      if (picture) return picture
-
-      const gender = this.user.profile.gender
-      if (gender === 'MALE') {
-        return '/male_avatar.svg'
-      } else return '/female_avatar.svg'
     }
   },
   asyncData() {
