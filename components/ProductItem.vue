@@ -174,7 +174,7 @@ export default {
           {
             username: '',
             profile: {
-              profilePicture: '',
+              picture: '',
               fullName: '',
               gender: ''
             }
@@ -211,7 +211,7 @@ export default {
             makers {
               username
               profile {
-                profilePicture
+                picture
                 fullName
                 gender
               }
@@ -300,8 +300,8 @@ export default {
     },
     makerAvatar(index) {
       const maker = this.product.makers[index]
-      const profilePicture = maker.profile.profilePicture
-      if (profilePicture) return profilePicture
+      const picture = maker.profile.picture
+      if (picture) return picture
 
       const gender = maker.profile.gender
       if (gender === 'MALE') {

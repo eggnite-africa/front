@@ -29,7 +29,7 @@ export default {
         id: '',
         username: '',
         profile: {
-          profilePicture: '',
+          picture: '',
           fullName: ''
         }
       }
@@ -38,7 +38,7 @@ export default {
   methods: {
     upvoterPicture() {
       const { profile } = this.user
-      return profile.profilePicture
+      return profile.picture
     },
     upvoterProfile() {
       const { username } = this.user
@@ -53,7 +53,7 @@ export default {
             id
             username
             profile {
-              profilePicture
+              picture
               fullName
             }
           }

@@ -90,7 +90,7 @@ export default {
           id: '',
           username: '',
           profile: {
-            profilePicture: '',
+            picture: '',
             fullName: '',
             gender: ''
           }
@@ -163,8 +163,8 @@ export default {
     },
     makerAvatar(id) {
       const maker = this.users.find((maker) => maker.id === id)
-      const profilePicture = maker.profile.profilePicture
-      if (profilePicture) return profilePicture
+      const picture = maker.profile.picture
+      if (picture) return picture
 
       const gender = maker.profile.gender
       if (gender === 'MALE') {
@@ -180,7 +180,7 @@ export default {
             id
             username
             profile {
-              profilePicture
+              picture
               fullName
               gender
             }

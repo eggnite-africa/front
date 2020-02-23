@@ -44,7 +44,7 @@
                 v-for="(maker, i) in productToShow.makers"
                 :key="i"
                 :maker-username="maker.username"
-                :maker-picture="maker.profile.profilePicture"
+                :maker-picture="maker.profile.picture"
                 :maker-name="maker.profile.fullName"
               ></maker-avatar>
             </v-col>
@@ -129,7 +129,7 @@ export default {
                 id
                 username
                 profile {
-                  profilePicture
+                  picture
                   fullName
                 }
               }

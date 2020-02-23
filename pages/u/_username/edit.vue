@@ -16,8 +16,8 @@
           <v-row justify="center">
             <user-avatar
               :image-label="'your picture'"
-              :init-image="user.profile.profilePicture"
-              @update-image="updateField('profilePicture', $event)"
+              :init-image="user.profile.picture"
+              @update-image="updateField('picture', $event)"
             ></user-avatar>
           </v-row>
           <v-row align="center">
@@ -174,7 +174,7 @@ export default {
       user: {
         id: '',
         profile: {
-          profilePicture: '',
+          picture: '',
           fullName: '',
           gender: '',
           birthDate: '',
@@ -209,7 +209,7 @@ export default {
           user(username: $username) {
             id
             profile {
-              profilePicture
+              picture
               fullName
               gender
               birthDate
@@ -260,7 +260,7 @@ export default {
               $updatedProfile: UpdateProfileInput!
             ) {
               updateProfile(userId: $userId, updatedProfile: $updatedProfile) {
-                profilePicture
+                picture
                 fullName
                 gender
                 birthDate

@@ -9,7 +9,7 @@
       <menu-notification :user-id="userId"></menu-notification>
       <menu-account
         :username="user.username"
-        :user-profile-picture="user.profile.profilePicture"
+        :user-profile-picture="user.profile.picture"
       ></menu-account>
     </v-col>
   </v-row>
@@ -37,7 +37,7 @@ export default {
         id: '',
         username: '',
         profile: {
-          profilePicture: ''
+          picture: ''
         }
       }
     }
@@ -50,7 +50,7 @@ export default {
             id
             username
             profile {
-              profilePicture
+              picture
             }
           }
         }

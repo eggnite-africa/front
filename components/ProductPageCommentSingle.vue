@@ -2,7 +2,7 @@
   <v-card v-if="!$apollo.queries.user.loading" elevation="0">
     <v-list-item :to="`/u/${user.username}`" nuxt>
       <v-list-item-avatar size="56">
-        <v-img :src="profilePicture"></v-img>
+        <v-img :src="picture"></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title>
@@ -80,9 +80,9 @@ export default {
       const formattedDate = this.$dateFns.format(date, 'd MMMM yyy')
       return formattedDate
     },
-    profilePicture() {
-      const profilePicture = this.user.profile.profilePicture
-      if (profilePicture) return profilePicture
+    picture() {
+      const picture = this.user.profile.picture
+      if (picture) return picture
 
       const gender = this.user.profile.gender
       if (gender === 'MALE') {
@@ -101,7 +101,7 @@ export default {
             id
             username
             profile {
-              profilePicture
+              picture
               fullName
               bio
               gender
