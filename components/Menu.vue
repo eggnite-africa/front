@@ -10,7 +10,7 @@
         </template>
         <Login @close-dialog="loginDialog = false" />
       </v-dialog>
-      <span v-show="!$device.isMobile">
+      <span class="hidden-xs-only">
         <v-dialog v-model="joinDialog" persistent max-width="300">
           <template #activator="{ on }">
             <v-btn v-on="on" color="green" depressed>
