@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       <span>
-        Login
+        Sign in
       </span>
       <v-spacer></v-spacer>
       <v-btn @click="closeDialog()" icon rounded>
@@ -14,7 +14,7 @@
     <v-card-subtitle>
       Don't have an account?
       <v-btn @click.native="openJoinDialog()" x-small color="green" outlined>
-        join us
+        join
       </v-btn>
     </v-card-subtitle>
     <form>
@@ -39,7 +39,7 @@
             wrong credentials <span class="body-2">😕</span>
           </span>
           <v-btn @click.prevent="onSubmit()" color="primary" type="submit">
-            sign in
+            login
           </v-btn>
         </div>
       </v-container>

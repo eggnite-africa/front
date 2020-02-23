@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       <span>
-        Join us
+        Sign up
       </span>
       <v-spacer></v-spacer>
       <v-btn @click="closeDialog()" icon rounded>
@@ -58,7 +58,7 @@
         ></v-text-field>
       </form>
       <div class="d-flex justify-end">
-        <v-btn @click="signUp()" depressed color="green">Continue</v-btn>
+        <v-btn @click="signUp()" depressed color="green">Join</v-btn>
       </div>
     </v-container>
   </v-card>
