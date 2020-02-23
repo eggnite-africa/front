@@ -38,7 +38,7 @@
         ></v-text-field>
 
         <user-country
-          @update-country="country = $event"
+          @update-country="updateCountry($event)"
           :is-outlined="true"
           :icon="''"
         ></user-country>
@@ -88,6 +88,7 @@ export default {
       passwordConfirmation: '',
       fullName: '',
       country: '',
+      countryIsValid: '',
       usernameExists: false
     }
   },
@@ -180,11 +181,17 @@ export default {
     closeDialog() {
       this.$emit('close-dialog')
     },
+    updateCountry({ value, isValid }) {
+      this.country = value
+      this.countryIsValid = isValid
+    },
     async login() {
       const [username, password] = [this.username, this.password]
       await this.signIn({ username, password })
     },
     async signUp() {
+      this.$v.$touch()
+      if (this.$v.$invalid || !this.countryIsValid) return
       await this.$apollo
         .mutate({
           mutation: gql`

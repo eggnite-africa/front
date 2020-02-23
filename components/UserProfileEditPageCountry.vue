@@ -70,7 +70,8 @@ export default {
     updateCountry(value) {
       this.selectedCountry = value
       this.$v.selectedCountry.$touch()
-      this.$emit('update-country', value)
+      const isValid = !this.$v.$invalid
+      this.$emit('update-country', { value, isValid })
     }
   },
   validations: {

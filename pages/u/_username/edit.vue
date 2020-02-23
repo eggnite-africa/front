@@ -124,6 +124,11 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      countryIsValid: ''
+    }
+  },
   computed: {
     username() {
       return this.$route.params.username
@@ -206,10 +211,18 @@ export default {
         this.message.display = true
       }
     },
-    updateField(fieldName, value) {
-      this.user.profile[fieldName] = value
+    updateField(fieldName, newValue) {
+      if (typeof value === 'string') {
+        this.user.profile[fieldName] = newValue
+      } else {
+        const { value, isValid } = newValue
+        this.user.profile[fieldName] = value
+        this[`${fieldName}IsValid`] = isValid
+      }
     },
     async updateUserProfile() {
+      this.$v.$touch()
+      if (this.$v.$invalid || !this.countryIsValid) return
       const userId = this.user.id
       // eslint-disable-next-line no-unused-vars
       const { __typename, ...updatedProfile } = { ...this.user.profile }
