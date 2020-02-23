@@ -17,7 +17,7 @@ export default {
   props: {
     userSocialLinks: {
       type: Array,
-      required: true
+      default: () => []
     }
   },
   data() {

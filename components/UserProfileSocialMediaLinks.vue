@@ -39,7 +39,7 @@ export default {
   props: {
     links: {
       type: Array,
-      required: true
+      default: () => []
     }
   },
   data() {
@@ -50,6 +50,7 @@ export default {
     }
   },
   created() {
+    if (!this.links) return
     const is = (link, network) => link.includes(network)
     for (const link of this.links) {
       if (is(link, 'facebook')) {
