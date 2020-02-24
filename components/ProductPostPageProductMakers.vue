@@ -120,8 +120,7 @@ export default {
 
   methods: {
     ...mapMutations({
-      updateField: 'product/updateField',
-      toggleValidation: 'product/toggleValidation'
+      updateField: 'product/updateField'
     }),
     validate() {
       this.$v.$touch()
