@@ -96,7 +96,7 @@ export default {
   computed: {
     multipleImageErrors() {
       const errors = []
-      if (!this.$v.files.$invalid) return
+      if (!this.$v.files.$dirty) return
       !this.$v.files.required &&
         errors.push('Pictures of the product are required')
       !this.$v.files.minLength &&
