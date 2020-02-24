@@ -70,6 +70,7 @@
             ref="makersField"
             :product-id="id"
             :product-makers="makers"
+            @update-makers="updateMakers($event)"
             @is-invalid="makersFieldInvalid = $event"
           ></product-makers-field>
         </v-col>
@@ -216,12 +217,28 @@ export default {
     updatePictures(value) {
       this.pictures = value
     },
+    updateMakers(value) {
+      this.makers = value
+    },
     beforeSubmit() {
       // Unfortunately, for now the simplest solution is to use refs
       // to trigger the validate method every time [this] method is called
       this.$refs.makersField.validate()
       this.$v.$touch()
       if (this.$v.$invalid || this.makersFieldInvalid) return
+      const packagedProduct = {
+        id: this.id,
+        name: this.name,
+        tagline: this.tagline,
+        description: this.description,
+        media: {
+          logo: this.logo,
+          pictures: [...this.pictures]
+        },
+        links: { ...this.links },
+        makersIds: [...this.makers]
+      }
+      this.$emit('update-product', packagedProduct)
       this.onSubmit()
     }
   },
