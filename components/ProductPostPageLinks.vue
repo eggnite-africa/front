@@ -35,33 +35,53 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'ProductPostPageLink',
-  props: {
-    productWebsite: {
-      type: String,
-      default: ''
+  computed: {
+    ...mapState({
+      pwebsite: (state) => state.product.website,
+      pgithub: (state) => state.product.github,
+      pappStore: (state) => state.product.appStore,
+      pplayStore: (state) => state.product.playStore
+    }),
+    website: {
+      get() {
+        return this.pwebsite
+      },
+      set(value) {
+        this.updateField({ fieldName: 'website', value })
+      }
     },
-    productGithub: {
-      type: String,
-      default: ''
+    github: {
+      get() {
+        return this.pgithub
+      },
+      set(value) {
+        this.updateField({ fieldName: 'github', value })
+      }
     },
-    productAppStore: {
-      type: String,
-      default: ''
+    appStore: {
+      get() {
+        return this.pappStore
+      },
+      set(value) {
+        this.updateField({ fieldName: 'appStore', value })
+      }
     },
-    productPlayStore: {
-      type: String,
-      default: ''
+    playStore: {
+      get() {
+        return this.pplayStore
+      },
+      set(value) {
+        this.updateField({ fieldName: 'playStore', value })
+      }
     }
   },
-  data() {
-    return {
-      website: this.productWebsite,
-      github: this.productGithub,
-      appStore: this.productAppStore,
-      playStore: this.productPlayStore
-    }
+  methods: {
+    ...mapMutations({
+      updateField: 'product/updateField'
+    })
   }
 }
 </script>
