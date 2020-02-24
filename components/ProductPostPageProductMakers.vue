@@ -132,8 +132,7 @@ export default {
         this.err = true
         return
       }
-      const index = this.makers.indexOf(id)
-      if (index >= 0) this.makers.splice(index, 1)
+      this.makers = this.makers.filter((i) => i !== id)
       if (this.productId) {
         await this.$apollo.mutate({
           mutation: gql`
