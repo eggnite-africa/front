@@ -64,26 +64,19 @@
 <script>
 import gql from 'graphql-tag'
 import { required } from 'vuelidate/lib/validators'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'ProductPostPageProductMakers',
   props: {
-    pId: {
+    productId: {
       type: String,
-      required: true
-    },
-    pMakers: {
-      type: Array,
-      required: true
-    },
-    isEdit: {
-      type: Boolean,
-      default: true
+      required: false,
+      default: ''
     }
   },
   data() {
     return {
-      makers: this.pMakers.map(({ id }) => id),
       err: false,
       users: [
         {
@@ -91,8 +84,7 @@ export default {
           username: '',
           profile: {
             picture: '',
-            fullName: '',
-            gender: ''
+            fullName: ''
           }
         }
       ]
@@ -104,6 +96,17 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      productMakers: (state) => state.product.makers
+    }),
+    makers: {
+      get() {
+        return this.productMakers
+      },
+      set(value) {
+        this.updateField({ fieldName: 'makers', value })
+      }
+    },
     makersErrors() {
       const errors = []
       if (!this.$v.makers.$dirty) return errors
@@ -115,8 +118,11 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      updateField: 'product/updateField'
+    }),
     async removeMaker({ id }) {
-      if (this.makers.length === 1 && this.isEdit) {
+      if (this.makers.length === 1) {
         this.err = true
         return
       }
@@ -133,7 +139,7 @@ export default {
           `,
           variables: {
             makerInput: {
-              productId: this.pId,
+              productId: this.productId,
               makerId: id
             }
           }
@@ -153,7 +159,7 @@ export default {
           `,
           variables: {
             makerInput: {
-              productId: this.pId,
+              productId: this.productId,
               makerId: addedMaker
             }
           }
@@ -177,7 +183,6 @@ export default {
             profile {
               picture
               fullName
-              gender
             }
           }
         }

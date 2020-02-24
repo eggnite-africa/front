@@ -4,10 +4,10 @@
       <v-row v-if="!isEdit">
         <v-col cols="12">
           <v-text-field
-            v-model="product.name"
+            v-model.trim="name"
             :error-messages="nameErrors"
-            @input="$v.product.name.$touch()"
-            @blur="$v.product.name.$touch()"
+            @input="$v.name.$touch()"
+            @blur="$v.name.$touch()"
             loader-height="2px"
             label="Name"
             outlined
@@ -18,10 +18,10 @@
       <v-row>
         <v-col cols="12">
           <v-textarea
-            v-model="product.tagline"
+            v-model="tagline"
             :error-messages="taglineErrors"
-            @input="$v.product.tagline.$touch()"
-            @blur="$v.product.tagline.$touch()"
+            @input="$v.tagline.$touch()"
+            @blur="$v.tagline.$touch()"
             label="Tagline"
             outlined
             rows="1"
@@ -33,10 +33,10 @@
       <v-row>
         <v-col cols="12">
           <v-textarea
-            v-model="product.description"
+            v-model="description"
             :error-messages="descriptionErrors"
-            @input="$v.product.description.$touch()"
-            @blur="$v.product.description.$touch()"
+            @input="$v.description.$touch()"
+            @blur="$v.description.$touch()"
             label="Description"
             outlined
             auto-grow
@@ -48,50 +48,35 @@
       <v-row justify="center" align="center">
         <v-col cols="12" sm="3">
           <logo-uploader
-            ref="productLogo"
             :image-label="'product logo'"
-            :init-image="product.media.logo"
+            :init-image="logo"
             class="mx-auto"
           ></logo-uploader>
         </v-col>
         <v-col cols="12" sm="9">
           <images-uploader
-            ref="productPictures"
             :image-label="'product pictures'"
-            :init-images="product.media.pictures"
-            :is-edit="isEdit"
+            :init-images="pictures"
           ></images-uploader>
         </v-col>
       </v-row>
       <header>Links</header>
       <product-links
-        :product-website="product.links.website"
-        :product-github="product.links.github"
-        :product-playstore="product.links.playStore"
-        :product-appstore="product.links.appStore"
+        :product-website="website"
+        :product-github="github"
+        :product-playstore="playStore"
+        :product-appstore="appStore"
       ></product-links>
       <v-row>
         <v-col cols="12">
-          <product-makers
-            ref="productMakers"
-            :p-id="product.id"
-            :p-makers="product.makers"
-            :is-edit="isEdit"
-          ></product-makers>
+          <product-makers-field></product-makers-field>
         </v-col>
       </v-row>
       <v-row dense>
         <v-spacer></v-spacer>
-        <v-btn color="primary" type="submit" depressed><slot></slot></v-btn>
+        <v-btn color="secondary" type="submit" depressed><slot></slot></v-btn>
       </v-row>
     </form>
-
-    <v-snackbar v-model="invalidForm">
-      <v-icon color="yellow" left>mdi-alert</v-icon>
-      <span class="mr-auto">
-        There's an error somewhere
-      </span>
-    </v-snackbar>
   </div>
 </template>
 
@@ -103,10 +88,11 @@ import {
   requiredIf,
   minLength
 } from 'vuelidate/lib/validators'
+import { mapState, mapMutations } from 'vuex'
 import ImagesUploader from '@/components/shared/MultipleImageUploader.vue'
 import LogoUploader from '@/components/shared/SingleImageUpload.vue'
 import ProductLinks from '@/components/ProductPostPageLinks.vue'
-import ProductMakers from '@/components/ProductPostPageProductMakers.vue'
+import ProductMakersField from '@/components/ProductPostPageProductMakers.vue'
 
 export default {
   name: 'ProductPostPage',
@@ -114,75 +100,128 @@ export default {
     ImagesUploader,
     LogoUploader,
     ProductLinks,
-    ProductMakers
+    ProductMakersField
   },
   props: {
-    isEdit: {
-      type: Boolean,
-      default: false
-    },
     onSubmit: {
       type: Function,
       required: true
     }
   },
   validations: {
-    product: {
-      name: {
-        required: requiredIf(function() {
-          return !this.isEdit
-        }),
-        isUnique(v) {
-          if (v === '') return true
-          return !this.productExists
-        }
-      },
-      tagline: {
-        required,
-        maxLength: maxLength(80),
-        minLength: minLength(3)
-      },
-      description: {
-        required,
-        maxLength: maxLength(280)
+    name: {
+      required: requiredIf(function() {
+        return !this.id
+      }),
+      isUnique(v) {
+        if (v === '') return true
+        return !this.productExists
       }
-    }
-  },
-  data() {
-    return {
-      product: {
-        name: '',
-        tagline: '',
-        description: '',
-        media: {
-          logo: '',
-          pictures: ''
-        },
-        links: {
-          website: '',
-          github: '',
-          appStore: '',
-          playStore: ''
-        },
-        makers: [
-          {
-            id: ''
-          }
-        ]
-      }
+    },
+    tagline: {
+      required,
+      maxLength: maxLength(80),
+      minLength: minLength(3)
+    },
+    description: {
+      required,
+      maxLength: maxLength(280)
     }
   },
   computed: {
+    ...mapState({
+      id: (state) => state.product.id,
+      pname: (state) => state.product.name,
+      ptagline: (state) => state.product.tagline,
+      pdescription: (state) => state.product.description,
+      plogo: (state) => state.product.logo,
+      ppictures: (state) => state.product.pictures,
+      pwebsite: (state) => state.product.website,
+      pgithub: (state) => state.product.github,
+      pappStore: (state) => state.product.appStore,
+      pplayStore: (state) => state.product.playStore
+    }),
+    name: {
+      get() {
+        return this.pname
+      },
+      set(value) {
+        this.updateField({ fieldName: 'name', value })
+      }
+    },
+    tagline: {
+      get() {
+        return this.ptagline
+      },
+      set(value) {
+        this.updateField({ fieldName: 'tagline', value })
+      }
+    },
+    description: {
+      get() {
+        return this.pdescription
+      },
+      set(value) {
+        this.updateField({ fieldName: 'description', value })
+      }
+    },
+    logo: {
+      get() {
+        return this.plogo
+      },
+      set(value) {
+        this.updateField({ fieldName: 'logo', value })
+      }
+    },
+    pictures: {
+      get() {
+        return this.ppictures
+      },
+      set(value) {
+        this.updateField({ fieldName: 'pictures', value })
+      }
+    },
+    website: {
+      get() {
+        return this.pwebsite
+      },
+      set(value) {
+        this.updateField({ fieldName: 'website', value })
+      }
+    },
+    github: {
+      get() {
+        return this.pgithub
+      },
+      set(value) {
+        this.updateField({ fieldName: 'github', value })
+      }
+    },
+    appStore: {
+      get() {
+        return this.pappStore
+      },
+      set(value) {
+        this.updateField({ fieldName: 'appStore', value })
+      }
+    },
+    playStore: {
+      get() {
+        return this.pplayStore
+      },
+      set(value) {
+        this.updateField({ fieldName: 'playStore', value })
+      }
+    },
     taglineErrors() {
       const errors = []
-      if (!this.$v.product.tagline.$dirty) return errors
-      !this.$v.product.tagline.required &&
-        errors.push('the tagline is required')
-      !this.$v.product.tagline.maxLength &&
+      if (!this.$v.tagline.$dirty) return errors
+      !this.$v.tagline.required && errors.push('the tagline is required')
+      !this.$v.tagline.maxLength &&
         errors.push(
-          'the tagline should not exceed 80 characters, it should be short and succint'
+          'the tagline should not exceed 80 characters, it should be short and succinct'
         )
-      !this.$v.product.tagline.minLength &&
+      !this.$v.tagline.minLength &&
         errors.push(
           "while it may be true that size don't matter, here, it does."
         )
@@ -190,10 +229,10 @@ export default {
     },
     descriptionErrors() {
       const errors = []
-      if (!this.$v.product.description.$dirty) return errors
-      !this.$v.product.description.required &&
+      if (!this.$v.description.$dirty) return errors
+      !this.$v.description.required &&
         errors.push('the description is required')
-      !this.$v.product.description.maxLength &&
+      !this.$v.description.maxLength &&
         errors.push(
           'the description should not exceed 280 characters, it should fit in a tweet'
         )
@@ -201,31 +240,35 @@ export default {
     },
     nameErrors() {
       const errors = []
-      if (!this.$v.product.name.$dirty) return errors
-      !this.$v.product.name.required &&
-        errors.push('should I call captain obvious?')
-      !this.$v.product.name.isUnique &&
+      if (!this.$v.name.$dirty) return errors
+      !this.$v.name.required && errors.push('should I call captain obvious?')
+      !this.$v.name.isUnique &&
         errors.push('a product with the same name already exists')
       return errors
     }
   },
+  methods: {
+    ...mapMutations({
+      updateField: 'product/updateField'
+    })
+  },
   apollo: {
-    // productExists: {
-    //   query: gql`
-    //     query checkProductExistance($name: String!) {
-    //       productExists: checkProductExistance(productName: $name)
-    //     }
-    //   `,
-    //   variables() {
-    //     return {
-    //       name: this.product.name
-    //     }
-    //   },
-    //   skip() {
-    //     return this.isEdit || this.product.name === ''
-    //   },
-    //   fetchPolicy: 'network-only'
-    // }
+    productExists: {
+      query: gql`
+        query checkProductExistance($name: String!) {
+          productExists: checkProductExistance(productName: $name)
+        }
+      `,
+      variables() {
+        return {
+          name: this.name
+        }
+      },
+      skip() {
+        return !this.id || this.name === ''
+      },
+      fetchPolicy: 'network-only'
+    }
   }
 }
 </script>
