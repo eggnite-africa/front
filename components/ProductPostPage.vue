@@ -58,7 +58,7 @@
           <images-uploader
             :image-label="'product pictures'"
             :init-images="pictures"
-            :is-edit="true"
+            @update-images="updatePictures($event)"
           ></images-uploader>
         </v-col>
       </v-row>
@@ -158,14 +158,6 @@ export default {
         this.updateField({ fieldName: 'description', value })
       }
     },
-    pictures: {
-      get() {
-        return this.ppictures
-      },
-      set(value) {
-        this.updateField({ fieldName: 'pictures', value })
-      }
-    },
     taglineErrors() {
       const errors = []
       if (!this.$v.tagline.$dirty) return errors
@@ -206,6 +198,9 @@ export default {
     }),
     updateLogo(value) {
       this.updateField({ fieldName: 'logo', value })
+    },
+    updatePictures(value) {
+      this.updateField({ fieldName: 'pictures', value })
     }
   },
   apollo: {
