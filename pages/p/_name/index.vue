@@ -268,7 +268,6 @@ export default {
               profile {
                 picture
                 fullName
-                gender
               }
             }
             links {
