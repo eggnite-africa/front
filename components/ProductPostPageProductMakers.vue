@@ -134,7 +134,7 @@ export default {
       }
       const index = this.makers.indexOf(id)
       if (index >= 0) this.makers.splice(index, 1)
-      if (this.isEdit) {
+      if (this.productId) {
         await this.$apollo.mutate({
           mutation: gql`
             mutation deleteMaker($makerInput: MakerInput!) {
@@ -154,7 +154,7 @@ export default {
     },
     async addMaker(makers) {
       const addedMaker = makers[makers.length - 1]
-      if (addedMaker && this.isEdit) {
+      if (addedMaker && this.productId) {
         await this.$apollo.mutate({
           mutation: gql`
             mutation addMaker($makerInput: MakerInput!) {
