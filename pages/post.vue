@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     getProduct(payload) {
-      this.newProduct = payload
+      this.newProduct = { ...payload }
     },
     addProduct() {
       this.$apollo
