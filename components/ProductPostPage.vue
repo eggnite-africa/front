@@ -233,7 +233,7 @@ export default {
         }
       },
       skip() {
-        return !this.id || this.name === ''
+        return this.id || this.name === ''
       },
       fetchPolicy: 'network-only'
     }
