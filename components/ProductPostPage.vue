@@ -135,11 +135,7 @@ export default {
       ptagline: (state) => state.product.tagline,
       pdescription: (state) => state.product.description,
       plogo: (state) => state.product.logo,
-      ppictures: (state) => state.product.pictures,
-      pwebsite: (state) => state.product.website,
-      pgithub: (state) => state.product.github,
-      pappStore: (state) => state.product.appStore,
-      pplayStore: (state) => state.product.playStore
+      ppictures: (state) => state.product.pictures
     }),
     name: {
       get() {
@@ -179,38 +175,6 @@ export default {
       },
       set(value) {
         this.updateField({ fieldName: 'pictures', value })
-      }
-    },
-    website: {
-      get() {
-        return this.pwebsite
-      },
-      set(value) {
-        this.updateField({ fieldName: 'website', value })
-      }
-    },
-    github: {
-      get() {
-        return this.pgithub
-      },
-      set(value) {
-        this.updateField({ fieldName: 'github', value })
-      }
-    },
-    appStore: {
-      get() {
-        return this.pappStore
-      },
-      set(value) {
-        this.updateField({ fieldName: 'appStore', value })
-      }
-    },
-    playStore: {
-      get() {
-        return this.pplayStore
-      },
-      set(value) {
-        this.updateField({ fieldName: 'playStore', value })
       }
     },
     taglineErrors() {
