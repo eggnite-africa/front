@@ -2,7 +2,7 @@
   <div>
     <v-autocomplete
       v-model="makers"
-      v-if="!$apollo.queries.users.loading"
+      v-if="!$apollo.loading"
       :items="users"
       :error-messages="makersErrors"
       @blur="$v.makers.$touch()"
@@ -64,19 +64,22 @@
 <script>
 import gql from 'graphql-tag'
 import { required } from 'vuelidate/lib/validators'
-import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'ProductPostPageProductMakers',
   props: {
     productId: {
       type: String,
-      required: false,
       default: ''
+    },
+    productMakers: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
+      makers: this.productMakers.map(({ id }) => id),
       err: false,
       users: [
         {
@@ -96,17 +99,6 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      productMakers: (state) => state.product.makers
-    }),
-    makers: {
-      get() {
-        return this.productMakers
-      },
-      set(value) {
-        this.updateField({ fieldName: 'makers', value })
-      }
-    },
     makersErrors() {
       const errors = []
       if (!this.$v.makers.$dirty) return errors
@@ -119,9 +111,6 @@ export default {
   },
 
   methods: {
-    ...mapMutations({
-      updateField: 'product/updateField'
-    }),
     validate() {
       this.$v.$touch()
       this.$emit('is-invalid', this.$v.$invalid)

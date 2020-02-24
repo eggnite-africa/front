@@ -63,12 +63,13 @@
         </v-col>
       </v-row>
       <header>Links</header>
-      <product-links></product-links>
+      <product-links :product-links="links"></product-links>
       <v-row>
         <v-col cols="12">
           <product-makers-field
             ref="makersField"
             :product-id="id"
+            :product-makers="makers"
             @is-invalid="makersFieldInvalid = $event"
           ></product-makers-field>
         </v-col>
@@ -89,7 +90,6 @@ import {
   requiredIf,
   minLength
 } from 'vuelidate/lib/validators'
-import { mapState, mapMutations } from 'vuex'
 import ImagesUploader from '@/components/shared/MultipleImageUploader.vue'
 import LogoUploader from '@/components/shared/SingleImageUpload.vue'
 import ProductLinks from '@/components/ProductPostPageLinks.vue'
@@ -107,6 +107,38 @@ export default {
     onSubmit: {
       type: Function,
       required: true
+    },
+    productId: {
+      type: String,
+      default: ''
+    },
+    productName: {
+      type: String,
+      default: ''
+    },
+    productTagline: {
+      type: String,
+      default: ''
+    },
+    productDescription: {
+      type: String,
+      default: ''
+    },
+    productLogo: {
+      type: String,
+      default: ''
+    },
+    productPictures: {
+      type: Array,
+      default: () => ['']
+    },
+    productMakers: {
+      type: Array,
+      default: () => ['']
+    },
+    productLinks: {
+      type: Object,
+      default: null
     }
   },
   validations: {
@@ -131,42 +163,18 @@ export default {
   },
   data() {
     return {
-      makersFieldInvalid: null
+      makersFieldInvalid: null,
+      id: this.productId,
+      name: this.productName,
+      tagline: this.productTagline,
+      description: this.productDescription,
+      logo: this.productLogo,
+      pictures: this.productPictures,
+      links: this.productLinks,
+      makers: this.productMakers
     }
   },
   computed: {
-    ...mapState({
-      id: (state) => state.product.id,
-      pname: (state) => state.product.name,
-      ptagline: (state) => state.product.tagline,
-      pdescription: (state) => state.product.description,
-      logo: (state) => state.product.logo,
-      pictures: (state) => state.product.pictures
-    }),
-    name: {
-      get() {
-        return this.pname
-      },
-      set(value) {
-        this.updateField({ fieldName: 'name', value })
-      }
-    },
-    tagline: {
-      get() {
-        return this.ptagline
-      },
-      set(value) {
-        this.updateField({ fieldName: 'tagline', value })
-      }
-    },
-    description: {
-      get() {
-        return this.pdescription
-      },
-      set(value) {
-        this.updateField({ fieldName: 'description', value })
-      }
-    },
     taglineErrors() {
       const errors = []
       if (!this.$v.tagline.$dirty) return errors
@@ -202,14 +210,11 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({
-      updateField: 'product/updateField'
-    }),
     updateLogo(value) {
-      this.updateField({ fieldName: 'logo', value })
+      this.logo = value
     },
     updatePictures(value) {
-      this.updateField({ fieldName: 'pictures', value })
+      this.pictures = value
     },
     beforeSubmit() {
       // Unfortunately, for now the simplest solution is to use refs

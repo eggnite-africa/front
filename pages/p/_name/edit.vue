@@ -11,8 +11,18 @@
     </v-snackbar>
     <v-card>
       <v-card-title v-text="productName"></v-card-title>
-      <v-card-text>
-        <product-edit :on-submit="onSubmit">
+      <v-card-text v-if="!$apollo.loading">
+        <product-edit
+          :product-id="product.id"
+          :product-name="product.name"
+          :product-tagline="product.tagline"
+          :product-description="product.description"
+          :product-logo="product.media.logo"
+          :product-pictures="product.media.pictures"
+          :product-links="product.links"
+          :product-makers="product.makers"
+          :on-submit="onSubmit"
+        >
           Update
         </product-edit>
       </v-card-text>
@@ -22,7 +32,6 @@
 
 <script>
 import gql from 'graphql-tag'
-import { mapMutations, mapState } from 'vuex'
 import ProductEdit from '@/components/ProductPostPage.vue'
 export default {
   components: {
@@ -39,16 +48,6 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      tagline: (state) => state.product.tagline,
-      description: (state) => state.product.description,
-      logo: (state) => state.product.logo,
-      pictures: (state) => state.product.pictures,
-      website: (state) => state.product.website,
-      github: (state) => state.product.github,
-      appStore: (state) => state.product.appStore,
-      playStore: (state) => state.product.playStore
-    }),
     productName() {
       return this.$route.params.name.replace(/-/g, ' ')
     }
@@ -74,13 +73,7 @@ export default {
       }
     }
   },
-  created() {
-    this.populateStore(this.product)
-  },
   methods: {
-    ...mapMutations({
-      updateField: 'product/updateField'
-    }),
     async onSubmit() {
       try {
         await this.updateProduct()
@@ -96,21 +89,7 @@ export default {
       }
     },
     async updateProduct() {
-      const updatedProduct = {
-        id: this.product.id,
-        tagline: this.tagline,
-        description: this.description,
-        media: {
-          logo: this.logo,
-          pictures: this.pictures
-        },
-        links: {
-          website: this.website,
-          github: this.github,
-          appStore: this.appStore,
-          playStore: this.playStore
-        }
-      }
+      const updatedProduct = {}
 
       await this.$apollo.mutate({
         mutation: gql`
@@ -124,30 +103,6 @@ export default {
           updatedProduct
         }
       })
-    },
-    populateStore(product) {
-      function _normalizeData(product) {
-        const normalizedProduct = {}
-        let keys = Object.keys(product)
-        keys = keys.filter((k) => k !== 'links' && k !== 'media')
-        for (const key of keys) {
-          normalizedProduct[key] = product[key]
-        }
-        const links = Object.entries(product.links)
-        for (const [link, value] of links) {
-          normalizedProduct[link] = value
-        }
-        for (const key of ['logo', 'pictures']) {
-          normalizedProduct[key] = product.media[key]
-        }
-        return normalizedProduct
-      }
-
-      const normalizedProduct = _normalizeData(this.product)
-      const keys = Object.keys(normalizedProduct)
-      for (const key of keys) {
-        this.updateField({ fieldName: key, value: normalizedProduct[key] })
-      }
     }
   },
   apollo: {
