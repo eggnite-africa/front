@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="beforeSubmit()" v-if="!$apollo.loading">
+    <form @submit.prevent="beforeSubmit()">
       <v-row v-if="!id">
         <v-col cols="12">
           <v-text-field
