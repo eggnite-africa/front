@@ -7,15 +7,15 @@
         </v-card-title>
         <v-card-subtitle
           >Make sure to read the
-          <nuxt-link to="/guidelines#posting" class="white--text"
-            >guidelines</nuxt-link
-          >
-          before posting.</v-card-subtitle
-        >
+          <nuxt-link to="/guidelines#posting" class="white--text">
+            guidelines
+          </nuxt-link>
+          before posting.
+        </v-card-subtitle>
         <v-card-text>
-          <product-post ref="productPost" :on-submit="onSubmit"
-            >Post</product-post
-          >
+          <product-post :on-submit="addProduct">
+            Post
+          </product-post>
         </v-card-text>
       </v-container>
     </v-card>
@@ -23,14 +23,65 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
+import { mapState } from 'vuex'
 import ProductPost from '@/components/ProductPostPage.vue'
 export default {
+  name: 'PostPage',
   components: {
     ProductPost
   },
+  computed: {
+    ...mapState({
+      name: (state) => state.product.name,
+      tagline: (state) => state.product.tagline,
+      description: (state) => state.product.description,
+      logo: (state) => state.product.logo,
+      pictures: (state) => state.product.pictures,
+      makers: (state) => state.product.makers,
+      website: (state) => state.product.website,
+      github: (state) => state.product.github,
+      appStore: (state) => state.product.appStore,
+      playStore: (state) => state.product.playStore
+    })
+  },
   methods: {
-    onSubmit() {
-      this.$refs.productPost.addProduct()
+    addProduct() {
+      const newProduct = {
+        name: this.name,
+        tagline: this.tagline,
+        description: this.description,
+        media: {
+          logo: this.logo,
+          pictures: this.pictures
+        },
+        makers: this.makers,
+        links: {
+          website: this.website,
+          github: this.github,
+          appStore: this.appStore,
+          playStore: this.playStore
+        }
+      }
+
+      this.$apollo
+        .mutate({
+          query: gql`
+            mutation addProduct($newProduct: NewProductInput!) {
+              addProduct(newProduct: $newProduct) {
+                id
+                name
+              }
+            }
+          `,
+          variables: {
+            newProduct
+          }
+        })
+        .then(({ data: { addProduct } }) => {
+          const { name } = addProduct
+          this.$router.push(`/p/${name.replace(/ /gi, '-')}`)
+        })
     }
   },
   middleware: 'auth',
