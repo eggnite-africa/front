@@ -63,7 +63,10 @@
         </v-col>
       </v-row>
       <header>Links</header>
-      <product-links :product-links="links"></product-links>
+      <product-links
+        @update-links="updateLinks($event)"
+        :product-links="links"
+      ></product-links>
       <v-row>
         <v-col cols="12">
           <product-makers-field
@@ -165,6 +168,7 @@ export default {
   data() {
     return {
       makersFieldInvalid: null,
+      linksFieldInvalid: null,
       id: this.productId,
       name: this.productName,
       tagline: this.productTagline,
@@ -220,12 +224,17 @@ export default {
     updateMakers(value) {
       this.makers = value
     },
+    updateLinks({ links, invalid }) {
+      this.links = { ...links }
+      this.linksFieldInvalid = invalid
+    },
     beforeSubmit() {
       // Unfortunately, for now the simplest solution is to use refs
       // to trigger the validate method every time [this] method is called
       this.$refs.makersField.validate()
       this.$v.$touch()
-      if (this.$v.$invalid || this.makersFieldInvalid) return
+      if (this.$v.$invalid || this.makersFieldInvalid || this.linksFieldInvalid)
+        return
       const packagedProduct = {
         id: this.id,
         name: this.name,
