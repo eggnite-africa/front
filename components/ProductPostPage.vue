@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="onSubmit" v-if="!$apollo.queries.product.loading">
+    <form @submit.prevent="onSubmit" v-if="!$apollo.loading">
       <v-row v-if="!isEdit">
         <v-col cols="12">
           <v-text-field
@@ -64,46 +64,12 @@
         </v-col>
       </v-row>
       <header>Links</header>
-      <v-row>
-        <v-col cols="12">
-          <product-link
-            ref="productWebsite"
-            :p-link="product.links.website"
-            :is-required="requireWebsite"
-            icon="mdi-web"
-            label="Website"
-          ></product-link>
-        </v-col>
-        <v-col cols="12">
-          <product-link
-            ref="productRepo"
-            :p-link="product.links.github"
-            icon="mdi-github-circle"
-            label="Github"
-            color="white"
-          ></product-link>
-        </v-col>
-        <v-col cols="12">
-          <product-link
-            ref="productAppStore"
-            :p-link="product.links.appStore"
-            icon="mdi-apple"
-            label="App Store"
-            field-name="appStore"
-            color="grey lighten-1"
-          ></product-link>
-        </v-col>
-        <v-col cols="12">
-          <product-link
-            ref="productPlayStore"
-            :p-link="product.links.playStore"
-            icon="mdi-google-play"
-            label="Google Play"
-            field-name="playStore"
-            color="green"
-          ></product-link>
-        </v-col>
-      </v-row>
+      <product-links
+        :product-website="product.links.website"
+        :product-github="product.links.github"
+        :product-playstore="product.links.playStore"
+        :product-appstore="product.links.appStore"
+      ></product-links>
       <v-row>
         <v-col cols="12">
           <product-makers
@@ -130,7 +96,7 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
+// import gql from 'graphql-tag'
 import {
   maxLength,
   required,
@@ -139,7 +105,7 @@ import {
 } from 'vuelidate/lib/validators'
 import ImagesUploader from '@/components/shared/MultipleImageUploader.vue'
 import LogoUploader from '@/components/shared/SingleImageUpload.vue'
-import ProductLink from '@/components/ProductPostPageLink.vue'
+import ProductLinks from '@/components/ProductPostPageLinks.vue'
 import ProductMakers from '@/components/ProductPostPageProductMakers.vue'
 
 export default {
@@ -147,7 +113,7 @@ export default {
   components: {
     ImagesUploader,
     LogoUploader,
-    ProductLink,
+    ProductLinks,
     ProductMakers
   },
   props: {
@@ -158,30 +124,6 @@ export default {
     onSubmit: {
       type: Function,
       required: true
-    }
-  },
-  data() {
-    return {
-      product: {
-        id: '',
-        name: '',
-        tagline: '',
-        media: {
-          logo: '',
-          pictures: ['']
-        },
-        description: '',
-        links: {
-          website: '',
-          github: '',
-          appStore: '',
-          playStore: ''
-        },
-        makers: []
-      },
-      productExists: this.isEdit,
-      requireWebsite: false,
-      invalidForm: false
     }
   },
   validations: {
@@ -203,6 +145,30 @@ export default {
       description: {
         required,
         maxLength: maxLength(280)
+      }
+    }
+  },
+  data() {
+    return {
+      product: {
+        name: '',
+        tagline: '',
+        description: '',
+        media: {
+          logo: '',
+          pictures: ''
+        },
+        links: {
+          website: '',
+          github: '',
+          appStore: '',
+          playStore: ''
+        },
+        makers: [
+          {
+            id: ''
+          }
+        ]
       }
     }
   },
@@ -244,220 +210,22 @@ export default {
     }
   },
   apollo: {
-    product: {
-      query() {
-        if (this.isEdit) {
-          return gql`
-            query fetchProduct($name: String!) {
-              product(name: $name) {
-                # The id has to be included: https://stackoverflow.com/a/56402056
-                id
-                tagline
-                description
-                media {
-                  logo
-                  pictures
-                }
-                links {
-                  website
-                  github
-                  appStore
-                  playStore
-                }
-                makers {
-                  id
-                }
-              }
-            }
-          `
-        }
-      },
-      variables() {
-        const name = this.$route.params.name.replace(/-/g, ' ')
-        return {
-          name
-        }
-      },
-      skip() {
-        return !this.isEdit
-      }
-    },
-    productExists: {
-      query: gql`
-        query checkProductExistance($name: String!) {
-          productExists: checkProductExistance(productName: $name)
-        }
-      `,
-      variables() {
-        return {
-          name: this.product.name
-        }
-      },
-      skip() {
-        return this.isEdit || this.product.name === ''
-      },
-      fetchPolicy: 'network-only'
-    }
-  },
-  methods: {
-    getProductData() {
-      const [
-        id,
-        name,
-        tagline,
-        description,
-        website,
-        github,
-        appStore,
-        playStore,
-        makers
-      ] = [
-        this.product.id,
-        this.product.name,
-        this.product.tagline,
-        this.product.description,
-        this.$refs.productWebsite.link,
-        this.$refs.productRepo.link,
-        this.$refs.productAppStore.link,
-        this.$refs.productPlayStore.link,
-        this.$refs.productMakers.makers
-      ]
-      const logo = this.$refs.productLogo.getProductLogo()
-      const pictures = this.$refs.productPictures.getProductPictures()
-
-      return {
-        id,
-        name,
-        tagline,
-        logo,
-        pictures,
-        description,
-        website,
-        github,
-        appStore,
-        playStore,
-        makers
-      }
-    },
-    async addProduct() {
-      const {
-        name,
-        tagline,
-        logo,
-        pictures,
-        description,
-        website,
-        github,
-        appStore,
-        playStore,
-        makers
-      } = this.getProductData()
-      const productLogo = this.$refs.productLogo
-      const productPictures = this.$refs.productPictures
-      const productWebsite = this.$refs.productWebsite
-      const productMakers = this.$refs.productMakers
-      let linksAreValid = true
-
-      this.$v.$touch()
-      productMakers.$v.$touch()
-      productLogo.$v.$touch()
-      productPictures.$v.$touch()
-
-      if (!website && !github && !appStore && !playStore) {
-        linksAreValid = false
-        this.requireWebsite = true
-        productWebsite.$v.$touch()
-      }
-
-      if (
-        this.$v.$invalid ||
-        productMakers.$v.$invalid ||
-        !linksAreValid ||
-        productLogo.$v.$invalid ||
-        productPictures.$v.$invalid
-      ) {
-        this.invalidForm = true
-        return
-      }
-
-      await this.$apollo
-        .mutate({
-          mutation: gql`
-            mutation addNewProduct($newProduct: NewProductInput!) {
-              addProduct(newProduct: $newProduct) {
-                id
-                name
-              }
-            }
-          `,
-          variables: {
-            newProduct: {
-              name,
-              tagline,
-              description,
-              media: {
-                logo,
-                pictures
-              },
-              links: {
-                website,
-                github,
-                appStore,
-                playStore
-              },
-              makersIds: makers
-            }
-          }
-        })
-        .then(() => {
-          const productName = name.replace(/ /gi, '-')
-          const congrats = this.$auth.user.products.length === 0
-          this.$router.replace({
-            name: 'p-name',
-            params: { name: productName, congrats }
-          })
-        })
-    },
-    async updateProduct() {
-      const {
-        id,
-        tagline,
-        description,
-        logo,
-        pictures,
-        website,
-        github,
-        appStore,
-        playStore
-      } = this.getProductData()
-
-      await this.$apollo.mutate({
-        mutation: gql`
-          mutation updateProduct($updatedProduct: UpdatedProductInput!) {
-            updateProduct(updatedProduct: $updatedProduct) {
-              id
-            }
-          }
-        `,
-        variables: {
-          updatedProduct: {
-            id,
-            tagline,
-            description,
-            media: {
-              logo,
-              pictures
-            },
-            links: {
-              website,
-              github,
-              appStore,
-              playStore
-            }
-          }
-        }
-      })
-    }
+    // productExists: {
+    //   query: gql`
+    //     query checkProductExistance($name: String!) {
+    //       productExists: checkProductExistance(productName: $name)
+    //     }
+    //   `,
+    //   variables() {
+    //     return {
+    //       name: this.product.name
+    //     }
+    //   },
+    //   skip() {
+    //     return this.isEdit || this.product.name === ''
+    //   },
+    //   fetchPolicy: 'network-only'
+    // }
   }
 }
 </script>
