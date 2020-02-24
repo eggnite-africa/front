@@ -129,6 +129,11 @@ export default {
       maxLength: maxLength(280)
     }
   },
+  data() {
+    return {
+      makersFieldInvalid: null
+    }
+  },
   computed: {
     ...mapState({
       id: (state) => state.product.id,
@@ -213,11 +218,6 @@ export default {
       this.$v.$touch()
       if (this.$v.$invalid || this.makersFieldInvalid) return
       this.onSubmit()
-    }
-  },
-  data() {
-    return {
-      makersFieldInvalid: null
     }
   },
   apollo: {
