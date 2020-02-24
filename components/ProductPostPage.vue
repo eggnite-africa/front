@@ -1,7 +1,7 @@
 <template>
   <div>
     <form @submit.prevent="onSubmit" v-if="!$apollo.loading">
-      <v-row v-if="!isEdit">
+      <v-row v-if="id">
         <v-col cols="12">
           <v-text-field
             v-model.trim="name"
@@ -61,12 +61,7 @@
         </v-col>
       </v-row>
       <header>Links</header>
-      <product-links
-        :product-website="website"
-        :product-github="github"
-        :product-playstore="playStore"
-        :product-appstore="appStore"
-      ></product-links>
+      <product-links></product-links>
       <v-row>
         <v-col cols="12">
           <product-makers-field></product-makers-field>
@@ -81,7 +76,7 @@
 </template>
 
 <script>
-// import gql from 'graphql-tag'
+import gql from 'graphql-tag'
 import {
   maxLength,
   required,
