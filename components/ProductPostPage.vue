@@ -50,6 +50,7 @@
           <logo-uploader
             :image-label="'product logo'"
             :init-image="logo"
+            @update-image="updateLogo($event)"
             class="mx-auto"
           ></logo-uploader>
         </v-col>
@@ -130,8 +131,8 @@ export default {
       pname: (state) => state.product.name,
       ptagline: (state) => state.product.tagline,
       pdescription: (state) => state.product.description,
-      plogo: (state) => state.product.logo,
-      ppictures: (state) => state.product.pictures
+      logo: (state) => state.product.logo,
+      pictures: (state) => state.product.pictures
     }),
     name: {
       get() {
@@ -155,14 +156,6 @@ export default {
       },
       set(value) {
         this.updateField({ fieldName: 'description', value })
-      }
-    },
-    logo: {
-      get() {
-        return this.plogo
-      },
-      set(value) {
-        this.updateField({ fieldName: 'logo', value })
       }
     },
     pictures: {
@@ -210,7 +203,10 @@ export default {
   methods: {
     ...mapMutations({
       updateField: 'product/updateField'
-    })
+    }),
+    updateLogo(value) {
+      this.updateField({ fieldName: 'logo', value })
+    }
   },
   apollo: {
     productExists: {
