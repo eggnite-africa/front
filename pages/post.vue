@@ -5,8 +5,8 @@
         <v-card-title>
           Post Product
         </v-card-title>
-        <v-card-subtitle
-          >Make sure to read the
+        <v-card-subtitle>
+          Make sure to read the
           <nuxt-link to="/guidelines#posting" class="white--text">
             guidelines
           </nuxt-link>
