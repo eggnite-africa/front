@@ -116,7 +116,7 @@ export default {
       this.$emit('is-invalid', this.$v.$invalid)
     },
     async removeMaker({ id }) {
-      if (this.makers.length === 1) {
+      if (this.makers.length === 1 && this.productId) {
         this.err = true
         return
       }
@@ -138,6 +138,7 @@ export default {
           }
         })
       }
+      this.$emit('update-makers', this.makers)
     },
     async addMaker(makers) {
       const addedMaker = makers[makers.length - 1]
@@ -159,6 +160,7 @@ export default {
         })
         this.$v.makers.$touch()
       }
+      this.$emit('update-makers', this.makers)
     },
     makerAvatar(id) {
       const maker = this.users.find((maker) => maker.id === id)
