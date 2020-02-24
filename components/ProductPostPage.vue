@@ -68,6 +68,7 @@
         <v-col cols="12">
           <product-makers-field
             ref="makersField"
+            :product-id="id"
             @is-invalid="makersFieldInvalid = $event"
           ></product-makers-field>
         </v-col>
