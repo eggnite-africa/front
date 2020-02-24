@@ -210,8 +210,8 @@ export default {
       // to trigger the validate method every time [this] method is called
       this.$refs.makersField.validate()
       this.$v.$touch()
-      if (this.$v.$invalid || this.makersFieldInvalid) console.log('invalid')
-      else console.log('valid')
+      if (this.$v.$invalid || this.makersFieldInvalid) return
+      this.onSubmit()
     }
   },
   data() {
