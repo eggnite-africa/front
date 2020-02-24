@@ -80,7 +80,12 @@ export default {
         })
         .then(({ data: { addProduct } }) => {
           const { name } = addProduct
-          this.$router.push(`/p/${name.replace(/ /gi, '-')}`)
+          const productName = name.replace(/ /gi, '-')
+          const congrats = this.$auth.user.products.length === 0
+          this.$router.replace({
+            name: 'p-name',
+            params: { name: productName, congrats }
+          })
         })
     }
   },
