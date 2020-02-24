@@ -92,7 +92,7 @@ export default {
   middleware: 'auth',
   head() {
     return {
-      title: '🔥 Post'
+      title: '⚡ Add Product'
     }
   }
 }
