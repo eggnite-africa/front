@@ -43,10 +43,6 @@ export default {
     imageLabel: {
       type: String,
       default: null
-    },
-    isEdit: {
-      type: Boolean,
-      required: true
     }
   },
   data() {
@@ -68,6 +64,7 @@ export default {
           try {
             const link = await this.uploadImage(file)
             this._pushFile(link)
+            this.updateImages()
             load(file)
           } catch (e) {
             throw new Error('there was a problem during upload')
@@ -90,6 +87,7 @@ export default {
         remove: async (source, load, err) => {
           await this.removeImage(source)
           this.files = this.files.filter((file) => file.source !== source)
+          this.updateImages()
           load()
         }
       }
@@ -112,16 +110,15 @@ export default {
       removeImage: 'utils/removeImage'
     }),
     handleInit() {
-      if (this.isEdit) {
+      if (this.initImages)
         this.initImages.forEach((file) => this._pushFile(file))
-      }
     },
     _pushFile(file) {
       this.files.push({ source: file, options: { type: 'local' } })
     },
-    getProductPictures() {
+    updateImages() {
       const pictures = this.files.map((file) => file.source)
-      return pictures
+      this.$emit('update-images', pictures)
     }
   },
   validations: {
