@@ -55,7 +55,7 @@ export default {
           logo: this.logo,
           pictures: this.pictures
         },
-        makers: this.makers,
+        makersIds: this.makers,
         links: {
           website: this.website,
           github: this.github,
@@ -66,7 +66,7 @@ export default {
 
       this.$apollo
         .mutate({
-          query: gql`
+          mutation: gql`
             mutation addProduct($newProduct: NewProductInput!) {
               addProduct(newProduct: $newProduct) {
                 id
