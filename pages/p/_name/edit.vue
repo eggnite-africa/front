@@ -22,7 +22,7 @@
 
 <script>
 import gql from 'graphql-tag'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 import ProductEdit from '@/components/ProductPostPage.vue'
 export default {
   components: {
@@ -39,6 +39,16 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      tagline: (state) => state.product.tagline,
+      description: (state) => state.product.description,
+      logo: (state) => state.product.logo,
+      pictures: (state) => state.product.pictures,
+      website: (state) => state.product.website,
+      github: (state) => state.product.github,
+      appStore: (state) => state.product.appStore,
+      playStore: (state) => state.product.playStore
+    }),
     productName() {
       return this.$route.params.name.replace(/-/g, ' ')
     }
@@ -64,6 +74,9 @@ export default {
       }
     }
   },
+  created() {
+    this.populateStore(this.product)
+  },
   methods: {
     ...mapMutations({
       updateField: 'product/updateField'
@@ -82,13 +95,41 @@ export default {
         this.message.display = true
       }
     },
+    async updateProduct() {
+      const updatedProduct = {
+        id: this.product.id,
+        tagline: this.tagline,
+        description: this.description,
+        media: {
+          logo: this.logo,
+          pictures: this.pictures
+        },
+        links: {
+          website: this.website,
+          github: this.github,
+          appStore: this.appStore,
+          playStore: this.playStore
+        }
+      }
+
+      await this.$apollo.mutate({
+        mutation: gql`
+          mutation updateProduct($updatedProduct: UpdatedProductInput!) {
+            updateProduct(updatedProduct: $updatedProduct) {
+              id
+            }
+          }
+        `,
+        variables: {
+          updatedProduct
+        }
+      })
+    },
     populateStore(product) {
       function _normalizeData(product) {
         const normalizedProduct = {}
         let keys = Object.keys(product)
-        keys = keys.filter(
-          (k) => k !== 'makers' && k !== 'links' && k !== 'media'
-        )
+        keys = keys.filter((k) => k !== 'links' && k !== 'media')
         for (const key of keys) {
           normalizedProduct[key] = product[key]
         }
@@ -99,8 +140,6 @@ export default {
         for (const key of ['logo', 'pictures']) {
           normalizedProduct[key] = product.media[key]
         }
-        const makers = product.makers.map(({ id }) => id)
-        normalizedProduct.makers = makers
         return normalizedProduct
       }
 
@@ -142,9 +181,6 @@ export default {
         }
       }
     }
-  },
-  created() {
-    this.populateStore(this.product)
   },
   middleware: ['auth', 'isProductOwner'],
   head() {
