@@ -1,7 +1,7 @@
 <template>
   <div>
     <form @submit.prevent="onSubmit" v-if="!$apollo.loading">
-      <v-row v-if="id">
+      <v-row v-if="!id">
         <v-col cols="12">
           <v-text-field
             v-model.trim="name"
@@ -57,6 +57,7 @@
           <images-uploader
             :image-label="'product pictures'"
             :init-images="pictures"
+            :is-edit="true"
           ></images-uploader>
         </v-col>
       </v-row>
