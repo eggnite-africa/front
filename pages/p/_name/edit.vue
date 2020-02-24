@@ -5,9 +5,9 @@
         {{ message.icon }}
       </v-icon>
       {{ message.text }}
-      <v-btn @click.stop="message.display = false" text color="red"
-        >close</v-btn
-      >
+      <v-btn @click.stop="message.display = false" text color="red">
+        close
+      </v-btn>
     </v-snackbar>
     <v-card>
       <v-card-title v-text="productName"></v-card-title>
