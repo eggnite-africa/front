@@ -13,7 +13,10 @@
           before posting.
         </v-card-subtitle>
         <v-card-text>
-          <product-post :on-submit="addProduct">
+          <product-post
+            @update-product="getProduct($event)"
+            :on-submit="addProduct"
+          >
             Post
           </product-post>
         </v-card-text>
@@ -24,46 +27,22 @@
 
 <script>
 import gql from 'graphql-tag'
-import { mapState } from 'vuex'
 import ProductPost from '@/components/ProductPostPage.vue'
 export default {
   name: 'PostPage',
   components: {
     ProductPost
   },
-  computed: {
-    ...mapState({
-      name: (state) => state.product.name,
-      tagline: (state) => state.product.tagline,
-      description: (state) => state.product.description,
-      logo: (state) => state.product.logo,
-      pictures: (state) => state.product.pictures,
-      makers: (state) => state.product.makers,
-      website: (state) => state.product.website,
-      github: (state) => state.product.github,
-      appStore: (state) => state.product.appStore,
-      playStore: (state) => state.product.playStore
-    })
+  data() {
+    return {
+      newProduct: {}
+    }
   },
   methods: {
+    getProduct(payload) {
+      this.newProduct = payload
+    },
     addProduct() {
-      const newProduct = {
-        name: this.name,
-        tagline: this.tagline,
-        description: this.description,
-        media: {
-          logo: this.logo,
-          pictures: this.pictures
-        },
-        makersIds: this.makers,
-        links: {
-          website: this.website,
-          github: this.github,
-          appStore: this.appStore,
-          playStore: this.playStore
-        }
-      }
-
       this.$apollo
         .mutate({
           mutation: gql`
@@ -75,7 +54,7 @@ export default {
             }
           `,
           variables: {
-            newProduct
+            newProduct: this.newProduct
           }
         })
         .then(({ data: { addProduct } }) => {
