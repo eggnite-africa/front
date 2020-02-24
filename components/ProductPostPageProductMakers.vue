@@ -117,10 +117,16 @@ export default {
       return errors
     }
   },
+
   methods: {
     ...mapMutations({
-      updateField: 'product/updateField'
+      updateField: 'product/updateField',
+      toggleValidation: 'product/toggleValidation'
     }),
+    validate() {
+      this.$v.$touch()
+      this.$emit('is-invalid', this.$v.$invalid)
+    },
     async removeMaker({ id }) {
       if (this.makers.length === 1) {
         this.err = true

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="onSubmit" v-if="!$apollo.loading">
+    <form @submit.prevent="beforeSubmit()" v-if="!$apollo.loading">
       <v-row v-if="!id">
         <v-col cols="12">
           <v-text-field
@@ -66,7 +66,10 @@
       <product-links></product-links>
       <v-row>
         <v-col cols="12">
-          <product-makers-field></product-makers-field>
+          <product-makers-field
+            ref="makersField"
+            @is-invalid="makersFieldInvalid = $event"
+          ></product-makers-field>
         </v-col>
       </v-row>
       <v-row dense>
@@ -201,6 +204,19 @@ export default {
     },
     updatePictures(value) {
       this.updateField({ fieldName: 'pictures', value })
+    },
+    beforeSubmit() {
+      // Unfortunately, for now the simplest solution is to use refs
+      // to trigger the validate method every time [this] method is called
+      this.$refs.makersField.validate()
+      this.$v.$touch()
+      if (this.$v.$invalid || this.makersFieldInvalid) console.log('invalid')
+      else console.log('valid')
+    }
+  },
+  data() {
+    return {
+      makersFieldInvalid: null
     }
   },
   apollo: {
