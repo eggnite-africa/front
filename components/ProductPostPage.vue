@@ -130,11 +130,11 @@ export default {
     },
     productPictures: {
       type: Array,
-      default: () => ['']
+      default: () => []
     },
     productMakers: {
       type: Array,
-      default: () => ['']
+      default: () => []
     },
     productLinks: {
       type: Object,
