@@ -51,7 +51,7 @@
             :image-label="'product logo'"
             :init-image="logo"
             @update-image="updateLogo($event)"
-            class="mx-auto"
+            class="d-flex flex-column justify-center align-center"
           ></logo-uploader>
         </v-col>
         <v-col cols="12" sm="9">

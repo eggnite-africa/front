@@ -13,7 +13,7 @@
         accepted-file-types="image/*"
       ></file-pond>
     </client-only>
-    <p class="red--text">{{ multipleImageErrors }}</p>
+    <p class="red--text text-center">{{ multipleImageErrors }}</p>
   </div>
 </template>
 
