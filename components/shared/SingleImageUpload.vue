@@ -4,11 +4,9 @@
       <file-pond
         ref="singleImageUploader"
         @init="handleInit()"
-        @input="$v.files.$touch()"
         :files="files"
         :server="server"
         :label-idle="label"
-        :class="singleImageClass"
         style-panel-layout="compact circle"
         image-crop-aspect-ratio="1:1"
         image-preview-height="170"
@@ -19,13 +17,14 @@
         style="width: 170px"
         accepted-file-types="image/*"
       ></file-pond>
-      <p v-show="isProductLogo" class="red--text">{{ singleImageErrors }}</p>
+      <p v-show="isProductLogo" class="white--text text-center">
+        To capture attention, a logo is recommended
+      </p>
     </div>
   </client-only>
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators'
 import { mapActions } from 'vuex'
 import vueFilePond from 'vue-filepond'
 import 'filepond/dist/filepond.min.css'
@@ -111,16 +110,6 @@ export default {
   computed: {
     isProductLogo() {
       return this.imageLabel.toLowerCase().includes('product')
-    },
-    singleImageErrors() {
-      const errors = []
-      if (!this.$v.files.$dirty) return
-      !this.$v.files.required && errors.push('Product logo is required')
-      return errors[0]
-    },
-    singleImageClass() {
-      if (this.isProductLogo && this.$v.files.$invalid) return 'errors'
-      return ''
     }
   },
   methods: {
@@ -135,11 +124,6 @@ export default {
     },
     _pushFile(file) {
       this.files.push({ source: file, options: { type: 'local' } })
-    }
-  },
-  validations: {
-    files: {
-      required
     }
   }
 }
