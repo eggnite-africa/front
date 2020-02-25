@@ -74,11 +74,11 @@ export default {
         {
           name: 'About',
           link: '/about'
-        },
-        {
-          name: 'Guidelines',
-          link: '/guidelines'
         }
+        // {
+        //   name: 'Guidelines',
+        //   link: '/guidelines'
+        // }
       ]
     }
   },

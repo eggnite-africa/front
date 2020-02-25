@@ -14,13 +14,13 @@
         <v-card-title>
           Post Product
         </v-card-title>
-        <v-card-subtitle>
+        <!-- <v-card-subtitle>
           Make sure to read the
           <nuxt-link to="/guidelines#posting" class="white--text">
             guidelines
           </nuxt-link>
           before posting.
-        </v-card-subtitle>
+        </v-card-subtitle> -->
         <v-card-text>
           <product-post
             @update-product="getProduct($event)"
