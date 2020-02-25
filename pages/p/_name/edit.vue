@@ -22,6 +22,7 @@
           :product-links="product.links"
           :product-makers="product.makers"
           :on-submit="onSubmit"
+          @update-product="getProduct($event)"
         >
           Update
         </product-edit>
@@ -44,7 +45,8 @@ export default {
         err: false,
         text: '',
         icon: ''
-      }
+      },
+      updatedProduct: {}
     }
   },
   computed: {
@@ -74,6 +76,10 @@ export default {
     }
   },
   methods: {
+    getProduct(payload) {
+      const { name, makersIds, ...updatedProduct } = payload
+      this.updatedProduct = updatedProduct
+    },
     async onSubmit() {
       try {
         await this.updateProduct()
@@ -89,8 +95,6 @@ export default {
       }
     },
     async updateProduct() {
-      const updatedProduct = {}
-
       await this.$apollo.mutate({
         mutation: gql`
           mutation updateProduct($updatedProduct: UpdatedProductInput!) {
@@ -100,7 +104,7 @@ export default {
           }
         `,
         variables: {
-          updatedProduct
+          updatedProduct: this.updatedProduct
         }
       })
     }

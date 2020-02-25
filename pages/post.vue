@@ -1,5 +1,14 @@
 <template>
   <v-container>
+    <v-snackbar v-model="message.display">
+      <v-icon :color="message.err ? 'red' : 'green'" left dense>
+        {{ message.icon }}
+      </v-icon>
+      {{ message.text }}
+      <v-btn @click.stop="message.display = false" text color="red">
+        close
+      </v-btn>
+    </v-snackbar>
     <v-card>
       <v-container>
         <v-card-title>
@@ -15,7 +24,7 @@
         <v-card-text>
           <product-post
             @update-product="getProduct($event)"
-            :on-submit="addProduct"
+            :on-submit="onSubmit"
           >
             Post
           </product-post>
@@ -35,15 +44,22 @@ export default {
   },
   data() {
     return {
+      message: {
+        display: false,
+        err: false,
+        text: '',
+        icon: ''
+      },
       newProduct: {}
     }
   },
   methods: {
     getProduct(payload) {
-      this.newProduct = { ...payload }
+      const { id, ...newProduct } = payload
+      this.newProduct = newProduct
     },
-    addProduct() {
-      this.$apollo
+    async addProduct() {
+      await this.$apollo
         .mutate({
           mutation: gql`
             mutation addProduct($newProduct: NewProductInput!) {
@@ -66,6 +82,16 @@ export default {
             params: { name: productName, congrats }
           })
         })
+    },
+    async onSubmit() {
+      try {
+        await this.addProduct()
+      } catch (e) {
+        this.message.err = true
+        this.message.icon = 'mdi-close'
+        this.message.text =
+          'There was an error adding the product, please check your input'
+      }
     }
   },
   middleware: 'auth',
