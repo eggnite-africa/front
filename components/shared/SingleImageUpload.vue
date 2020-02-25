@@ -135,14 +135,6 @@ export default {
     },
     _pushFile(file) {
       this.files.push({ source: file, options: { type: 'local' } })
-    },
-    _getImage() {
-      const file = this.files[0]
-      if (!file) return ''
-      return file.source
-    },
-    getProductLogo() {
-      return this._getImage()
     }
   },
   validations: {
