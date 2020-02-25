@@ -100,7 +100,7 @@ export default {
       !this.$v.files.required &&
         errors.push('Pictures of the product are required')
       !this.$v.files.minLength &&
-        errors.push('At least 2 pictures are required')
+        errors.push('At least 1 picture should be included')
       return errors[0]
     }
   },
@@ -124,7 +124,7 @@ export default {
   validations: {
     files: {
       required,
-      minLength: minLength(2)
+      minLength: minLength(1)
     }
   }
 }
