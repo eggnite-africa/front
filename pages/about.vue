@@ -12,14 +12,15 @@
             <p>
               In this first iteration<sup>*</sup>, it's a platform that enables
               African makers to share their creations with a community of
-              like-minded people. It is very much so akin to ProductHunt but the
-              resemblance stops at the façade.
+              like-minded people.
+              <!-- It is very much so akin to ProductHunt but the
+              resemblance stops at the façade. -->
             </p>
             <p class="caption">
               <sup>*</sup> code for: there is more to come. <br />
               Note: make sure to read the
-              <nuxt-link to="/guidelines" target="_blank">guidelines</nuxt-link>
-              for the kinds of products that can be posted.
+              <!-- <nuxt-link to="/guidelines" target="_blank">guidelines</nuxt-link>
+              for the kinds of products that can be posted. -->
             </p>
           </v-col>
           <v-col cols="12">
