@@ -235,6 +235,7 @@ export default {
       this.$v.$touch()
       if (this.$v.$invalid || this.makersFieldInvalid || this.linksFieldInvalid)
         return
+      const { __typename, ...links } = this.links
       const packagedProduct = {
         id: this.id,
         name: this.name,
@@ -244,7 +245,7 @@ export default {
           logo: this.logo,
           pictures: [...this.pictures]
         },
-        links: { ...this.links },
+        links,
         makersIds: [...this.makers]
       }
       this.$emit('update-product', packagedProduct)
