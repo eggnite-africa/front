@@ -102,7 +102,7 @@ export default {
         remove: async (source, load, err) => {
           await this.removeImage(source)
           this.files = []
-          this.$emit('update-image', '')
+          this.$emit('update-image', null)
           load()
         }
       }
