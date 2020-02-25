@@ -235,7 +235,11 @@ export default {
       this.$v.$touch()
       if (this.$v.$invalid || this.makersFieldInvalid || this.linksFieldInvalid)
         return
-      const { __typename, ...links } = this.links
+      let links = { ...this.links }
+      if (this.links !== null) {
+        const { __typename, ...rest } = this.links
+        links = rest
+      }
       const packagedProduct = {
         id: this.id,
         name: this.name,
