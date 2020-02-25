@@ -118,7 +118,8 @@ export default {
     },
     updateImages() {
       const pictures = this.files.map((file) => file.source)
-      this.$emit('update-images', pictures)
+      this.$v.$touch()
+      this.$emit('update-images', { pictures, invalid: this.$v.$invalid })
     }
   },
   validations: {

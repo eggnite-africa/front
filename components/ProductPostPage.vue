@@ -169,6 +169,7 @@ export default {
     return {
       makersFieldInvalid: null,
       linksFieldInvalid: null,
+      imagesFieldInvalid: null,
       id: this.productId,
       name: this.productName,
       tagline: this.productTagline,
@@ -218,8 +219,9 @@ export default {
     updateLogo(value) {
       this.logo = value
     },
-    updatePictures(value) {
-      this.pictures = value
+    updatePictures({ pictures, invalid }) {
+      this.pictures = pictures
+      this.imagesFieldInvalid = invalid
     },
     updateMakers(value) {
       this.makers = value
@@ -233,7 +235,12 @@ export default {
       // to trigger the validate method every time [this] method is called
       this.$refs.makersField.validate()
       this.$v.$touch()
-      if (this.$v.$invalid || this.makersFieldInvalid || this.linksFieldInvalid)
+      if (
+        this.$v.$invalid ||
+        this.makersFieldInvalid ||
+        this.linksFieldInvalid ||
+        this.imagesFieldInvalid
+      )
         return
       let links = { ...this.links }
       if (this.links !== null) {
