@@ -23,15 +23,29 @@
         </p>
         <v-row>
           <v-col class="d-flex justify-center">
-            <v-btn color="orange" nuxt to="/post">Add your product</v-btn>
+            <v-btn color="orange" nuxt to="/post" large>Add your product</v-btn>
           </v-col>
           <v-col class="d-flex justify-center">
-            <v-btn color="blue" nuxt to="/">Discover products</v-btn>
+            <v-btn color="blue" nuxt to="/" large>Discover products</v-btn>
           </v-col>
           <v-col class="d-flex justify-center">
-            <v-btn :to="userProfileEdit" color="green" nuxt>
+            <v-btn :to="userProfileEdit" color="green" nuxt large>
               Finish setting up your profile
               <v-icon right dense>mdi-arrow-right</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-btn
+              href="https://join.slack.com/t/eggnite/shared_invite/enQtOTcxNzU5MTkyODg0LTM4YzdmMjYxZjM4N2VhMjgwNTIzOWRlNzVkZWEzNWQ4MWI3NjJiNjZlYWE5NjgyYzExNmNjNmU4NWFlNGVhOTI"
+              color="purple"
+              block
+              target="_blank"
+              large
+            >
+              Join the conversation on slack
+              <v-icon right dense>mdi-slack</v-icon>
             </v-btn>
           </v-col>
         </v-row>
