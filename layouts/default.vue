@@ -20,6 +20,16 @@
         >
           {{ item.name }}
         </nuxt-link>
+        <v-btn
+          v-for="link of socialLinks"
+          :key="link.name"
+          :href="link.link"
+          icon
+          small
+          target="_blank"
+        >
+          <v-icon v-text="link.icon"></v-icon>
+        </v-btn>
       </div>
       <v-spacer />
       <Menu />
@@ -47,8 +57,15 @@
         </v-col>
         <v-col class="d-flex justify-end align-center">
           <nuxt-link to="/about" class="menu-link overline">About</nuxt-link>
-          <v-btn icon small href="https://fb.me/eggniteco" target="_blank">
-            <v-icon>mdi-facebook-box</v-icon>
+          <v-btn
+            v-for="link of socialLinks"
+            :key="link.name"
+            :href="link.link"
+            icon
+            small
+            target="_blank"
+          >
+            <v-icon v-text="link.icon"></v-icon>
           </v-btn>
         </v-col>
       </v-row>
@@ -79,6 +96,19 @@ export default {
         //   name: 'Guidelines',
         //   link: '/guidelines'
         // }
+      ],
+      socialLinks: [
+        // {
+        //   name: 'facebook',
+        //   icon: 'mdi-facebook-box',
+        //   link: 'https://fb.com/eggniteco'
+        // },
+        {
+          name: 'slack',
+          icon: 'mdi-slack',
+          link:
+            'https://join.slack.com/t/eggnite/shared_invite/enQtOTcxNzU5MTkyODg0LTM4YzdmMjYxZjM4N2VhMjgwNTIzOWRlNzVkZWEzNWQ4MWI3NjJiNjZlYWE5NjgyYzExNmNjNmU4NWFlNGVhOTI'
+        }
       ]
     }
   },
