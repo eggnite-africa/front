@@ -12,18 +12,21 @@
       </nuxt-link>
       <Search />
       <div class="hidden-xs-only">
-        <nuxt-link
-          v-for="item in items"
-          :to="item.link"
-          :key="item.name"
-          class="menu-link overline"
-        >
-          {{ item.name }}
-        </nuxt-link>
+        <v-badge color="red" dot overlap bordered>
+          <nuxt-link
+            v-for="item in items"
+            :to="item.link"
+            :key="item.name"
+            class="menu-link overline"
+          >
+            {{ item.name }}
+          </nuxt-link>
+        </v-badge>
         <v-btn
           v-for="link of socialLinks"
           :key="link.name"
           :href="link.link"
+          class="ml-1"
           icon
           small
           target="_blank"
@@ -91,6 +94,10 @@ export default {
         {
           name: 'About',
           link: '/about'
+        },
+        {
+          name: 'Resources for makers',
+          link: '/resources'
         }
         // {
         //   name: 'Guidelines',
