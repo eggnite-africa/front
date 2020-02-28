@@ -18,8 +18,8 @@
             </p>
             <p class="caption">
               <sup>*</sup> code for: there is more to come. <br />
-              Note: make sure to read the
-              <!-- <nuxt-link to="/guidelines" target="_blank">guidelines</nuxt-link>
+              <!--  Note: make sure to read the
+             <nuxt-link to="/guidelines" target="_blank">guidelines</nuxt-link>
               for the kinds of products that can be posted. -->
             </p>
           </v-col>
