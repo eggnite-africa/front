@@ -96,6 +96,10 @@ export default {
           link: '/about'
         },
         {
+          name: 'Competitions',
+          link: '/competitions'
+        },
+        {
           name: 'Resources for makers',
           link: '/resources'
         }
