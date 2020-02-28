@@ -27,8 +27,8 @@
             <p class="title">Why was it created?</p>
             <p>
               From a micro-perspective, because I feel like the makers'
-              community is not really valued so most the creations (unless it's
-              an outlier) go unheard of. And because such a solution<sup>*</sup>
+              community is not really valued so most creations (unless an
+              outlier) go unheard of. And because such a solution<sup>*</sup>
               hadn't existed so far.
             </p>
             <p>
