@@ -81,7 +81,7 @@ export default {
       type: Array,
       default: () => []
     },
-    initJuries: {
+    initJury: {
       type: Array,
       default: () => []
     }
