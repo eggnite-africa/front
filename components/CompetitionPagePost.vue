@@ -44,15 +44,35 @@ export default {
     submitLabel: {
       type: String,
       required: true
+    },
+    initName: {
+      type: String,
+      default: ''
+    },
+    initDescription: {
+      type: String,
+      default: ''
+    },
+    initLogo: {
+      type: String,
+      default: ''
+    },
+    initMods: {
+      type: Array,
+      default: () => []
+    },
+    initJuries: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
-      logo: '',
-      name: '',
-      description: '',
-      moderators: [],
-      juries: []
+      logo: this.initLogo,
+      name: this.initName,
+      description: this.initDescription,
+      moderators: this.initMods,
+      juries: this.initJuries
     }
   },
   methods: {
