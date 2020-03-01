@@ -15,7 +15,7 @@
 
 <script>
 // import gql from 'graphql-tag'
-import CompetitionPagePost from '@/components/CompetitionPagePost.vue'
+import CompetitionPagePost from '@/components/CompetitionsPagePost.vue'
 export default {
   name: 'CompetitionPageAdd',
   components: {
