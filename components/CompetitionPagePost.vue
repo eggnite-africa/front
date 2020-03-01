@@ -1,18 +1,22 @@
 <template>
   <form>
     <v-row justify="center">
-      <competition-logo image-label="competition logo" init-image="" />
+      <competition-logo
+        @update-image="updateField('logo', $event)"
+        :init-image="logo"
+        image-label="competition logo"
+      />
     </v-row>
     <v-text-field v-model="name" label="Name" outlined></v-text-field>
     <v-textarea v-model="description" label="Description" outlined></v-textarea>
     <users-list
       key="mods"
-      @update-users="updateModerators($event)"
+      @update-users="updateField('moderators', $event)"
       label="Moderators"
     ></users-list>
     <users-list
       key="juries"
-      @update-users="updateJuries($event)"
+      @update-users="updateField('juries', $event)"
       label="Juries"
     ></users-list>
     <div class="d-flex justify-end">
@@ -44,6 +48,7 @@ export default {
   },
   data() {
     return {
+      logo: '',
       name: '',
       description: '',
       moderators: [],
@@ -51,11 +56,8 @@ export default {
     }
   },
   methods: {
-    updateJuries(value) {
-      this.juries = value
-    },
-    updateModerators(value) {
-      this.moderators = value
+    updateField(fieldName, value) {
+      this[fieldName] = value
     },
     beforeSubmit() {
       const competition = {
