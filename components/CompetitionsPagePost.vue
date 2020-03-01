@@ -137,6 +137,7 @@ export default {
         return
       }
       const competition = {
+        logo: this.logo,
         name: this.name,
         description: this.description,
         moderators: this.moderators,
