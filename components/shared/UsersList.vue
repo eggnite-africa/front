@@ -91,6 +91,10 @@ export default {
     }
   },
   methods: {
+    validate() {
+      this.$v.$touch()
+      this.$emit('is-invalid', this.$v.$invalid)
+    },
     removeUser({ id }) {
       this.selectedUsers = this.selectedUsers.filter((i) => i !== id)
       this.$emit('update-users', this.selectedUsers)

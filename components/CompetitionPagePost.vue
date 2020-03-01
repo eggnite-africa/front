@@ -4,19 +4,38 @@
       <competition-logo
         @update-image="updateField('logo', $event)"
         :init-image="logo"
+        :error-message="logoError"
         image-label="competition logo"
       />
     </v-row>
-    <v-text-field v-model="name" label="Name" outlined></v-text-field>
-    <v-textarea v-model="description" label="Description" outlined></v-textarea>
+    <v-text-field
+      v-model="name"
+      @input="$v.name.$touch()"
+      @blur="$v.name.$touch()"
+      :error-messages="nameErrors"
+      label="Name"
+      outlined
+    ></v-text-field>
+    <v-textarea
+      v-model="description"
+      @input="$v.description.$touch()"
+      @blur="$v.description.$touch()"
+      :error-messages="descriptionErrors"
+      label="Description"
+      outlined
+    ></v-textarea>
     <users-list
+      ref="modsComponent"
       key="mods"
       @update-users="updateField('moderators', $event)"
+      @is-invalid="updateField('isInvalidMods', $event)"
       label="Moderators"
     ></users-list>
     <users-list
+      ref="juriesComponent"
       key="juries"
       @update-users="updateField('juries', $event)"
+      @is-invalid="updateField('isInvalidJuries', $event)"
       label="Juries"
     ></users-list>
     <div class="d-flex justify-end">
@@ -33,6 +52,7 @@
 </template>
 
 <script>
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import CompetitionLogo from '@/components/shared/SingleImageUpload.vue'
 import UsersList from '@/components/shared/UsersList.vue'
 export default {
@@ -72,7 +92,31 @@ export default {
       name: this.initName,
       description: this.initDescription,
       moderators: this.initMods,
-      juries: this.initJuries
+      juries: this.initJuries,
+      isInvalidJuries: null,
+      isInvalidMods: null,
+      logoError: ''
+    }
+  },
+  computed: {
+    nameErrors() {
+      const errors = []
+      if (!this.$v.name.$dirty) return errors
+      !this.$v.name.required && errors.push('The competition name is required')
+      !this.$v.name.minLength &&
+        errors.push('The name should have at least 3 chars')
+      // !this.$v.name.isUnique &&
+      //   errors.push('Name already exists, it should be unique')
+      return errors
+    },
+    descriptionErrors() {
+      const errors = []
+      if (!this.$v.description.$dirty) return errors
+      !this.$v.name.required &&
+        errors.push('The competition description is required')
+      !this.$v.name.maxLength &&
+        errors.push('The description should not exceed 280 chars')
+      return errors
     }
   },
   methods: {
@@ -80,6 +124,18 @@ export default {
       this[fieldName] = value
     },
     beforeSubmit() {
+      this.$v.$touch()
+      this.$refs.modsComponent.validate()
+      this.$refs.juriesComponent.validate()
+      if (
+        this.$v.$invalid ||
+        !this.logo ||
+        this.isInvalidMods ||
+        this.isInvalidJuries
+      ) {
+        this.logoError = 'a logo is required'
+        return
+      }
       const competition = {
         name: this.name,
         description: this.description,
@@ -87,6 +143,16 @@ export default {
         juries: this.juries
       }
       this.$emit('update-competition', competition)
+    }
+  },
+  validations: {
+    name: {
+      required,
+      minLength: minLength(3)
+    },
+    description: {
+      required,
+      minLength: maxLength(280)
     }
   }
 }

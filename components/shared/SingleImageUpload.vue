@@ -20,6 +20,9 @@
       <p v-show="isProductLogo" class="white--text text-center">
         To capture attention, a logo is recommended
       </p>
+      <p class="red--text text-center">
+        {{ errorMessage }}
+      </p>
     </div>
   </client-only>
 </template>
@@ -54,6 +57,10 @@ export default {
       // Either the profile picture or the product logo
       type: String,
       default: null
+    },
+    errorMessage: {
+      type: String,
+      default: ''
     },
     imageLabel: {
       type: String,
