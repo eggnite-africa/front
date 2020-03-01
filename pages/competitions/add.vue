@@ -14,7 +14,7 @@
 </template>
 
 <script>
-// import gql from 'graphql-tag'
+import gql from 'graphql-tag'
 import CompetitionPagePost from '@/components/CompetitionsPagePost.vue'
 export default {
   name: 'CompetitionPageAdd',
@@ -22,18 +22,19 @@ export default {
     CompetitionPagePost
   },
   methods: {
-    addCompetition(newCompetition) {
-      console.log(newCompetition)
-      // await this.$apollo.mutate({
-      //   mutation: gql`mutation addCompetition(newCompetition: NewCompetitionInput!) {
-      //     addCompetition(newCompetition: $newCompetition) {
-      //       id
-      //     }
-      //   }`,
-      //   variables: {
-      //     newCompetition
-      //   }
-      // })
+    async addCompetition(newCompetition) {
+      await this.$apollo.mutate({
+        mutation: gql`
+          mutation addCompetition($newCompetition: NewCompetitionInput!) {
+            addCompetition(newCompetition: $newCompetition) {
+              name
+            }
+          }
+        `,
+        variables: {
+          newCompetition
+        }
+      })
     }
   }
 }

@@ -34,8 +34,8 @@
     <users-list
       ref="juriesComponent"
       key="juries"
-      @update-users="updateField('juries', $event)"
-      @is-invalid="updateField('isInvalidJuries', $event)"
+      @update-users="updateField('jury', $event)"
+      @is-invalid="updateField('isInvalidJury', $event)"
       label="Juries"
     ></users-list>
     <div class="d-flex justify-end">
@@ -92,8 +92,8 @@ export default {
       name: this.initName,
       description: this.initDescription,
       moderators: this.initMods,
-      juries: this.initJuries,
-      isInvalidJuries: null,
+      jury: this.initJury,
+      isInvalidJury: null,
       isInvalidMods: null,
       logoError: ''
     }
@@ -112,9 +112,9 @@ export default {
     descriptionErrors() {
       const errors = []
       if (!this.$v.description.$dirty) return errors
-      !this.$v.name.required &&
+      !this.$v.description.required &&
         errors.push('The competition description is required')
-      !this.$v.name.maxLength &&
+      !this.$v.description.maxLength &&
         errors.push('The description should not exceed 280 chars')
       return errors
     }
@@ -140,7 +140,7 @@ export default {
         name: this.name,
         description: this.description,
         moderators: this.moderators,
-        juries: this.juries
+        jury: this.jury
       }
       this.$emit('update-competition', competition)
     }
@@ -152,7 +152,7 @@ export default {
     },
     description: {
       required,
-      minLength: maxLength(280)
+      maxLength: maxLength(280)
     }
   }
 }
