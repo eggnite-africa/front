@@ -105,9 +105,12 @@
 
             <v-tab-item value="comments">
               <v-container>
-                <template v-for="(comment, i) in user.comments">
-                  <user-comment :key="i" :comment="comment"></user-comment>
-                </template>
+                <user-comment
+                  v-for="(comment, i) in user.comments"
+                  :key="i"
+                  :comment="comment"
+                >
+                </user-comment>
               </v-container>
             </v-tab-item>
           </v-tabs>
