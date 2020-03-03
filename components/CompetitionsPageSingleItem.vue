@@ -1,5 +1,5 @@
 <template>
-  <v-card nuxt to="/about">
+  <v-card :to="competitionUrl" nuxt>
     <v-list-item class="pt-1">
       <v-list-item-avatar color="grey">
         <v-img :src="logo"></v-img>
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { slugify } from '@/static/utils/slugify'
 export default {
   props: {
     logo: {
@@ -27,6 +28,11 @@ export default {
     description: {
       type: String,
       required: true
+    }
+  },
+  computed: {
+    competitionUrl() {
+      return '/c/' + slugify(this.name)
     }
   }
 }
