@@ -77,11 +77,11 @@ export default {
     },
     tagline: {
       type: String,
-      required: true
+      default: null
     },
     makers: {
       type: Array,
-      required: true
+      default: () => []
     },
     logo: {
       type: String,
@@ -89,11 +89,11 @@ export default {
     },
     votes: {
       type: Array,
-      required: true
+      default: () => []
     },
     comments: {
       type: Array,
-      required: true
+      default: () => []
     },
     isInSettings: {
       type: Boolean,

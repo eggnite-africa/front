@@ -1,15 +1,19 @@
 <template>
   <v-card>
     <v-card-title>Products</v-card-title>
-    <v-card-text v-if="!$apollo.queries.user.loading">
-      <product-item
-        v-for="product in user.products"
-        :product-id="product.id"
-        :key="product.id"
-        :is-in-settings="true"
-        class="mb-4"
-      >
-      </product-item>
+    <v-card-text v-if="!$apollo.loading">
+      <client-only>
+        <product-item
+          v-for="product in user.products"
+          :key="product.id"
+          :is-in-settings="true"
+          :id="product.id"
+          :logo="product.media.logo"
+          :name="product.name"
+          class="mb-4"
+        >
+        </product-item>
+      </client-only>
     </v-card-text>
   </v-card>
 </template>
@@ -36,6 +40,10 @@ export default {
             id
             products {
               id
+              name
+              media {
+                logo
+              }
             }
           }
         }
