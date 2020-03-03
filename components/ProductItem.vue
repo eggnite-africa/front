@@ -100,11 +100,6 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      dialog: false
-    }
-  },
   computed: {
     productLink() {
       const productUrl = this.name.replace(/ /gi, '-')
