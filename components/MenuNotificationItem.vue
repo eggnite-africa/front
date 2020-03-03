@@ -20,6 +20,7 @@
 
 <script>
 import gql from 'graphql-tag'
+import { slugify } from '@/static/utils/slugify'
 export default {
   name: 'MenuNotificationItem',
   props: {
@@ -57,7 +58,7 @@ export default {
       return this.$auth.loggedIn
     },
     notificationLink() {
-      const productUrl = this.product.name.replace(/ /gi, '-')
+      const productUrl = slugify(this.product.name)
       const productLink = `/p/${productUrl}`
       if (this.vote) return productLink
       else {

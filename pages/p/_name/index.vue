@@ -145,6 +145,7 @@
 <script>
 import gql from 'graphql-tag'
 import { mapMutations } from 'vuex'
+import { unslugify } from '@/static/utils/slugify'
 import MakerAvatar from '@/components/ProductPageMakerAvatar.vue'
 import ActionButtons from '@/components/ProductPageActionButtons.vue'
 import ProductImages from '@/components/ProductPageCarousel.vue'
@@ -166,8 +167,7 @@ export default {
       return this.$route.params.name
     },
     productName() {
-      const productName = this.productUrl.replace(/-/g, ' ')
-      return productName
+      return unslugify(this.productUrl)
     },
     votersIds() {
       return this.product.votes.map((v) => v.userId)

@@ -36,6 +36,7 @@
 
 <script>
 import gql from 'graphql-tag'
+import { slugify } from '@/static/utils/slugify'
 import ProductPost from '@/components/ProductPostPage.vue'
 export default {
   name: 'PostPage',
@@ -75,7 +76,7 @@ export default {
         })
         .then(({ data: { addProduct } }) => {
           const { name } = addProduct
-          const productName = name.replace(/ /gi, '-')
+          const productName = slugify(name)
           const congrats = this.$auth.user.products.length === 0
           this.$router.replace({
             name: 'p-name',

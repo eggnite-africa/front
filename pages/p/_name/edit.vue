@@ -33,6 +33,7 @@
 
 <script>
 import gql from 'graphql-tag'
+import { unslugify } from '@/static/utils/slugify'
 import ProductEdit from '@/components/ProductPostPage.vue'
 export default {
   components: {
@@ -51,7 +52,8 @@ export default {
   },
   computed: {
     productName() {
-      return this.$route.params.name.replace(/-/g, ' ')
+      const { name } = this.$route.params
+      return unslugify(name)
     }
   },
   asyncData() {

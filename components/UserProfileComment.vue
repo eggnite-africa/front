@@ -15,6 +15,7 @@
 
 <script>
 import gql from 'graphql-tag'
+import { slugify } from '@/static/utils/slugify'
 export default {
   name: 'UserProfileComment',
   props: {
@@ -32,7 +33,7 @@ export default {
   },
   computed: {
     commentUrl() {
-      const productUrl = this.product.name.replace(/ /gi, '-')
+      const productUrl = slugify(this.product.name)
       return `/p/${productUrl}#comments`
     }
   },

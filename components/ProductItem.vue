@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import { slugify } from '@/static/utils/slugify'
 import ProductMakerAvatar from '@/components/ProductItemMakerAvatar.vue'
 import ProductItemActionButtons from '@/components/ProductItemActionButtons.vue'
 import ProductItemActionButtonsSettings from '@/components/ProductItemActionButtonsSettings.vue'
@@ -102,7 +103,7 @@ export default {
   },
   computed: {
     productLink() {
-      const productUrl = this.name.replace(/ /gi, '-')
+      const productUrl = slugify(this.name)
       return `/p/${productUrl}`
     },
     hasVoted() {

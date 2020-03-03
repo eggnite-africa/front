@@ -59,7 +59,7 @@ export default {
       }
     ],
     link: [{ rel: 'icon', href: '/Logo.png' }],
-    script: [{ src: './segment.js' }]
+    script: [{ src: './segment.js' }, { src: './slugify.js' }]
   },
   /*
    ** Customize the progress-bar color

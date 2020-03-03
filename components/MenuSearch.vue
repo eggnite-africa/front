@@ -30,6 +30,7 @@
 
 <script>
 import gql from 'graphql-tag'
+import { slugify } from '@/static/utils/slugify'
 export default {
   name: 'SearchBar',
   data() {
@@ -68,7 +69,7 @@ export default {
   },
   methods: {
     navigateToProduct(name) {
-      this.$router.push(`/p/${name.replace(/ /gi, '-')}`)
+      this.$router.push(`/p/${slugify(name)}`)
     }
   }
 }
