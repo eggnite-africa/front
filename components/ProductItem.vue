@@ -1,20 +1,17 @@
 <template>
-  <v-card
-    @click="navigateToProductPage()"
-    v-if="!$apollo.queries.product.loading"
-  >
+  <v-card :to="productLink" nuxt link>
     <v-container>
       <v-row dense align="center">
         <v-col cols="3" sm="1" class="mr-sm-8 mr-md-0">
           <v-avatar size="80">
-            <v-img :src="product.media.logo" contain eager></v-img>
+            <v-img :src="logo" contain eager></v-img>
           </v-avatar>
         </v-col>
         <v-col justify-self="start">
-          <v-card-title v-text="product.name"></v-card-title>
-          <v-card-subtitle v-text="product.tagline"></v-card-subtitle>
+          <v-card-title v-text="name"></v-card-title>
+          <v-card-subtitle v-text="tagline"></v-card-subtitle>
           <v-card-text class="ml-n1">
-            <span v-for="(maker, i) in product.makers" :key="i">
+            <span v-for="(maker, i) in makers" :key="i">
               <product-maker-avatar
                 :maker-username="maker.username"
                 :maker-name="maker.profile.fullName"
@@ -30,7 +27,7 @@
               <v-col cols="12">
                 <template v-if="!isInSettings">
                   <v-btn
-                    @click.stop="upvote()"
+                    @click.prevent="upvote()"
                     :outlined="!hasVoted"
                     color="orange"
                     block
@@ -38,7 +35,7 @@
                   >
                     <div class="flex-md-column">
                       <v-icon>mdi-arrow-up-thick</v-icon>
-                      <div v-text="product.votes.length"></div>
+                      <div v-text="votes.length"></div>
                     </div>
                   </v-btn>
                 </template>
@@ -49,8 +46,9 @@
                     block
                     depressed
                     nuxt
-                    >Edit</v-btn
                   >
+                    Edit
+                  </v-btn>
                 </template>
               </v-col>
               <v-col cols="12">
@@ -72,7 +70,7 @@
                   <v-dialog v-model="dialog" persistent max-width="290">
                     <v-card>
                       <v-card-title class="headline"
-                        >Delete {{ product.name }}</v-card-title
+                        >Delete {{ name }}</v-card-title
                       >
 
                       <v-card-text>
@@ -87,7 +85,7 @@
                         </v-btn>
 
                         <v-btn
-                          @click.stop="deleteProduct(product.id)"
+                          @click.stop="deleteProduct(id)"
                           color="red darken-1"
                           text
                         >
@@ -116,8 +114,32 @@ export default {
     ProductMakerAvatar
   },
   props: {
-    productId: {
+    id: {
       type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    tagline: {
+      type: String,
+      required: true
+    },
+    makers: {
+      type: Array,
+      required: true
+    },
+    logo: {
+      type: String,
+      required: true
+    },
+    votes: {
+      type: Array,
+      required: true
+    },
+    comments: {
+      type: Array,
       required: true
     },
     isInSettings: {
@@ -132,11 +154,11 @@ export default {
   },
   computed: {
     productLink() {
-      const productUrl = this.product.name.replace(/ /gi, '-')
+      const productUrl = this.name.replace(/ /gi, '-')
       return `/p/${productUrl}`
     },
     votersIds() {
-      return this.product.votes.map((v) => v.userId)
+      return this.votes.map((v) => v.userId)
     },
     hasVoted() {
       if (this.$auth.loggedIn) {
@@ -154,86 +176,10 @@ export default {
     },
     commentsLength() {
       let total = 0
-      const comments = this.product.comments
+      const comments = this.comments
       total += comments.length
       comments.forEach((c) => (total += c.replies.length))
       return total
-    }
-  },
-  asyncData() {
-    return {
-      product: {
-        id: '',
-        media: {
-          logo: '',
-          products: ['']
-        },
-        name: '',
-        tagline: '',
-        makers: [
-          {
-            username: '',
-            profile: {
-              picture: '',
-              fullName: '',
-              gender: ''
-            }
-          }
-        ],
-        votes: [
-          {
-            userId: ''
-          }
-        ],
-        comments: [
-          {
-            id: '',
-            replies: {
-              id: ''
-            }
-          }
-        ]
-      }
-    }
-  },
-  apollo: {
-    product: {
-      query: gql`
-        query fetchProductItemById($id: ID!) {
-          product(id: $id) {
-            id
-            media {
-              logo
-              pictures
-            }
-            name
-            tagline
-            makers {
-              username
-              profile {
-                picture
-                fullName
-                gender
-              }
-            }
-            votes {
-              userId
-            }
-            comments {
-              id
-              replies {
-                id
-              }
-            }
-          }
-        }
-      `,
-      variables() {
-        return {
-          id: this.productId
-        }
-      },
-      fetchPolicy: 'network-only'
     }
   },
   methods: {
@@ -246,38 +192,34 @@ export default {
     upvote() {
       if (this.$auth.loggedIn) {
         if (this.hasVoted) {
-          this.$apollo
-            .mutate({
-              mutation: gql`
-                mutation unvote($voteInput: VoteInput!) {
-                  deleteVote(voteInput: $voteInput)
-                }
-              `,
-              variables: {
-                voteInput: {
-                  productId: this.productId
-                }
+          this.$apollo.mutate({
+            mutation: gql`
+              mutation unvote($voteInput: VoteInput!) {
+                deleteVote(voteInput: $voteInput)
               }
-            })
-            .then(() => this.$apollo.queries.product.refetch())
+            `,
+            variables: {
+              voteInput: {
+                id: this.id
+              }
+            }
+          })
         } else {
-          this.$apollo
-            .mutate({
-              mutation: gql`
-                mutation upvote($voteInput: VoteInput!) {
-                  upvote(voteInput: $voteInput) {
-                    userId
-                    productId
-                  }
-                }
-              `,
-              variables: {
-                voteInput: {
-                  productId: this.productId
+          this.$apollo.mutate({
+            mutation: gql`
+              mutation upvote($voteInput: VoteInput!) {
+                upvote(voteInput: $voteInput) {
+                  userId
+                  id
                 }
               }
-            })
-            .then(() => this.$apollo.queries.product.refetch())
+            `,
+            variables: {
+              voteInput: {
+                productId: this.id
+              }
+            }
+          })
         }
       } else this.openLoginDialog()
     },
@@ -299,7 +241,7 @@ export default {
         })
     },
     makerAvatar(index) {
-      const maker = this.product.makers[index]
+      const maker = this.makers[index]
       const { picture } = maker.profile
       return picture
     }
