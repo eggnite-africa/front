@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" sm="8">
+      <v-col cols="12" sm="8" order="1" order-sm="0">
         <v-card>
-          <v-card-title>Competition name</v-card-title>
+          <v-card-title v-text="competitionName"></v-card-title>
           <v-container>
             products here... Lorem ipsum dolor sit, amet consectetur adipisicing
             elit. Placeat, fugiat, repellat animi rerum ullam molestias quam
@@ -16,12 +16,7 @@
         <v-card>
           <v-card-title>Description</v-card-title>
           <v-card-subtitle>Start - End</v-card-subtitle>
-          <v-card-text>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil enim
-            distinctio vitae amet ab repellendus nesciunt excepturi ipsam vel
-            veniam corrupti deleniti, possimus odit inventore beatae
-            voluptatibus fugit voluptates quasi!
-          </v-card-text>
+          <v-card-text v-text="competition.description"> </v-card-text>
         </v-card>
 
         <v-card class="mt-3">
@@ -39,11 +34,19 @@
         <v-card class="mt-3">
           <v-card-title>Jury</v-card-title>
           <v-card-text>
-            <v-btn v-for="i in 6" :key="i" to="/" text nuxt class="ml-n3 mb-2">
+            <v-btn
+              v-for="(jury, i) in competition.jury"
+              :key="i"
+              :to="userProfileLink(jury.username)"
+              text
+              nuxt
+              class="ml-n3 mb-2"
+              target="_blank"
+            >
               <v-avatar size="36" left class="mr-2" color="blue">
-                <v-img src="" eager></v-img>
+                <v-img :src="jury.profile.picture" eager></v-img>
               </v-avatar>
-              <span>John Doe</span>
+              <span v-text="jury.profile.fullName">John Doe</span>
             </v-btn>
           </v-card-text>
         </v-card>
@@ -53,5 +56,62 @@
 </template>
 
 <script>
-export default {}
+import gql from 'graphql-tag'
+import { unslugify } from '@/static/utils/slugify'
+export default {
+  computed: {
+    competitionName() {
+      const { name } = this.$route.params
+      return unslugify(name)
+    }
+  },
+  asyncData() {
+    return {
+      competition: {
+        name: '',
+        description: '',
+        jury: [
+          {
+            id: '',
+            username: '',
+            profile: {
+              fullName: '',
+              picture: ''
+            }
+          }
+        ]
+      }
+    }
+  },
+  apollo: {
+    competition: {
+      query: gql`
+        query fetchCompetitionInfo($name: String!) {
+          competition(name: $name) {
+            name
+            description
+            jury {
+              id
+              username
+              profile {
+                fullName
+                picture
+              }
+            }
+          }
+        }
+      `,
+      variables() {
+        return {
+          name: this.competitionName
+        }
+      }
+    }
+  },
+  methods: {
+    userProfileLink(username) {
+      return `/u/${username}`
+    }
+  }
+}
 </script>
