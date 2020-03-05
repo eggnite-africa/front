@@ -29,10 +29,19 @@
             </v-btn>
           </v-card-title>
           <v-container>
-            products here... Lorem ipsum dolor sit, amet consectetur adipisicing
-            elit. Placeat, fugiat, repellat animi rerum ullam molestias quam
-            culpa delectus molestiae exercitationem veritatis explicabo modi
-            fugit! Ut molestiae temporibus qui velit quas!
+            <client-only>
+              <product-item
+                v-for="product in competition.products"
+                :key="product.id"
+                :id="product.id"
+                :name="product.name"
+                :logo="product.media.logo"
+                :tagline="product.tagline"
+                :makers="product.makers"
+                :comments="product.comments"
+                :votes="product.votes"
+              ></product-item>
+            </client-only>
           </v-container>
         </v-card>
       </v-col>
@@ -81,8 +90,12 @@
 
 <script>
 import gql from 'graphql-tag'
+import ProductItem from '@/components/ProductItem.vue'
 import { unslugify } from '@/static/utils/slugify'
 export default {
+  components: {
+    ProductItem
+  },
   computed: {
     competitionName() {
       const { name } = this.$route.params
@@ -102,16 +115,8 @@ export default {
       competition: {
         name: '',
         description: '',
-        jury: [
-          {
-            id: '',
-            username: '',
-            profile: {
-              fullName: '',
-              picture: ''
-            }
-          }
-        ]
+        jury: [],
+        products: []
       }
     }
   },
@@ -128,6 +133,30 @@ export default {
               profile {
                 fullName
                 picture
+              }
+            }
+            products {
+              id
+              name
+              tagline
+              media {
+                logo
+              }
+              makers {
+                id
+                username
+                profile {
+                  fullName
+                }
+              }
+              comments {
+                id
+                replies {
+                  id
+                }
+              }
+              votes {
+                userId
               }
             }
           }
