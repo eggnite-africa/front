@@ -3,7 +3,31 @@
     <v-row>
       <v-col cols="12" sm="8" order="1" order-sm="0">
         <v-card>
-          <v-card-title v-text="competitionName"></v-card-title>
+          <v-card-title>
+            {{ competitionName }}
+
+            <v-btn
+              :to="managePage"
+              color="indigo"
+              nuxt
+              depressed
+              outlined
+              small
+              class="ml-auto"
+            >
+              Manage
+            </v-btn>
+            <v-btn
+              :to="editPage"
+              color="indigo"
+              nuxt
+              depressed
+              small
+              class="ml-1"
+            >
+              Edit
+            </v-btn>
+          </v-card-title>
           <v-container>
             products here... Lorem ipsum dolor sit, amet consectetur adipisicing
             elit. Placeat, fugiat, repellat animi rerum ullam molestias quam
@@ -63,6 +87,14 @@ export default {
     competitionName() {
       const { name } = this.$route.params
       return unslugify(name)
+    },
+    editPage() {
+      const { name } = this.$route.params
+      return name + '/edit'
+    },
+    managePage() {
+      const { name } = this.$route.params
+      return name + '/manage'
     }
   },
   asyncData() {
