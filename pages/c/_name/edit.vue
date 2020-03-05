@@ -1,6 +1,12 @@
 <template>
   <v-container>
     <v-card>
+      <snackbar-message
+        :display="display"
+        :message="message"
+        :isErr="isErr"
+        :delay="delay"
+      ></snackbar-message>
       <v-card-title>Edit {{ competitionName }}</v-card-title>
       <v-card-text>
         <competition-page-post
@@ -9,7 +15,7 @@
           :init-description="competition.description"
           :init-jury="competition.jury"
           :init-mods="competition.moderators"
-          @update-competition="updateCompetition($event)"
+          @update-competition="handleCompetition($event)"
           submit-label="update"
         ></competition-page-post>
       </v-card-text>
@@ -21,10 +27,20 @@
 import gql from 'graphql-tag'
 import { unslugify } from '@/static/utils/slugify'
 import CompetitionPagePost from '@/components/CompetitionsPagePost.vue'
+import SnackbarMessage from '@/components/shared/SnackbarMessage.vue'
 export default {
   name: 'CompetitionEditPage',
   components: {
-    CompetitionPagePost
+    CompetitionPagePost,
+    SnackbarMessage
+  },
+  data() {
+    return {
+      display: false,
+      message: '',
+      isErr: false,
+      delay: 0
+    }
   },
   computed: {
     competitionName() {
@@ -105,6 +121,20 @@ export default {
           updatedCompetition
         }
       })
+    },
+    async handleCompetition(competition) {
+      try {
+        await this.updateCompetition(competition)
+        this.message = 'The competition was updated'
+        this.isErr = false
+      } catch (e) {
+        this.message = 'There was a problem updating the competition'
+        this.isErr = true
+      } finally {
+        this.delay = 3000
+        this.display = true
+        setTimeout(() => (this.display = false), this.delay)
+      }
     }
   }
 }
