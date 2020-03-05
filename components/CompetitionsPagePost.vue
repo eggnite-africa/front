@@ -9,6 +9,7 @@
       />
     </v-row>
     <v-text-field
+      v-if="initName === ''"
       v-model="name"
       @input="$v.name.$touch()"
       @blur="$v.name.$touch()"
@@ -29,6 +30,7 @@
       key="mods"
       @update-users="updateField('moderators', $event)"
       @is-invalid="updateField('isInvalidMods', $event)"
+      :init-users="initMods"
       label="Moderators"
     ></users-list>
     <users-list
@@ -36,6 +38,7 @@
       key="juries"
       @update-users="updateField('jury', $event)"
       @is-invalid="updateField('isInvalidJury', $event)"
+      :init-users="initJury"
       label="Juries"
     ></users-list>
     <div class="d-flex justify-end">
@@ -136,12 +139,13 @@ export default {
         this.logoError = 'a logo is required'
         return
       }
+      const getUsersIds = (arr) => arr.map((u) => u.id)
       const competition = {
         logo: this.logo,
         name: this.name,
         description: this.description,
-        moderators: this.moderators,
-        jury: this.jury
+        moderators: getUsersIds(this.moderators),
+        jury: getUsersIds(this.jury)
       }
       this.$emit('update-competition', competition)
     }

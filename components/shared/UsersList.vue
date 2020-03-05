@@ -59,11 +59,15 @@ export default {
     label: {
       type: String,
       required: true
+    },
+    initUsers: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
-      selectedUsers: [],
+      selectedUsers: this.initUsers,
       users: [
         {
           id: '',
