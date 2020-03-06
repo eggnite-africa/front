@@ -25,6 +25,23 @@
       label="Description"
       outlined
     ></v-textarea>
+    <v-row>
+      <v-col align-self="start">
+        <date-field
+          :init-date="startDate"
+          @update-date="updateField('startDate', $event)"
+          label="Start"
+        ></date-field>
+      </v-col>
+      <v-col>
+        <date-field
+          :initDate="endDate"
+          @update-date="updateField('endDate', $event)"
+          :min="startDate"
+          label="End"
+        ></date-field>
+      </v-col>
+    </v-row>
     <users-list
       ref="modsComponent"
       key="mods"
@@ -58,10 +75,12 @@
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import CompetitionLogo from '@/components/shared/SingleImageUpload.vue'
 import UsersList from '@/components/shared/UsersList.vue'
+import DateField from '@/components/shared/DateField.vue'
 export default {
   components: {
     CompetitionLogo,
-    UsersList
+    UsersList,
+    DateField
   },
   props: {
     submitLabel: {
@@ -87,6 +106,14 @@ export default {
     initJury: {
       type: Array,
       default: () => []
+    },
+    initStartDate: {
+      type: String,
+      default: ''
+    },
+    initEndDate: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -96,6 +123,8 @@ export default {
       description: this.initDescription,
       moderators: this.initMods,
       jury: this.initJury,
+      startDate: this.initStartDate.split('T')[0],
+      endDate: this.initEndDate.split('T')[0],
       isInvalidJury: null,
       isInvalidMods: null,
       logoError: ''
