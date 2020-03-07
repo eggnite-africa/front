@@ -24,6 +24,8 @@
       :error-messages="descriptionErrors"
       label="Description"
       outlined
+      counter="280"
+      rows="4"
     ></v-textarea>
     <v-row>
       <v-col align-self="start">
@@ -168,13 +170,14 @@ export default {
         this.logoError = 'a logo is required'
         return
       }
-      const getUsersIds = (arr) => arr.map((u) => u.id)
       const competition = {
         logo: this.logo,
         name: this.name,
         description: this.description,
-        moderators: getUsersIds(this.moderators),
-        jury: getUsersIds(this.jury)
+        moderators: this.moderators,
+        jury: this.jury,
+        startDate: this.startDate,
+        endDate: this.endDate
       }
       this.$emit('update-competition', competition)
     }
