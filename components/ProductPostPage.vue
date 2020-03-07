@@ -78,6 +78,14 @@
           ></product-makers-field>
         </v-col>
       </v-row>
+      <v-row>
+        <v-col>
+          <product-competition-field
+            :competition="productCompetition"
+            @update-competition="updateField('competition', $event)"
+          ></product-competition-field>
+        </v-col>
+      </v-row>
       <v-row dense>
         <v-spacer></v-spacer>
         <v-btn color="secondary" type="submit" depressed><slot></slot></v-btn>
@@ -98,6 +106,7 @@ import ImagesUploader from '@/components/shared/MultipleImageUploader.vue'
 import LogoUploader from '@/components/shared/SingleImageUpload.vue'
 import ProductLinks from '@/components/ProductPostPageLinks.vue'
 import ProductMakersField from '@/components/ProductPostPageProductMakers.vue'
+import ProductCompetitionField from '@/components/ProductPostPageCompetitionsList.vue'
 
 export default {
   name: 'ProductPostPage',
@@ -105,7 +114,8 @@ export default {
     ImagesUploader,
     LogoUploader,
     ProductLinks,
-    ProductMakersField
+    ProductMakersField,
+    ProductCompetitionField
   },
   props: {
     onSubmit: {
@@ -143,6 +153,10 @@ export default {
     productLinks: {
       type: Object,
       default: null
+    },
+    productCompetition: {
+      type: Object,
+      default: null
     }
   },
   validations: {
@@ -177,7 +191,8 @@ export default {
       logo: this.productLogo,
       pictures: this.productPictures,
       links: this.productLinks,
-      makers: this.productMakers
+      makers: this.productMakers,
+      competition: this.productCompetition
     }
   },
   computed: {
@@ -216,18 +231,21 @@ export default {
     }
   },
   methods: {
+    updateField(fieldName, value) {
+      this[fieldName] = value
+    },
     updateLogo(value) {
-      this.logo = value
+      this.updateField('logo', value)
     },
     updatePictures({ pictures, invalid }) {
-      this.pictures = pictures
+      this.updateField('pictures', pictures)
       this.imagesFieldInvalid = invalid
     },
     updateMakers(value) {
-      this.makers = value
+      this.updateField('makers', value)
     },
     updateLinks({ links, invalid }) {
-      this.links = { ...links }
+      this.updateField('links', { ...links })
       this.linksFieldInvalid = invalid
     },
     beforeSubmit() {
@@ -257,7 +275,8 @@ export default {
           pictures: [...this.pictures]
         },
         links,
-        makersIds: [...this.makers]
+        makersIds: [...this.makers],
+        competitionId: this.competition
       }
       this.$emit('update-product', packagedProduct)
       this.onSubmit()
