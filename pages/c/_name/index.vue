@@ -148,6 +148,7 @@ export default {
                 username
                 profile {
                   fullName
+                  picture
                 }
               }
               comments {
