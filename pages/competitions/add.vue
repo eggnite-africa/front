@@ -15,6 +15,7 @@
 
 <script>
 import gql from 'graphql-tag'
+import { slugify } from '@/static/utils/slugify'
 import CompetitionPagePost from '@/components/CompetitionsPagePost.vue'
 export default {
   name: 'CompetitionPageAdd',
@@ -23,18 +24,26 @@ export default {
   },
   methods: {
     async addCompetition(newCompetition) {
-      await this.$apollo.mutate({
-        mutation: gql`
-          mutation addCompetition($newCompetition: NewCompetitionInput!) {
-            addCompetition(newCompetition: $newCompetition) {
-              name
+      try {
+        await this.$apollo
+          .mutate({
+            mutation: gql`
+              mutation addCompetition($newCompetition: NewCompetitionInput!) {
+                addCompetition(newCompetition: $newCompetition) {
+                  id
+                  name
+                }
+              }
+            `,
+            variables: {
+              newCompetition
             }
-          }
-        `,
-        variables: {
-          newCompetition
-        }
-      })
+          })
+          .then(({ data: { addCompetition } }) => {
+            const { name } = addCompetition
+            this.$router.replace(`/c/${slugify(name)}`)
+          })
+      } catch (e) {}
     }
   }
 }
