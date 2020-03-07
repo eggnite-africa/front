@@ -6,27 +6,28 @@
           <v-card-title>
             {{ competitionName }}
 
-            <v-btn
-              :to="managePage"
-              color="indigo"
-              nuxt
-              depressed
-              outlined
-              small
-              class="ml-auto"
-            >
-              Manage
-            </v-btn>
-            <v-btn
-              :to="editPage"
-              color="indigo"
-              nuxt
-              depressed
-              small
-              class="ml-1"
-            >
-              Edit
-            </v-btn>
+            <div class="ml-auto">
+              <v-btn
+                :to="managePage"
+                color="indigo"
+                nuxt
+                depressed
+                outlined
+                small
+              >
+                Manage
+              </v-btn>
+              <v-btn
+                :to="editPage"
+                color="indigo"
+                nuxt
+                depressed
+                small
+                class="ml-1"
+              >
+                Edit
+              </v-btn>
+            </div>
           </v-card-title>
           <v-container>
             <client-only>
@@ -107,7 +108,7 @@ export default {
     },
     managePage() {
       const { name } = this.$route.params
-      return name + '/manage'
+      return name + '/manage/overview'
     }
   },
   asyncData() {
