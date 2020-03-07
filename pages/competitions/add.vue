@@ -8,8 +8,13 @@
           submit-label="Add Competition"
         ></competition-page-post>
       </v-card-text>
-      <v-card-actions></v-card-actions>
     </v-card>
+    <snackbar-message
+      :delay="delay"
+      :display="display"
+      :isErr="isErr"
+      :message="message"
+    ></snackbar-message>
   </v-container>
 </template>
 
@@ -17,10 +22,20 @@
 import gql from 'graphql-tag'
 import { slugify } from '@/static/utils/slugify'
 import CompetitionPagePost from '@/components/CompetitionsPagePost.vue'
+import SnackbarMessage from '@/components/shared/SnackbarMessage.vue'
 export default {
   name: 'CompetitionPageAdd',
   components: {
-    CompetitionPagePost
+    CompetitionPagePost,
+    SnackbarMessage
+  },
+  data() {
+    return {
+      delay: 3000,
+      display: false,
+      isErr: false,
+      message: ''
+    }
   },
   methods: {
     async addCompetition(newCompetition) {
@@ -43,7 +58,11 @@ export default {
             const { name } = addCompetition
             this.$router.replace(`/c/${slugify(name)}`)
           })
-      } catch (e) {}
+      } catch (e) {
+        this.message = 'There was an error adding the competition'
+        this.isErr = this.display = true
+        setTimeout(() => (this.display = !this.display), this.delay)
+      }
     }
   }
 }
