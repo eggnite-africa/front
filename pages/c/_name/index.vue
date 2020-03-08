@@ -62,12 +62,13 @@
             <v-btn
               v-for="organizer in competition.organizers"
               :key="organizer.name"
-              :to="organizer.website"
+              :href="organizer.website"
+              target="_blank"
               text
               nuxt
               class="ml-n3"
             >
-              <v-avatar size="36" left class="mr-2" color="blue">
+              <v-avatar size="36" left class="mr-2">
                 <v-img :src="organizer.logo" eager></v-img>
               </v-avatar>
               <span v-text="organizer.name"></span>
@@ -87,7 +88,7 @@
               class="ml-n3 mb-2"
               target="_blank"
             >
-              <v-avatar size="36" left class="mr-2" color="blue">
+              <v-avatar size="36" left class="mr-2">
                 <v-img :src="jury.profile.picture" eager></v-img>
               </v-avatar>
               <span v-text="jury.profile.fullName">John Doe</span>
