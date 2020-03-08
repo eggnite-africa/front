@@ -59,11 +59,18 @@
         <v-card class="mt-3">
           <v-card-title>Organized by</v-card-title>
           <v-card-text>
-            <v-btn to="/" text nuxt class="ml-n3">
+            <v-btn
+              v-for="organizer in competition.organizers"
+              :key="organizer.name"
+              :to="organizer.website"
+              text
+              nuxt
+              class="ml-n3"
+            >
               <v-avatar size="36" left class="mr-2" color="blue">
-                <v-img src="" eager></v-img>
+                <v-img :src="organizer.logo" eager></v-img>
               </v-avatar>
-              <span>Collège LaSalle</span>
+              <span v-text="organizer.name"></span>
             </v-btn>
           </v-card-text>
         </v-card>
@@ -120,7 +127,8 @@ export default {
         name: '',
         description: '',
         jury: [],
-        products: []
+        products: [],
+        organizers: []
       }
     }
   },
@@ -140,6 +148,11 @@ export default {
                 fullName
                 picture
               }
+            }
+            organizers {
+              name
+              logo
+              website
             }
             products {
               id
