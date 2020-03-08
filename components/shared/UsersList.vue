@@ -67,7 +67,7 @@ export default {
   },
   data() {
     return {
-      selectedUsers: this.initUsers,
+      selectedUsers: this.initUsers.map(({ id }) => id),
       users: [
         {
           id: '',
