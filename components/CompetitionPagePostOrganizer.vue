@@ -62,7 +62,7 @@ export default {
         name: this.name,
         website: this.website
       }
-      if (organizer) this.$emit('update-organizer', organizer)
+      this.$emit('update-organizer', organizer)
     }
   }
 }

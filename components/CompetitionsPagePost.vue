@@ -47,8 +47,8 @@
     <div v-for="i of 3" :key="i" class="my-2">
       <header class="mb-3 body-2">Organizer #{{ i }}</header>
       <organizer-field
-        :init-organizer="organizers[i]"
-        @update-organizer="updateOrganizers($event, i)"
+        :init-organizer="organizers[i - 1]"
+        @update-organizer="updateOrganizers($event, i - 1)"
       ></organizer-field>
     </div>
     <users-list
@@ -172,7 +172,13 @@ export default {
       this[fieldName] = value
     },
     updateOrganizers(organizer, i) {
-      this.organizers[i] = organizer
+      let organizers = this.organizers
+      if (!organizer.name && !organizer.logo && !organizer.website) {
+        organizers = organizers.filter((o) => !o.name)
+      } else {
+        organizers[i] = organizer
+      }
+      this.organizers = [...organizers]
     },
     beforeSubmit() {
       this.$v.$touch()
