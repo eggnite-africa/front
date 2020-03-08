@@ -65,7 +65,6 @@
               :href="organizer.website"
               target="_blank"
               text
-              nuxt
               class="ml-n3"
             >
               <v-avatar size="36" left class="mr-2">
