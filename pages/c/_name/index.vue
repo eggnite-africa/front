@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12" sm="8" order="1" order-sm="0">
-        <v-card>
+        <v-card v-if="!$apollo.loading">
           <v-card-title>
             {{ competitionName }}
 

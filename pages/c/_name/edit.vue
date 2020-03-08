@@ -10,6 +10,7 @@
       <v-card-title>Edit {{ competitionName }}</v-card-title>
       <v-card-text>
         <competition-page-post
+          v-if="!$apollo.loading"
           :init-logo="competition.logo"
           :init-name="competition.name"
           :init-description="competition.description"
