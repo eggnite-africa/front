@@ -50,8 +50,8 @@
         <v-card>
           <v-card-title>Description</v-card-title>
           <v-card-subtitle>
-            {{ $dateFns.format(competition.startDate, 'MMMM, do yyyy') }} -
-            {{ $dateFns.format(competition.endDate, 'MMMM, do yyyy') }}
+            {{ prettyDate(competition.startDate) }} -
+            {{ prettyDate(competition.endDate) }}
           </v-card-subtitle>
           <v-card-text v-text="competition.description"> </v-card-text>
         </v-card>
@@ -179,6 +179,9 @@ export default {
   methods: {
     userProfileLink(username) {
       return `/u/${username}`
+    },
+    prettyDate(date) {
+      return this.$dateFns.format(date, 'MMMM, do yyyy')
     }
   }
 }
