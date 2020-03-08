@@ -1,7 +1,7 @@
 <template>
   <v-snackbar v-model="show" :timeout="delay">
-    <v-icon :color="err ? 'red' : 'green'" left dense>
-      {{ err ? 'mdi-close' : 'mdi-check' }}
+    <v-icon :color="isErr ? 'red' : 'green'" left dense>
+      {{ isErr ? 'mdi-close' : 'mdi-check' }}
     </v-icon>
     {{ message }}
     <v-btn @click.stop="show = !show" text color="red">
@@ -33,8 +33,7 @@ export default {
   },
   data() {
     return {
-      show: this.display,
-      err: this.isErr
+      show: this.display
     }
   },
   watch: {
