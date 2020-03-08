@@ -44,6 +44,13 @@
         ></date-field>
       </v-col>
     </v-row>
+    <div v-for="i of 3" :key="i" class="my-2">
+      <header class="mb-3 body-2">Organizer #{{ i }}</header>
+      <organizer-field
+        :init-organizer="organizers[i]"
+        @update-organizer="updateOrganizers($event, i)"
+      ></organizer-field>
+    </div>
     <users-list
       ref="modsComponent"
       key="mods"
@@ -78,11 +85,13 @@ import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import CompetitionLogo from '@/components/shared/SingleImageUpload.vue'
 import UsersList from '@/components/shared/UsersList.vue'
 import DateField from '@/components/shared/DateField.vue'
+import OrganizerField from '@/components/CompetitionPagePostOrganizer.vue'
 export default {
   components: {
     CompetitionLogo,
     UsersList,
-    DateField
+    DateField,
+    OrganizerField
   },
   props: {
     submitLabel: {
@@ -116,6 +125,10 @@ export default {
     initEndDate: {
       type: String,
       default: ''
+    },
+    initOrganizers: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -127,6 +140,7 @@ export default {
       jury: this.initJury,
       startDate: this.initStartDate.split('T')[0],
       endDate: this.initEndDate.split('T')[0],
+      organizers: this.initOrganizers,
       isInvalidJury: null,
       isInvalidMods: null,
       logoError: ''
@@ -157,6 +171,9 @@ export default {
     updateField(fieldName, value) {
       this[fieldName] = value
     },
+    updateOrganizers(organizer, i) {
+      this.organizers[i] = organizer
+    },
     beforeSubmit() {
       this.$v.$touch()
       this.$refs.modsComponent.validate()
@@ -177,7 +194,8 @@ export default {
         moderators: this.moderators,
         jury: this.jury,
         startDate: this.startDate,
-        endDate: this.endDate
+        endDate: this.endDate,
+        organizers: this.organizers
       }
       this.$emit('update-competition', competition)
     }

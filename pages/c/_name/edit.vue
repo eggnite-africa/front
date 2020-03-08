@@ -15,6 +15,7 @@
           :init-description="competition.description"
           :init-jury="competition.jury"
           :init-mods="competition.moderators"
+          :init-organizers="competition.organizers"
           @update-competition="handleCompetition($event)"
           submit-label="update"
         ></competition-page-post>
@@ -54,12 +55,9 @@ export default {
         name: '',
         logo: '',
         description: '',
-        jury: [
-          { id: '', username: '', profile: { fullName: '', picture: '' } }
-        ],
-        moderators: [
-          { id: '', username: '', profile: { fullName: '', picture: '' } }
-        ]
+        jury: [],
+        moderators: [],
+        organizers: []
       }
     }
   },
@@ -87,6 +85,11 @@ export default {
                 fullName
                 picture
               }
+            }
+            organizers {
+              name
+              logo
+              website
             }
           }
         }
