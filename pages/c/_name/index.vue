@@ -49,7 +49,10 @@
       <v-col cols="12" sm="4">
         <v-card>
           <v-card-title>Description</v-card-title>
-          <v-card-subtitle>Start - End</v-card-subtitle>
+          <v-card-subtitle>
+            {{ $dateFns.format(competition.startDate, 'MMMM, do yyyy') }} -
+            {{ $dateFns.format(competition.endDate, 'MMMM, do yyyy') }}
+          </v-card-subtitle>
           <v-card-text v-text="competition.description"> </v-card-text>
         </v-card>
 
@@ -128,6 +131,8 @@ export default {
           competition(name: $name) {
             name
             description
+            startDate
+            endDate
             jury {
               id
               username
