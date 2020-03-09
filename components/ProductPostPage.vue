@@ -81,7 +81,7 @@
       <v-row>
         <v-col>
           <product-competition-field
-            :competition="productCompetition"
+            :init-competition="productCompetition"
             @update-competition="updateField('competition', $event)"
           ></product-competition-field>
         </v-col>

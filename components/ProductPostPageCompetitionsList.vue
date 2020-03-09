@@ -53,14 +53,14 @@ import gql from 'graphql-tag'
 export default {
   name: 'ProductPostPageCompetitionsList',
   props: {
-    competition: {
+    initCompetition: {
       type: Object,
       default: null
     }
   },
   data() {
     return {
-      selectedCompetition: this.competition,
+      selectedCompetition: this.initCompetition,
       competitionsList: {
         competitions: []
       }
