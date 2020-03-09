@@ -21,6 +21,7 @@
           :product-pictures="product.media.pictures"
           :product-links="product.links"
           :product-makers="product.makers"
+          :product-competition="product.competition"
           :on-submit="onSubmit"
           @update-product="getProduct($event)"
         >
@@ -65,14 +66,19 @@ export default {
         description: '',
         media: {
           logo: '',
-          pictures: ['']
+          pictures: []
         },
-        makers: [{ id: '' }],
+        makers: [],
         links: {
           website: '',
           github: '',
           appStore: '',
           playStore: ''
+        },
+        competition: {
+          id: '',
+          name: '',
+          logo: ''
         }
       }
     }
@@ -132,6 +138,11 @@ export default {
               github
               appStore
               playStore
+            }
+            competition {
+              id
+              name
+              logo
             }
           }
         }
