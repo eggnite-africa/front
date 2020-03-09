@@ -17,6 +17,8 @@
           :init-jury="competition.jury"
           :init-mods="competition.moderators"
           :init-organizers="competition.organizers"
+          :init-start-date="competition.startDate"
+          :init-end-date="competition.endDate"
           @update-competition="handleCompetition($event)"
           submit-label="update"
         ></competition-page-post>
@@ -70,6 +72,8 @@ export default {
             id
             logo
             name
+            startDate
+            endDate
             description
             jury {
               id
