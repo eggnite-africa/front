@@ -203,6 +203,10 @@ export default {
         endDate: this.endDate,
         organizers: this.organizers
       }
+      competition.organizers = competition.organizers.map((o) => {
+        const { __typename, ...rest } = o
+        return rest
+      })
       this.$emit('update-competition', competition)
     }
   },

@@ -68,16 +68,7 @@ export default {
   data() {
     return {
       selectedUsers: this.initUsers.map(({ id }) => id),
-      users: [
-        {
-          id: '',
-          username: '',
-          profile: {
-            picture: '',
-            fullName: ''
-          }
-        }
-      ]
+      users: []
     }
   },
   validations: {
