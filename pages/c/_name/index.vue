@@ -188,7 +188,8 @@ export default {
         return {
           name: this.competitionName
         }
-      }
+      },
+      fetchPolicy: 'network-only'
     }
   },
   methods: {
