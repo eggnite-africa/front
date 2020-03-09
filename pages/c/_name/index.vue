@@ -128,7 +128,9 @@ export default {
         description: '',
         jury: [],
         products: [],
-        organizers: []
+        organizers: [],
+        startDate: '1999',
+        endDate: '1999'
       }
     }
   },
