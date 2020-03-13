@@ -1,26 +1,28 @@
 <template>
   <div>
-    <MenuLoggedIn v-if="isLoggedIn" :user-id="userId" />
-    <template v-else>
-      <v-dialog v-model="loginDialog" persistent max-width="300">
-        <template #activator="{ on }">
-          <v-btn v-on="on" color="blue" outlined depressed>
-            login
-          </v-btn>
-        </template>
-        <Login @close-dialog="loginDialog = false" />
-      </v-dialog>
-      <span class="hidden-xs-only">
-        <v-dialog v-model="joinDialog" persistent max-width="300">
+    <client-only>
+      <MenuLoggedIn v-if="isLoggedIn" :user-id="userId" />
+      <template v-else>
+        <v-dialog v-model="loginDialog" persistent max-width="300">
           <template #activator="{ on }">
-            <v-btn v-on="on" color="green" depressed>
-              join
+            <v-btn v-on="on" color="blue" outlined depressed>
+              login
             </v-btn>
           </template>
-          <Join @close-dialog="joinDialog = false" />
+          <Login @close-dialog="loginDialog = false" />
         </v-dialog>
-      </span>
-    </template>
+        <span class="hidden-xs-only">
+          <v-dialog v-model="joinDialog" persistent max-width="300">
+            <template #activator="{ on }">
+              <v-btn v-on="on" color="green" depressed>
+                join
+              </v-btn>
+            </template>
+            <Join @close-dialog="joinDialog = false" />
+          </v-dialog>
+        </span>
+      </template>
+    </client-only>
   </div>
 </template>
 

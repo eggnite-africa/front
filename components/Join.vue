@@ -20,11 +20,12 @@
     <v-container>
       <form>
         <v-text-field
-          v-model.trim="fullName"
-          :error-messages="fullNameErrors"
-          @input="$v.fullName.$touch()"
-          @blur="$v.fullName.$touch()"
-          label="Full name"
+          v-model.trim="email"
+          :error-messages="emailErrors"
+          @input="$v.email.$touch()"
+          @blur="$v.email.$touch()"
+          label="Email"
+          type="email"
           outlined
         ></v-text-field>
 
@@ -67,7 +68,7 @@
 <script>
 import gql from 'graphql-tag'
 import { mapActions, mapMutations } from 'vuex'
-import { required, minLength, alphaNum } from 'vuelidate/lib/validators'
+import { required, minLength, alphaNum, email } from 'vuelidate/lib/validators'
 
 export default {
   name: 'JoinUs',
@@ -76,8 +77,9 @@ export default {
       username: '',
       password: '',
       passwordConfirmation: '',
-      fullName: '',
-      usernameExists: false
+      email: '',
+      usernameExists: false,
+      emailExists: false
     }
   },
   computed: {
@@ -92,12 +94,12 @@ export default {
         errors.push('username contains invalids characters')
       return errors
     },
-    fullNameErrors() {
+    emailErrors() {
       const errors = []
-      if (!this.$v.fullName.$dirty) return errors
-      !this.$v.fullName.required && errors.push('full name is required')
-      !this.$v.fullName.minLength &&
-        errors.push('full name should be at least 3 characters long')
+      if (!this.$v.email.$dirty) return errors
+      !this.$v.email.required && errors.push('email is required')
+      !this.$v.email.email && errors.push('email is invalid')
+      !this.$v.email.isUnique && errors.push('email is already in use')
       return errors
     },
     passwordErrors() {
@@ -127,9 +129,13 @@ export default {
     //   required,
     //   sameAsPassword: sameAs('password')
     // },
-    fullName: {
+    email: {
       required,
-      minLength: minLength(3)
+      email,
+      isUnique(v) {
+        if (v === '') return !this.emailExists
+        return !this.emailExists
+      }
     },
     username: {
       required,
@@ -155,6 +161,22 @@ export default {
       },
       skip() {
         return this.username.length < 2
+      },
+      fetchPolicy: 'network-only'
+    },
+    emailExists: {
+      query: gql`
+        query checkEmailUniqueness($email: String!) {
+          emailExists: checkEmailExistance(email: $email)
+        }
+      `,
+      variables() {
+        return {
+          email: this.email
+        }
+      },
+      skip() {
+        return this.email.length < 5
       },
       fetchPolicy: 'network-only'
     }
@@ -190,10 +212,7 @@ export default {
             userInput: {
               username: this.username,
               email: this.email,
-              password: this.password,
-              profile: {
-                fullName: this.fullName
-              }
+              password: this.password
             }
           }
         })

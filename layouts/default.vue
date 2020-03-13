@@ -22,23 +22,13 @@
             {{ item.name }}
           </nuxt-link>
         </v-badge>
-        <v-btn
-          v-for="link of socialLinks"
-          :key="link.name"
-          :href="link.link"
-          class="ml-1"
-          icon
-          small
-          target="_blank"
-        >
-          <v-icon v-text="link.icon"></v-icon>
-        </v-btn>
       </div>
       <v-spacer />
       <Menu />
     </v-app-bar>
 
     <v-content>
+      <AnnoucementBanner :content="alert.content" :link="alert.link" />
       <v-container fluid>
         <nuxt />
       </v-container>
@@ -59,17 +49,16 @@
           </span>
         </v-col>
         <v-col class="d-flex justify-end align-center">
-          <nuxt-link to="/about" class="menu-link overline">About</nuxt-link>
-          <v-btn
-            v-for="link of socialLinks"
-            :key="link.name"
-            :href="link.link"
-            icon
-            small
-            target="_blank"
-          >
-            <v-icon v-text="link.icon"></v-icon>
-          </v-btn>
+          <v-badge color="red" dot overlap bordered>
+            <nuxt-link
+              v-for="item in items"
+              :to="item.link"
+              :key="item.name"
+              class="menu-link overline"
+            >
+              {{ item.name }}
+            </nuxt-link>
+          </v-badge>
         </v-col>
       </v-row>
     </v-footer>
@@ -80,15 +69,22 @@
 import Menu from '@/components/Menu.vue'
 import Search from '@/components/MenuSearch.vue'
 import Feedback from '@/components/Feedback.vue'
+import AnnoucementBanner from '@/components/AnnouncementBanner.vue'
 
 export default {
   components: {
     Menu,
     Search,
-    Feedback
+    Feedback,
+    AnnoucementBanner
   },
   data() {
     return {
+      alert: {
+        content:
+          "From now on, I'll be building everything in public and sharing progress with you. Make sure to follow me though!",
+        link: 'https://karimdxy.github.io/building-in-public'
+      },
       title: 'Eggnite',
       items: [
         {
@@ -100,7 +96,7 @@ export default {
           link: '/competitions'
         },
         {
-          name: 'Resources for makers',
+          name: 'For makers',
           link: '/resources'
         }
         // {
