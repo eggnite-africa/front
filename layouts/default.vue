@@ -22,17 +22,6 @@
             {{ item.name }}
           </nuxt-link>
         </v-badge>
-        <v-btn
-          v-for="link of socialLinks"
-          :key="link.name"
-          :href="link.link"
-          class="ml-1"
-          icon
-          small
-          target="_blank"
-        >
-          <v-icon v-text="link.icon"></v-icon>
-        </v-btn>
       </div>
       <v-spacer />
       <Menu />
@@ -60,16 +49,6 @@
         </v-col>
         <v-col class="d-flex justify-end align-center">
           <nuxt-link to="/about" class="menu-link overline">About</nuxt-link>
-          <v-btn
-            v-for="link of socialLinks"
-            :key="link.name"
-            :href="link.link"
-            icon
-            small
-            target="_blank"
-          >
-            <v-icon v-text="link.icon"></v-icon>
-          </v-btn>
         </v-col>
       </v-row>
     </v-footer>
