@@ -28,7 +28,7 @@
     </v-app-bar>
 
     <v-content>
-      <AnnoucementBanner :content="alertContent" />
+      <AnnoucementBanner :content="alert.content" :link="alert.link" />
       <v-container fluid>
         <nuxt />
       </v-container>
@@ -80,8 +80,11 @@ export default {
   },
   data() {
     return {
-      alertContent:
-        "From now on, I'll be building everything in public and sharing progress with you.",
+      alert: {
+        content:
+          "From now on, I'll be building everything in public and sharing progress with you. Make sure to follow me though!",
+        link: 'https://karimdxy.github.io/building-in-public'
+      },
       title: 'Eggnite',
       items: [
         {
