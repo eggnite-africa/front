@@ -28,6 +28,7 @@
     </v-app-bar>
 
     <v-content>
+      <AnnoucementBanner :content="alertContent" />
       <v-container fluid>
         <nuxt />
       </v-container>
@@ -68,15 +69,19 @@
 import Menu from '@/components/Menu.vue'
 import Search from '@/components/MenuSearch.vue'
 import Feedback from '@/components/Feedback.vue'
+import AnnoucementBanner from '@/components/AnnouncementBanner.vue'
 
 export default {
   components: {
     Menu,
     Search,
-    Feedback
+    Feedback,
+    AnnoucementBanner
   },
   data() {
     return {
+      alertContent:
+        "From now on, I'll be building everything in public and sharing progress with you.",
       title: 'Eggnite',
       items: [
         {
