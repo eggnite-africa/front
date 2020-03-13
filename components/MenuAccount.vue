@@ -62,7 +62,7 @@ export default {
           link: this.userProfileLink
         },
         {
-          icon: 'mdi-settings',
+          icon: 'mdi-cog-outline',
           name: 'Settings',
           link: `${this.userProfileLink}/settings/account`
         }
