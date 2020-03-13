@@ -22,6 +22,11 @@
             {{ item.name }}
           </nuxt-link>
         </v-badge>
+        <v-badge content="Upcoming" overlap offset-y="5" offset-x="15">
+          <nuxt-link to="competitions" class="menu-link overline">
+            Competitions
+          </nuxt-link>
+        </v-badge>
       </div>
       <v-spacer />
       <Menu />
