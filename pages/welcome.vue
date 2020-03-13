@@ -44,8 +44,8 @@
               target="_blank"
               large
             >
-              Join the conversation on slack
-              <v-icon right dense>mdi-slack</v-icon>
+              Join the chat on slack
+              <v-icon right dense>mdi-forum</v-icon>
             </v-btn>
           </v-col>
         </v-row>
