@@ -8,7 +8,7 @@
       rel="noreferrer noopener"
       small
     >
-      <v-icon>mdi-facebook-box</v-icon>
+      <v-icon>mdi-facebook</v-icon>
     </v-btn>
     <v-btn
       v-if="!!twitter"
@@ -18,7 +18,7 @@
       rel="noreferrer noopener"
       small
     >
-      <v-icon>mdi-twitter-box</v-icon>
+      <v-icon>mdi-twitter</v-icon>
     </v-btn>
     <v-btn
       v-if="!!linkedin"
@@ -28,7 +28,7 @@
       rel="noreferrer noopener"
       small
     >
-      <v-icon>mdi-linkedin-box</v-icon>
+      <v-icon>mdi-linkedin</v-icon>
     </v-btn>
   </div>
 </template>
