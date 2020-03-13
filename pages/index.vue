@@ -2,21 +2,31 @@
   <div>
     <v-container>
       <div v-if="!$apollo.loading">
-        <v-row
-          v-for="product in productsList.products"
-          :key="product.id"
-          justify="center"
-          align="center"
-        >
-          <v-col>
-            <product-item :product-id="product.id"></product-item>
-          </v-col>
-        </v-row>
+        <client-only>
+          <v-row
+            v-for="product in productsList.products"
+            :key="product.id"
+            justify="center"
+            align="center"
+          >
+            <v-col>
+              <product-item
+                :id="product.id"
+                :logo="product.media.logo"
+                :name="product.name"
+                :tagline="product.tagline"
+                :makers="product.makers"
+                :votes="product.votes"
+                :comments="product.comments"
+              ></product-item>
+            </v-col>
+          </v-row>
+        </client-only>
         <v-row>
           <v-col cols="12" class="d-flex justify-center">
-            <v-btn v-if="productsList.hasMore" @click="showMore()"
-              >See more</v-btn
-            >
+            <v-btn v-if="productsList.hasMore" @click="showMore()">
+              See more
+            </v-btn>
             <v-btn
               v-else
               @click.stop="openLoginDialog()"
@@ -65,7 +75,36 @@ export default {
       productsList: {
         products: [
           {
-            id: ''
+            id: '',
+            name: '',
+            tagline: '',
+            media: {
+              logo: ''
+            },
+            makers: [
+              {
+                username: '',
+                profile: {
+                  fullName: '',
+                  picture: ''
+                }
+              }
+            ],
+            votes: [
+              {
+                userId: ''
+              }
+            ],
+            comments: [
+              {
+                id: '',
+                replies: [
+                  {
+                    id: ''
+                  }
+                ]
+              }
+            ]
           }
         ],
         hasMore: ''
@@ -79,6 +118,27 @@ export default {
           productsList(page: $page) {
             products {
               id
+              name
+              tagline
+              media {
+                logo
+              }
+              makers {
+                username
+                profile {
+                  fullName
+                  picture
+                }
+              }
+              votes {
+                userId
+              }
+              comments {
+                id
+                replies {
+                  id
+                }
+              }
             }
             hasMore
           }

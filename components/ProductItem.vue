@@ -1,150 +1,115 @@
 <template>
-  <v-card
-    @click="navigateToProductPage()"
-    v-if="!$apollo.queries.product.loading"
-  >
-    <v-container>
-      <v-row dense align="center">
-        <v-col cols="3" sm="1" class="mr-sm-8 mr-md-0">
-          <v-avatar size="80">
-            <v-img :src="product.media.logo" contain eager></v-img>
-          </v-avatar>
-        </v-col>
-        <v-col justify-self="start">
-          <v-card-title v-text="product.name"></v-card-title>
-          <v-card-subtitle v-text="product.tagline"></v-card-subtitle>
-          <v-card-text class="ml-n1">
-            <span v-for="(maker, i) in product.makers" :key="i">
-              <product-maker-avatar
-                :maker-username="maker.username"
-                :maker-name="maker.profile.fullName"
-                :maker-picture="makerAvatar(i)"
-              ></product-maker-avatar>
-            </span>
-          </v-card-text>
-        </v-col>
-
-        <v-col cols="5" sm="2" class="hidden-xs-only">
-          <v-card-actions>
-            <v-row dense>
-              <v-col cols="12">
-                <template v-if="!isInSettings">
-                  <v-btn
-                    @click.stop="upvote()"
-                    :outlined="!hasVoted"
-                    color="orange"
-                    block
-                    height="50"
-                  >
-                    <div class="flex-md-column">
-                      <v-icon>mdi-arrow-up-thick</v-icon>
-                      <div v-text="product.votes.length"></div>
-                    </div>
-                  </v-btn>
-                </template>
-                <template v-else>
-                  <v-btn
-                    :to="productEditLink"
-                    color="indigo"
-                    block
-                    depressed
-                    nuxt
-                    >Edit</v-btn
-                  >
-                </template>
-              </v-col>
-              <v-col cols="12">
-                <template v-if="!isInSettings">
-                  <v-btn :to="commentsSection" nuxt outlined block>
-                    <v-icon left>mdi-comment</v-icon>
-                    <span v-text="commentsLength"></span>
-                  </v-btn>
-                </template>
-                <template v-else>
-                  <v-btn
-                    @click.stop="dialog = true"
-                    color="red"
-                    depressed
-                    block
-                  >
-                    Delete
-                  </v-btn>
-                  <v-dialog v-model="dialog" persistent max-width="290">
-                    <v-card>
-                      <v-card-title class="headline"
-                        >Delete {{ product.name }}</v-card-title
-                      >
-
-                      <v-card-text>
-                        Are you sure you want to do this?
-                      </v-card-text>
-
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-
-                        <v-btn @click="dialog = false" text>
-                          No
-                        </v-btn>
-
-                        <v-btn
-                          @click.stop="deleteProduct(product.id)"
-                          color="red darken-1"
-                          text
-                        >
-                          Yes
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </template>
-              </v-col>
-            </v-row>
-          </v-card-actions>
-        </v-col>
-      </v-row>
-    </v-container>
+  <v-card :to="productLink" nuxt link flat>
+    <v-list-item dense class="py-1" two-line>
+      <v-list-item-avatar size="72" left>
+        <v-img :src="logo" eager></v-img>
+      </v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title v-text="name" class="title"></v-list-item-title>
+        <v-list-item-subtitle v-text="tagline"></v-list-item-subtitle>
+        <v-list-item-content>
+          <div>
+            <product-maker-avatar
+              v-for="(maker, i) in makers"
+              :key="i"
+              :maker-username="maker.username"
+              :maker-name="maker.profile.fullName"
+              :maker-picture="makerAvatar(i)"
+            ></product-maker-avatar>
+          </div>
+        </v-list-item-content>
+        <v-list-item-action class="hidden-sm-and-up justify-center">
+          <product-item-action-buttons-settings
+            v-if="isInSettings"
+            :product-edit-link="productEditLink"
+            :product-id="id"
+          >
+          </product-item-action-buttons-settings>
+          <product-item-action-buttons
+            v-else
+            :product-id="id"
+            :comments-count="commentsLength"
+            :votes-count="votes.length"
+            :comments-section="commentsSection"
+            :has-voted="hasVoted"
+          ></product-item-action-buttons>
+        </v-list-item-action>
+      </v-list-item-content>
+      <v-list-item-action class="hidden-xs-only">
+        <product-item-action-buttons-settings
+          v-if="isInSettings"
+          :product-edit-link="productEditLink"
+          :product-id="id"
+        >
+        </product-item-action-buttons-settings>
+        <product-item-action-buttons
+          v-else
+          :product-id="id"
+          :comments-count="commentsLength"
+          :votes-count="votes.length"
+          :comments-section="commentsSection"
+          :has-voted="hasVoted"
+        ></product-item-action-buttons>
+      </v-list-item-action>
+    </v-list-item>
   </v-card>
 </template>
 
 <script>
-import gql from 'graphql-tag'
-import { mapMutations } from 'vuex'
 import ProductMakerAvatar from '@/components/ProductItemMakerAvatar.vue'
+import ProductItemActionButtons from '@/components/ProductItemActionButtons.vue'
+import ProductItemActionButtonsSettings from '@/components/ProductItemActionButtonsSettings.vue'
 export default {
   name: 'ProductItem',
   components: {
-    ProductMakerAvatar
+    ProductMakerAvatar,
+    ProductItemActionButtons,
+    ProductItemActionButtonsSettings
   },
   props: {
-    productId: {
+    id: {
       type: String,
       required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    tagline: {
+      type: String,
+      default: null
+    },
+    makers: {
+      type: Array,
+      default: () => []
+    },
+    logo: {
+      type: String,
+      required: true
+    },
+    votes: {
+      type: Array,
+      default: () => []
+    },
+    comments: {
+      type: Array,
+      default: () => []
     },
     isInSettings: {
       type: Boolean,
       default: false
     }
   },
-  data() {
-    return {
-      dialog: false
-    }
-  },
   computed: {
     productLink() {
-      const productUrl = this.product.name.replace(/ /gi, '-')
+      const productUrl = this.name.replace(/ /gi, '-')
       return `/p/${productUrl}`
     },
-    votersIds() {
-      return this.product.votes.map((v) => v.userId)
-    },
     hasVoted() {
-      if (this.$auth.loggedIn) {
-        const userId = this.$auth.user.id.toString()
-        return this.votersIds.includes(userId)
-      } else {
-        return false
-      }
+      if (!this.$auth.loggedIn) return false
+      const votersIds = this.votes.map((v) => +v.userId)
+      const userId = this.$auth.user.id
+      return votersIds.includes(userId)
     },
     commentsSection() {
       return `${this.productLink}#comments`
@@ -154,154 +119,16 @@ export default {
     },
     commentsLength() {
       let total = 0
-      const comments = this.product.comments
+      const comments = this.comments
       total += comments.length
       comments.forEach((c) => (total += c.replies.length))
       return total
     }
   },
-  asyncData() {
-    return {
-      product: {
-        id: '',
-        media: {
-          logo: '',
-          products: ['']
-        },
-        name: '',
-        tagline: '',
-        makers: [
-          {
-            username: '',
-            profile: {
-              picture: '',
-              fullName: '',
-              gender: ''
-            }
-          }
-        ],
-        votes: [
-          {
-            userId: ''
-          }
-        ],
-        comments: [
-          {
-            id: '',
-            replies: {
-              id: ''
-            }
-          }
-        ]
-      }
-    }
-  },
-  apollo: {
-    product: {
-      query: gql`
-        query fetchProductItemById($id: ID!) {
-          product(id: $id) {
-            id
-            media {
-              logo
-              pictures
-            }
-            name
-            tagline
-            makers {
-              username
-              profile {
-                picture
-                fullName
-                gender
-              }
-            }
-            votes {
-              userId
-            }
-            comments {
-              id
-              replies {
-                id
-              }
-            }
-          }
-        }
-      `,
-      variables() {
-        return {
-          id: this.productId
-        }
-      },
-      fetchPolicy: 'network-only'
-    }
-  },
   methods: {
-    ...mapMutations({
-      openLoginDialog: 'utils/openLoginDialog'
-    }),
-    navigateToProductPage() {
-      this.$router.push({ path: this.productLink })
-    },
-    upvote() {
-      if (this.$auth.loggedIn) {
-        if (this.hasVoted) {
-          this.$apollo
-            .mutate({
-              mutation: gql`
-                mutation unvote($voteInput: VoteInput!) {
-                  deleteVote(voteInput: $voteInput)
-                }
-              `,
-              variables: {
-                voteInput: {
-                  productId: this.productId
-                }
-              }
-            })
-            .then(() => this.$apollo.queries.product.refetch())
-        } else {
-          this.$apollo
-            .mutate({
-              mutation: gql`
-                mutation upvote($voteInput: VoteInput!) {
-                  upvote(voteInput: $voteInput) {
-                    userId
-                    productId
-                  }
-                }
-              `,
-              variables: {
-                voteInput: {
-                  productId: this.productId
-                }
-              }
-            })
-            .then(() => this.$apollo.queries.product.refetch())
-        }
-      } else this.openLoginDialog()
-    },
-    async deleteProduct(id) {
-      await this.$apollo
-        .mutate({
-          mutation: gql`
-            mutation deleteProduct($id: ID!) {
-              deleteProduct(id: $id)
-            }
-          `,
-          variables: {
-            id
-          }
-        })
-        .then(() => {
-          this.dialog = false
-          this.$router.go(0)
-        })
-    },
     makerAvatar(index) {
-      const maker = this.product.makers[index]
-      const { picture } = maker.profile
-      return picture
+      const maker = this.makers[index]
+      return maker.profile.picture
     }
   }
 }

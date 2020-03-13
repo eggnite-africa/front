@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card v-if="!$apollo.queries.user.loading">
+    <v-card v-if="!$apollo.loading">
       <v-container>
         <v-row justify="center">
           <v-col cols="3" sm="2" class="mr-md-n10">
@@ -67,9 +67,9 @@
             <v-tab href="#products">
               products
             </v-tab>
-            <v-tab href="#upvotes">
+            <!-- <v-tab href="#upvotes">
               upvotes
-            </v-tab>
+            </v-tab> -->
             <v-tab href="#comments">
               comments
             </v-tab>
@@ -79,14 +79,19 @@
                 <template v-for="(product, i) in user.products">
                   <product-item
                     :key="i"
-                    :product-id="product.id"
+                    :id="product.id"
+                    :name="product.name"
+                    :logo="product.media.logo"
+                    :tagline="product.tagline"
+                    :comments="product.comments"
+                    :votes="product.votes"
                     class="my-products"
                   ></product-item>
                 </template>
               </v-container>
             </v-tab-item>
 
-            <v-tab-item value="upvotes">
+            <!-- <v-tab-item value="upvotes">
               <v-container>
                 <template v-for="(upvote, i) in user.votes">
                   <product-item
@@ -96,13 +101,16 @@
                   ></product-item>
                 </template>
               </v-container>
-            </v-tab-item>
+            </v-tab-item> -->
 
             <v-tab-item value="comments">
               <v-container>
-                <template v-for="(comment, i) in user.comments">
-                  <user-comment :key="i" :comment="comment"></user-comment>
-                </template>
+                <user-comment
+                  v-for="(comment, i) in user.comments"
+                  :key="i"
+                  :comment="comment"
+                >
+                </user-comment>
               </v-container>
             </v-tab-item>
           </v-tabs>
@@ -146,7 +154,25 @@ export default {
           socialLinks: [''],
           country: ''
         },
-        products: [{ id: '' }],
+        products: [
+          {
+            id: '',
+            name: '',
+            tagline: '',
+            media: { logo: '' },
+            votes: [{ userId: '' }],
+            comments: [
+              {
+                id: '',
+                replies: [
+                  {
+                    id: ''
+                  }
+                ]
+              }
+            ]
+          }
+        ],
         votes: [{ productId: '' }],
         comments: [
           {
@@ -176,6 +202,20 @@ export default {
             }
             products {
               id
+              name
+              tagline
+              media {
+                logo
+              }
+              votes {
+                userId
+              }
+              comments {
+                id
+                replies {
+                  id
+                }
+              }
             }
             votes {
               productId
