@@ -16,6 +16,14 @@
     </v-col>
     <v-col class="d-flex align-center">
       <menu-notification :user-id="userId"></menu-notification>
+      <v-btn
+        href="https://join.slack.com/t/eggnite/shared_invite/enQtOTcxNzU5MTkyODg0LTM4YzdmMjYxZjM4N2VhMjgwNTIzOWRlNzVkZWEzNWQ4MWI3NjJiNjZlYWE5NjgyYzExNmNjNmU4NWFlNGVhOTI"
+        icon
+        small
+        target="_blank"
+      >
+        <v-icon>mdi-forum</v-icon>
+      </v-btn>
       <menu-account
         :username="user.username"
         :user-profile-picture="user.profile.picture"
