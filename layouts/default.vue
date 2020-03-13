@@ -47,23 +47,38 @@
         <v-col>
           <span>&copy; {{ $dateFns.getYear(new Date()) }}</span>
         </v-col>
-        <v-col class="d-flex justify-center text-center">
+        <v-col class="d-flex justify-center justify-sm-end text-center">
           <span class="overline">
             Made with
             <v-icon x-small color="red">mdi-heart</v-icon> in Tunisia
           </span>
         </v-col>
-        <v-col class="d-flex justify-end align-center">
-          <v-badge color="red" dot overlap bordered>
-            <nuxt-link
-              v-for="item in items"
-              :to="item.link"
-              :key="item.name"
-              class="menu-link overline"
-            >
-              {{ item.name }}
-            </nuxt-link>
-          </v-badge>
+        <v-col v-if="$device.isMobile" class="d-flex justify-end align-center">
+          <v-menu offset-y>
+            <template #activator="{ on }">
+              <v-btn v-on="on" icon>
+                <v-icon>mdi-dots-horizontal-circle</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                v-for="item in items"
+                :key="item.name"
+                :to="item.link"
+              >
+                <v-list-item-title class="overline">
+                  {{ item.name }}
+                </v-list-item-title>
+              </v-list-item>
+              <v-badge color="yellow" dot overlap offset-x="15" offset-y="15">
+                <v-list-item to="competitions">
+                  <v-list-item-title class="overline">
+                    Competitions
+                  </v-list-item-title>
+                </v-list-item>
+              </v-badge>
+            </v-list>
+          </v-menu>
         </v-col>
       </v-row>
     </v-footer>
