@@ -1,9 +1,11 @@
 <template>
   <div v-if="content">
-    <v-alert text type="info" dismissible>
-      {{ content }}
-      <v-btn :href="link" text target="_blank" small>learn more</v-btn>
-    </v-alert>
+    <client-only>
+      <v-alert text type="info" dismissible>
+        {{ content }}
+        <v-btn :href="link" text target="_blank" small>learn more</v-btn>
+      </v-alert>
+    </client-only>
   </div>
 </template>
 
