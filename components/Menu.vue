@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <client-only>
     <MenuLoggedIn v-if="isLoggedIn" :user-id="userId" />
     <template v-else>
       <v-dialog v-model="loginDialog" persistent max-width="300">
@@ -21,7 +21,7 @@
         </v-dialog>
       </span>
     </template>
-  </div>
+  </client-only>
 </template>
 
 <script>
