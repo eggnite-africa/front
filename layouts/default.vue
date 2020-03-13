@@ -48,7 +48,16 @@
           </span>
         </v-col>
         <v-col class="d-flex justify-end align-center">
-          <nuxt-link to="/about" class="menu-link overline">About</nuxt-link>
+          <v-badge color="red" dot overlap bordered>
+            <nuxt-link
+              v-for="item in items"
+              :to="item.link"
+              :key="item.name"
+              class="menu-link overline"
+            >
+              {{ item.name }}
+            </nuxt-link>
+          </v-badge>
         </v-col>
       </v-row>
     </v-footer>
@@ -75,7 +84,7 @@ export default {
           link: '/about'
         },
         {
-          name: 'Resources for makers',
+          name: 'For makers',
           link: '/resources'
         }
         // {
