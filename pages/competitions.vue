@@ -11,7 +11,7 @@
         If you'd like to join the waiting list, contact me!
       </p>
       <v-btn class="mt-5" depressed color="primary" nuxt to="u/kd">
-        Join the waiting list
+        Contact me
       </v-btn>
     </v-col>
     <v-col></v-col>
