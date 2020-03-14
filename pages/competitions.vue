@@ -8,7 +8,7 @@
         (hackathons and the likes).
       </p>
       <p>
-        If you'd like to join the waiting list, contact me!
+        If you'd like to join the waiting list, let me know!
       </p>
       <v-btn class="mt-5" depressed color="primary" nuxt to="u/kd">
         Contact me
