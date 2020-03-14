@@ -201,15 +201,15 @@ export default {
       await this.$apollo
         .mutate({
           mutation: gql`
-            mutation userSignUp($userInput: UserInput!) {
-              signUp(UserInput: $userInput) {
+            mutation userSignUp($NewUserInput: NewUserInput!) {
+              signUp(newUser: $NewUserInput) {
                 id
                 username
               }
             }
           `,
           variables: {
-            userInput: {
+            NewUserInput: {
               username: this.username,
               email: this.email,
               password: this.password
