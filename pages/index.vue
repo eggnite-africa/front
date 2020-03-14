@@ -2,26 +2,24 @@
   <div>
     <v-container>
       <div v-if="!$apollo.loading">
-        <client-only>
-          <v-row
-            v-for="product in productsList.products"
-            :key="product.id"
-            justify="center"
-            align="center"
-          >
-            <v-col>
-              <product-item
-                :id="product.id"
-                :logo="product.media.logo"
-                :name="product.name"
-                :tagline="product.tagline"
-                :makers="product.makers"
-                :votes="product.votes"
-                :comments="product.comments"
-              ></product-item>
-            </v-col>
-          </v-row>
-        </client-only>
+        <v-row
+          v-for="product in productsList.products"
+          :key="product.id"
+          justify="center"
+          align="center"
+        >
+          <v-col>
+            <product-item
+              :id="product.id"
+              :logo="product.media.logo"
+              :name="product.name"
+              :tagline="product.tagline"
+              :makers="product.makers"
+              :votes="product.votes"
+              :comments="product.comments"
+            ></product-item>
+          </v-col>
+        </v-row>
         <v-row>
           <v-col cols="12" class="d-flex justify-center">
             <v-btn v-if="productsList.hasMore" @click="showMore()">
