@@ -22,41 +22,52 @@ export default {
   },
   data() {
     return {
-      networks: ['Facebook', 'Twitter', 'LinkedIn'],
-      facebook: '',
-      twitter: '',
-      linkedin: '',
-      links: []
+      networks: ['Facebook', 'Twitter', 'LinkedIn', 'Telegram'],
+      facebook: null,
+      twitter: null,
+      linkedin: null,
+      telegram: null
     }
   },
   created() {
-    if (!this.userSocialLinks) {
-      this.links = []
-      return
+    if (!this.userSocialLinks) return
+    const links = this.userSocialLinks.map((l) => l.toLowerCase())
+    const networks = ['facebook', 'twitter', 'linkedin', 't.me']
+    for (const link of links) {
+      for (const network of networks) {
+        if (link.includes(network)) {
+          if (network === 't.me') this.telegram = link
+          this[network] = link
+        }
+      }
     }
-    this.links = this.userSocialLinks.map((l) => l.toLowerCase())
   },
   methods: {
     updateModel(modelName, value) {
       const networkName = modelName.toLowerCase()
-      this[networkName] = value
       const prefix = networkName === 'linkedin' ? 'in/' : ''
-      const link = `https://${networkName}.com/${prefix}${value}`
-      const i = this.links.findIndex((l) => l.includes(networkName))
-      if (i === -1) {
-        this.links.push(link)
-      } else {
-        this.links[i] = link
-      }
-      this.$emit('update-social', this.links)
+      const link =
+        networkName === 'telegram'
+          ? `https://t.me/${value}`
+          : `https://${networkName}.com/${prefix}${value}`
+      this[networkName] = value ? link : null
+      const links = this.networks
+        .map((n) => this[n.toLowerCase()])
+        .filter((l) => l)
+      this.$emit('update-social', links)
     },
     getValue(networkName) {
       const network = networkName.toLowerCase()
-      const link = this.links.find((l) => l.includes(network))
-      if (link === undefined) return ''
-      const username = link.includes('/in/')
-        ? link.split('/in/')[1]
-        : link.split('.com/')[1]
+      const link = this[network]
+      if (link === null) return null
+      const username = (() => {
+        if (link.includes('.me/')) {
+          return link.split('.me/')[1]
+        } else if (link.includes('/in/')) {
+          return link.split('/in/')[1]
+        }
+        return link.split('.com/')[1]
+      })()
       return username
     }
   }

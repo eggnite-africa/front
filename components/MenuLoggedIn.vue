@@ -15,7 +15,9 @@
       </v-btn>
     </v-col>
     <v-col class="d-flex align-center">
-      <menu-notification :user-id="userId"></menu-notification>
+      <client-only>
+        <menu-notification :user-id="userId"></menu-notification>
+      </client-only>
       <v-btn
         href="https://join.slack.com/t/eggnite/shared_invite/enQtOTcxNzU5MTkyODg0LTM4YzdmMjYxZjM4N2VhMjgwNTIzOWRlNzVkZWEzNWQ4MWI3NjJiNjZlYWE5NjgyYzExNmNjNmU4NWFlNGVhOTI"
         icon

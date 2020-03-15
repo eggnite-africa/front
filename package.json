@@ -5,10 +5,10 @@
   "author": "Karim Daghari",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "start:dev": "nuxt",
     "build": "nuxt build",
     "prestart": "yarn build",
-    "start": "nuxt start",
+    "start:prod": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "test": "jest",

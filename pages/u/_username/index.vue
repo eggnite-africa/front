@@ -261,6 +261,10 @@ export default {
           content: 'profile'
         },
         {
+          property: 'og:image',
+          content: this.user.profile.picture
+        },
+        {
           property: 'profile:first_name',
           content: this.user.profile.fullName.split(' ')[0]
         },
