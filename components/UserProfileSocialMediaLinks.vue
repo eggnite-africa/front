@@ -30,6 +30,19 @@
     >
       <v-icon>mdi-linkedin</v-icon>
     </v-btn>
+    <v-btn
+      v-if="!!telegram"
+      :href="telegram"
+      class="mt-2 mt-sm-0"
+      target="_blank"
+      rel="noreferrer noopener"
+      small
+      depressed
+      color="blue"
+    >
+      <v-icon left>mdi-telegram</v-icon>
+      chat with me
+    </v-btn>
   </div>
 </template>
 
@@ -46,7 +59,8 @@ export default {
     return {
       facebook: null,
       twitter: null,
-      linkedin: null
+      linkedin: null,
+      telegram: null
     }
   },
   created() {
@@ -59,6 +73,8 @@ export default {
         this.twitter = link
       } else if (is(link, 'linkedin')) {
         this.linkedin = link
+      } else if (is(link, 't.me')) {
+        this.telegram = link
       }
     }
   }
