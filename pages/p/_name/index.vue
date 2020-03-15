@@ -370,7 +370,7 @@ export default {
         },
         {
           property: 'og:image',
-          content: '/sm_card.png'
+          content: this.product.media.logo
         },
         {
           property: 'og:type',
