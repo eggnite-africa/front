@@ -114,8 +114,8 @@ export default {
     return {
       alert: {
         content:
-          "From now on, I'll be building everything in public and sharing progress with you. Make sure to follow me though!",
-        link: 'https://karimdxy.github.io/building-in-public'
+          'Currently working on a PITCH feature to let share your ideas; #COVID19',
+        link: null
       },
       title: 'Eggnite',
       items: [

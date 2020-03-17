@@ -3,7 +3,9 @@
     <client-only>
       <v-alert text type="info" dismissible>
         {{ content }}
-        <v-btn :href="link" text target="_blank" small>learn more</v-btn>
+        <v-btn v-if="link" :href="link" text target="_blank" small
+          >learn more</v-btn
+        >
       </v-alert>
     </client-only>
   </div>
