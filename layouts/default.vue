@@ -22,10 +22,15 @@
             {{ item.name }}
           </nuxt-link>
         </v-badge>
-        <v-badge content="Upcoming" overlap offset-y="5" offset-x="15">
+        <v-badge content="UPCOMING" overlap offset-y="4" offset-x="70">
           <nuxt-link to="competitions" class="menu-link overline">
             Competitions
           </nuxt-link>
+        </v-badge>
+        <v-badge content="SOON" color="red" overlap offset-y="5" offset-x="15">
+          <span class="menu-link overline">
+            Pitch
+          </span>
         </v-badge>
       </div>
       <v-spacer />
@@ -70,6 +75,13 @@
                   {{ item.name }}
                 </v-list-item-title>
               </v-list-item>
+              <v-badge color="red" dot overlap offset-x="15" offset-y="15">
+                <v-list-item>
+                  <v-list-item-title class="overline">
+                    Pitch
+                  </v-list-item-title>
+                </v-list-item>
+              </v-badge>
               <v-badge color="yellow" dot overlap offset-x="15" offset-y="15">
                 <v-list-item to="competitions">
                   <v-list-item-title class="overline">
