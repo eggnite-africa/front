@@ -114,7 +114,7 @@ export default {
     return {
       alert: {
         content:
-          'Currently working on a PITCH feature to let share your ideas; #COVID19',
+          'Currently working on a PITCH feature to let share your ideas, get feedback and (maybe) find collaborators; #COVID19',
         link: null
       },
       title: 'Eggnite',
