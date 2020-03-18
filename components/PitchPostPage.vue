@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="beforeSubmit">
+    <form @submit.prevent="beforeSubmit()">
       <v-row dense>
         <v-col cols="12">
           <v-textarea v-model="pContent" outlined label="Content"></v-textarea>
@@ -34,7 +34,7 @@ export default {
     }
   },
   methods: {
-    beforeSumbit() {
+    beforeSubmit() {
       const updatedPitch = {
         content: this.pContent
       }
