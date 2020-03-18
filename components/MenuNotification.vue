@@ -14,20 +14,21 @@
       <v-list-item-group>
         <template v-for="notification in user.notifications">
           <template v-if="notification.vote">
-            <menu-notification-item
+            <menu-notification-item-upvote
               :key="notification.id"
-              :notification-id="notification.id"
-              :vote="notification.vote"
-              notification-type="VOTE"
-            ></menu-notification-item>
+              :notificationId="notification.id"
+              :productName="notification.product.name"
+              :username="notification.user.username"
+            ></menu-notification-item-upvote>
           </template>
           <template v-else-if="notification.comment">
-            <menu-notification-item
+            <menu-notification-item-comment
               :key="notification.id"
-              :notification-id="notification.id"
-              :comment="notification.comment"
-              notification-type="COMMENT"
-            ></menu-notification-item>
+              :notificationId="notification.id"
+              :productName="notification.product.name"
+              :username="notification.user.username"
+              :parentId="notification.comment.parentId"
+            ></menu-notification-item-comment>
           </template>
         </template>
       </v-list-item-group>
@@ -37,44 +38,31 @@
 
 <script>
 import gql from 'graphql-tag'
-import MenuNotificationItem from '@/components/MenuNotificationItem.vue'
+import MenuNotificationItemUpvote from '@/components/MenuNotificationItemUpvote.vue'
+import MenuNotificationItemComment from '@/components/MenuNotificationItemComment.vue'
 export default {
   name: 'MenuNotification',
   components: {
-    MenuNotificationItem
+    MenuNotificationItemUpvote,
+    MenuNotificationItemComment
   },
   props: {
     userId: {
-      type: Number,
-      required: false,
-      default: 0
-    }
-  },
-  data() {
-    return {
-      user: {
-        id: '',
-        notifications: [
-          {
-            id: '',
-            vote: {
-              id: '',
-              productId: ''
-            },
-            comment: {
-              id: '',
-              productId: '',
-              userId: '',
-              parentId: ''
-            }
-          }
-        ]
-      }
+      type: [Number, String],
+      required: true
     }
   },
   computed: {
     unreadCount() {
       return this.user.notifications.length
+    }
+  },
+  asyncData() {
+    return {
+      user: {
+        id: '',
+        notifications: []
+      }
     }
   },
   apollo: {
@@ -88,10 +76,12 @@ export default {
               vote {
                 id
                 productId
+                pitchId
               }
               comment {
                 id
                 productId
+                pitchId
                 userId
                 parentId
               }
