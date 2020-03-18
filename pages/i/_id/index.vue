@@ -30,11 +30,32 @@
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore sint
         assumenda at ratione, nulla provident.
       </v-card-subtitle> -->
-                <v-card-text>
-                  <p class="text-justify body-1 white--text">
-                    {{ pitch.content }}
+                <v-card-text class="body-1 white--text">
+                  <span class="text-uppercase font-weight-black font-title">
+                    Problem
+                  </span>
+                  <p class="text-justify text-lowercase">
+                    {{ pitch.problem }}
                   </p>
-                  <p class="body-2 text-uppercase">
+                  <span class="text-uppercase font-weight-black font-title">
+                    Solution
+                  </span>
+                  <p class="text-justify text-lowercase">
+                    {{ pitch.solution }}
+                  </p>
+                  <span class="text-uppercase font-weight-black font-title">
+                    Qualifications
+                  </span>
+                  <p class="text-justify text-lowercase">
+                    {{ pitch.skills }}
+                  </p>
+                  <span class="text-uppercase font-weight-black font-title">
+                    Needs
+                  </span>
+                  <p class="text-justify text-lowercase">
+                    {{ pitch.needs }}
+                  </p>
+                  <div class="body-2 text-uppercase">
                     --
                     <nuxt-link
                       :to="'/u/' + pitch.user.username"
@@ -48,7 +69,7 @@
                     <span class="red--text">
                       #COVID19
                     </span>
-                  </p>
+                  </div>
                 </v-card-text>
               </v-card>
             </v-col>
