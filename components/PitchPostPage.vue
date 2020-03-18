@@ -28,7 +28,12 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12">
-          <v-text-field v-model="pNeeds" outlined label="Needs"></v-text-field>
+          <v-text-field
+            v-model="pNeeds"
+            outlined
+            label="Needs"
+            hint="What are you looking for? Collaborators? Financiers? Etc..."
+          ></v-text-field>
         </v-col>
       </v-row>
 
