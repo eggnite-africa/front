@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <div class="d-flex justify-center">
-          <v-btn color="secondary" large>Pitch idea</v-btn>
+          <v-btn color="secondary" large>Pitch your idea</v-btn>
         </div>
       </v-col>
     </v-row>
