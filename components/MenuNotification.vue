@@ -13,23 +13,41 @@
     <v-list flat>
       <v-list-item-group>
         <template v-for="notification in user.notifications">
-          <template v-if="notification.vote">
-            <menu-notification-item-upvote
-              :key="notification.id"
-              :notificationId="notification.id"
-              :productName="notification.product.name"
-              :username="notification.user.username"
-            ></menu-notification-item-upvote>
-          </template>
-          <template v-else-if="notification.comment">
-            <menu-notification-item-comment
-              :key="notification.id"
-              :notificationId="notification.id"
-              :productName="notification.product.name"
-              :username="notification.user.username"
-              :parentId="notification.comment.parentId"
-            ></menu-notification-item-comment>
-          </template>
+          <menu-notification-item-upvote
+            v-if="notification.vote && notification.vote.product"
+            :key="notification.id"
+            :notification-id="notification.id"
+            :product-name="notification.vote.product.name"
+            :username="notification.vote.user.username"
+          ></menu-notification-item-upvote>
+
+          <menu-notification-item-clap
+            v-else-if="notification.vote && notification.vote.pitch"
+            :key="notification.id"
+            :notification-id="notification.id"
+            :idea-id="notification.vote.pitch.id"
+            :idea-name="notification.vote.pitch.title"
+            :username="notification.vote.user.username"
+          ></menu-notification-item-clap>
+
+          <menu-notification-item-comment
+            v-else-if="notification.comment && notification.comment.product"
+            :key="notification.id"
+            :notification-id="notification.id"
+            :product-name="notification.comment.product.name"
+            :username="notification.comment.user.username"
+            :parent-id="notification.comment.parentId"
+          ></menu-notification-item-comment>
+
+          <menu-notification-item-comment
+            v-else-if="notification.comment && notification.comment.pitch"
+            :key="notification.id"
+            :notification-id="notification.id"
+            :idea-name="notification.comment.pitch.title"
+            :idea-id="notification.comment.pitch.id"
+            :username="notification.comment.user.username"
+            :parent-id="notification.comment.parentId"
+          ></menu-notification-item-comment>
         </template>
       </v-list-item-group>
     </v-list>
@@ -40,11 +58,13 @@
 import gql from 'graphql-tag'
 import MenuNotificationItemUpvote from '@/components/MenuNotificationItemUpvote.vue'
 import MenuNotificationItemComment from '@/components/MenuNotificationItemComment.vue'
+import MenuNotificationItemClap from '@/components/MenuNotificationItemClap.vue'
 export default {
   name: 'MenuNotification',
   components: {
     MenuNotificationItemUpvote,
-    MenuNotificationItemComment
+    MenuNotificationItemComment,
+    MenuNotificationItemClap
   },
   props: {
     userId: {
@@ -52,17 +72,17 @@ export default {
       required: true
     }
   },
-  computed: {
-    unreadCount() {
-      return this.user.notifications.length
-    }
-  },
-  asyncData() {
+  data() {
     return {
       user: {
         id: '',
         notifications: []
       }
+    }
+  },
+  computed: {
+    unreadCount() {
+      return this.user.notifications.length
     }
   },
   apollo: {
@@ -75,15 +95,32 @@ export default {
               id
               vote {
                 id
-                productId
-                pitchId
+                product {
+                  id
+                  name
+                }
+                pitch {
+                  id
+                  title
+                }
+                user {
+                  username
+                }
               }
               comment {
                 id
-                productId
-                pitchId
-                userId
                 parentId
+                product {
+                  id
+                  name
+                }
+                pitch {
+                  id
+                  title
+                }
+                user {
+                  username
+                }
               }
             }
           }

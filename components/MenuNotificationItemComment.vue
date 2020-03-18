@@ -7,10 +7,16 @@
       <v-icon>mdi-comment</v-icon>
     </v-list-item-avatar>
     <v-list-item-content>
-      <strong v-text="product.name"></strong>
+      <strong v-if="productName" v-text="productName"></strong>
+      <strong v-else v-text="ideaName"></strong>
       <span>
         <strong>@{{ username }}</strong>
-        {{ parentId ? 'replied to you!' : 'commented on your product!' }}
+        <span v-if="productName">
+          {{ parentId ? 'replied to you!' : 'commented on your product!' }}
+        </span>
+        <span v-else>
+          {{ parentId ? 'replied to you!' : 'commented on your idea!' }}
+        </span>
       </span>
     </v-list-item-content>
   </v-list-item>
@@ -25,20 +31,37 @@ export default {
       type: [String, Number],
       required: true
     },
+    ideaName: {
+      type: String,
+      default: null
+    },
+    ideaId: {
+      type: String,
+      default: null
+    },
     productName: {
       type: String,
-      required: true
+      default: null
     },
     parentId: {
       type: [String, Number],
       default: null
+    },
+    username: {
+      type: String,
+      required: true
     }
   },
   computed: {
     notificationLink() {
-      const productUrl = this.productName.replace(/ /gi, '-')
-      const productLink = `/p/${productUrl}`
-      return `${productLink}#comments`
+      let link
+      if (this.productName) {
+        const productUrl = this.productName.replace(/ /gi, '-')
+        link = `/p/${productUrl}`
+      } else {
+        link = `/i/${this.ideaId}`
+      }
+      return `${link}#comments`
     }
   },
   methods: {
