@@ -9,24 +9,24 @@
         </div>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col v-for="i in 9" :key="i" cols="12" sm="4">
-        <v-card max-width="350">
+    <v-row v-if="!$apollo.loading">
+      <v-col v-for="pitch in pitchList.pitchs" :key="pitch.id" cols="12" sm="4">
+        <v-card :to="`/i/${pitch.id}`" nuxt max-width="350">
           <v-list-item>
             <v-tooltip top>
               <template #activator="{ on }">
                 <v-list-item-avatar v-on="on" color="blue" size="42">
-                  <v-img src=""></v-img>
+                  <v-img :src="pitch.user.profile.picture"></v-img>
                 </v-list-item-avatar>
               </template>
-              <span>username</span>
+              <span>{{ pitch.user.username }}</span>
             </v-tooltip>
             <v-list-item-content>
               <v-list-item-title class="headline">
-                Our Changing Planet
+                {{ pitch.title }}
               </v-list-item-title>
               <v-list-item-subtitle>
-                By #COVID19
+                #COVID19
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -36,20 +36,14 @@
               Problem
             </span>
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit modi
-              iste adipisci. Enim, voluptas, ipsam reprehenderit, quaerat
-              blanditiis adipisci assumenda iure hic eligendi quo dolores natus
-              debitis sequi eaque quos!
+              {{ pitch.problem }}
             </p>
 
             <span class="font-weight-medium text-uppercase">
               Needs
             </span>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos modi
-              itaque aliquid sit a temporibus! Repellat a cumque nostrum
-              recusandae ipsa distinctio illo explicabo, doloremque repudiandae
-              minima vitae suscipit nisi.
+              {{ pitch.needs }}
             </p>
           </v-card-text>
 
@@ -57,13 +51,13 @@
             <div class="ml-auto d-flex space-between">
               <div class="mr-3 d-flex align-center">
                 <v-btn icon> <v-icon tag="span">👏🏻</v-icon> </v-btn>
-                <span>42</span>
+                <span>{{ pitch.votes.length }}</span>
               </div>
               <div class="mr-2">
                 <v-btn icon>
                   <v-icon>mdi-comment</v-icon>
                 </v-btn>
-                <span>42</span>
+                <span>{{ pitch.comments.length }}</span>
               </div>
             </div>
           </v-card-actions>
@@ -74,8 +68,48 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
 export default {
-  name: 'IdeasIndex'
+  name: 'IdeasIndex',
+  asyncData() {
+    return {
+      pitchList: {
+        pitchs: []
+      }
+    }
+  },
+  apollo: {
+    pitchList: {
+      query: gql`
+        query fetchAllIdeas($page: Int!, $pageSize: Int!) {
+          pitchList(page: $page, pageSize: $pageSize) {
+            pitchs {
+              id
+              title
+              problem
+              needs
+              user {
+                username
+                profile {
+                  picture
+                }
+              }
+              votes {
+                userId
+              }
+              comments {
+                id
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        page: 0,
+        pageSize: 999
+      }
+    }
+  }
 }
 </script>
 
