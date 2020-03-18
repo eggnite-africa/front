@@ -1,73 +1,84 @@
 <template>
-  <v-container v-if="!$apollo.loading">
-    <v-row>
+  <v-container v-if="!$apollo.loading" fluid>
+    <v-row dense no-gutters align-content="center">
+      <v-col cols="12" sm="1">
+        <aside
+          class="mx-auto d-flex justify-center mx-sm-0 mx-md-12 d-sm-block"
+        >
+          <v-btn
+            fab
+            large
+            color="secondary"
+            outlined
+            class="my-3 mx-auto mx-sm-0"
+          >
+            <div class="d-flex flex-column my-2">
+              <v-icon tag="span">👏🏻</v-icon>
+              <span class="mt-1">
+                {{ totalClaps }}
+              </span>
+            </div>
+          </v-btn>
+          <v-btn fab large color="primary" class="my-3 mx-auto mx-sm-0">
+            <div class="d-flex flex-column my-2">
+              <v-icon class="mx-auto" x-large>mdi-facebook</v-icon>
+            </div>
+          </v-btn>
+          <v-btn fab large color="blue" class="my-3 mx-auto mx-sm-0">
+            <div class="d-flex flex-column my-2">
+              <v-icon class="mx-auto" x-large>mdi-twitter</v-icon>
+            </div>
+          </v-btn>
+        </aside>
+      </v-col>
       <v-col>
-        <v-card>
-          <v-card-title v-text="pitch.title" class="headline">
-            Pitch title
-          </v-card-title>
-          <!-- <v-card-subtitle class="subtitle-2">
+        <v-container>
+          <v-row dense no-gutters>
+            <v-col>
+              <v-card>
+                <v-card-title class="headline">
+                  {{ pitch.title }}
+                </v-card-title>
+                <!-- <v-card-subtitle class="subtitle-2">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore sint
         assumenda at ratione, nulla provident.
       </v-card-subtitle> -->
-          <v-card-text>
-            <p v-text="pitch.content" class="text-justify body-1 white--text">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum
-              doloremque eos recusandae veniam, adipisci distinctio delectus sed
-              cupiditate corporis molestiae debitis et fuga quisquam architecto
-              minima ipsam similique voluptatibus aperiam! Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Corporis perferendis, culpa
-              impedit aperiam eum doloribus fugiat alias pariatur aspernatur
-              praesentium, cupiditate quisquam nulla? Dolor quae ipsum ab
-              aliquam quasi reiciendis? Lorem, ipsum dolor sit amet consectetur
-              adipisicing elit. Ut et inventore tenetur quas cupiditate ipsum
-              voluptatibus quis expedita nisi adipisci dolorum sit placeat,
-              tempora quo ipsam qui porro quibusdam at? Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. At rerum fugiat nostrum
-              repellendus fuga, sed non quis assumenda omnis repudiandae veniam
-              enim? Temporibus aliquid, ullam magnam quibusdam in repudiandae
-              perferendis?
-            </p>
-            <p class="body-2 text-uppercase">
-              --
-              <nuxt-link
-                :to="'/u/' + pitch.user.username"
-                target="_blank"
-                class="blue--text"
-                style="text-decoration: none;"
-              >
-                Karim (@kd)
-              </nuxt-link>
-              , Posted in
-              <span class="red--text">
-                #COVID19
-              </span>
-            </p>
-          </v-card-text>
-          <v-card-actions class="d-flex justify-center">
-            <v-btn color="secondary">
-              <v-icon tag="span" left>👏🏻</v-icon> 42
-            </v-btn>
-            <v-btn color="primary">
-              <v-icon left>mdi-facebook</v-icon> share
-            </v-btn>
-            <v-btn color="blue">
-              <v-icon left>mdi-twitter</v-icon> share
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <v-card>
-          <v-container>
-            <comment-section
-              :pitch-id="pitch.id"
-              :comments="pitch.comments"
-            ></comment-section>
-          </v-container>
-        </v-card>
+                <v-card-text>
+                  <p class="text-justify body-1 white--text">
+                    {{ pitch.content }}
+                  </p>
+                  <p class="body-2 text-uppercase">
+                    --
+                    <nuxt-link
+                      :to="'/u/' + pitch.user.username"
+                      target="_blank"
+                      class="blue--text"
+                      style="text-decoration: none;"
+                    >
+                      Karim (@kd)
+                    </nuxt-link>
+                    , Posted in
+                    <span class="red--text">
+                      #COVID19
+                    </span>
+                  </p>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="12">
+              <v-card>
+                <v-container>
+                  <comment-section
+                    :pitch-id="pitch.id"
+                    :comments="pitch.comments"
+                  ></comment-section>
+                </v-container>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
       </v-col>
     </v-row>
   </v-container>
@@ -79,6 +90,11 @@ import CommentSection from '@/components/shared/CommentSection.vue'
 export default {
   components: {
     CommentSection
+  },
+  computed: {
+    totalClaps() {
+      return this.pitch.votes.length
+    }
   },
   asyncData() {
     return {
