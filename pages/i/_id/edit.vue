@@ -73,7 +73,6 @@ export default {
         `,
         variables: {
           updatedPitch: {
-            userId: this.$auth.user.id,
             id: this.pitch.id,
             ...updatedPitchPayload
           }
