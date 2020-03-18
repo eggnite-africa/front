@@ -48,7 +48,7 @@ export default {
         .then(({ data: { addPitch } }) => {
           const { id } = addPitch
           this.$router.replace({
-            name: 'p-id',
+            name: 'i-id',
             params: {
               id
             }
