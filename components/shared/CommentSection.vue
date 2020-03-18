@@ -5,7 +5,7 @@
       :product-id="productId"
       :pitch-id="pitchId"
     ></add-comment>
-    <v-row v-for="(comment, i) in $_comments" :key="i" dense>
+    <v-row v-for="(comment, i) in privateComments" :key="i" dense>
       <v-col tag="section" cols="12">
         <single-comment
           @delete-comment="deleteComment($event)"
@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import SingleComment from '@/components/CommentSectionSingle.vue'
-import AddComment from '@/components/CommentSectionAdd.vue'
+import SingleComment from '@/components/shared/CommentSectionSingle.vue'
+import AddComment from '@/components/shared/CommentSectionAdd.vue'
 export default {
   name: 'ProductPageComment',
   components: {
@@ -57,29 +57,29 @@ export default {
   },
   data() {
     return {
-      $_comments: this.comments
+      privateComments: this.comments
     }
   },
   methods: {
     addComment(comment) {
-      this.$_comments.unshift(comment)
+      this.privateComments.unshift(comment)
     },
     deleteComment({ commentId: id }) {
-      this.$_comments = this.$_comments.filter((c) => +c.id !== +id)
+      this.privateComments = this.privateComments.filter((c) => +c.id !== +id)
     },
     addReply(reply) {
       const parentId = reply.parentId
-      const index = this.$_comments.findIndex((c) => +c.id === +parentId)
-      this.$_comments[index].replies.unshift(reply)
+      const index = this.privateComments.findIndex((c) => +c.id === +parentId)
+      this.privateComments[index].replies.unshift(reply)
     },
     deleteReply(payload) {
       const parentId = payload.parentId
       const replyId = payload.commentId
-      const index = this.$_comments.findIndex((c) => +c.id === +parentId)
+      const index = this.privateComments.findIndex((c) => +c.id === +parentId)
       // eslint-disable-next-line standard/computed-property-even-spacing
-      this.$_comments[index].replies = this.$_comments[index].replies.filter(
-        (r) => +r.id !== +replyId
-      )
+      this.privateComments[index].replies = this.privateComments[
+        index
+      ].replies.filter((r) => +r.id !== +replyId)
     }
   }
 }
