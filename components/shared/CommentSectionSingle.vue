@@ -33,7 +33,7 @@
 
 <script>
 import gql from 'graphql-tag'
-import CommentReply from '@/components/ProductPageCommentReply.vue'
+import CommentReply from '@/components/shared/CommentSectionAddReply.vue'
 export default {
   name: 'ProductPageCommentSingle',
   components: {
