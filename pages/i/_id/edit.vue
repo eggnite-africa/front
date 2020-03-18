@@ -6,6 +6,7 @@
         <pitch-post-page
           :content="pitch.content"
           @update-pitch="updatePitch($event)"
+          :onSubmit="updatePitch"
         >
           update
         </pitch-post-page>
