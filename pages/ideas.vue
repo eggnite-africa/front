@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row dense>
       <v-col>
         <div class="d-flex justify-center">
           <v-btn color="secondary" large nuxt to="/pitch">
