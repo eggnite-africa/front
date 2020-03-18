@@ -4,6 +4,7 @@
       <v-card-title>Edit: {{ pitch.title }}</v-card-title>
       <v-card-text>
         <pitch-post-page
+          :title="pitch.title"
           :content="pitch.content"
           @update-pitch="updatePitch($event)"
           :onSubmit="updatePitch"
@@ -51,7 +52,8 @@ export default {
     }
   },
   methods: {
-    async updatePitch(updatedPitchPayload) {
+    async updatePitch(payload) {
+      const { title, ...updatedPitchPayload } = payload
       await this.$apollo.mutate({
         mutation: gql`
           mutation updatePitch($updatedPitch: UpdatedPitchInput!) {

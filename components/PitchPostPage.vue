@@ -3,6 +3,14 @@
     <form @submit.prevent="beforeSubmit()">
       <v-row dense>
         <v-col cols="12">
+          <v-text-field
+            v-if="!pTitle"
+            v-model="pTitle"
+            outlined
+            label="Title"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12">
           <v-textarea v-model="pContent" outlined label="Content"></v-textarea>
         </v-col>
       </v-row>
@@ -26,16 +34,22 @@ export default {
     content: {
       type: String,
       default: ''
+    },
+    title: {
+      type: String,
+      default: ''
     }
   },
   data() {
     return {
-      pContent: this.content
+      pContent: this.content,
+      pTitle: this.title
     }
   },
   methods: {
     beforeSubmit() {
       const updatedPitch = {
+        title: this.pTitle,
         content: this.pContent
       }
       this.$emit('update-pitch', updatedPitch)
