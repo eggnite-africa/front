@@ -73,6 +73,11 @@ export default {
       })
     }
   },
+  head() {
+    return {
+      title: this.pitch.title
+    }
+  },
   middleware: ['auth', 'isPitchOwner']
 }
 </script>
