@@ -140,6 +140,22 @@ export default {
       },
       fetchPolicy: 'network-only'
     }
+  },
+  head() {
+    return {
+      title: this.pitch.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.pitch.content
+        },
+        {
+          property: 'og:description',
+          content: this.pitch.content
+        }
+      ]
+    }
   }
 }
 </script>
