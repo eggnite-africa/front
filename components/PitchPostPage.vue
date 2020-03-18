@@ -4,7 +4,7 @@
       <v-row dense>
         <v-col cols="12">
           <v-text-field
-            v-if="!pTitle"
+            v-if="!title"
             v-model="pTitle"
             outlined
             label="Title"
@@ -87,7 +87,6 @@ export default {
     beforeSubmit() {
       const updatedPitch = {
         title: this.pTitle,
-        content: this.pContent,
         problem: this.pProblem,
         solution: this.pSolution,
         skills: this.pSkills,
