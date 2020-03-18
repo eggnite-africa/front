@@ -11,7 +11,24 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12">
-          <v-textarea v-model="pContent" outlined label="Content"></v-textarea>
+          <v-textarea v-model="pProblem" outlined label="Problem"></v-textarea>
+        </v-col>
+        <v-col cols="12">
+          <v-textarea
+            v-model="pSolution"
+            outlined
+            label="Solution"
+          ></v-textarea>
+        </v-col>
+        <v-col cols="12">
+          <v-text-field
+            v-model="pSkills"
+            outlined
+            label="Qualifications"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12">
+          <v-text-field v-model="pNeeds" outlined label="Needs"></v-text-field>
         </v-col>
       </v-row>
 
@@ -31,26 +48,45 @@ export default {
       type: Function,
       required: true
     },
-    content: {
+    title: {
       type: String,
       default: ''
     },
-    title: {
+    problem: {
+      type: String,
+      default: ''
+    },
+    solution: {
+      type: String,
+      default: ''
+    },
+    skills: {
+      type: String,
+      default: ''
+    },
+    needs: {
       type: String,
       default: ''
     }
   },
   data() {
     return {
-      pContent: this.content,
-      pTitle: this.title
+      pTitle: this.title,
+      pProblem: this.problem,
+      pSolution: this.solution,
+      pSkills: this.skills,
+      pNeeds: this.needs
     }
   },
   methods: {
     beforeSubmit() {
       const updatedPitch = {
         title: this.pTitle,
-        content: this.pContent
+        content: this.pContent,
+        problem: this.pProblem,
+        solution: this.pSolution,
+        skills: this.pSkills,
+        needs: this.pNeeds
       }
       this.$emit('update-pitch', updatedPitch)
       this.onSubmit()

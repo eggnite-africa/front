@@ -5,7 +5,10 @@
       <v-card-text>
         <pitch-post-page
           :title="pitch.title"
-          :content="pitch.content"
+          :problem="pitch.problem"
+          :solution="pitch.solution"
+          :skills="pitch.skills"
+          :needs="pitch.needs"
           @update-pitch="updatePitch($event)"
           :onSubmit="updatePitch"
         >
@@ -29,7 +32,10 @@ export default {
       pitch: {
         id: '',
         title: '',
-        content: ''
+        problem: '',
+        solution: '',
+        skills: '',
+        needs: ''
       }
     }
   },
@@ -40,7 +46,10 @@ export default {
           pitch(id: $id) {
             id
             title
-            content
+            problem
+            solution
+            skills
+            needs
           }
         }
       `,
@@ -59,7 +68,6 @@ export default {
           mutation updatePitch($updatedPitch: UpdatedPitchInput!) {
             updatePitch(updatedPitch: $updatedPitch) {
               id
-              content
             }
           }
         `,
