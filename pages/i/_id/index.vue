@@ -2,34 +2,11 @@
   <v-container v-if="!$apollo.loading" fluid>
     <v-row dense no-gutters align-content="center">
       <v-col cols="12" sm="1">
-        <aside
-          class="mx-auto d-flex justify-center mx-sm-0 mx-md-12 d-sm-block"
-        >
-          <v-btn
-            fab
-            large
-            color="secondary"
-            outlined
-            class="my-3 mx-auto mx-sm-0"
-          >
-            <div class="d-flex flex-column my-2">
-              <v-icon tag="span">👏🏻</v-icon>
-              <span class="mt-1">
-                {{ totalClaps }}
-              </span>
-            </div>
-          </v-btn>
-          <v-btn fab large color="primary" class="my-3 mx-auto mx-sm-0">
-            <div class="d-flex flex-column my-2">
-              <v-icon class="mx-auto" x-large>mdi-facebook</v-icon>
-            </div>
-          </v-btn>
-          <v-btn fab large color="blue" class="my-3 mx-auto mx-sm-0">
-            <div class="d-flex flex-column my-2">
-              <v-icon class="mx-auto" x-large>mdi-twitter</v-icon>
-            </div>
-          </v-btn>
-        </aside>
+        <pitch-page-action-buttons
+          :hasClapped="hasClapped"
+          :pitchId="pitch.id"
+          :totalClaps="totalClaps"
+        ></pitch-page-action-buttons>
       </v-col>
       <v-col>
         <v-container>
@@ -87,13 +64,21 @@
 <script>
 import gql from 'graphql-tag'
 import CommentSection from '@/components/shared/CommentSection.vue'
+import PitchPageActionButtons from '@/components/PitchPageActionButtons.vue'
 export default {
   components: {
-    CommentSection
+    CommentSection,
+    PitchPageActionButtons
   },
   computed: {
     totalClaps() {
       return this.pitch.votes.length
+    },
+    hasClapped() {
+      if (!this.$auth.loggedIn) return false
+      const votersIds = this.pitch.votes.map((v) => +v.userId)
+      const userId = this.$auth.user.id
+      return votersIds.includes(userId)
     }
   },
   asyncData() {
