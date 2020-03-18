@@ -15,7 +15,7 @@
         </span>
       </div>
     </v-btn>
-    <v-btn fab large color="primary" class="my-3 mx-auto mx-sm-0">
+    <!-- <v-btn fab large color="primary" class="my-3 mx-auto mx-sm-0">
       <div class="d-flex flex-column my-2">
         <v-icon class="mx-auto" x-large>mdi-facebook</v-icon>
       </div>
@@ -24,7 +24,7 @@
       <div class="d-flex flex-column my-2">
         <v-icon class="mx-auto" x-large>mdi-twitter</v-icon>
       </div>
-    </v-btn>
+    </v-btn> -->
   </aside>
 </template>
 
