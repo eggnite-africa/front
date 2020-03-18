@@ -10,7 +10,7 @@
     >
       <div class="d-flex flex-column my-2">
         <v-icon tag="span">👏🏻</v-icon>
-        <span class="mt-1">
+        <span v-if="pTotalClaps" class="mt-1">
           {{ pTotalClaps }}
         </span>
       </div>
@@ -85,23 +85,24 @@ export default {
         })
         this.pTotalClaps++
       } catch (e) {}
+    },
+    async deleteClap(pitchId) {
+      try {
+        await this.$apollo.mutate({
+          mutation: gql`
+            mutation deleteClap($voteInput: VoteInput!) {
+              deleteClap(voteInput: $voteInput)
+            }
+          `,
+          variables: {
+            voteInput: {
+              pitchId
+            }
+          }
+        })
+        this.pTotalClaps--
+      } catch (e) {}
     }
-  },
-  async deleteClap(pitchId) {
-    try {
-      await this.$apollo.mutate({
-        mutation: gql`
-          mutation deleteClap($voteInput: VoteInput!) {
-            deleteClap(voteInput: $VoteInput)
-          }
-        `,
-        variables: {
-          voteInput: {
-            pitchId
-          }
-        }
-      })
-    } catch (e) {}
   }
 }
 </script>
