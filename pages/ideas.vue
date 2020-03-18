@@ -109,6 +109,11 @@ export default {
         pageSize: 999
       }
     }
+  },
+  head() {
+    return {
+      title: '💡🧠 IDEAS'
+    }
   }
 }
 </script>
