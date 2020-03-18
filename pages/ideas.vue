@@ -11,7 +11,7 @@
     </v-row>
     <v-row v-if="!$apollo.loading">
       <v-col v-for="pitch in pitchList.pitchs" :key="pitch.id" cols="12" sm="4">
-        <v-card :to="`/i/${pitch.id}`" nuxt max-width="350">
+        <v-card :to="`/i/${pitch.id}`" nuxt max-width="350" target="_blank">
           <v-list-item>
             <v-tooltip top>
               <template #activator="{ on }">
