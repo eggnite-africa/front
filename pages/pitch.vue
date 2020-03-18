@@ -3,9 +3,12 @@
     <v-card>
       <v-card-title>Add Idea</v-card-title>
       <v-card-text>
-        <pitch-post-page @update-pitch="addPitch($event)" :onSubmit="addPitch"
-          >add</pitch-post-page
+        <pitch-post-page
+          @update-pitch="updateData($event)"
+          :onSubmit="addPitch"
         >
+          add
+        </pitch-post-page>
       </v-card-text>
     </v-card>
   </v-container>
@@ -19,9 +22,17 @@ export default {
   components: {
     PitchPostPage
   },
+  data() {
+    return {
+      newPitch: {}
+    }
+  },
   methods: {
-    addPitch(newPitch) {
-      this.$apollo
+    updateData(data) {
+      this.newPitch = data
+    },
+    async addPitch(newPitch) {
+      await this.$apollo
         .mutate({
           mutation: gql`
             mutation addPitch($newPitch: NewPitchInput!) {
@@ -31,7 +42,7 @@ export default {
             }
           `,
           variables: {
-            newPitch
+            newPitch: this.newPitch
           }
         })
         .then(({ data: { addPitch } }) => {
