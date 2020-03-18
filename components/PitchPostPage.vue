@@ -3,12 +3,7 @@
     <form @submit.prevent="beforeSubmit()">
       <v-row dense>
         <v-col cols="12">
-          <v-text-field
-            v-if="!title"
-            v-model="pTitle"
-            outlined
-            label="Title"
-          ></v-text-field>
+          <v-text-field v-model="pTitle" outlined label="Title"></v-text-field>
         </v-col>
         <v-col cols="12">
           <v-textarea v-model="pProblem" outlined label="Problem"></v-textarea>

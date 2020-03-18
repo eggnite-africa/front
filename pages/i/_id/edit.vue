@@ -61,8 +61,7 @@ export default {
     }
   },
   methods: {
-    async updatePitch(payload) {
-      const { title, ...updatedPitchPayload } = payload
+    async updatePitch(updatedPitchPayload) {
       await this.$apollo.mutate({
         mutation: gql`
           mutation updatePitch($updatedPitch: UpdatedPitchInput!) {
