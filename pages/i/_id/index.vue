@@ -15,6 +15,16 @@
               <v-card>
                 <v-card-title class="headline">
                   {{ pitch.title }}
+                  <v-btn
+                    class="ml-auto"
+                    color="indigo"
+                    depressed
+                    append
+                    to="edit"
+                    small
+                  >
+                    edit
+                  </v-btn>
                 </v-card-title>
                 <!-- <v-card-subtitle class="subtitle-2">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore sint
@@ -79,6 +89,15 @@ export default {
       const votersIds = this.pitch.votes.map((v) => +v.userId)
       const userId = this.$auth.user.id
       return votersIds.includes(userId)
+    },
+    isOwner() {
+      if (!this.$auth.loggedIn) return false
+      const id = +this.$route.params.id
+      const user = this.$auth.user
+      const userPitchs = user.pitch.map((p) => p.id)
+      const isAdmin = user.type === 'ADMIN'
+      const isOwner = isAdmin || userPitchs.includes(id)
+      return isOwner
     }
   },
   asyncData() {
