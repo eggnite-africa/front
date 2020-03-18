@@ -29,7 +29,16 @@
               perferendis?
             </p>
             <p class="body-2 text-uppercase">
-              -- <span class="blue--text">Karim (@kd)</span>, Posted in
+              --
+              <nuxt-link
+                :to="'/u/' + pitch.user.username"
+                target="_blank"
+                class="blue--text"
+                style="text-decoration: none;"
+              >
+                Karim (@kd)
+              </nuxt-link>
+              , Posted in
               <span class="red--text">
                 #COVID19
               </span>
@@ -53,10 +62,10 @@
       <v-col cols="12">
         <v-card>
           <v-container>
-            <!-- <comment-section
+            <comment-section
               :pitch-id="pitch.id"
               :comments="pitch.comments"
-            ></comment-section> -->
+            ></comment-section>
           </v-container>
         </v-card>
       </v-col>
@@ -66,10 +75,10 @@
 
 <script>
 import gql from 'graphql-tag'
-// import CommentSection from '@/components/shared/CommentSection.vue'
+import CommentSection from '@/components/shared/CommentSection.vue'
 export default {
   components: {
-    // CommentSection
+    CommentSection
   },
   asyncData() {
     return {
@@ -110,7 +119,7 @@ export default {
               postedAt
               replies {
                 id
-                productId
+                pitchId
                 parentId
                 content
                 userId
@@ -120,11 +129,15 @@ export default {
             votes {
               userId
             }
+          }
         }
       `,
-      variables: {
-        id: this.$route.params.id
-      }
+      variables() {
+        return {
+          id: this.$route.params.id
+        }
+      },
+      fetchPolicy: 'network-only'
     }
   }
 }
