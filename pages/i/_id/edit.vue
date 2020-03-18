@@ -72,6 +72,7 @@ export default {
         }
       })
     }
-  }
+  },
+  middleware: ['auth', 'isPitchOwner']
 }
 </script>
