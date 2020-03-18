@@ -105,7 +105,10 @@ export default {
       pitch: {
         id: '',
         title: '',
-        content: '',
+        problem: '',
+        solution: '',
+        skills: '',
+        needs: '',
         user: {
           username: '',
           profile: {
@@ -124,7 +127,10 @@ export default {
           pitch(id: $id) {
             id
             title
-            content
+            problem
+            solution
+            skills
+            needs
             user {
               username
               profile {
