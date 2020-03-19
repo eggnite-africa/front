@@ -5,22 +5,41 @@
       <v-list flat>
         <v-list-item-group v-if="!$apollo.queries.user.loading">
           <template v-for="notification in user.notifications">
-            <template v-if="notification.vote">
-              <notification-item
-                :key="notification.id"
-                :notification-id="notification.id"
-                :vote="notification.vote"
-                notification-type="VOTE"
-              ></notification-item>
-            </template>
-            <template v-else-if="notification.comment">
-              <notification-item
-                :key="notification.id"
-                :notification-id="notification.id"
-                :comment="notification.comment"
-                notification-type="COMMENT"
-              ></notification-item>
-            </template>
+            <menu-notification-item-upvote
+              v-if="notification.vote && notification.vote.product"
+              :key="notification.id"
+              :notification-id="notification.id"
+              :product-name="notification.vote.product.name"
+              :username="notification.vote.user.username"
+            ></menu-notification-item-upvote>
+
+            <menu-notification-item-clap
+              v-else-if="notification.vote && notification.vote.pitch"
+              :key="notification.id"
+              :notification-id="notification.id"
+              :idea-id="notification.vote.pitch.id"
+              :idea-name="notification.vote.pitch.name"
+              :username="notification.vote.user.username"
+            ></menu-notification-item-clap>
+
+            <menu-notification-item-comment
+              v-else-if="notification.comment && notification.comment.product"
+              :key="notification.id"
+              :notification-id="notification.id"
+              :product-name="notification.comment.product.name"
+              :username="notification.comment.user.username"
+              :parent-id="notification.comment.parentId"
+            ></menu-notification-item-comment>
+
+            <menu-notification-item-comment
+              v-else-if="notification.comment && notification.comment.pitch"
+              :key="notification.id"
+              :notification-id="notification.id"
+              :idea-name="notification.comment.pitch.name"
+              :idea-id="notification.comment.pitch.id"
+              :username="notification.comment.user.username"
+              :parent-id="notification.comment.parentId"
+            ></menu-notification-item-comment>
           </template>
         </v-list-item-group>
       </v-list>
@@ -30,11 +49,15 @@
 
 <script>
 import gql from 'graphql-tag'
-import NotificationItem from '@/components/MenuNotificationItem'
+import MenuNotificationItemUpvote from '@/components/MenuNotificationItemUpvote.vue'
+import MenuNotificationItemComment from '@/components/MenuNotificationItemComment.vue'
+import MenuNotificationItemClap from '@/components/MenuNotificationItemClap.vue'
 
 export default {
   components: {
-    NotificationItem
+    MenuNotificationItemUpvote,
+    MenuNotificationItemComment,
+    MenuNotificationItemClap
   },
   computed: {
     userId() {
@@ -51,12 +74,32 @@ export default {
               id
               vote {
                 id
-                productId
+                product {
+                  id
+                  name
+                }
+                user {
+                  username
+                }
+                pitch {
+                  id
+                  name
+                }
               }
               comment {
                 id
-                productId
-                userId
+                parentId
+                product {
+                  id
+                  name
+                }
+                user {
+                  username
+                }
+                pitch {
+                  id
+                  name
+                }
               }
             }
           }
