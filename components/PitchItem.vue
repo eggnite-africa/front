@@ -1,6 +1,6 @@
 <template>
   <v-card :to="`/i/${id}`" nuxt max-width="350" target="_blank">
-    <v-list-item>
+    <v-list-item v-if="user">
       <v-tooltip top>
         <template #activator="{ on }">
           <v-list-item-avatar v-on="on" color="blue" size="42">
@@ -35,7 +35,7 @@
       </p>
     </v-card-text>
 
-    <v-card-actions>
+    <v-card-actions v-if="votesCount && commentsCount">
       <div class="ml-auto d-flex space-between">
         <div class="mr-3 d-flex align-center">
           <v-btn icon> <v-icon tag="span">👏🏻</v-icon> </v-btn>
@@ -62,7 +62,7 @@ export default {
     },
     user: {
       type: Object,
-      required: true
+      default: null
     },
     name: {
       type: String,
@@ -78,11 +78,11 @@ export default {
     },
     votesCount: {
       type: Number,
-      required: true
+      default: null
     },
     commentsCount: {
       type: Number,
-      required: true
+      default: null
     }
   }
 }

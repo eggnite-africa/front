@@ -66,6 +66,11 @@ export default {
         },
         {
           icon: 'mdi-lightbulb',
+          name: 'Ideas',
+          link: 'ideas'
+        },
+        {
+          icon: 'mdi-lightbulb',
           name: 'Products',
           link: 'products'
         },
