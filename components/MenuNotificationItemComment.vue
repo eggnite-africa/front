@@ -1,8 +1,5 @@
 <template>
-  <v-list-item
-    @click="markNotificationAsSeen(notificationId)"
-    :to="notificationLink"
-  >
+  <v-list-item @click="markAsSeen(notificationId)" :to="notificationLink">
     <v-list-item-avatar>
       <v-icon tag="span">💬</v-icon>
     </v-list-item-avatar>
@@ -65,7 +62,7 @@ export default {
     }
   },
   methods: {
-    async markNotificationAsSeen(id) {
+    async markAsSeen(id) {
       await this.$apollo.mutate({
         mutation: gql`
           mutation markNotificationAsSeen($id: ID!) {
