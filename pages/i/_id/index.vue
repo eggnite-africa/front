@@ -4,7 +4,7 @@
       <v-col cols="12" sm="1">
         <pitch-page-action-buttons
           :hasClapped="hasClapped"
-          :pitchId="pitch.id"
+          :pitchId="pitchId"
           :totalClaps="totalClaps"
         ></pitch-page-action-buttons>
       </v-col>
@@ -80,7 +80,7 @@
               <v-card>
                 <v-container>
                   <comment-section
-                    :pitch-id="pitch.id"
+                    :pitch-id="pitchId"
                     :comments="pitch.comments"
                   ></comment-section>
                 </v-container>
@@ -103,6 +103,10 @@ export default {
     PitchPageActionButtons
   },
   computed: {
+    pitchId() {
+      const { id } = this.$route.params
+      return id
+    },
     totalClaps() {
       return this.pitch.votes.length
     },
@@ -147,8 +151,6 @@ export default {
       query: gql`
         query fetchPitchById($id: ID!) {
           pitch(id: $id) {
-            # temp workaround; has to be disabled in order for notification to work
-            # id
             name
             problem
             solution
@@ -183,7 +185,7 @@ export default {
       `,
       variables() {
         return {
-          id: this.$route.params.id
+          id: this.pitchId
         }
       },
       fetchPolicy: 'network-only'
