@@ -4,11 +4,13 @@
     :to="notificationLink"
   >
     <v-list-item-avatar>
-      <v-icon>mdi-thumb-up</v-icon>
+      <v-icon tag="span">👍🏻</v-icon>
     </v-list-item-avatar>
     <v-list-item-content>
       <strong>{{ productName }}</strong>
-      <strong> @{{ username }} </strong> upvoted your product!
+      <span>
+        <strong> @{{ username }} </strong> upvoted your product!
+      </span>
     </v-list-item-content>
   </v-list-item>
 </template>
