@@ -16,6 +16,7 @@
                 <v-card-title class="headline">
                   {{ pitch.name }}
                   <v-btn
+                    v-if="isOwner"
                     class="ml-auto"
                     color="indigo"
                     depressed
