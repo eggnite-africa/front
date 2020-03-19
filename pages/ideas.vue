@@ -11,57 +11,15 @@
     </v-row>
     <v-row v-if="!$apollo.loading">
       <v-col v-for="pitch in pitchList.pitchs" :key="pitch.id" cols="12" sm="4">
-        <v-card :to="`/i/${pitch.id}`" nuxt max-width="350" target="_blank">
-          <v-list-item>
-            <v-tooltip top>
-              <template #activator="{ on }">
-                <v-list-item-avatar v-on="on" color="blue" size="42">
-                  <v-img :src="pitch.user.profile.picture"></v-img>
-                </v-list-item-avatar>
-              </template>
-              <span>{{ pitch.user.username }}</span>
-            </v-tooltip>
-            <v-list-item-content>
-              <v-list-item-title class="headline">
-                {{ pitch.name }}
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                #COVID19
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-card-text class="white--text c-text">
-            <span class="font-weight-medium text-uppercase">
-              Problem
-            </span>
-            <p>
-              {{ pitch.problem }}
-            </p>
-
-            <span class="font-weight-medium text-uppercase">
-              Needs
-            </span>
-            <p>
-              {{ pitch.needs }}
-            </p>
-          </v-card-text>
-
-          <v-card-actions>
-            <div class="ml-auto d-flex space-between">
-              <div class="mr-3 d-flex align-center">
-                <v-btn icon> <v-icon tag="span">👏🏻</v-icon> </v-btn>
-                <span>{{ pitch.votes.length }}</span>
-              </div>
-              <div class="mr-2">
-                <v-btn icon>
-                  <v-icon>mdi-comment</v-icon>
-                </v-btn>
-                <span>{{ pitch.comments.length }}</span>
-              </div>
-            </div>
-          </v-card-actions>
-        </v-card>
+        <pitch-item
+          :id="pitch.id"
+          :user="pitch.user"
+          :name="pitch.name"
+          :problem="pitch.problem"
+          :needs="pitch.needs"
+          :votesCount="pitch.votes.length"
+          :commentsCount="pitch.comments.length"
+        ></pitch-item>
       </v-col>
     </v-row>
   </v-container>
@@ -69,8 +27,12 @@
 
 <script>
 import gql from 'graphql-tag'
+import PitchItem from '@/components/PitchItem.vue'
 export default {
   name: 'IdeasIndex',
+  components: {
+    PitchItem
+  },
   asyncData() {
     return {
       pitchList: {
