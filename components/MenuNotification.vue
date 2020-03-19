@@ -10,7 +10,7 @@
         </v-badge>
       </v-btn>
     </template>
-    <v-list flat>
+    <v-list v-if="!$apollo.loading" flat>
       <v-list-item-group>
         <template v-for="notification in user.notifications">
           <menu-notification-item-upvote
@@ -94,9 +94,7 @@ export default {
             notifications(seen: $seen) {
               id
               vote {
-                id
                 product {
-                  id
                   name
                 }
                 pitch {
@@ -108,10 +106,8 @@ export default {
                 }
               }
               comment {
-                id
                 parentId
                 product {
-                  id
                   name
                 }
                 pitch {
