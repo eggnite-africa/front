@@ -103,7 +103,7 @@ export default {
     }
   },
   computed: {
-    titleErrors() {
+    nameErrors() {
       const errors = []
       if (!this.$v.pName.$dirty) return errors
       !this.$v.pName.required && errors.push('the idea should have a name')
