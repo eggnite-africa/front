@@ -161,8 +161,8 @@ export default {
   apollo: {
     productsList: {
       query: gql`
-        query fetchAllProducts($page: Int!) {
-          productsList(page: $page) {
+        query fetchAllProducts($page: Int!, $pageSize: Int!) {
+          productsList(page: $page, pageSize: $pageSize) {
             products {
               id
               name
@@ -191,14 +191,15 @@ export default {
         }
       `,
       variables: {
-        page: 0
+        page: 0,
+        pageSize: 4
       },
       fetchPolicy: 'network-only'
     },
     pitchList: {
       query: gql`
-        query fetchAllPitchs($page: Int!) {
-          pitchList(page: $page) {
+        query fetchAllPitchs($page: Int!, $pageSize: Int!) {
+          pitchList(page: $page, pageSize: $pageSize) {
             pitchs {
               id
               name
@@ -223,7 +224,8 @@ export default {
         }
       `,
       variables: {
-        page: 0
+        page: 0,
+        pageSize: 3
       },
       fetchPolicy: 'network-only'
     }
