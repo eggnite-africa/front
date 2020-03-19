@@ -100,7 +100,7 @@ export default {
     return {
       alert: {
         content:
-          'PITCH feature is live! You can now share ideas related to COVID19',
+          'PITCH feature is live 💯! You can now share your ideas related to COVID19!',
         link:
           'https://medium.com/eggnite/introducing-pitch-special-announcement-ef7a1523222f'
       },
