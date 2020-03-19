@@ -40,6 +40,20 @@
                   ></pitch-item>
                 </v-col>
               </v-row>
+              <v-row v-if="!pitchList.pitchs.length">
+                <v-col class="text-center body-1 white--text">
+                  <p>
+                    Oh, hello there 👋🏻😁😁 It seems you're the first person
+                    seeing this!
+                  </p>
+                  <p>
+                    What are you waiting for? Share your ideas with us! 👍🏻
+                  </p>
+                  <p>
+                    #COVID19
+                  </p>
+                </v-col>
+              </v-row>
             </div>
             <div v-else class="d-flex justify-center">
               <v-progress-circular
