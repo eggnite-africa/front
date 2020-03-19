@@ -35,8 +35,16 @@
       </p>
     </v-card-text>
 
-    <v-card-actions v-if="votesCount !== null && commentsCount !== null">
-      <div class="ml-auto d-flex space-between">
+    <v-card-actions>
+      <pitch-item-action-buttons-settings
+        v-if="inSettings"
+        :pitch-id="id"
+        class="ml-auto"
+      ></pitch-item-action-buttons-settings>
+      <div
+        v-if="votesCount !== null && commentsCount !== null"
+        class="ml-auto d-flex space-between"
+      >
         <div class="mr-3 d-flex align-center">
           <v-btn icon> <v-icon tag="span">👏🏻</v-icon> </v-btn>
           <span>{{ votesCount }}</span>
@@ -53,8 +61,12 @@
 </template>
 
 <script>
+import PitchItemActionButtonsSettings from '@/components/PitchItemActionButtonsSettings.vue'
 export default {
   name: 'PitchItem',
+  components: {
+    PitchItemActionButtonsSettings
+  },
   props: {
     id: {
       type: [Number, String],
@@ -83,6 +95,10 @@ export default {
     commentsCount: {
       type: Number,
       default: null
+    },
+    inSettings: {
+      type: Boolean,
+      default: false
     }
   }
 }

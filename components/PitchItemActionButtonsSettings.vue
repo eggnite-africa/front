@@ -1,10 +1,10 @@
 <template>
   <div>
-    <v-btn :to="`/i/${pitchId}/edit`" color="indigo" depressed nuxt>
+    <v-btn :to="`/i/${pitchId}/edit`" color="indigo" depressed nuxt small>
       <v-icon small class="hidden-sm-and-up">mdi-wrench</v-icon>
       <span class="hidden-xs-only">Edit</span>
     </v-btn>
-    <v-btn @click.prevent="dialog = true" color="red" depressed>
+    <v-btn @click.prevent="dialog = true" color="red" depressed small>
       <v-icon small class="hidden-sm-and-up">mdi-close-circle</v-icon>
       <span class="hidden-xs-only">Delete</span>
     </v-btn>

@@ -9,6 +9,7 @@
         :name="pitch.name"
         :problem="pitch.problem"
         :needs="pitch.needs"
+        :in-settings="true"
         class="mb-4"
       >
       </pitch-item>
