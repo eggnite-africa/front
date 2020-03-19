@@ -2,17 +2,18 @@
   <v-card>
     <v-card-title>Ideas</v-card-title>
     <v-card-text v-if="!$apollo.loading">
-      <pitch-item
-        v-for="pitch in user.pitch"
-        :key="pitch.id"
-        :id="pitch.id"
-        :name="pitch.name"
-        :problem="pitch.problem"
-        :needs="pitch.needs"
-        :in-settings="true"
-        class="mb-4"
-      >
-      </pitch-item>
+      <v-row>
+        <v-col v-for="pitch in user.pitch" :key="pitch.id">
+          <pitch-item
+            :id="pitch.id"
+            :name="pitch.name"
+            :problem="pitch.problem"
+            :needs="pitch.needs"
+            :in-settings="true"
+          >
+          </pitch-item>
+        </v-col>
+      </v-row>
     </v-card-text>
   </v-card>
 </template>
