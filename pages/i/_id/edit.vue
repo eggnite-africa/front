@@ -1,5 +1,14 @@
 <template>
   <v-container>
+    <v-snackbar v-model="message.display">
+      <v-icon :color="message.err ? 'red' : 'green'" left dense>
+        {{ message.icon }}
+      </v-icon>
+      {{ message.text }}
+      <v-btn @click.stop="message.display = false" text color="red">
+        close
+      </v-btn>
+    </v-snackbar>
     <v-card v-if="!$apollo.loading">
       <v-card-name>Edit: {{ pitch.name }}</v-card-name>
       <v-card-text>
@@ -26,6 +35,16 @@ export default {
   name: 'PitchEditPage',
   components: {
     PitchPostPage
+  },
+  data() {
+    return {
+      message: {
+        display: false,
+        err: false,
+        text: '',
+        icon: ''
+      }
+    }
   },
   asyncData() {
     return {
@@ -62,21 +81,32 @@ export default {
   },
   methods: {
     async updatePitch(updatedPitchPayload) {
-      await this.$apollo.mutate({
-        mutation: gql`
-          mutation updatePitch($updatedPitch: UpdatedPitchInput!) {
-            updatePitch(updatedPitch: $updatedPitch) {
-              id
+      try {
+        await this.$apollo.mutate({
+          mutation: gql`
+            mutation updatePitch($updatedPitch: UpdatedPitchInput!) {
+              updatePitch(updatedPitch: $updatedPitch) {
+                id
+              }
+            }
+          `,
+          variables: {
+            updatedPitch: {
+              id: this.pitch.id,
+              ...updatedPitchPayload
             }
           }
-        `,
-        variables: {
-          updatedPitch: {
-            id: this.pitch.id,
-            ...updatedPitchPayload
-          }
-        }
-      })
+        })
+        this.message.err = false
+        this.message.icon = 'mdi-check'
+        this.message.text = 'The pitch was successfully updated!'
+      } catch (e) {
+        this.message.err = true
+        this.message.icon = 'mdi-close'
+        this.message.text = 'There was an error updating the pitch'
+      } finally {
+        this.message.display = true
+      }
     }
   },
   head() {
