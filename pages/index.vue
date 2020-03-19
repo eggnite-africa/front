@@ -26,23 +26,18 @@
             </v-card-actions>
           </div>
           <v-card-text>
-            <div v-if="!$apollo.queries.productsList.loading">
-              <v-row
-                v-for="product in productsList.products"
-                :key="product.id"
-                justify="center"
-                align="center"
-              >
-                <v-col>
-                  <product-item
-                    :id="product.id"
-                    :logo="product.media.logo"
-                    :name="product.name"
-                    :tagline="product.tagline"
-                    :makers="product.makers"
-                    :votes="product.votes"
-                    :comments="product.comments"
-                  ></product-item>
+            <div v-if="!$apollo.queries.pitchList.loading">
+              <v-row>
+                <v-col v-for="pitch in pitchList.pitchs" :key="pitch.id">
+                  <pitch-item
+                    :id="pitch.id"
+                    :name="pitch.name"
+                    :problem="pitch.problem"
+                    :needs="pitch.needs"
+                    :user="pitch.user"
+                    :votesCount="pitch.votes.length"
+                    :commentsCount="pitch.comments.length"
+                  ></pitch-item>
                 </v-col>
               </v-row>
             </div>
@@ -124,16 +119,12 @@
 import gql from 'graphql-tag'
 import { mapMutations } from 'vuex'
 import ProductItem from '@/components/ProductItem.vue'
+import PitchItem from '@/components/PitchItem.vue'
 
 export default {
   components: {
-    ProductItem
-  },
-  data() {
-    return {
-      page: 0,
-      loading: false
-    }
+    ProductItem,
+    PitchItem
   },
   asyncData() {
     return {
@@ -149,6 +140,19 @@ export default {
             makers: [],
             votes: [],
             comments: []
+          }
+        ]
+      },
+      pitchList: {
+        pitchs: [
+          {
+            id: '',
+            name: '',
+            problem: '',
+            needs: '',
+            user: {},
+            comments: [],
+            votes: []
           }
         ]
       }
@@ -181,6 +185,38 @@ export default {
                 replies {
                   id
                 }
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        page: 0
+      },
+      fetchPolicy: 'network-only'
+    },
+    pitchList: {
+      query: gql`
+        query fetchAllPitchs($page: Int!) {
+          pitchList(page: $page) {
+            pitchs {
+              id
+              name
+              problem
+              needs
+              user {
+                id
+                username
+                profile {
+                  picture
+                  fullName
+                }
+              }
+              votes {
+                userId
+              }
+              comments {
+                id
               }
             }
           }
