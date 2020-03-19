@@ -26,7 +26,7 @@
             :key="notification.id"
             :notification-id="notification.id"
             :idea-id="notification.vote.pitch.id"
-            :idea-name="notification.vote.pitch.title"
+            :idea-name="notification.vote.pitch.name"
             :username="notification.vote.user.username"
           ></menu-notification-item-clap>
 
@@ -43,7 +43,7 @@
             v-else-if="notification.comment && notification.comment.pitch"
             :key="notification.id"
             :notification-id="notification.id"
-            :idea-name="notification.comment.pitch.title"
+            :idea-name="notification.comment.pitch.name"
             :idea-id="notification.comment.pitch.id"
             :username="notification.comment.user.username"
             :parent-id="notification.comment.parentId"
@@ -101,7 +101,7 @@ export default {
                 }
                 pitch {
                   id
-                  title
+                  name
                 }
                 user {
                   username
@@ -116,7 +116,7 @@ export default {
                 }
                 pitch {
                   id
-                  title
+                  name
                 }
                 user {
                   username

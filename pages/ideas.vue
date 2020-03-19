@@ -23,7 +23,7 @@
             </v-tooltip>
             <v-list-item-content>
               <v-list-item-title class="headline">
-                {{ pitch.title }}
+                {{ pitch.name }}
               </v-list-item-title>
               <v-list-item-subtitle>
                 #COVID19
@@ -85,7 +85,7 @@ export default {
           pitchList(page: $page, pageSize: $pageSize) {
             pitchs {
               id
-              title
+              name
               problem
               needs
               user {

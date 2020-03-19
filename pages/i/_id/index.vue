@@ -14,7 +14,7 @@
             <v-col>
               <v-card>
                 <v-card-title class="headline">
-                  {{ pitch.title }}
+                  {{ pitch.name }}
                   <v-btn
                     class="ml-auto"
                     color="indigo"
@@ -125,7 +125,7 @@ export default {
     return {
       pitch: {
         id: '',
-        title: '',
+        name: '',
         problem: '',
         solution: '',
         skills: '',
@@ -147,7 +147,7 @@ export default {
         query fetchPitchById($id: ID!) {
           pitch(id: $id) {
             id
-            title
+            name
             problem
             solution
             skills
@@ -189,16 +189,16 @@ export default {
   },
   head() {
     return {
-      title: this.pitch.title,
+      title: this.pitch.name,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.pitch.content
+          content: this.pitch.problem
         },
         {
           property: 'og:description',
-          content: this.pitch.content
+          content: this.pitch.problem
         }
       ]
     }

@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <v-card v-if="!$apollo.loading">
-      <v-card-title>Edit: {{ pitch.title }}</v-card-title>
+      <v-card-name>Edit: {{ pitch.name }}</v-card-name>
       <v-card-text>
         <pitch-post-page
-          :title="pitch.title"
+          :name="pitch.name"
           :problem="pitch.problem"
           :solution="pitch.solution"
           :skills="pitch.skills"
@@ -31,7 +31,7 @@ export default {
     return {
       pitch: {
         id: '',
-        title: '',
+        name: '',
         problem: '',
         solution: '',
         skills: '',
@@ -45,7 +45,7 @@ export default {
         query fetchPitchForUpdate($id: ID!) {
           pitch(id: $id) {
             id
-            title
+            name
             problem
             solution
             skills
@@ -81,7 +81,7 @@ export default {
   },
   head() {
     return {
-      title: this.pitch.title
+      name: this.pitch.name
     }
   },
   middleware: ['auth', 'isPitchOwner']
