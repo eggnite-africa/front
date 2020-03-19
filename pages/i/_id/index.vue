@@ -147,7 +147,8 @@ export default {
       query: gql`
         query fetchPitchById($id: ID!) {
           pitch(id: $id) {
-            id
+            # temp workaround; has to be disabled in order for notification to work
+            # id
             name
             problem
             solution
