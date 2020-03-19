@@ -100,8 +100,9 @@ export default {
     return {
       alert: {
         content:
-          'Currently working on a PITCH feature to let you share your ideas, get feedback and (maybe) find collaborators; #COVID19',
-        link: null
+          'PITCH feature is live! You can now share ideas related to COVID19',
+        link:
+          'https://medium.com/eggnite/introducing-pitch-special-announcement-ef7a1523222f'
       },
       title: 'Eggnite',
       items: [
