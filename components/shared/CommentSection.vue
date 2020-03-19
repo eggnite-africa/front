@@ -47,11 +47,11 @@ export default {
       required: true
     },
     productId: {
-      type: String,
+      type: [String, Number],
       default: null
     },
     pitchId: {
-      type: String,
+      type: [String, Number],
       default: null
     }
   },

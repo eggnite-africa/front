@@ -30,15 +30,15 @@ export default {
   name: 'ProductPageCommentAdd',
   props: {
     commentId: {
-      type: String,
+      type: [String, Number],
       required: true
     },
     productId: {
-      type: String,
+      type: [String, Number],
       default: null
     },
     pitchId: {
-      type: String,
+      type: [String, Number],
       default: null
     }
   },
