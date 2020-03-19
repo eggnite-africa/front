@@ -48,7 +48,7 @@ export default {
     }
   },
   methods: {
-    async deleteProduct(id) {
+    async deletePitch(id) {
       await this.$apollo
         .mutate({
           mutation: gql`
