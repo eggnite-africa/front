@@ -35,7 +35,7 @@
       </p>
     </v-card-text>
 
-    <v-card-actions v-if="votesCount && commentsCount">
+    <v-card-actions v-if="votesCount !== null && commentsCount !== null">
       <div class="ml-auto d-flex space-between">
         <div class="mr-3 d-flex align-center">
           <v-btn icon> <v-icon tag="span">👏🏻</v-icon> </v-btn>
