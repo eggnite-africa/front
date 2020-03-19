@@ -12,7 +12,7 @@
             </div>
             <v-card-actions class="ml-auto justify-center">
               <v-btn color="blue" nuxt to="ideas">
-                See more
+                explore
               </v-btn>
               <v-btn
                 @click.stop="openLoginDialog()"
@@ -66,7 +66,7 @@
             </div>
             <v-card-actions class="ml-auto justify-center">
               <v-btn color="blue" nuxt to="products">
-                See more
+                discover
               </v-btn>
               <v-btn
                 @click.stop="openLoginDialog()"
