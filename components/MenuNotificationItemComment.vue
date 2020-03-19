@@ -4,7 +4,7 @@
     :to="notificationLink"
   >
     <v-list-item-avatar>
-      <v-icon>mdi-comment</v-icon>
+      <v-icon tag="span">💬</v-icon>
     </v-list-item-avatar>
     <v-list-item-content>
       <strong v-if="productName" v-text="productName"></strong>
