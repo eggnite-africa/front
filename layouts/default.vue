@@ -12,16 +12,14 @@
       </nuxt-link>
       <Search />
       <div class="hidden-xs-only">
-        <v-badge color="red" dot overlap bordered>
-          <nuxt-link
-            v-for="item in items"
-            :to="item.link"
-            :key="item.name"
-            class="menu-link overline"
-          >
-            {{ item.name }}
-          </nuxt-link>
-        </v-badge>
+        <nuxt-link
+          v-for="item in items"
+          :to="item.link"
+          :key="item.name"
+          class="menu-link overline"
+        >
+          {{ item.name }}
+        </nuxt-link>
         <v-badge content="UPCOMING" overlap offset-y="4" offset-x="70">
           <nuxt-link to="competitions" class="menu-link overline">
             Competitions
@@ -118,6 +116,10 @@ export default {
         {
           name: 'Ideas',
           link: '/ideas'
+        },
+        {
+          name: 'Products',
+          link: '/products'
         }
         // {
         //   name: 'Guidelines',
