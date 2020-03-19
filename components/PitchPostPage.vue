@@ -4,12 +4,12 @@
       <v-row dense>
         <v-col cols="12">
           <v-text-field
-            v-model="pTitle"
-            :error-messages="titleErrors"
-            @input="$v.pTitle.$touch()"
-            @blur="$v.pTitle.$touch()"
+            v-model="pName"
+            :error-messages="nameErrors"
+            @input="$v.pName.$touch()"
+            @blur="$v.pName.$touch()"
             outlined
-            label="Title"
+            label="Name"
           ></v-text-field>
         </v-col>
         <v-col cols="12">
@@ -72,7 +72,7 @@ export default {
       type: Function,
       required: true
     },
-    title: {
+    name: {
       type: String,
       default: ''
     },
@@ -95,7 +95,7 @@ export default {
   },
   data() {
     return {
-      pTitle: this.title,
+      pName: this.name,
       pProblem: this.problem,
       pSolution: this.solution,
       pSkills: this.skills,
@@ -105,8 +105,8 @@ export default {
   computed: {
     titleErrors() {
       const errors = []
-      if (!this.$v.pTitle.$dirty) return errors
-      !this.$v.pTitle.required && errors.push('the idea should have a name')
+      if (!this.$v.pName.$dirty) return errors
+      !this.$v.pName.required && errors.push('the idea should have a name')
       return errors
     },
     problemErrors() {
@@ -138,7 +138,7 @@ export default {
     }
   },
   validations: {
-    pTitle: {
+    pName: {
       required
     },
     pProblem: {
@@ -160,7 +160,7 @@ export default {
       if (this.$v.$invalid) return
 
       const updatedPitch = {
-        title: this.pTitle,
+        name: this.pName,
         problem: this.pProblem,
         solution: this.pSolution,
         skills: this.pSkills,
