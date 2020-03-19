@@ -70,7 +70,7 @@ export default {
           link: 'ideas'
         },
         {
-          icon: 'mdi-lightbulb',
+          icon: 'mdi-cellphone-link',
           name: 'Products',
           link: 'products'
         },
