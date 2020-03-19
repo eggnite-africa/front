@@ -1,5 +1,5 @@
 <template>
-  <v-card :to="`/i/${id}`" nuxt max-width="350" target="_blank">
+  <v-card :to="`/i/${id}`" nuxt max-width="350">
     <v-list-item v-if="user">
       <v-tooltip top>
         <template #activator="{ on }">
