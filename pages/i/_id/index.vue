@@ -64,7 +64,7 @@
                       class="blue--text"
                       style="text-decoration: none;"
                     >
-                      Karim (@kd)
+                      {{ user.profile.fullName + ' (@' + user.username + ')' }}
                     </nuxt-link>
                     , Posted in
                     <span class="red--text">
