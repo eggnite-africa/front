@@ -64,7 +64,12 @@
                       class="blue--text"
                       style="text-decoration: none;"
                     >
-                      {{ user.profile.fullName + ' (@' + user.username + ')' }}
+                      {{
+                        pitch.user.profile.fullName +
+                          ' (@' +
+                          pitch.user.username +
+                          ')'
+                      }}
                     </nuxt-link>
                     , Posted in
                     <span class="red--text">
