@@ -12,12 +12,12 @@ From a macro-perspective; In my view, most, if not all, of the current products/
 
 [2]Reddit, ProductHunt, BetaList etc... (you name it) aren't really meant for African countries. They're mostly aimed at developed countries, so the posted products address a different set of challenges.
 
-What is the vision behind it?
+## What is the vision behind it
 
 Fundamentally Eggnite is about fostering a community of African makers and giving them the tools they need to further develop their products and maximize their impact on their market.
 
 In this first iteration, the focus is going to be on shining a light on what's currently being built.
 
-What tech stack is Eggnite built on?
+## What tech stack is Eggnite built on
 
 It's built on NodeJS. For the frontend I'm using Nuxt/Vue. The backend is powered by Nest, GraphQL and postgres. And it's being hosted on Heroku.
