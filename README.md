@@ -6,11 +6,11 @@ Eggnite is a platform that enables African makers to share their creations with 
 
 ## Why was it created
 
-From a micro-perspective, because I feel like the makers' community is not really valued so most creations (unless an outlier) go unheard of. And because such a solution[1] hadn't existed so far.
+From a micro-perspective, because I feel like the makers' community is not really valued so most creations (unless an outlier) go unheard of. And because such a solution[0] hadn't existed so far.
 
 From a macro-perspective; In my view, most, if not all, of the current products/solutions are revenue-driven. This approach, by default, corners them into using revenue as their (sole) primary metric. Thing is, in Africa's current state that is the wrong metric to track because it doesn't foster the spirit of experimentation and risk-taking. Rather, it greatly constraints makers to choose only the most profitable alternative.
 
-[2]Reddit, ProductHunt, BetaList etc... (you name it) aren't really meant for African countries. They're mostly aimed at developed countries, so the posted products address a different set of challenges.
+[0]Reddit, ProductHunt, BetaList etc... (you name it) aren't really meant for African countries. They're mostly aimed at developed countries, so the posted products address a different set of challenges.
 
 ## What is the vision behind it
 
